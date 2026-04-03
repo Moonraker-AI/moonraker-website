@@ -59,7 +59,8 @@ body { font-family: 'Inter', sans-serif; background: var(--color-bg); color: var
 .hero-wrap {
   background: linear-gradient(165deg, var(--color-primary-subtle) 0%, var(--color-bg) 50%, var(--color-surface) 100%);
   border-bottom: 1px solid var(--color-border);
-  padding: 5.5rem 2rem 4rem;
+  min-height: 100svh; display: flex; align-items: center; justify-content: center;
+  padding: 4rem 2rem;
   position: relative; overflow: hidden;
 }
 .hero-wrap::before {
@@ -190,7 +191,7 @@ html.dark .testimonial-logo { filter: brightness(1.3); }
 .lightbox-caption { position: absolute; top: calc(100% + .75rem); left: 50%; transform: translateX(-50%); background: var(--color-primary); color: #fff; padding: .5rem 1.25rem; border-radius: 99px; font-size: .875rem; font-weight: 600; white-space: nowrap; box-shadow: 0 2px 12px rgba(0,0,0,.2); z-index: 1; }
 
 @media (max-width: 768px) {
-  .hero-wrap { padding: 3rem 1.5rem 2.5rem; }
+  .hero-wrap { min-height: 100svh; padding: 3rem 1.5rem 2.5rem; }
   .hero h1 { font-size: 2.25rem; }
   .trust-bar { gap: .75rem; padding: 1.5rem 1rem 0; }
   .badge-pill { padding: .75rem 1.25rem; min-width: 140px; border-radius: 10px; }
