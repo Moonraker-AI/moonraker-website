@@ -88,12 +88,12 @@ html.dark .hero-wrap::before { background: radial-gradient(circle, rgba(0,212,12
 .badge-pill {
   display: flex; align-items: center; justify-content: center;
   background: var(--color-surface); border: 1px solid var(--color-border);
-  border-radius: 14px; padding: 1rem 1.75rem; min-width: 180px;
+  border-radius: 14px; padding: 1.25rem 2rem; min-width: 200px;
   box-shadow: 0 2px 12px rgba(0,0,0,.04);
   transition: transform .2s, box-shadow .2s;
 }
 .badge-pill:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.08); }
-.badge-pill img { height: 44px; max-width: 200px; object-fit: contain; }
+.badge-pill img { height: 56px; max-width: 240px; object-fit: contain; }
 html.dark .badge-pill { box-shadow: 0 2px 12px rgba(0,0,0,.15); }
 html.dark .badge-pill img { filter: brightness(1.15); }
 .partners-section { padding: 2rem 2rem 5rem; max-width: 1100px; margin: 0 auto; text-align: center; }
@@ -136,7 +136,8 @@ html.dark .partner-logo:hover { opacity: .95; }
 .testimonial-slide { display: none; animation: fadeSlide .4s ease; }
 .testimonial-slide.active { display: block; }
 @keyframes fadeSlide { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-.testimonial-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 16px; padding: 2.5rem 3rem; position: relative; overflow: hidden; }
+.testimonial-card { background: var(--color-surface); border: 1px solid var(--color-border); border-left: 4px solid var(--color-primary); border-radius: 0 16px 16px 0; padding: 2.5rem 3rem; position: relative; overflow: hidden; transition: box-shadow .2s, transform .2s; }
+.testimonial-card:hover { box-shadow: 0 8px 32px rgba(0,212,126,.06); transform: translateY(-2px); }
 .testimonial-card::before { content: '\201C'; position: absolute; top: 1rem; right: 1.5rem; font-family: Georgia, serif; font-size: 5rem; line-height: 1; color: var(--color-primary); opacity: .12; }
 .testimonial-result-img { width: 100%; border-radius: 10px; margin-bottom: 1.75rem; border: 1px solid var(--color-border); }
 .testimonial-text { font-size: 1.125rem; line-height: 1.8; color: var(--color-body); margin-bottom: 2rem; font-style: italic; position: relative; }
@@ -165,11 +166,20 @@ html.dark .testimonial-logo { filter: brightness(1.3); }
 .review-stars { color: #F59E0B; font-size: .9375rem; margin-bottom: .5rem; }
 .review-text { font-size: .9375rem; line-height: 1.65; color: var(--color-body); margin-bottom: .75rem; }
 .review-author { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: .875rem; color: var(--color-heading); }
-.cta-section { text-align: center; padding: 4rem 2rem; max-width: 600px; margin: 0 auto; }
-.cta-section h2 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 2rem; color: var(--color-heading); margin-bottom: .75rem; }
-.cta-section p { font-size: 1.0625rem; color: var(--color-muted); margin-bottom: 1.5rem; }
-.cta-btn { display: inline-block; padding: .75rem 2.25rem; border-radius: 99px; background: var(--color-primary); color: #fff; text-decoration: none; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1rem; transition: background .2s, transform .15s; }
-.cta-btn:hover { background: var(--color-primary-hover); transform: translateY(-1px); }
+.cta-section {
+  background: linear-gradient(135deg, #141C3A 0%, #1E3A5F 100%);
+  text-align: center; padding: 5rem 2rem; position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: ''; position: absolute; top: -40%; right: -10%; width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0,212,126,.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-inner { max-width: 650px; margin: 0 auto; position: relative; z-index: 1; }
+.cta-section h2 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 2.25rem; color: #E8F5EF; margin-bottom: .75rem; }
+.cta-section p { font-size: 1.0625rem; color: rgba(200,216,208,.75); margin-bottom: 2rem; }
+.cta-btn { display: inline-block; padding: .875rem 2.75rem; border-radius: 99px; background: var(--color-primary); color: #fff; text-decoration: none; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1.05rem; transition: background .2s, transform .15s, box-shadow .2s; box-shadow: 0 4px 20px rgba(0,212,126,.3); }
+.cta-btn:hover { background: var(--color-primary-hover); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,212,126,.4); }
 .footer { text-align: center; padding: 1.5rem; font-size: .8125rem; color: var(--color-muted); }
 .lightbox { display: none; position: fixed; inset: 0; z-index: 200; background: var(--color-overlay); backdrop-filter: blur(12px); align-items: center; justify-content: center; padding: 2rem; }
 .lightbox.open { display: flex; }
@@ -184,7 +194,7 @@ html.dark .testimonial-logo { filter: brightness(1.3); }
   .hero h1 { font-size: 2.25rem; }
   .trust-bar { gap: .75rem; padding: 1.5rem 1rem 0; }
   .badge-pill { padding: .75rem 1.25rem; min-width: 140px; border-radius: 10px; }
-  .badge-pill img { height: 34px; }
+  .badge-pill img { height: 44px; }
   .results-grid { grid-template-columns: 1fr; padding: 0 1rem 2rem; }
   .testimonials-section { padding: 3rem 1rem; }
   .testimonial-card { padding: 1.75rem 1.5rem; }
@@ -194,7 +204,7 @@ html.dark .testimonial-logo { filter: brightness(1.3); }
   .reviews-masonry { columns: 1; }
   .stats-bar { gap: 1.5rem; }
 }
-@media (max-width: 480px) { .stats-bar { gap: 1rem; } .hero h1 { font-size: 1.75rem; } .partner-logo { height: 44px; } .badge-pill { min-width: auto; padding: .6rem 1rem; } .badge-pill img { height: 28px; } }
+@media (max-width: 480px) { .stats-bar { gap: 1rem; } .hero h1 { font-size: 1.75rem; } .partner-logo { height: 44px; } .badge-pill { min-width: auto; padding: .6rem 1rem; } .badge-pill img { height: 36px; } }
 @media (min-width: 769px) and (max-width: 1024px) { .reviews-masonry { columns: 2; } .partner-logo { height: 60px; } }
 
 
@@ -214,8 +224,8 @@ html.dark .site-nav { background: rgba(14,26,20,.92); }
 .nav-brand img { height: 32px; }
 .nav-links { display: flex; align-items: center; gap: .15rem; list-style: none; }
 .nav-links a {
-  font-size: .84rem; font-weight: 500; color: var(--color-body);
-  padding: .5rem .75rem; border-radius: 6px; transition: color .15s, background .15s;
+  font-size: .9rem; font-weight: 500; color: var(--color-body);
+  padding: .5rem .85rem; border-radius: 6px; transition: color .15s, background .15s;
   text-decoration: none;
 }
 .nav-links a:hover, .nav-links a.active { color: var(--color-primary); }
@@ -235,7 +245,7 @@ html.dark .site-nav { background: rgba(14,26,20,.92); }
   box-shadow: 0 8px 24px rgba(0,0,0,.1); z-index: 101;
 }
 .nav-dropdown:hover .dropdown-menu { display: block; }
-.dropdown-menu a { display: block; padding: .5rem .75rem; font-size: .82rem; border-radius: 6px; color: var(--color-body); text-decoration: none; }
+.dropdown-menu a { display: block; padding: .5rem .85rem; font-size: .85rem; border-radius: 6px; color: var(--color-body); text-decoration: none; }
 .dropdown-menu a:hover { background: var(--color-primary-subtle); color: var(--color-primary); }
 .nav-right { display: flex; align-items: center; gap: .5rem; }
 .nav-toggle {
@@ -257,11 +267,23 @@ html.dark .site-nav { background: rgba(14,26,20,.92); }
 }
 
 /* ── Loom ── */
-.loom-section { padding: 3rem 2rem; max-width: 900px; margin: 0 auto; text-align: center; }
+.loom-section {
+  background: linear-gradient(135deg, #141C3A 0%, #1a2d4a 100%);
+  padding: 4rem 2rem; position: relative; overflow: hidden;
+}
+.loom-section::before {
+  content: ''; position: absolute; bottom: -20%; left: -5%; width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0,212,126,.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.loom-inner { max-width: 900px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+.loom-section .section-heading { color: #E8F5EF; }
+.loom-section .section-subhead { color: rgba(200,216,208,.65); }
 .loom-wrap {
   position: relative; padding-bottom: 56.25%; height: 0;
-  border-radius: 14px; overflow: hidden; border: 1px solid var(--color-border);
-  box-shadow: 0 8px 32px rgba(0,0,0,.08); margin-top: 1.5rem;
+  border-radius: 14px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,.1);
+  box-shadow: 0 12px 48px rgba(0,0,0,.3); margin-top: 2rem;
 }
 .loom-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
@@ -431,10 +453,12 @@ html.dark .site-nav { background: rgba(14,26,20,.92); }
 
 <!-- Loom Video -->
 <section class="loom-section">
-  <h2 class="section-heading">See How It Works</h2>
-  <p class="section-subhead">A quick walkthrough of how we help therapy practices grow their visibility on Google and AI platforms.</p>
-  <div class="loom-wrap">
-    <iframe src="https://www.loom.com/embed/df3a5aa47f284ade81a4649695ac42dd" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+  <div class="loom-inner">
+    <h2 class="section-heading">See How It Works</h2>
+    <p class="section-subhead">Watch a quick walkthrough of how the CORE Marketing System™ drives visibility for therapy practices on Google and AI platforms.</p>
+    <div class="loom-wrap">
+      <iframe src="https://www.loom.com/embed/df3a5aa47f284ade81a4649695ac42dd" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    </div>
   </div>
 </section>
 
@@ -609,9 +633,11 @@ html.dark .site-nav { background: rgba(14,26,20,.92); }
 
 <!-- CTA -->
 <section class="cta-section">
-  <h2>Ready to Grow Your Practice?</h2>
-  <p>Every practice we work with started right where you are now. Book a quick call with our team to see what’s possible.</p>
-  <a href="https://msg.moonraker.ai/widget/bookings/moonraker-free-strategy-call" target="_blank" rel="noopener" class="cta-btn">Book a Free Strategy Call</a>
+  <div class="cta-inner">
+    <h2>Ready to Grow Your Practice?</h2>
+    <p>Every practice we work with started right where you are now. Book a quick call with our team to see what’s possible.</p>
+    <a href="https://msg.moonraker.ai/widget/bookings/moonraker-free-strategy-call" target="_blank" rel="noopener" class="cta-btn">Book a Free Strategy Call</a>
+  </div>
 </section>
 
 <!-- Footer -->
