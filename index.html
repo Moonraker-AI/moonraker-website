@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Moonraker - Marketing for Therapists | AI Visibility & SEO</title>
+<title>Moonraker - Marketing for Therapists | AI Visibility &amp; SEO</title>
 <meta name="description" content="Moonraker helps therapy practices grow their visibility on Google Maps, Gemini, and AI platforms with the proven CORE Marketing System. Trusted by the experts who educate therapists.">
 <meta property="og:title" content="Moonraker - Marketing for Therapists">
 <meta property="og:description" content="We help therapy practices grow their visibility on Google Maps, Gemini, and AI platforms with the proven CORE Marketing System.">
@@ -17,65 +17,59 @@
 (function(){var t=localStorage.getItem('moonraker-theme');if(t==='dark')document.documentElement.classList.add('dark')})();
 </script>
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Moonraker AI",
-  "url": "https://moonraker.ai",
-  "logo": "https://moonraker.ai/assets/logo.png",
-  "description": "Digital marketing agency specializing in AI visibility and SEO for therapy practices.",
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "contactType": "sales",
-    "url": "https://moonraker.ai/contact"
-  },
-  "sameAs": []
-}
+{"@context":"https://schema.org","@type":"Organization","name":"Moonraker AI","url":"https://moonraker.ai","logo":"https://moonraker.ai/assets/logo.png","description":"Digital marketing agency specializing in AI visibility and SEO for therapy practices.","contactPoint":{"@type":"ContactPoint","contactType":"sales","url":"https://moonraker.ai/contact"},"sameAs":[]}
 </script>
 <style>
-/* ── Homepage-specific styles ── */
-.hero-badges { margin-top: 1.5rem; }
-
-.core-intro {
-  max-width: 640px; margin: 0 auto 2.5rem; text-align: center;
+/* Homepage-specific overrides */
+.partners-rows { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+.partner-row { display: flex; align-items: center; justify-content: center; gap: 2rem 3rem; flex-wrap: wrap; }
+.loom-section { padding: 3rem 2rem; max-width: 900px; margin: 0 auto; text-align: center; }
+.loom-wrap {
+  position: relative; padding-bottom: 56.25%; height: 0;
+  border-radius: 14px; overflow: hidden; border: 1px solid var(--color-border);
+  box-shadow: 0 8px 32px rgba(0,0,0,.08); margin-top: 1.5rem;
 }
-.core-intro p { font-size: .92rem; color: var(--color-muted); }
-
-.pillar-letter {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 44px; height: 44px; border-radius: 10px;
-  background: var(--color-primary); color: #fff;
-  font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.25rem;
-  margin-bottom: 1rem;
-}
-
-.how-it-works {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 2rem; max-width: 900px; margin: 3rem auto 0; text-align: center;
-}
+.loom-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+.pillars-section { padding: 3rem 2rem; max-width: 1100px; margin: 0 auto; text-align: center; }
+.how-section { padding: 3rem 2rem; max-width: 900px; margin: 0 auto; text-align: center; }
+.how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2rem; }
 .how-step-num {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 36px; height: 36px; border-radius: 50%;
+  width: 40px; height: 40px; border-radius: 50%;
   background: var(--color-primary-subtle); color: var(--color-primary);
-  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: .9rem;
-  margin-bottom: .75rem;
+  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: .95rem; margin-bottom: .75rem;
 }
-.how-step h4 { margin-bottom: .35rem; font-size: .95rem; }
+.how-step h4 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: .95rem; color: var(--color-heading); margin-bottom: .35rem; }
 .how-step p { font-size: .82rem; color: var(--color-muted); }
-
+.testimonial-carousel { position: relative; }
+.testimonial-slide { display: none; animation: fadeSlide .4s ease; }
+.testimonial-slide.active { display: block; }
+@keyframes fadeSlide { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.carousel-nav { display: flex; align-items: center; justify-content: center; gap: 1.25rem; margin-top: 1.75rem; }
+.carousel-arrow {
+  width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--color-border);
+  background: var(--color-surface); cursor: pointer; display: flex; align-items: center;
+  justify-content: center; font-size: 1rem; color: var(--color-muted); transition: all .2s;
+}
+.carousel-arrow:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.carousel-dots { display: flex; gap: .5rem; }
+.carousel-dot {
+  width: 10px; height: 10px; border-radius: 50%; background: var(--color-border);
+  cursor: pointer; transition: background .2s, transform .2s;
+}
+.carousel-dot.active { background: var(--color-primary); transform: scale(1.2); }
 @media (max-width: 768px) {
-  .how-it-works { grid-template-columns: 1fr; gap: 1.5rem; }
+  .how-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .partner-row { gap: 1.5rem; }
 }
 </style>
 </head>
 <body>
 
-<!-- ── Navigation ── -->
+<!-- Nav -->
 <nav class="site-nav">
   <div class="nav-inner">
-    <a href="/" class="nav-brand">
-      <img src="/assets/logo.png" alt="Moonraker" width="32" height="32">
-    </a>
+    <a href="/" class="nav-brand"><img src="/assets/logo.png" alt="Moonraker" width="32" height="32"></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/" class="active">Home</a></li>
       <li class="nav-dropdown">
@@ -94,179 +88,210 @@
       <li><a href="/contact">Contact</a></li>
     </ul>
     <div style="display:flex;align-items:center;gap:.5rem;">
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">🌙</button>
-      <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">☰</button>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
+      <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
     </div>
   </div>
 </nav>
 
-<!-- ── Hero ── -->
+<!-- Hero -->
 <section class="hero">
   <h1>Grow your practice's visibility on <span>Google, Gemini, and AI</span></h1>
   <p>We help therapy practices get found by the clients who need them most. Our CORE Marketing System is trusted by the industry's leading experts in practice building and clinical training.</p>
   <a href="https://msg.moonraker.ai/widget/bookings/moonraker-free-strategy-call" class="btn btn-primary" target="_blank" rel="noopener">Book a Free Strategy Call</a>
-  <div class="trust-bar hero-badges">
-    <img src="/assets/badges/google-partner.png" alt="Google Partner" height="40">
-    <img src="/assets/badges/google-rating.png" alt="Google Rating 4.9 stars" height="40">
-    <img src="/assets/badges/google-local-guides.png" alt="Google Local Guides" height="40">
-  </div>
 </section>
 
-<!-- ── Partners ── -->
-<section class="section centered">
-  <div class="container">
-    <h2 class="section-heading">Trusted by the Experts Who Educate Therapists</h2>
-    <p class="section-subhead">We partner with the industry's most respected names in practice building, clinical training, and therapist entrepreneurship.</p>
-    <div class="partners-grid">
-      <img src="/assets/partners/mccance-method.png" alt="The McCance Method" class="partner-logo">
-      <img src="/assets/partners/scalingup-emdr.png" alt="ScalingUp EMDR" class="partner-logo">
-      <img src="/assets/partners/psychology-business-school.png" alt="Psychology Business School" class="partner-logo">
-      <img src="/assets/partners/traveling-therapist.png" alt="The Traveling Therapist" class="partner-logo">
-      <img src="/assets/partners/balanced-private-practice.png" alt="Balanced Private Practice" class="partner-logo">
-      <img src="/assets/partners/entrepreneurial-therapist.png" alt="Entrepreneurial Therapist" class="partner-logo">
-      <img src="/assets/partners/therasaas.png" alt="TheraSaaS" class="partner-logo">
-      <img src="/assets/partners/private-practice-academy.png" alt="The Private Practice Academy" class="partner-logo">
-      <img src="/assets/partners/private-practice-elevation.png" alt="Private Practice Elevation" class="partner-logo">
-      <img src="/assets/partners/walker-co-strategy.png" alt="Walker Co Strategy" class="partner-logo">
-      <img src="/assets/partners/prosperous-therapist.png" alt="The Prosperous Therapist" class="partner-logo">
-      <img src="/assets/partners/berries.png" alt="Berries" class="partner-logo">
-    </div>
-  </div>
-</section>
+<!-- Trust Badges -->
+<div class="trust-bar">
+  <img src="/assets/badges/google-partner.png" alt="Google Partner" height="40">
+  <img src="/assets/badges/google-rating.png" alt="Google Rating 4.9 stars" height="40">
+  <img src="/assets/badges/google-local-guides.png" alt="Google Local Guides" height="40">
+</div>
 
-<div class="section-divider"><hr></div>
-
-<!-- ── CORE Marketing System ── -->
-<section class="section centered" id="core">
-  <div class="container">
-    <h2 class="section-heading">The CORE Marketing System</h2>
-    <div class="core-intro">
-      <p>Our proven framework answers the most important questions that Google and AI need to know about your practice, turning your online presence into a client-generating machine.</p>
+<!-- Partners -->
+<section class="partners-section" style="padding-top:2rem;">
+  <h2 class="section-heading">Trusted by the Experts Who Educate Therapists</h2>
+  <p class="section-subhead">We partner with the industry's most respected names in practice building, clinical training, and therapist entrepreneurship.</p>
+  <div class="partners-rows">
+    <div class="partner-row">
+      <img class="partner-logo" src="/assets/partners/psychology-business-school.png" alt="Psychology Business School">
+      <img class="partner-logo" src="/assets/partners/walker-co-strategy.png" alt="Walker Co Strategy">
+      <img class="partner-logo" src="/assets/partners/traveling-therapist.png" alt="The Traveling Therapist">
+      <img class="partner-logo" src="/assets/partners/berries.png" alt="Berries">
+      <img class="partner-logo" src="/assets/partners/therasaas.png" alt="TheraSaaS">
     </div>
-    <div class="pillar-grid">
-      <a href="/core-marketing-system/credibility" class="pillar-card" style="text-decoration:none;">
-        <div class="pillar-letter">C</div>
-        <h3>Credibility</h3>
-        <p>Prove that you exist and are qualified to provide services through verified entity signals.</p>
-        <span class="pillar-link">Learn more &rarr;</span>
-      </a>
-      <a href="/core-marketing-system/optimization" class="pillar-card" style="text-decoration:none;">
-        <div class="pillar-letter">O</div>
-        <h3>Optimization</h3>
-        <p>Teach AI exactly what you treat, how you treat it, and where it happens.</p>
-        <span class="pillar-link">Learn more &rarr;</span>
-      </a>
-      <a href="/core-marketing-system/reputation" class="pillar-card" style="text-decoration:none;">
-        <div class="pillar-letter">R</div>
-        <h3>Reputation</h3>
-        <p>Prove you're an expert and amplify that signal across platforms that AI trusts.</p>
-        <span class="pillar-link">Learn more &rarr;</span>
-      </a>
-      <a href="/core-marketing-system/engagement" class="pillar-card" style="text-decoration:none;">
-        <div class="pillar-letter">E</div>
-        <h3>Engagement</h3>
-        <p>Guide visitors towards booking a call with clear, compelling conversion paths.</p>
-        <span class="pillar-link">Learn more &rarr;</span>
-      </a>
+    <div class="partner-row">
+      <img class="partner-logo" src="/assets/partners/scalingup-emdr.png" alt="ScalingUp EMDR">
+      <img class="partner-logo" src="/assets/partners/entrepreneurial-therapist.png" alt="Entrepreneurial Therapist">
+      <img class="partner-logo" src="/assets/partners/private-practice-academy.png" alt="The Private Practice Academy">
+      <img class="partner-logo" src="/assets/partners/balanced-private-practice.png" alt="Balanced Private Practice">
+    </div>
+    <div class="partner-row">
+      <img class="partner-logo" src="/assets/partners/private-practice-elevation.png" alt="Private Practice Elevation">
+      <img class="partner-logo" src="/assets/partners/prosperous-therapist.png" alt="The Prosperous Therapist">
+      <img class="partner-logo" src="/assets/partners/mccance-method.png" alt="The McCance Method">
     </div>
   </div>
 </section>
 
 <div class="section-divider"><hr></div>
 
-<!-- ── How It Works ── -->
-<section class="section centered">
-  <div class="container">
-    <h2 class="section-heading">How It Works</h2>
-    <p class="section-subhead">A clear, hands-off process so you can focus on what you do best: helping your clients.</p>
-    <div class="how-it-works">
-      <div class="how-step">
-        <div class="how-step-num">1</div>
-        <h4>Strategy Call</h4>
-        <p>We learn about your practice, goals, and where you want to grow. No pressure, just a conversation.</p>
-      </div>
-      <div class="how-step">
-        <div class="how-step-num">2</div>
-        <h4>Launch Campaign</h4>
-        <p>Our team handles the heavy lifting: audits, content, schema, citations, and social profiles.</p>
-      </div>
-      <div class="how-step">
-        <div class="how-step-num">3</div>
-        <h4>Grow Visibility</h4>
-        <p>Watch your practice climb on Google Maps, Gemini, and AI platforms with monthly reporting.</p>
-      </div>
+<!-- Loom Video -->
+<section class="loom-section">
+  <h2 class="section-heading">See How It Works</h2>
+  <p class="section-subhead">A quick walkthrough of how we help therapy practices grow their visibility on Google and AI platforms.</p>
+  <div class="loom-wrap">
+    <iframe src="https://www.loom.com/embed/df3a5aa47f284ade81a4649695ac42dd" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- CORE Marketing System -->
+<section class="pillars-section">
+  <h2 class="section-heading">The CORE Marketing System</h2>
+  <p class="section-subhead">Our proven framework answers the most important questions that Google and AI need to know about your practice.</p>
+  <div class="pillar-grid">
+    <a href="/core-marketing-system/credibility" class="pillar-card">
+      <div class="pillar-letter">C</div>
+      <h3>Credibility</h3>
+      <p>Prove that you exist and are qualified to provide services through verified entity signals, directory listings, and social presence.</p>
+      <span class="pillar-link">Learn more &rarr;</span>
+    </a>
+    <a href="/core-marketing-system/optimization" class="pillar-card">
+      <div class="pillar-letter">O</div>
+      <h3>Optimization</h3>
+      <p>Teach AI exactly what you treat, how you treat it, and where it happens with service pages, schema markup, and technical SEO.</p>
+      <span class="pillar-link">Learn more &rarr;</span>
+    </a>
+    <a href="/core-marketing-system/reputation" class="pillar-card">
+      <div class="pillar-letter">R</div>
+      <h3>Reputation</h3>
+      <p>Prove you're an expert and amplify that signal with endorsements, social content, YouTube, and press releases.</p>
+      <span class="pillar-link">Learn more &rarr;</span>
+    </a>
+    <a href="/core-marketing-system/engagement" class="pillar-card">
+      <div class="pillar-letter">E</div>
+      <h3>Engagement</h3>
+      <p>Guide visitors towards booking a call with compelling hero sections, clear CTAs, and optimized conversion paths.</p>
+      <span class="pillar-link">Learn more &rarr;</span>
+    </a>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- How It Works -->
+<section class="how-section">
+  <h2 class="section-heading">How It Works</h2>
+  <p class="section-subhead">A clear, hands-off process so you can focus on what you do best: helping your clients.</p>
+  <div class="how-grid">
+    <div class="how-step">
+      <div class="how-step-num">1</div>
+      <h4>Strategy Call</h4>
+      <p>We learn about your practice, goals, and where you want to grow. No pressure, just a conversation.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">2</div>
+      <h4>Launch Campaign</h4>
+      <p>Our team handles the heavy lifting: audits, content, schema, citations, and social profiles.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">3</div>
+      <h4>Grow Visibility</h4>
+      <p>Watch your practice climb on Google Maps, Gemini, and AI platforms with monthly reporting.</p>
     </div>
   </div>
 </section>
 
 <div class="section-divider"><hr></div>
 
-<!-- ── Testimonials ── -->
-<section class="section">
-  <div class="container" style="max-width:1100px;">
-    <div style="text-align:center;">
-      <h2 class="section-heading">What Our Partners and Clients Say</h2>
-      <p class="section-subhead">Feedback from the therapists, practice owners, and industry leaders we work with every day.</p>
-    </div>
-    <div class="testimonials-grid">
+<!-- Testimonials -->
+<section class="testimonials-section" style="max-width:1100px;margin:0 auto;">
+  <h2 class="section-heading" style="text-align:center;">What Our Partners and Clients Say</h2>
+  <p class="section-subhead" style="text-align:center;">Feedback from the therapists, practice owners, and industry leaders we work with every day.</p>
+  <div class="testimonial-carousel" id="testimonialCarousel">
+    <div class="testimonial-slide active" data-slide="0">
       <div class="testimonial-card">
         <div class="testimonial-text">"So. Good problem. The SEO is working too good!! I've had 8 inquiries in the past 10 days. And most are scheduling consultations. I'm now faced with some new challenges that I wasn't quite prepared to solve so soon. Time to figure out waitlist management. And further streamline or offload more tasks. My calendar books 2-3 weeks out now."</div>
         <div class="testimonial-author">
-          <img src="/assets/headshots/audrey-shoen.png" alt="Audrey Shoen" class="testimonial-headshot">
+          <img class="testimonial-headshot" src="/assets/headshots/audrey-shoen.png" alt="Audrey Shoen">
           <div>
             <div class="testimonial-name">Audrey Shoen, LMFT</div>
             <div class="testimonial-role">Founder, Balanced Private Practice</div>
-            <img src="/assets/partners/balanced-private-practice.png" alt="Balanced Private Practice" class="testimonial-logo">
+            <img class="testimonial-logo" src="/assets/partners/balanced-private-practice.png" alt="Balanced Private Practice">
           </div>
         </div>
       </div>
+    </div>
+    <div class="testimonial-slide" data-slide="1">
       <div class="testimonial-card">
-        <div class="testimonial-text">"As a multi-passionate entrepreneur, keeping my brands organized and visible online has always felt like herding cats. Enter Moonraker and Chris. Absolute game-changers! Chris helped me untangle the chaos, streamline my marketing, and optimize my websites for SEO in a way that actually makes sense (and gets results)."</div>
+        <div class="testimonial-text">"As a multi-passionate entrepreneur, keeping my brands organized and visible online has always felt like herding cats. Enter Moonraker and Chris, absolute game-changers! Chris helped me untangle the chaos, streamline my marketing, and optimize my websites for SEO in a way that actually makes sense (and gets results). Whether it's refining my messaging, making sure my sites rank on Google, or creating a strategy that works across multiple brands, Moonraker has been an invaluable asset."</div>
         <div class="testimonial-author">
-          <img src="/assets/headshots/kym-tolson.png" alt="Kym Tolson" class="testimonial-headshot">
+          <img class="testimonial-headshot" src="/assets/headshots/kym-tolson.png" alt="Kym Tolson">
           <div>
             <div class="testimonial-name">Kym Tolson</div>
             <div class="testimonial-role">Founder, The Traveling Therapist</div>
-            <img src="/assets/partners/traveling-therapist.png" alt="The Traveling Therapist" class="testimonial-logo">
+            <img class="testimonial-logo" src="/assets/partners/traveling-therapist.png" alt="The Traveling Therapist">
           </div>
         </div>
       </div>
+    </div>
+    <div class="testimonial-slide" data-slide="2">
       <div class="testimonial-card">
         <div class="testimonial-text">"Chris was great to work with. He was responsive, answered our questions clearly, and explained things in a way that made sense. His help improved our SEO, and we appreciate his expertise. Highly recommend!"</div>
         <div class="testimonial-author">
-          <img src="/assets/headshots/kelly-smyth-dent.png" alt="Kelly Smyth-Dent" class="testimonial-headshot">
+          <img class="testimonial-headshot" src="/assets/headshots/kelly-smyth-dent.png" alt="Kelly Smyth-Dent">
           <div>
             <div class="testimonial-name">Kelly Smyth-Dent</div>
             <div class="testimonial-role">Founder, ScalingUp EMDR</div>
-            <img src="/assets/partners/scalingup-emdr.png" alt="ScalingUp EMDR" class="testimonial-logo">
+            <img class="testimonial-logo" src="/assets/partners/scalingup-emdr.png" alt="ScalingUp EMDR">
           </div>
         </div>
       </div>
+    </div>
+    <div class="testimonial-slide" data-slide="3">
       <div class="testimonial-card">
         <div class="testimonial-text">"If you're a therapist looking for SEO strategy and implementation, Chris and his Moonraker team know how to rank you high on Google. I highly recommend them."</div>
         <div class="testimonial-author">
-          <img src="/assets/headshots/brent-stutzman.png" alt="Brent Stutzman" class="testimonial-headshot">
+          <img class="testimonial-headshot" src="/assets/headshots/brent-stutzman.png" alt="Brent Stutzman">
           <div>
             <div class="testimonial-name">Brent Stutzman</div>
             <div class="testimonial-role">Founder, TheraSaaS</div>
-            <img src="/assets/partners/therasaas.png" alt="TheraSaaS" class="testimonial-logo">
+            <img class="testimonial-logo" src="/assets/partners/therasaas.png" alt="TheraSaaS">
           </div>
         </div>
       </div>
+    </div>
+    <div class="carousel-nav">
+      <button class="carousel-arrow" onclick="changeSlide(-1)" aria-label="Previous">&#8592;</button>
+      <div class="carousel-dots" id="carouselDots"></div>
+      <button class="carousel-arrow" onclick="changeSlide(1)" aria-label="Next">&#8594;</button>
     </div>
   </div>
 </section>
 
 <div class="section-divider"><hr></div>
 
-<!-- ── CTA ── -->
+<!-- Google Reviews -->
+<section class="google-reviews-section" id="googleReviews">
+  <h2 class="section-heading">Google Reviews</h2>
+  <p class="section-subhead">What our clients are saying on Google.</p>
+  <div class="google-badge-large">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+    <div><div class="badge-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="badge-text">4.9 stars from 44 Google reviews</div></div>
+  </div>
+  <div class="reviews-masonry" id="reviewsMasonry"></div>
+</section>
+
+<!-- CTA -->
 <section class="cta-section">
   <h2>Ready to Grow Your Practice?</h2>
   <p>Every practice we work with started right where you are now. Book a quick call with our team to see what's possible.</p>
-  <a href="https://msg.moonraker.ai/widget/bookings/moonraker-free-strategy-call" class="btn btn-primary" target="_blank" rel="noopener">Book a Free Strategy Call</a>
+  <a href="https://msg.moonraker.ai/widget/bookings/moonraker-free-strategy-call" target="_blank" rel="noopener" class="btn btn-primary">Book a Free Strategy Call</a>
 </section>
 
-<!-- ── Footer ── -->
+<!-- Footer -->
 <footer class="site-footer">
   <div class="footer-links">
     <a href="/">Home</a>
@@ -280,21 +305,60 @@
 </footer>
 
 <script>
-function toggleTheme() {
-  var d = document.documentElement;
-  d.classList.toggle('dark');
-  var isDark = d.classList.contains('dark');
-  localStorage.setItem('moonraker-theme', isDark ? 'dark' : 'light');
-  document.getElementById('themeBtn').textContent = isDark ? '☀️' : '🌙';
-}
-window.toggleTheme = toggleTheme;
-// Set initial icon
+window.toggleTheme = function() {
+  var dark = document.documentElement.classList.toggle('dark');
+  localStorage.setItem('moonraker-theme', dark ? 'dark' : 'light');
+  document.getElementById('themeBtn').innerHTML = dark ? '&#9728;&#65039;' : '&#127769;';
+};
+(function(){ document.getElementById('themeBtn').innerHTML = document.documentElement.classList.contains('dark') ? '&#9728;&#65039;' : '&#127769;'; })();
+
+/* Testimonial Carousel */
+var curSlide = 0, totalSlides = document.querySelectorAll('.testimonial-slide').length;
 (function(){
-  var isDark = document.documentElement.classList.contains('dark');
-  var btn = document.getElementById('themeBtn');
-  if (btn) btn.textContent = isDark ? '☀️' : '🌙';
+  var dots = document.getElementById('carouselDots'), h = '';
+  for (var i = 0; i < totalSlides; i++) h += '<div class="carousel-dot' + (i === 0 ? ' active' : '') + '" onclick="goToSlide(' + i + ')"></div>';
+  dots.innerHTML = h;
+})();
+window.goToSlide = function(idx) {
+  curSlide = idx;
+  document.querySelectorAll('.testimonial-slide').forEach(function(s, i) { s.classList.toggle('active', i === idx); });
+  document.querySelectorAll('.carousel-dot').forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+};
+window.changeSlide = function(dir) { goToSlide((curSlide + dir + totalSlides) % totalSlides); };
+
+/* Google Reviews */
+var googleReviews = [
+  {name:'Erinn E.',text:'Chris is amazing! His expertise is so valuable and we experienced a significant increase in traffic and inquiries through our website with the help of his SEO knowledge. His honesty and transparency stands out among the service providers out there.'},
+  {name:'Nathan A.',text:'Chris is very knowledgeable and a great teacher! Practical tools and resources were shared and explained, providing me with simple steps that I can take to move forward. I am more hopeful, encouraged and excited about building on what I am called to do!'},
+  {name:'Christine R.',text:"Chris and his team are amazing at what they do. Their approach is comprehensive and up-to-date with the ever-changing landscape of SEO and AI. It's only been a couple of months and I'm already starting to see results. I highly recommend them!"},
+  {name:'Carolynn',text:'He has an excellent ability to distill information into chunks that are accessible and have a clear rationale for the goals they are trying to achieve. He is thorough and knowledgeable and has a clear expertise in SEO and driving traffic to websites.'},
+  {name:'George',text:'So grateful I found Chris! He explained everything so clearly that I felt completely confident in his services, and within just eight months my returns had already doubled. Thanks, Chris!'},
+  {name:'Jennifer',text:'Chris is so knowledgeable, explains things in a way I can understand without being condescending and is so patient! It is truly refreshing to work with someone on marketing who is as passionate about the mental health field as I am.'},
+  {name:'Kelly S.',text:'Chris was great to work with. He was responsive, answered our questions clearly, and explained things in a way that made sense. His help improved our SEO, and we appreciate his expertise. Highly recommend!'},
+  {name:'Kym T.',text:"Chris helped me untangle the chaos, streamline my marketing, and optimize my websites for SEO in a way that actually makes sense (and gets results). If you're juggling multiple businesses and need expert guidance, this is the team you want in your corner."},
+  {name:'Audrey S.',text:"I've been working with Chris from Moonraker for about 6 months now and the results are amazing! Clicks, impressions, and my avg position have all improved significantly. The investment is paying off big time."},
+  {name:'Christopher B.',text:"In a very short amount of time Chris was able to significantly improve the inbound traffic on my website. A significant chunk of the new business we've gained this past year is due to Chris and the excellent work he does at Moonraker."},
+  {name:'Julie Ann O.',text:"Chris is an incredible, talented SEO wiz. After six months, I'm seeing a significant increase in traffic to connect with the people I really want to find me. It has totally been worth the investment!"},
+  {name:'Jennifer K.',text:'Chris has gone above and beyond for my company. He is very knowledgeable and you can tell that he has a true passion to help small businesses thrive.'},
+  {name:'Ivhan A.',text:'Chris is simply phenomenal! His SEO expertise propelled our website to new heights: clear communication, impressive results, and a pleasure to work with. Highly recommend!'},
+  {name:'Hannah T.',text:"Chris' SEO skills are super effective. He is super communicative and personable, making him a joy and super easy to work with! Big thanks to Chris and Moonraker!!!"},
+  {name:'Matthew C.',text:'You have to meet Chris to understand the power of what he is capable of doing to transform your business. He makes your visibility jump up dramatically in no time. Do yourself a favor, take a meeting with Chris.'},
+  {name:'Stephanie J.',text:"He's a great human. Authentic, funny, personable, and present. He cares about my business AND me as a person. He's brilliant at his craft. I highly recommend Chris and his team!"},
+  {name:'Hayley J.',text:'Chris is Awesome!!! He built me a beautiful customized website and online shop. He is kind and funny and creates a relaxed and enjoyable experience. I highly recommend!!!'},
+  {name:'Jessica D.',text:'Chris is very professional and responsive in addition to offering high quality SEO services. I appreciate his innovative thinking and willingness to understand the specific challenges of my business.'},
+  {name:'Bambi R.',text:"I honestly think that Chris/Moonraker is the best choice that anyone could ever make for digital marketing. When you hire Chris it's like you have an entire team behind you. He really is amazing!"},
+  {name:"Alina's Ristorante",text:'He designed our online food ordering system from scratch. Ordering time was cut in HALF! This allowed us to cater to more clients and increased our sales. We highly recommend Chris!'},
+  {name:'Karada Detox',text:"Chris is really THE BEST!! He is really good at finding opportunities to make money that I didn't even see in my business! His marketing knowledge makes me super excited about growing my business."},
+  {name:'Bob B.',text:'Chris is a marketing and search engine optimization genius! He can help increase your customer base exponentially. I cannot recommend his services or speak highly enough of the quality of his work!'},
+  {name:'Michael K.',text:"Chris is a human Swiss army knife. He's a keen listener and good synthesizer of information when it comes to assessing the goals of a business. He brings humanity to SEO."}
+];
+(function(){
+  var m = document.getElementById('reviewsMasonry'), html = '';
+  googleReviews.forEach(function(r){
+    html += '<div class="review-card"><div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="review-text">' + r.text + '</div><div class="review-author">' + r.name + '</div></div>';
+  });
+  m.innerHTML = html;
 })();
 </script>
-
 </body>
 </html>
