@@ -59,15 +59,27 @@ body { font-family: 'Inter', sans-serif; background: var(--color-bg); color: var
 .hero-wrap {
   background: linear-gradient(165deg, var(--color-primary-subtle) 0%, var(--color-bg) 50%, var(--color-surface) 100%);
   border-bottom: 1px solid var(--color-border);
-  padding: 4.5rem 2rem 3.5rem;
+  padding: 5.5rem 2rem 4rem;
+  position: relative; overflow: hidden;
+}
+.hero-wrap::before {
+  content: ''; position: absolute; top: -40%; right: -10%; width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0,212,126,.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-wrap::after {
+  content: ''; position: absolute; bottom: -30%; left: -8%; width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(30,42,94,.04) 0%, transparent 70%);
+  pointer-events: none;
 }
 html.dark .hero-wrap {
   background: linear-gradient(165deg, var(--color-primary-subtle) 0%, var(--color-bg) 60%);
 }
-.hero { text-align: center; max-width: 780px; margin: 0 auto; }
-.hero h1 { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 2.75rem; line-height: 1.12; color: var(--color-heading); margin-bottom: 1.25rem; }
+html.dark .hero-wrap::before { background: radial-gradient(circle, rgba(0,212,126,.08) 0%, transparent 70%); }
+.hero { text-align: center; max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+.hero h1 { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 3.5rem; line-height: 1.08; color: var(--color-heading); margin-bottom: 1.5rem; letter-spacing: -.02em; }
 .hero h1 span { color: var(--color-primary); }
-.hero p { font-size: 1.0625rem; color: var(--color-muted); max-width: 580px; margin: 0 auto 2rem; line-height: 1.7; }
+.hero p { font-size: 1.125rem; color: var(--color-muted); max-width: 600px; margin: 0 auto 2.25rem; line-height: 1.7; }
 /* ── Trust Badge Pills ── */
 .trust-bar {
   display: flex; align-items: center; justify-content: center;
@@ -169,7 +181,7 @@ html.dark .testimonial-logo { filter: brightness(1.3); }
 
 @media (max-width: 768px) {
   .hero-wrap { padding: 3rem 1.5rem 2.5rem; }
-  .hero h1 { font-size: 2rem; }
+  .hero h1 { font-size: 2.25rem; }
   .trust-bar { gap: .75rem; padding: 1.5rem 1rem 0; }
   .badge-pill { padding: .75rem 1.25rem; min-width: 140px; border-radius: 10px; }
   .badge-pill img { height: 34px; }
@@ -182,7 +194,7 @@ html.dark .testimonial-logo { filter: brightness(1.3); }
   .reviews-masonry { columns: 1; }
   .stats-bar { gap: 1.5rem; }
 }
-@media (max-width: 480px) { .stats-bar { gap: 1rem; } .hero h1 { font-size: 1.5rem; } .partner-logo { height: 44px; } .badge-pill { min-width: auto; padding: .6rem 1rem; } .badge-pill img { height: 28px; } }
+@media (max-width: 480px) { .stats-bar { gap: 1rem; } .hero h1 { font-size: 1.75rem; } .partner-logo { height: 44px; } .badge-pill { min-width: auto; padding: .6rem 1rem; } .badge-pill img { height: 28px; } }
 @media (min-width: 769px) and (max-width: 1024px) { .reviews-masonry { columns: 2; } .partner-logo { height: 60px; } }
 
 
@@ -253,48 +265,86 @@ html.dark .site-nav { background: rgba(14,26,20,.92); }
 }
 .loom-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
-/* ── CORE Pillars ── */
-.pillars-section { padding: 3rem 2rem; max-width: 1100px; margin: 0 auto; text-align: center; }
+/* ── CORE Section (navy) ── */
+.core-section {
+  background: linear-gradient(135deg, #141C3A 0%, #1E3A5F 100%);
+  padding: 4.5rem 2rem; position: relative; overflow: hidden;
+}
+.core-section::before {
+  content: ''; position: absolute; top: -30%; right: -5%; width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0,212,126,.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.core-section::after {
+  content: ''; position: absolute; bottom: -20%; left: -8%; width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(59,130,246,.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.core-inner { max-width: 1100px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+.core-section .section-heading { color: #E8F5EF; }
+.core-section .section-subhead { color: rgba(200,216,208,.7); }
+.core-section .section-heading .tm { font-size: .55em; vertical-align: super; font-weight: 400; opacity: .6; }
 .pillar-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem; margin-top: 2rem;
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem; margin-top: 2.5rem; text-align: left;
 }
 .pillar-card {
-  background: var(--color-surface); border: 1px solid var(--color-border);
-  border-radius: 14px; padding: 1.75rem 1.25rem; text-align: center;
-  transition: border-color .2s, transform .2s, box-shadow .2s;
-  display: flex; flex-direction: column; align-items: center;
-  text-decoration: none; color: inherit;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 16px; padding: 2rem; text-decoration: none; color: inherit;
+  transition: transform .2s, box-shadow .2s, background .2s;
+  display: flex; flex-direction: column;
+  backdrop-filter: blur(4px);
 }
 .pillar-card:hover {
-  border-color: var(--color-primary); transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0,0,0,.06);
+  background: rgba(255,255,255,.1); transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,.2);
 }
+.pillar-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
 .pillar-letter {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 48px; height: 48px; border-radius: 12px;
+  width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
   background: var(--color-primary); color: #fff;
   font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.3rem;
-  margin-bottom: 1rem;
 }
-.pillar-card h3 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--color-heading); margin-bottom: .5rem; }
-.pillar-card p { font-size: .82rem; color: var(--color-muted); margin-bottom: 1rem; flex: 1; }
-.pillar-link { font-size: .82rem; font-weight: 600; color: var(--color-primary); }
-@media (max-width: 768px) { .pillar-grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 480px) { .pillar-grid { grid-template-columns: 1fr; } }
+.pillar-card h3 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.15rem; color: #E8F5EF; margin: 0; }
+.pillar-subtitle { font-size: .82rem; color: rgba(200,216,208,.6); margin-top: .15rem; }
+.pillar-card p.pillar-desc { font-size: .875rem; color: rgba(200,216,208,.85); line-height: 1.7; margin-bottom: 1rem; }
+.pillar-bullets { list-style: none; padding: 0; margin: 0 0 1.25rem; }
+.pillar-bullets li {
+  font-size: .82rem; color: rgba(200,216,208,.75); padding: .3rem 0 .3rem 1.25rem;
+  position: relative; line-height: 1.5;
+}
+.pillar-bullets li::before {
+  content: ''; position: absolute; left: 0; top: .55rem;
+  width: 6px; height: 6px; border-radius: 50%; background: var(--color-primary);
+}
+.pillar-link {
+  font-size: .84rem; font-weight: 600; color: var(--color-primary);
+  margin-top: auto; display: inline-flex; align-items: center; gap: .35rem;
+  transition: gap .2s;
+}
+.pillar-card:hover .pillar-link { gap: .6rem; }
+@media (max-width: 768px) { .pillar-grid { grid-template-columns: 1fr; } }
 
 /* ── How It Works ── */
-.how-section { padding: 3rem 2rem; max-width: 900px; margin: 0 auto; text-align: center; }
-.how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2rem; }
+.how-section { padding: 4rem 2rem; max-width: 1000px; margin: 0 auto; text-align: center; }
+.how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+.how-card {
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: 14px; padding: 2rem 1.5rem; text-align: left;
+  border-top: 3px solid var(--color-primary);
+  transition: transform .2s, box-shadow .2s;
+}
+.how-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.06); }
 .how-step-num {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 40px; height: 40px; border-radius: 50%;
-  background: var(--color-primary-subtle); color: var(--color-primary);
-  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: .95rem; margin-bottom: .75rem;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--color-primary); color: #fff;
+  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: .85rem; margin-bottom: 1rem;
 }
-.how-step h4 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: .95rem; color: var(--color-heading); margin-bottom: .35rem; }
-.how-step p { font-size: .82rem; color: var(--color-muted); }
-@media (max-width: 768px) { .how-grid { grid-template-columns: 1fr; gap: 1.5rem; } }
+.how-card h4 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--color-heading); margin-bottom: .5rem; }
+.how-card p { font-size: .875rem; color: var(--color-muted); line-height: 1.6; }
+@media (max-width: 768px) { .how-grid { grid-template-columns: 1fr; gap: 1.25rem; } }
 
 /* ── Footer ── */
 .site-footer { text-align: center; padding: 2.5rem 2rem; border-top: 1px solid var(--color-border); }
@@ -388,61 +438,91 @@ html.dark .site-nav { background: rgba(14,26,20,.92); }
   </div>
 </section>
 
-<div class="section-divider"><hr></div>
-
 <!-- CORE Marketing System -->
-<section class="pillars-section">
-  <h2 class="section-heading">The CORE Marketing System</h2>
-  <p class="section-subhead">Our proven framework answers the most important questions that Google and AI need to know about your practice.</p>
-  <div class="pillar-grid">
-    <a href="/core-marketing-system/credibility" class="pillar-card">
-      <div class="pillar-letter">C</div>
-      <h3>Credibility</h3>
-      <p>Prove that you exist and are qualified to provide services through verified entity signals, directory listings, and social presence.</p>
-      <span class="pillar-link">Learn more &#8594;</span>
-    </a>
-    <a href="/core-marketing-system/optimization" class="pillar-card">
-      <div class="pillar-letter">O</div>
-      <h3>Optimization</h3>
-      <p>Teach AI exactly what you treat, how you treat it, and where it happens with service pages, schema markup, and technical SEO.</p>
-      <span class="pillar-link">Learn more &#8594;</span>
-    </a>
-    <a href="/core-marketing-system/reputation" class="pillar-card">
-      <div class="pillar-letter">R</div>
-      <h3>Reputation</h3>
-      <p>Prove you’re an expert and amplify that signal with endorsements, social content, YouTube, and press releases.</p>
-      <span class="pillar-link">Learn more &#8594;</span>
-    </a>
-    <a href="/core-marketing-system/engagement" class="pillar-card">
-      <div class="pillar-letter">E</div>
-      <h3>Engagement</h3>
-      <p>Guide visitors towards booking a call with compelling hero sections, clear CTAs, and optimized conversion paths.</p>
-      <span class="pillar-link">Learn more &#8594;</span>
-    </a>
+<section class="core-section">
+  <div class="core-inner">
+    <h2 class="section-heading">The CORE Marketing System<span class="tm">™</span></h2>
+    <p class="section-subhead">Our proven framework answers the four questions Google and AI need to know about your practice before they recommend you.</p>
+    <div class="pillar-grid">
+      <a href="/core-marketing-system/credibility" class="pillar-card">
+        <div class="pillar-top">
+          <div class="pillar-letter">C</div>
+          <div><h3>Credibility</h3><div class="pillar-subtitle">Prove That You Exist</div></div>
+        </div>
+        <p class="pillar-desc">Before AI trusts your content, you must prove your practice is grounded to the real world with verified signals across multiple platforms.</p>
+        <ul class="pillar-bullets">
+          <li>Google Workspace, DKIM, and DMARC verification</li>
+          <li>15 citations + 5 major data aggregators</li>
+          <li>Rising Tide social strategy across 9 platforms</li>
+          <li>Entity Veracity Hub with cryptographic grounding</li>
+        </ul>
+        <span class="pillar-link">Explore Credibility &#8594;</span>
+      </a>
+      <a href="/core-marketing-system/optimization" class="pillar-card">
+        <div class="pillar-top">
+          <div class="pillar-letter">O</div>
+          <div><h3>Optimization</h3><div class="pillar-subtitle">Teach AI About Your Services</div></div>
+        </div>
+        <p class="pillar-desc">Make it crystal clear what you treat, how you treat it, and where it happens so Google and AI can confidently recommend you.</p>
+        <ul class="pillar-bullets">
+          <li>5 custom service pages with targeted HTML</li>
+          <li>Schema markup (LocalBusiness, FAQPage, Service)</li>
+          <li>Bio pages with verifiable credentials</li>
+          <li>Technical SEO and heading hierarchy</li>
+        </ul>
+        <span class="pillar-link">Explore Optimization &#8594;</span>
+      </a>
+      <a href="/core-marketing-system/reputation" class="pillar-card">
+        <div class="pillar-top">
+          <div class="pillar-letter">R</div>
+          <div><h3>Reputation</h3><div class="pillar-subtitle">Prove You're an Expert</div></div>
+        </div>
+        <p class="pillar-desc">Professional endorsements and multi-platform content distribution build the trust signals AI systems rely on.</p>
+        <ul class="pillar-bullets">
+          <li>Professional endorsement strategy</li>
+          <li>Social content on GBP, Facebook, LinkedIn, Quora</li>
+          <li>YouTube endorsement slideshows</li>
+          <li>Press release syndication to 500+ sites</li>
+        </ul>
+        <span class="pillar-link">Explore Reputation &#8594;</span>
+      </a>
+      <a href="/core-marketing-system/engagement" class="pillar-card">
+        <div class="pillar-top">
+          <div class="pillar-letter">E</div>
+          <div><h3>Engagement</h3><div class="pillar-subtitle">Guide Visitors to Book</div></div>
+        </div>
+        <p class="pillar-desc">Clear conversion paths turn your growing visibility into booked consultations with the clients who need you most.</p>
+        <ul class="pillar-bullets">
+          <li>Hero section redesign (Why + What + CTA + Trust)</li>
+          <li>Booking calendar optimization</li>
+          <li>Engage AI Chatbot (HIPAA-compliant)</li>
+          <li>Conversion rate optimization</li>
+        </ul>
+        <span class="pillar-link">Explore Engagement &#8594;</span>
+      </a>
+    </div>
   </div>
 </section>
-
-<div class="section-divider"><hr></div>
 
 <!-- How It Works -->
 <section class="how-section">
   <h2 class="section-heading">How It Works</h2>
   <p class="section-subhead">A clear, hands-off process so you can focus on what you do best: helping your clients.</p>
   <div class="how-grid">
-    <div class="how-step">
+    <div class="how-card">
       <div class="how-step-num">1</div>
       <h4>Strategy Call</h4>
-      <p>We learn about your practice, goals, and where you want to grow. No pressure, just a conversation.</p>
+      <p>We learn about your practice, goals, and where you want to grow. No pressure, just a conversation about what's possible.</p>
     </div>
-    <div class="how-step">
+    <div class="how-card">
       <div class="how-step-num">2</div>
       <h4>Launch Campaign</h4>
-      <p>Our team handles the heavy lifting: audits, content, schema, citations, and social profiles.</p>
+      <p>Our team handles the heavy lifting: audits, content, schema, citations, social profiles, and technical optimization.</p>
     </div>
-    <div class="how-step">
+    <div class="how-card">
       <div class="how-step-num">3</div>
       <h4>Grow Visibility</h4>
-      <p>Watch your practice climb on Google Maps, Gemini, and AI platforms with monthly reporting.</p>
+      <p>Watch your practice climb on Google Maps, Gemini, and AI platforms with transparent monthly reporting.</p>
     </div>
   </div>
 </section>
