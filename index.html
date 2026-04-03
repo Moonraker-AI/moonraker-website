@@ -49,6 +49,7 @@ html.dark {
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Inter', sans-serif; background: var(--color-bg); color: var(--color-body); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .25s; }
 .theme-toggle { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,.15); background: rgba(255,255,255,.06); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: background .2s, border-color .2s; }
 .theme-toggle:hover { border-color: var(--color-primary); }
 .nav { padding: 1.25rem 2rem; display: flex; align-items: center; gap: .75rem; }
@@ -665,9 +666,12 @@ html.dark .site-footer { background: #0A1630; }
 
 <script>
 window.toggleTheme = function() {
-  var dark = document.documentElement.classList.toggle('dark');
-  localStorage.setItem('moonraker-theme', dark ? 'dark' : 'light');
-  document.getElementById('themeBtn').innerHTML = dark ? '&#9728;&#65039;' : '&#127769;';
+  function apply() {
+    var dark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('moonraker-theme', dark ? 'dark' : 'light');
+    document.getElementById('themeBtn').innerHTML = dark ? '&#9728;&#65039;' : '&#127769;';
+  }
+  if (document.startViewTransition) { document.startViewTransition(apply); } else { apply(); }
 };
 (function(){ document.getElementById('themeBtn').innerHTML = document.documentElement.classList.contains('dark') ? '&#9728;&#65039;' : '&#127769;'; })();
 
