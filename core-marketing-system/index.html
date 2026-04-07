@@ -20,7 +20,7 @@
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://moonraker.ai"},{"@type":"ListItem","position":2,"name":"CORE Marketing System","item":"https://moonraker.ai/core-marketing-system"}]}
 </script>
 <style>
-/* ── Hero: split layout ── */
+/* ── Hero ── */
 .page-hero {
   padding: 5rem 2rem 4rem;
   background: linear-gradient(165deg, var(--color-primary-subtle) 0%, var(--color-bg) 55%, var(--color-surface) 100%);
@@ -32,9 +32,7 @@
   background: radial-gradient(circle, rgba(0,212,126,.07) 0%, transparent 70%);
   pointer-events: none;
 }
-html.dark .page-hero {
-  background: linear-gradient(165deg, var(--color-primary-subtle) 0%, var(--color-bg) 60%);
-}
+html.dark .page-hero { background: linear-gradient(165deg, var(--color-primary-subtle) 0%, var(--color-bg) 60%); }
 html.dark .page-hero::before { background: radial-gradient(circle, rgba(0,212,126,.1) 0%, transparent 70%); }
 .hero-split {
   max-width: 1060px; margin: 0 auto;
@@ -45,38 +43,31 @@ html.dark .page-hero::before { background: radial-gradient(circle, rgba(0,212,12
   font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 3.5rem;
   color: var(--color-heading); margin-bottom: 1.25rem; letter-spacing: -.02em; line-height: 1.08;
 }
-.hero-text h1 span { color: var(--color-primary); }
+.hero-text h1 em { color: var(--color-primary); font-style: normal; }
 .hero-text .tm { font-size: .45em; vertical-align: super; font-weight: 400; opacity: .5; }
-.hero-text p {
-  font-size: 1.05rem; color: var(--color-muted); line-height: 1.75; margin-bottom: 2rem;
-}
+.hero-text p { font-size: 1.05rem; color: var(--color-muted); line-height: 1.75; margin-bottom: 2rem; }
 .hero-text .btn { margin-bottom: 2rem; }
-.hero-badges {
-  display: flex; gap: 1rem; flex-wrap: wrap;
-}
+.hero-badges { display: flex; gap: 1rem; flex-wrap: wrap; }
 .hero-badge-pill {
   display: flex; align-items: center; gap: .5rem;
   background: var(--color-surface); border: 1px solid var(--color-border);
-  border-radius: 12px; padding: .6rem 1.1rem;
-  box-shadow: 0 2px 12px rgba(0,0,0,.04);
+  border-radius: 12px; padding: .6rem 1.1rem; box-shadow: 0 2px 12px rgba(0,0,0,.04);
 }
 html.dark .hero-badge-pill { box-shadow: 0 2px 12px rgba(0,0,0,.15); }
 .hero-badge-pill img { height: 28px; }
-.hero-badge-pill span { font-size: .75rem; font-weight: 600; color: var(--color-muted); }
 
-/* ── Hero visual: stacked pillar preview ── */
+/* ── Hero visual ── */
 .hero-visual { position: relative; z-index: 1; }
 .hero-card-stack { position: relative; min-height: 380px; }
-.hero-card-stack .preview-card {
+.preview-card {
   position: absolute; background: var(--color-surface);
   border: 1px solid var(--color-border); border-radius: 16px;
   padding: 1.25rem 1.5rem; width: 280px;
   box-shadow: 0 8px 32px rgba(0,0,0,.08);
   transition: transform .3s, box-shadow .3s;
 }
-html.dark .hero-card-stack .preview-card { box-shadow: 0 8px 32px rgba(0,0,0,.25); }
-.hero-card-stack .preview-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,.12); }
-html.dark .hero-card-stack .preview-card:hover { box-shadow: 0 16px 48px rgba(0,0,0,.35); }
+html.dark .preview-card { box-shadow: 0 8px 32px rgba(0,0,0,.25); }
+.preview-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,.12); }
 .preview-card .pc-header { display: flex; align-items: center; gap: .75rem; margin-bottom: .5rem; }
 .preview-card .pc-icon {
   width: 36px; height: 36px; border-radius: 10px;
@@ -85,157 +76,113 @@ html.dark .hero-card-stack .preview-card:hover { box-shadow: 0 16px 48px rgba(0,
 .preview-card .pc-icon svg { width: 18px; height: 18px; }
 .preview-card .pc-title { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: .9rem; color: var(--color-heading); }
 .preview-card .pc-sub { font-size: .72rem; color: var(--color-muted); font-weight: 500; }
-.preview-card .pc-bar { height: 6px; border-radius: 3px; background: var(--color-border); margin-top: .75rem; position: relative; overflow: hidden; }
+.preview-card .pc-bar { height: 6px; border-radius: 3px; background: var(--color-border); margin-top: .75rem; overflow: hidden; }
 .preview-card .pc-bar-fill { height: 100%; border-radius: 3px; }
 .pc-1 { top: 0; left: 10%; z-index: 4; }
 .pc-2 { top: 70px; right: 0; z-index: 3; }
 .pc-3 { top: 160px; left: 5%; z-index: 2; }
 .pc-4 { top: 240px; right: 5%; z-index: 1; }
+.icon-c { background: #00D47E; } .icon-o { background: #3B82F6; }
+.icon-r { background: #F59E0B; } .icon-e { background: #A855F7; }
 
-/* ── Framework section ── */
-.framework-section { padding: 5rem 2rem; max-width: 1060px; margin: 0 auto; }
-.framework-intro { text-align: center; margin-bottom: 3.5rem; }
-.framework-intro h2 { font-size: 2rem; margin-bottom: .75rem; }
-.framework-intro p { font-size: .95rem; color: var(--color-muted); max-width: 720px; margin: 0 auto; line-height: 1.7; }
-.framework-stack { display: flex; flex-direction: column; gap: 1.25rem; }
-.framework-row {
-  display: flex; align-items: center; gap: 1.5rem;
-  background: var(--color-surface); border: 1px solid var(--color-border);
-  border-radius: 16px; padding: 2rem 2.25rem;
-  text-decoration: none; color: inherit;
-  transition: border-color .25s, transform .25s, box-shadow .25s;
-  position: relative; overflow: hidden;
-}
-.framework-row::before {
-  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
-  border-radius: 16px 0 0 16px; transition: width .25s;
-}
-.framework-row:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(0,0,0,.07); }
-.framework-row:hover::before { width: 6px; }
-html.dark .framework-row:hover { box-shadow: 0 12px 36px rgba(0,0,0,.25); }
-.row-c::before { background: #00D47E; }
-.row-o::before { background: #3B82F6; }
-.row-r::before { background: #F59E0B; }
-.row-e::before { background: #A855F7; }
-.framework-icon {
-  display: flex; align-items: center; justify-content: center;
-  width: 56px; height: 56px; border-radius: 14px; flex-shrink: 0;
-}
-.framework-icon svg { width: 28px; height: 28px; }
-.icon-c { background: #00D47E; }
-.icon-o { background: #3B82F6; }
-.icon-r { background: #F59E0B; }
-.icon-e { background: #A855F7; }
-.framework-content { flex: 1; min-width: 0; }
-.framework-content h3 {
-  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.2rem;
-  color: var(--color-heading); margin-bottom: .15rem;
-}
-.framework-subtitle {
-  font-size: .82rem; font-weight: 600; margin-bottom: .5rem; letter-spacing: .02em;
-}
-.sub-c { color: #00D47E; } .sub-o { color: #3B82F6; } .sub-r { color: #F59E0B; } .sub-e { color: #A855F7; }
-.framework-content p { font-size: .875rem; color: var(--color-muted); line-height: 1.7; }
-.framework-arrow {
-  display: flex; align-items: center; flex-shrink: 0;
-  color: var(--color-primary); font-size: 1.2rem; opacity: .4; transition: opacity .2s, transform .2s;
-}
-.framework-row:hover .framework-arrow { opacity: 1; transform: translateX(4px); }
-
-/* ── Questions: dark with dot texture ── */
-.questions-section {
+/* ── Pillar sections ── */
+.pillar-section {
   padding: 5rem 2rem;
-  background: var(--color-navy);
   position: relative; overflow: hidden;
 }
-html.dark .questions-section { background: #0A1630; }
-.questions-section::before {
+.pillar-section:nth-child(odd) { background: var(--color-bg); }
+.pillar-section:nth-child(even) {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+.pillar-inner { max-width: 1060px; margin: 0 auto; }
+
+/* Pillar header */
+.pillar-header {
+  display: flex; align-items: center; gap: 1.25rem; margin-bottom: 2rem;
+}
+.pillar-header-icon {
+  width: 60px; height: 60px; border-radius: 16px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.pillar-header-icon svg { width: 30px; height: 30px; }
+.pillar-header-text h2 {
+  font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 2rem;
+  color: var(--color-heading); margin-bottom: .1rem;
+}
+.pillar-header-text .pillar-step {
+  font-size: .72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.step-c { color: #00D47E; } .step-o { color: #3B82F6; }
+.step-r { color: #F59E0B; } .step-e { color: #A855F7; }
+
+/* Two-column content */
+.pillar-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;
+}
+
+/* Question card (left) */
+.pillar-question {
+  border-radius: 16px; padding: 2rem;
+  position: relative; overflow: hidden;
+}
+.pq-dark {
+  background: var(--color-navy); color: #E8F5EF;
+}
+html.dark .pq-dark { background: #0A1630; }
+.pq-dark::before {
   content: ''; position: absolute; inset: 0;
   background-image: radial-gradient(rgba(255,255,255,.04) 1px, transparent 1px);
-  background-size: 24px 24px;
-  pointer-events: none;
+  background-size: 20px 20px; pointer-events: none;
 }
-.questions-section::after {
-  content: ''; position: absolute; top: -20%; right: -10%; width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(0,212,126,.08) 0%, transparent 70%);
-  pointer-events: none;
+.pq-label {
+  font-size: .7rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; margin-bottom: .75rem; position: relative; z-index: 1;
 }
-.questions-inner { max-width: 1060px; margin: 0 auto; position: relative; z-index: 1; }
-.questions-inner h2 { text-align: center; color: #E8F5EF; font-size: 2rem; margin-bottom: .5rem; }
-.questions-inner .section-subhead { text-align: center; color: rgba(200,216,208,.55); margin-bottom: 3rem; }
-.questions-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+.pq-c { color: #00D47E; } .pq-o { color: #60A5FA; } .pq-r { color: #FBBF24; } .pq-e { color: #C084FC; }
+.pillar-question h3 {
+  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.35rem;
+  line-height: 1.3; margin-bottom: .75rem; position: relative; z-index: 1;
+  color: #E8F5EF;
 }
-.question-card {
-  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
-  border-radius: 16px; padding: 1.75rem 1.5rem; text-align: center;
-  backdrop-filter: blur(4px);
-  transition: transform .25s, background .25s;
-  margin-top: 0;
+.pillar-question p {
+  font-size: .875rem; line-height: 1.7; position: relative; z-index: 1;
+  color: rgba(200,216,208,.7);
 }
-.question-card:nth-child(2) { margin-top: 1.5rem; }
-.question-card:nth-child(4) { margin-top: 1.5rem; }
-.question-card:hover { transform: translateY(-4px); background: rgba(255,255,255,.07); }
-.q-icon {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 52px; height: 52px; border-radius: 14px; margin-bottom: 1rem;
-}
-.q-icon svg { width: 26px; height: 26px; }
-.q-icon-c { background: rgba(0,212,126,.12); }
-.q-icon-o { background: rgba(59,130,246,.12); }
-.q-icon-r { background: rgba(245,158,11,.12); }
-.q-icon-e { background: rgba(168,85,247,.12); }
-.question-card h4 {
-  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: .88rem;
-  color: #E8F5EF; margin-bottom: .5rem; line-height: 1.35;
-}
-.question-card p { font-size: .78rem; color: rgba(200,216,208,.6); line-height: 1.6; }
 
-/* ── Build section: overlapping cards ── */
-.build-section {
-  padding: 5rem 2rem; max-width: 1060px; margin: 0 auto;
+/* Answer content (right) */
+.pillar-answer h4 {
+  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.1rem;
+  color: var(--color-heading); margin-bottom: .75rem;
 }
-.build-top { text-align: center; margin-bottom: 3rem; }
-.build-top h2 { font-size: 2rem; margin-bottom: .5rem; }
-.build-top p { font-size: .95rem; color: var(--color-muted); max-width: 720px; margin: 0 auto; line-height: 1.7; }
-.build-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
-.build-step {
-  background: var(--color-surface); border: 1px solid var(--color-border);
-  border-radius: 16px; padding: 2rem 1.5rem; text-align: center;
-  position: relative;
-  transition: transform .25s, box-shadow .25s;
+.pillar-answer p {
+  font-size: .9rem; color: var(--color-body); line-height: 1.75; margin-bottom: 1rem;
 }
-.build-step:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,.06); }
-html.dark .build-step:hover { box-shadow: 0 12px 36px rgba(0,0,0,.2); }
-.build-step::before {
-  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-  width: 40px; height: 3px; border-radius: 0 0 3px 3px;
+.pillar-highlights {
+  list-style: none; padding: 0; margin: 0 0 1.5rem;
 }
-.bs-c::before { background: #00D47E; } .bs-o::before { background: #3B82F6; }
-.bs-r::before { background: #F59E0B; } .bs-e::before { background: #A855F7; }
-.build-icon {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 52px; height: 52px; border-radius: 14px; margin-bottom: 1rem;
+.pillar-highlights li {
+  font-size: .84rem; color: var(--color-body); padding: .4rem 0 .4rem 1.5rem;
+  position: relative; line-height: 1.55;
 }
-.build-icon svg { width: 26px; height: 26px; }
-.build-icon-c { background: rgba(0,212,126,.08); }
-.build-icon-o { background: rgba(59,130,246,.08); }
-.build-icon-r { background: rgba(245,158,11,.08); }
-.build-icon-e { background: rgba(168,85,247,.08); }
-html.dark .build-icon-c { background: rgba(0,212,126,.15); }
-html.dark .build-icon-o { background: rgba(59,130,246,.15); }
-html.dark .build-icon-r { background: rgba(245,158,11,.15); }
-html.dark .build-icon-e { background: rgba(168,85,247,.15); }
-.build-step-num {
-  font-family: 'Outfit', sans-serif; font-weight: 800; font-size: .7rem;
-  text-transform: uppercase; letter-spacing: .08em; margin-bottom: .25rem;
+.pillar-highlights li::before {
+  content: ''; position: absolute; left: 0; top: .6rem;
+  width: 8px; height: 8px; border-radius: 50%;
 }
-.num-c { color: #00D47E; } .num-o { color: #3B82F6; } .num-r { color: #F59E0B; } .num-e { color: #A855F7; }
-.build-step h4 {
-  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: .95rem;
-  color: var(--color-heading); margin-bottom: .4rem;
+.hl-c li::before { background: #00D47E; } .hl-o li::before { background: #3B82F6; }
+.hl-r li::before { background: #F59E0B; } .hl-e li::before { background: #A855F7; }
+.pillar-link {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: 'Outfit', sans-serif; font-weight: 600; font-size: .9rem;
+  text-decoration: none; transition: gap .2s;
 }
-.build-step p { font-size: .8rem; color: var(--color-muted); line-height: 1.6; }
+.pillar-link:hover { gap: .75rem; }
+.link-c { color: #00D47E; } .link-o { color: #3B82F6; }
+.link-r { color: #F59E0B; } .link-e { color: #A855F7; }
+.link-c:hover { color: #00D47E; } .link-o:hover { color: #3B82F6; }
+.link-r:hover { color: #F59E0B; } .link-e:hover { color: #A855F7; }
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
@@ -243,20 +190,18 @@ html.dark .build-icon-e { background: rgba(168,85,247,.15); }
   .hero-text p { margin-left: auto; margin-right: auto; }
   .hero-badges { justify-content: center; }
   .hero-visual { display: none; }
-  .questions-grid { grid-template-columns: 1fr 1fr; }
-  .question-card:nth-child(2), .question-card:nth-child(4) { margin-top: 0; }
-  .build-steps { grid-template-columns: 1fr 1fr; }
+  .pillar-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
   .hero-text h1 { font-size: 2.5rem; }
-  .framework-row { flex-direction: column; gap: .75rem; align-items: flex-start; padding-left: 1.75rem; }
-  .framework-row::before { width: 4px; }
-  .framework-row:hover::before { width: 4px; }
+  .pillar-header-icon { width: 48px; height: 48px; border-radius: 12px; }
+  .pillar-header-icon svg { width: 24px; height: 24px; }
+  .pillar-header-text h2 { font-size: 1.6rem; }
+  .pillar-section { padding: 3.5rem 1.5rem; }
 }
 @media (max-width: 480px) {
   .hero-text h1 { font-size: 2rem; }
-  .questions-grid { grid-template-columns: 1fr; }
-  .build-steps { grid-template-columns: 1fr; }
+  .pillar-header { flex-direction: column; align-items: flex-start; gap: .75rem; }
 }
 
 /* ── Nav ── */
@@ -299,11 +244,11 @@ html.dark .build-icon-e { background: rgba(168,85,247,.15); }
   </div>
 </nav>
 
-<!-- Hero: split layout -->
+<!-- Hero -->
 <section class="page-hero">
   <div class="hero-split">
     <div class="hero-text">
-      <h1>The <span>CORE</span> Marketing System<span class="tm">&trade;</span></h1>
+      <h1>The <em>CORE</em> Marketing System<span class="tm">&trade;</span></h1>
       <p>A proven framework that answers the four questions Google and AI need to know about your therapy practice before they recommend you to potential clients.</p>
       <a href="https://msg.moonraker.ai/widget/bookings/moonraker-free-strategy-call" class="btn btn-primary" target="_blank" rel="noopener">Book a Free Strategy Call</a>
       <div class="hero-badges">
@@ -346,112 +291,129 @@ html.dark .build-icon-e { background: rgba(168,85,247,.15); }
   </div>
 </section>
 
-<!-- Framework Stack -->
-<section class="framework-section">
-  <div class="framework-intro">
-    <h2>Four Pillars, One Goal: Get Found and Get Booked</h2>
-    <p>Every recommendation that Google, Gemini, or ChatGPT makes about a therapy practice comes down to four simple questions. The CORE system answers each one, building on the last.</p>
-  </div>
-  <div class="framework-stack">
-    <a href="/core-marketing-system/credibility" class="framework-row row-c">
-      <div class="framework-icon icon-c"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L3.5 6.5V11.5C3.5 16.45 7.12 21.07 12 22C16.88 21.07 20.5 16.45 20.5 11.5V6.5L12 2Z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round" fill="rgba(255,255,255,.15)"/><path d="M8.5 12.5L10.5 14.5L15.5 9.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="framework-content">
-        <h3>Credibility</h3>
-        <div class="framework-subtitle sub-c">Prove That You Exist and Are Qualified</div>
-        <p>Before AI trusts your content, you need to prove your practice is real. We ground your identity across verified platforms, DNS records, directory listings, and social profiles so there's no question you're a legitimate, credentialed professional.</p>
+<!-- ═══════════ CREDIBILITY ═══════════ -->
+<section class="pillar-section">
+  <div class="pillar-inner">
+    <div class="pillar-header">
+      <div class="pillar-header-icon icon-c"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L3.5 6.5V11.5C3.5 16.45 7.12 21.07 12 22C16.88 21.07 20.5 16.45 20.5 11.5V6.5L12 2Z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round" fill="rgba(255,255,255,.15)"/><path d="M8.5 12.5L10.5 14.5L15.5 9.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="pillar-header-text">
+        <div class="pillar-step step-c">Pillar 1: Credibility</div>
+        <h2>Prove That You Exist and Are Qualified</h2>
       </div>
-      <div class="framework-arrow">&#8594;</div>
-    </a>
-    <a href="/core-marketing-system/optimization" class="framework-row row-o">
-      <div class="framework-icon icon-o"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="1.8" fill="rgba(255,255,255,.15)"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="1.8" fill="rgba(255,255,255,.15)"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="1.8" fill="rgba(255,255,255,.15)"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="1.8" fill="rgba(255,255,255,.15)"/><path d="M10 6.5H14M10 17.5H14M6.5 10V14M17.5 10V14" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".6"/></svg></div>
-      <div class="framework-content">
-        <h3>Optimization</h3>
-        <div class="framework-subtitle sub-o">Teach AI About Your Services</div>
-        <p>Once you're verified, we make it crystal clear what you treat, how you treat it, and where it happens. Custom service pages, schema markup, and structured content give AI the clarity it needs to recommend you with confidence.</p>
+    </div>
+    <div class="pillar-grid">
+      <div class="pillar-question pq-dark">
+        <div class="pq-label pq-c">The question AI asks</div>
+        <h3>"Does this practice actually exist?"</h3>
+        <p>Millions of new pages appear online every day, most generated by bots. Before Gemini, ChatGPT, or Google will recommend your practice, they need proof that you're real, located where you say you are, and that there's genuine human activity behind your website.</p>
       </div>
-      <div class="framework-arrow">&#8594;</div>
-    </a>
-    <a href="/core-marketing-system/reputation" class="framework-row row-r">
-      <div class="framework-icon icon-r"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.9 8.1L21.5 9L16.75 13.6L17.8 20.2L12 17.1L6.2 20.2L7.25 13.6L2.5 9L9.1 8.1L12 2Z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round" fill="rgba(255,255,255,.15)"/><circle cx="19" cy="5" r="2" fill="#fff" opacity=".5"/><circle cx="5" cy="5" r="1.2" fill="#fff" opacity=".35"/></svg></div>
-      <div class="framework-content">
-        <h3>Reputation</h3>
-        <div class="framework-subtitle sub-r">Prove You're an Expert and Amplify</div>
-        <p>Professional endorsements, multi-platform content distribution, YouTube, press releases, and Quora amplification build the trust signals that AI systems rely on when choosing who to recommend.</p>
-      </div>
-      <div class="framework-arrow">&#8594;</div>
-    </a>
-    <a href="/core-marketing-system/engagement" class="framework-row row-e">
-      <div class="framework-icon icon-e"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9.5" stroke="#fff" stroke-width="1.8" fill="rgba(255,255,255,.05)"/><circle cx="12" cy="12" r="6" stroke="#fff" stroke-width="1.5" fill="rgba(255,255,255,.1)"/><circle cx="12" cy="12" r="2.5" fill="#fff"/><path d="M19 5L14 10" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M17 5H19.5V7.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="framework-content">
-        <h3>Engagement</h3>
-        <div class="framework-subtitle sub-e">Guide Visitors Towards a Call</div>
-        <p>Visibility without conversion is wasted effort. We redesign your hero sections, optimize booking flows, and build clear paths that turn growing traffic into booked consultations.</p>
-      </div>
-      <div class="framework-arrow">&#8594;</div>
-    </a>
-  </div>
-</section>
-
-<!-- AI Questions -->
-<section class="questions-section">
-  <div class="questions-inner">
-    <h2>What AI Needs to Know About Your Practice</h2>
-    <p class="section-subhead">Millions of new pages appear online every day, most generated by bots. Google and AI platforms ask these four questions before recommending anyone.</p>
-    <div class="questions-grid">
-      <div class="question-card">
-        <div class="q-icon q-icon-c"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L3.5 6.5V11.5C3.5 16.45 7.12 21.07 12 22C16.88 21.07 20.5 16.45 20.5 11.5V6.5L12 2Z" stroke="#00D47E" stroke-width="1.8" stroke-linejoin="round" fill="rgba(0,212,126,.1)"/><path d="M8.5 12.5L10.5 14.5L15.5 9.5" stroke="#00D47E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h4>"Does this practice actually exist?"</h4>
-        <p>AI looks for verified signals across multiple platforms: DNS records, directory listings, social profiles, and real human activity.</p>
-      </div>
-      <div class="question-card">
-        <div class="q-icon q-icon-o"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="#3B82F6" stroke-width="1.8" fill="rgba(59,130,246,.1)"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="#3B82F6" stroke-width="1.8" fill="rgba(59,130,246,.1)"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="#3B82F6" stroke-width="1.8" fill="rgba(59,130,246,.1)"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="#3B82F6" stroke-width="1.8" fill="rgba(59,130,246,.1)"/></svg></div>
-        <h4>"What services do they provide?"</h4>
-        <p>AI needs explicit, structured information about what you treat, your modalities, and where you're licensed to practice.</p>
-      </div>
-      <div class="question-card">
-        <div class="q-icon q-icon-r"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.9 8.1L21.5 9L16.75 13.6L17.8 20.2L12 17.1L6.2 20.2L7.25 13.6L2.5 9L9.1 8.1L12 2Z" stroke="#F59E0B" stroke-width="1.8" stroke-linejoin="round" fill="rgba(245,158,11,.1)"/></svg></div>
-        <h4>"Are they actually good at it?"</h4>
-        <p>Professional endorsements from peers and supervisors carry more weight than reviews. AI looks for verifiable trust signals.</p>
-      </div>
-      <div class="question-card">
-        <div class="q-icon q-icon-e"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9.5" stroke="#A855F7" stroke-width="1.8" fill="rgba(168,85,247,.05)"/><circle cx="12" cy="12" r="6" stroke="#A855F7" stroke-width="1.5" fill="rgba(168,85,247,.08)"/><circle cx="12" cy="12" r="2.5" fill="#A855F7"/></svg></div>
-        <h4>"Can someone easily connect with them?"</h4>
-        <p>Clear calls to action and optimized conversion paths signal a practice that's ready for new clients.</p>
+      <div class="pillar-answer">
+        <h4>How we establish your identity</h4>
+        <p>We ground your practice to the real world through verified signals that bots simply cannot fake. Every platform we touch and every record we configure gives AI another data point confirming you're a legitimate, credentialed professional.</p>
+        <ul class="pillar-highlights hl-c">
+          <li>Google Workspace and DNS records (DKIM, DMARC) for domain verification</li>
+          <li>15 directory citations + 5 major data aggregators</li>
+          <li>Interconnected social profiles across up to 9 platforms (Rising Tide Strategy)</li>
+          <li>Entity Veracity Hub with cryptographic grounding (DID, KML)</li>
+          <li>Professional credentials, education, associations, and media linked on bio pages</li>
+        </ul>
+        <a href="/core-marketing-system/credibility" class="pillar-link link-c">Explore Credibility in detail &#8594;</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- How It Builds -->
-<section class="build-section">
-  <div class="build-top">
-    <h2>Each Pillar Builds on the Last</h2>
-    <p>The CORE system isn't a menu of services you pick from. It's a sequence. Each step creates the foundation the next one needs to succeed.</p>
+<!-- ═══════════ OPTIMIZATION ═══════════ -->
+<section class="pillar-section">
+  <div class="pillar-inner">
+    <div class="pillar-header">
+      <div class="pillar-header-icon icon-o"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="1.8" fill="rgba(255,255,255,.15)"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="1.8" fill="rgba(255,255,255,.15)"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="1.8" fill="rgba(255,255,255,.15)"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="#fff" stroke-width="1.8" fill="rgba(255,255,255,.15)"/><path d="M10 6.5H14M10 17.5H14M6.5 10V14M17.5 10V14" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".6"/></svg></div>
+      <div class="pillar-header-text">
+        <div class="pillar-step step-o">Pillar 2: Optimization</div>
+        <h2>Teach AI About Your Services</h2>
+      </div>
+    </div>
+    <div class="pillar-grid">
+      <div class="pillar-question pq-dark">
+        <div class="pq-label pq-o">The question AI asks</div>
+        <h3>"What services do they provide?"</h3>
+        <p>AI needs explicit, structured information about what you treat, the modalities you use, and where you're licensed to practice. A vague website with no clear service pages leads to vague (or zero) recommendations from Google and AI platforms.</p>
+      </div>
+      <div class="pillar-answer">
+        <h4>How we clarify your services</h4>
+        <p>We make it crystal clear what you treat, how you treat it, and where it happens. Custom service pages, structured data, and technical optimization give AI the clarity it needs to recommend you with confidence.</p>
+        <ul class="pillar-highlights hl-o">
+          <li>5 custom service pages with targeted HTML for your top specialties</li>
+          <li>Schema markup (LocalBusiness, FAQPage, Service, Person)</li>
+          <li>Dedicated bio pages with verifiable credentials and NPI links</li>
+          <li>Location pages and service-specific FAQ sections</li>
+          <li>Technical SEO: heading hierarchy, clean structure, instant.page</li>
+        </ul>
+        <a href="/core-marketing-system/optimization" class="pillar-link link-o">Explore Optimization in detail &#8594;</a>
+      </div>
+    </div>
   </div>
-  <div class="build-steps">
-    <div class="build-step bs-c">
-      <div class="build-icon build-icon-c"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L3.5 6.5V11.5C3.5 16.45 7.12 21.07 12 22C16.88 21.07 20.5 16.45 20.5 11.5V6.5L12 2Z" stroke="#00D47E" stroke-width="1.8" stroke-linejoin="round" fill="rgba(0,212,126,.08)"/><path d="M8.5 12.5L10.5 14.5L15.5 9.5" stroke="#00D47E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="build-step-num num-c">Step 1</div>
-      <h4>Establish Identity</h4>
-      <p>Verify your practice across platforms so AI knows you're real and qualified.</p>
+</section>
+
+<!-- ═══════════ REPUTATION ═══════════ -->
+<section class="pillar-section">
+  <div class="pillar-inner">
+    <div class="pillar-header">
+      <div class="pillar-header-icon icon-r"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.9 8.1L21.5 9L16.75 13.6L17.8 20.2L12 17.1L6.2 20.2L7.25 13.6L2.5 9L9.1 8.1L12 2Z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round" fill="rgba(255,255,255,.15)"/><circle cx="19" cy="5" r="2" fill="#fff" opacity=".5"/><circle cx="5" cy="5" r="1.2" fill="#fff" opacity=".35"/></svg></div>
+      <div class="pillar-header-text">
+        <div class="pillar-step step-r">Pillar 3: Reputation</div>
+        <h2>Prove You're an Expert and Amplify</h2>
+      </div>
     </div>
-    <div class="build-step bs-o">
-      <div class="build-icon build-icon-o"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="#3B82F6" stroke-width="1.8" fill="rgba(59,130,246,.08)"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="#3B82F6" stroke-width="1.8" fill="rgba(59,130,246,.08)"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="#3B82F6" stroke-width="1.8" fill="rgba(59,130,246,.08)"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="#3B82F6" stroke-width="1.8" fill="rgba(59,130,246,.08)"/></svg></div>
-      <div class="build-step-num num-o">Step 2</div>
-      <h4>Clarify Services</h4>
-      <p>Structure your content so AI understands exactly what you offer and where.</p>
+    <div class="pillar-grid">
+      <div class="pillar-question pq-dark">
+        <div class="pq-label pq-r">The question AI asks</div>
+        <h3>"Are they actually good at what they do?"</h3>
+        <p>Client testimonials are valuable, but their ethically sensitive nature makes professional endorsements a more reliable reputation signal. AI looks for verifiable trust signals distributed across authoritative platforms, not just star ratings on one site.</p>
+      </div>
+      <div class="pillar-answer">
+        <h4>How we build your authority</h4>
+        <p>Professional endorsements and multi-platform content distribution build the trust signals that AI systems rely on when deciding who to recommend. We amplify your reputation across the platforms AI actively monitors.</p>
+        <ul class="pillar-highlights hl-r">
+          <li>Professional endorsement strategy with verifiable colleague details</li>
+          <li>Social content distribution: 2 posts/month on GBP, Facebook, LinkedIn, Quora</li>
+          <li>YouTube endorsement slideshows (the #1 cited website in AI answers)</li>
+          <li>Quora Space amplification for high domain authority signals</li>
+          <li>Press release syndication to 500+ national and international news sites</li>
+        </ul>
+        <a href="/core-marketing-system/reputation" class="pillar-link link-r">Explore Reputation in detail &#8594;</a>
+      </div>
     </div>
-    <div class="build-step bs-r">
-      <div class="build-icon build-icon-r"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.9 8.1L21.5 9L16.75 13.6L17.8 20.2L12 17.1L6.2 20.2L7.25 13.6L2.5 9L9.1 8.1L12 2Z" stroke="#F59E0B" stroke-width="1.8" stroke-linejoin="round" fill="rgba(245,158,11,.08)"/></svg></div>
-      <div class="build-step-num num-r">Step 3</div>
-      <h4>Build Authority</h4>
-      <p>Distribute trust signals across platforms that AI actively monitors.</p>
+  </div>
+</section>
+
+<!-- ═══════════ ENGAGEMENT ═══════════ -->
+<section class="pillar-section">
+  <div class="pillar-inner">
+    <div class="pillar-header">
+      <div class="pillar-header-icon icon-e"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9.5" stroke="#fff" stroke-width="1.8" fill="rgba(255,255,255,.05)"/><circle cx="12" cy="12" r="6" stroke="#fff" stroke-width="1.5" fill="rgba(255,255,255,.1)"/><circle cx="12" cy="12" r="2.5" fill="#fff"/><path d="M19 5L14 10" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M17 5H19.5V7.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="pillar-header-text">
+        <div class="pillar-step step-e">Pillar 4: Engagement</div>
+        <h2>Guide Visitors Towards a Call</h2>
+      </div>
     </div>
-    <div class="build-step bs-e">
-      <div class="build-icon build-icon-e"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9.5" stroke="#A855F7" stroke-width="1.8" fill="rgba(168,85,247,.04)"/><circle cx="12" cy="12" r="6" stroke="#A855F7" stroke-width="1.5" fill="rgba(168,85,247,.06)"/><circle cx="12" cy="12" r="2.5" fill="#A855F7"/></svg></div>
-      <div class="build-step-num num-e">Step 4</div>
-      <h4>Convert Traffic</h4>
-      <p>Turn growing visibility into booked consultations with clear conversion paths.</p>
+    <div class="pillar-grid">
+      <div class="pillar-question pq-dark">
+        <div class="pq-label pq-e">The question AI asks</div>
+        <h3>"Can someone easily connect with them?"</h3>
+        <p>Visibility without conversion is wasted effort. A buried contact form or confusing booking flow tells AI that the user experience won't be good. Clear calls to action and optimized conversion paths signal a practice that's ready for new clients.</p>
+      </div>
+      <div class="pillar-answer">
+        <h4>How we convert your traffic</h4>
+        <p>We redesign your hero sections, optimize booking flows, and build clear paths that turn growing visibility into booked consultations with the clients who need you most.</p>
+        <ul class="pillar-highlights hl-e">
+          <li>Hero section redesign: emotionally compelling "Why" + clear "What" + direct CTA</li>
+          <li>Booking calendar optimization for maximum conversion</li>
+          <li>Engage AI Chatbot: HIPAA-compliant, answers visitor questions 24/7</li>
+          <li>Conversion rate optimization across all entry points</li>
+        </ul>
+        <a href="/core-marketing-system/engagement" class="pillar-link link-e">Explore Engagement in detail &#8594;</a>
+      </div>
     </div>
   </div>
 </section>
