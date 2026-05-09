@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Book a call - Moonraker</title>
-<meta name="description" content="Book a 30-minute call with Scott at Moonraker.">
-<meta property="og:title" content="Book a call - Moonraker">
-<meta property="og:description" content="Pick a time that works and we will send a confirmation with the Zoom link.">
+<title>Book a free strategy call - Moonraker</title>
+<meta name="description" content="Book a free 30-minute strategy call with Scott Pope at Moonraker. We help therapy practices grow visibility on Google, Gemini, and AI search engines.">
+<meta property="og:title" content="Book a free strategy call - Moonraker">
+<meta property="og:description" content="Book a 30-minute strategy session. We will walk you through what AI search engines see when they look at your practice.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://moonraker.ai/contact">
-<link rel="canonical" href="https://moonraker.ai/contact">
+<meta property="og:url" content="https://moonraker.ai/free-strategy-call">
+<link rel="canonical" href="https://moonraker.ai/free-strategy-call">
 <link rel="icon" href="/assets/logo.png" type="image/png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles/globals.css">
@@ -168,6 +168,16 @@
 .form-row.has-error textarea { border-color: var(--color-danger); }
 .form-row.has-error .err { display: block; }
 
+.toggle-row {
+  display: flex; align-items: center; gap: .65rem; padding: .85rem 1rem;
+  border: 1px solid var(--color-border); border-radius: 10px;
+  background: var(--color-bg); cursor: pointer; user-select: none;
+  margin-bottom: 1.5rem;
+}
+.toggle-row input { width: 18px; height: 18px; accent-color: var(--color-primary); flex-shrink: 0; }
+.toggle-row .toggle-text { font-size: .88rem; color: var(--color-body); line-height: 1.4; }
+.toggle-row strong { color: var(--color-heading); font-weight: 600; }
+
 .summary-box {
   background: var(--color-primary-subtle); border: 1px solid rgba(0,212,126,.25);
   border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1.5rem;
@@ -259,7 +269,7 @@
       <li><a href="/results">Results</a></li>
       <li><a href="/knowledge-base">Knowledge Base</a></li>
       <li><a href="/team">Team</a></li>
-      <li><a href="/contact" class="active">Contact</a></li>
+      <li><a href="/contact">Contact</a></li>
     </ul>
     <div class="nav-right">
       <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
@@ -270,8 +280,8 @@
 
 <div class="contact-wrap">
   <div class="contact-header">
-    <h1>Book a call</h1>
-    <p>Pick a time that works and we'll send a confirmation with the Zoom link.</p>
+    <h1>Book a free strategy call</h1>
+    <p>A focused 30 minute conversation with Scott. We will walk you through how your practice currently shows up across Google, ChatGPT, Perplexity, and the other AI engines that prospective clients use.</p>
   </div>
 
   <div class="tz-banner">
@@ -304,11 +314,11 @@
       <div id="timeGrid" class="time-grid"></div>
     </div>
 
-    <!-- Step 3: form (4 fields only) -->
+    <!-- Step 3: form -->
     <div class="booking-step" id="step3" hidden>
       <button type="button" class="step-back" onclick="goToStep(2)">Back to times</button>
       <h2>A few details</h2>
-      <p class="helper">Just a few details so we can send the calendar invite.</p>
+      <p class="helper">Helps Scott prep for the call so we can dive straight into your audit findings.</p>
 
       <div class="summary-box">
         <div class="summary-when" id="summaryWhen"></div>
@@ -332,15 +342,71 @@
           <div class="err">Please enter a valid email address.</div>
         </div>
         <div class="form-row">
-          <label for="practiceName">Practice or company name <span class="req">*</span></label>
+          <label for="phone">Phone <span class="req">*</span></label>
+          <input id="phone" type="tel" autocomplete="tel" required>
+          <div class="err">Please enter a phone number.</div>
+        </div>
+        <div class="form-row">
+          <label for="practiceName">Practice name <span class="req">*</span></label>
           <input id="practiceName" type="text" autocomplete="organization" required>
-          <div class="err">Please enter your practice or company name.</div>
+          <div class="err">Please enter your practice name.</div>
+        </div>
+        <div class="form-row">
+          <label for="websiteUrl">Practice website <span class="req">*</span></label>
+          <input id="websiteUrl" type="url" placeholder="https://yourpractice.com" autocomplete="url" required>
+          <div class="err">Please enter a valid website URL starting with https://.</div>
+        </div>
+        <div class="form-row full">
+          <label for="practiceAddress">Practice address <span class="req">*</span></label>
+          <input id="practiceAddress" type="text" autocomplete="address-line1" placeholder="Street address" required>
+          <div class="err">Please enter your practice street address.</div>
+        </div>
+        <div class="form-row full">
+          <label for="practiceAddress2">Suite, floor, or unit (optional)</label>
+          <input id="practiceAddress2" type="text" autocomplete="address-line2" placeholder="Suite 200">
+        </div>
+        <div class="form-row">
+          <label for="practiceCity">City</label>
+          <input id="practiceCity" type="text" autocomplete="address-level2">
+        </div>
+        <div class="form-row">
+          <label for="practiceState">State or province</label>
+          <input id="practiceState" type="text" autocomplete="address-level1">
+        </div>
+        <div class="form-row">
+          <label for="postalCode">Postal code</label>
+          <input id="postalCode" type="text" autocomplete="postal-code">
+        </div>
+        <div class="form-row">
+          <label for="country">Country</label>
+          <input id="country" type="text" autocomplete="country-name" placeholder="e.g. United States">
+        </div>
+        <div class="form-row">
+          <label for="hasGbp">Do you have a Google Business Profile?</label>
+          <select id="hasGbp">
+            <option value="">Select...</option>
+            <option value="yes">Yes</option>
+            <option value="no">Not yet</option>
+            <option value="unsure">Not sure</option>
+          </select>
+        </div>
+        <div class="form-row" id="gbpLinkRow" style="display:none;">
+          <label for="gbpLink">Google Business Profile link</label>
+          <input id="gbpLink" type="url" placeholder="https://maps.app.goo.gl/...">
+        </div>
+        <div class="form-row full">
+          <label for="referralSource">How did you hear about Moonraker?</label>
+          <input id="referralSource" type="text" placeholder="A colleague, podcast, search, etc.">
+        </div>
+        <div class="form-row full">
+          <label for="notes">Anything you'd like Scott to know in advance?</label>
+          <textarea id="notes" rows="3" placeholder="Optional"></textarea>
         </div>
       </div>
 
       <div class="submit-row">
         <button type="button" class="btn btn-ghost" onclick="goToStep(2)">Back</button>
-        <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitBooking()">Book the call</button>
+        <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitBooking()">Confirm booking</button>
       </div>
       <div id="formError" class="error-state" style="display:none;"></div>
     </div>
@@ -391,8 +457,8 @@ window.toggleTheme = function () {
 
   var state = {
     tz: null,
-    slots: [],
-    daysIndex: {},
+    slots: [],          // raw slots from API
+    daysIndex: {},      // attendee_date -> array of slots
     selectedDate: null,
     selectedSlot: null,
     booking: null
@@ -414,9 +480,10 @@ window.toggleTheme = function () {
 
   function fmtAdelaide(iso) {
     var d = new Date(iso);
-    return new Intl.DateTimeFormat('en-US', {
+    var time = new Intl.DateTimeFormat('en-US', {
       timeZone: 'Australia/Adelaide', hour: 'numeric', minute: '2-digit', hour12: true
     }).format(d);
+    return time;
   }
 
   function populateTzPicker(currentTz) {
@@ -492,6 +559,7 @@ window.toggleTheme = function () {
       dateStrip.innerHTML = '<div class="empty-state">No openings in the next three weeks. Please email <a href="mailto:scott@moonraker.ai">scott@moonraker.ai</a> and we will find a time.</div>';
       return;
     }
+    // Order by the underlying UTC of each day's first slot.
     dates.sort(function (a, b) {
       return new Date(state.daysIndex[a][0].start_utc) -
         new Date(state.daysIndex[b][0].start_utc);
@@ -500,14 +568,20 @@ window.toggleTheme = function () {
     dates.forEach(function (d) {
       var slot0 = state.daysIndex[d][0];
       var dateObj = new Date(slot0.start_utc);
-      var weekday = new Intl.DateTimeFormat('en-US', { timeZone: state.tz, weekday: 'short' }).format(dateObj);
-      var dayNum  = new Intl.DateTimeFormat('en-US', { timeZone: state.tz, day: 'numeric' }).format(dateObj);
-      var month   = new Intl.DateTimeFormat('en-US', { timeZone: state.tz, month: 'short' }).format(dateObj);
+      var weekday = new Intl.DateTimeFormat('en-US', {
+        timeZone: state.tz, weekday: 'short'
+      }).format(dateObj);
+      var dayNum = new Intl.DateTimeFormat('en-US', {
+        timeZone: state.tz, day: 'numeric'
+      }).format(dateObj);
+      var monthShort = new Intl.DateTimeFormat('en-US', {
+        timeZone: state.tz, month: 'short'
+      }).format(dateObj);
       var count = state.daysIndex[d].length;
       html += '<button type="button" class="date-pill" data-date="' + d + '">' +
         '<div class="date-weekday">' + weekday + '</div>' +
         '<div class="date-day">' + dayNum + '</div>' +
-        '<div class="date-month">' + month + '</div>' +
+        '<div class="date-month">' + monthShort + '</div>' +
         '<div class="date-count">' + count + ' open</div>' +
         '</button>';
     });
@@ -577,6 +651,10 @@ window.toggleTheme = function () {
     window.scrollTo({ top: document.querySelector('.booking-workspace').offsetTop - 24, behavior: 'smooth' });
   };
 
+  document.getElementById('hasGbp').addEventListener('change', function (e) {
+    document.getElementById('gbpLinkRow').style.display = e.target.value === 'yes' ? '' : 'none';
+  });
+
   function setError(rowId, has) {
     document.getElementById(rowId).closest('.form-row').classList.toggle('has-error', has);
   }
@@ -584,10 +662,13 @@ window.toggleTheme = function () {
   function validate() {
     var ok = true;
     var checks = [
-      ['firstName',    function (v) { return v.trim().length > 0; }],
-      ['lastName',     function (v) { return v.trim().length > 0; }],
-      ['email',        function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }],
-      ['practiceName', function (v) { return v.trim().length > 0; }]
+      ['firstName',       function (v) { return v.trim().length > 0; }],
+      ['lastName',        function (v) { return v.trim().length > 0; }],
+      ['email',           function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }],
+      ['phone',           function (v) { return v.trim().length >= 6; }],
+      ['practiceName',    function (v) { return v.trim().length > 0; }],
+      ['websiteUrl',      function (v) { return /^https?:\/\/.+\..+/.test(v.trim()); }],
+      ['practiceAddress', function (v) { return v.trim().length > 0; }]
     ];
     checks.forEach(function (c) {
       var el = document.getElementById(c[0]);
@@ -608,16 +689,28 @@ window.toggleTheme = function () {
     document.getElementById('formError').style.display = 'none';
 
     var payload = {
-      first_name:         document.getElementById('firstName').value.trim(),
-      last_name:          document.getElementById('lastName').value.trim(),
-      email:              document.getElementById('email').value.trim(),
-      practice_name:      document.getElementById('practiceName').value.trim(),
-      attendee_time_zone: state.tz,
-      start_at:           state.selectedSlot.start_utc,
-      source:             'quick_book'
+      attendee_first_name:    document.getElementById('firstName').value.trim(),
+      attendee_last_name:     document.getElementById('lastName').value.trim(),
+      attendee_email:         document.getElementById('email').value.trim(),
+      attendee_phone:         document.getElementById('phone').value.trim(),
+      attendee_time_zone:     state.tz,
+      practice_name:          document.getElementById('practiceName').value.trim(),
+      website_url:            document.getElementById('websiteUrl').value.trim(),
+      practice_address:       document.getElementById('practiceAddress').value.trim(),
+      practice_address_line2: document.getElementById('practiceAddress2').value.trim() || null,
+      practice_city:          document.getElementById('practiceCity').value.trim() || null,
+      practice_state:         document.getElementById('practiceState').value.trim() || null,
+      postal_code:            document.getElementById('postalCode').value.trim() || null,
+      country:                document.getElementById('country').value.trim() || null,
+      has_gbp:                document.getElementById('hasGbp').value === 'yes',
+      gbp_link:               document.getElementById('gbpLink').value.trim() || null,
+      referral_source:        document.getElementById('referralSource').value.trim() || null,
+      start_at:               state.selectedSlot.start_utc,
+      notes:                  document.getElementById('notes').value.trim() || null,
+      source:                 'free_strategy_call'
     };
 
-    fetch(API_ROOT + '/api/booking/quick-book', {
+    fetch(API_ROOT + '/api/booking/create-with-audit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
@@ -625,10 +718,11 @@ window.toggleTheme = function () {
       .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b, status: r.status }; }); })
       .then(function (res) {
         btn.disabled = false;
-        btn.innerHTML = 'Book the call';
+        btn.innerHTML = 'Confirm booking';
         if (!res.ok) {
           var msg = (res.body && res.body.error) || 'Booking failed. Please try again.';
           if (res.status === 409) {
+            // Slot disappeared. Reload availability.
             msg = 'That time was taken while you were filling in the form. Please pick another.';
             loadAvailability();
             goToStep(1);
@@ -643,7 +737,7 @@ window.toggleTheme = function () {
       })
       .catch(function () {
         btn.disabled = false;
-        btn.innerHTML = 'Book the call';
+        btn.innerHTML = 'Confirm booking';
         document.getElementById('formError').textContent = 'Network error. Please try again.';
         document.getElementById('formError').style.display = 'block';
       });
@@ -663,7 +757,7 @@ window.toggleTheme = function () {
         '<span class="detail-value"><a href="' + state.booking.meeting_link + '" target="_blank" rel="noopener">Join link</a></span></div>';
     }
     html += '<div class="detail-row"><span class="detail-label">Confirmation sent to</span>' +
-      '<span class="detail-value">' + payload.email + '</span></div>';
+      '<span class="detail-value">' + payload.attendee_email + '</span></div>';
     document.getElementById('confirmDetails').innerHTML = html;
   }
 
@@ -671,12 +765,6 @@ window.toggleTheme = function () {
     state.tz = detectTz();
     document.getElementById('tzLabel').textContent = state.tz + ', ' + fmtTzAbbr(state.tz);
     populateTzPicker(state.tz);
-    // Pre-fill email from ?email= query param (audit-email CTAs do this).
-    try {
-      var p = new URLSearchParams(window.location.search);
-      var e = p.get('email');
-      if (e) document.getElementById('email').value = e;
-    } catch (ex) {}
     loadAvailability();
   }
 
