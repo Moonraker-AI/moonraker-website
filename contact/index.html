@@ -294,7 +294,24 @@
   </div>
 </div>
 
-<div class="booking-workspace">
+<div id="gateView" class="booking-workspace" hidden>
+  <div class="booking-card" style="padding:3rem 2rem;text-align:center;">
+    <div style="font-size:2.25rem;margin-bottom:1rem;">&#128274;</div>
+    <h2 style="font-family:'Outfit',sans-serif;font-size:1.5rem;margin-bottom:.75rem;">Strategy calls are by invitation</h2>
+    <p style="color:var(--color-muted);max-width:560px;margin:0 auto 1.5rem;line-height:1.65;">
+      Scott takes a small number of strategy calls each week, reserved for therapy practices that have completed our free entity audit so we can come prepared with real findings about your visibility.
+    </p>
+    <p style="color:var(--color-muted);max-width:560px;margin:0 auto 2rem;line-height:1.65;">
+      The audit is genuinely free, takes about two minutes to request, and we will be in touch with a booking link once your scorecard is ready.
+    </p>
+    <a href="https://clients.moonraker.ai/entity-audit" class="btn btn-primary" style="text-decoration:none;">Start your free entity audit</a>
+    <p style="color:var(--color-muted);font-size:.78rem;margin-top:1.5rem;">
+      Already have an invitation? Make sure the link from our email is intact, including the part after <code style="font-family:ui-monospace,monospace;background:var(--color-bg);padding:.1rem .3rem;border-radius:4px;">?invite=</code>
+    </p>
+  </div>
+</div>
+
+<div id="bookingWorkspace" class="booking-workspace" hidden>
   <div class="booking-card">
 
     <!-- Step 1: pick date -->
@@ -520,7 +537,8 @@ window.toggleTheme = function () {
       body: JSON.stringify({
         from_date: fmtDate(fromDate),
         to_date: fmtDate(toDate),
-        attendee_time_zone: state.tz
+        attendee_time_zone: state.tz,
+        invite_token: state.inviteToken
       })
     })
       .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b }; }); })
@@ -696,7 +714,8 @@ window.toggleTheme = function () {
       is_existing_client:  document.getElementById('isExistingClient').checked,
       start_at:            state.selectedSlot.start_utc,
       notes:               document.getElementById('notes').value.trim() || null,
-      source:              'moonraker_website_contact'
+      source:              'moonraker_website_contact',
+      invite_token:        state.inviteToken
     };
 
     fetch(API_ROOT + '/api/booking/create', {
@@ -750,11 +769,59 @@ window.toggleTheme = function () {
     document.getElementById('confirmDetails').innerHTML = html;
   }
 
-  // Bootstrap
-  state.tz = detectTz();
-  document.getElementById('tzLabel').textContent = state.tz + ', ' + fmtTzAbbr(state.tz);
-  populateTzPicker(state.tz);
-  loadAvailability();
+  function getInviteToken() {
+    var params = new URLSearchParams(window.location.search);
+    return params.get('invite') || '';
+  }
+
+  function showGate() {
+    document.getElementById('gateView').removeAttribute('hidden');
+    document.getElementById('bookingWorkspace').setAttribute('hidden', '');
+  }
+
+  function showWorkspace() {
+    document.getElementById('gateView').setAttribute('hidden', '');
+    document.getElementById('bookingWorkspace').removeAttribute('hidden');
+  }
+
+  function applyPrefill(p) {
+    if (!p) return;
+    if (p.first_name) document.getElementById('firstName').value = p.first_name;
+    if (p.last_name)  document.getElementById('lastName').value = p.last_name;
+    if (p.email)      document.getElementById('email').value = p.email;
+    if (p.phone)      document.getElementById('phone').value = p.phone;
+    if (p.practice_name)         document.getElementById('practiceName').value = p.practice_name;
+    if (p.website_url)           document.getElementById('websiteUrl').value = p.website_url;
+    if (p.practice_address)      document.getElementById('practiceAddress').value = p.practice_address;
+    if (p.practice_city)         document.getElementById('practiceCity').value = p.practice_city;
+    if (p.practice_state)        document.getElementById('practiceState').value = p.practice_state;
+  }
+
+  function verifyInviteAndStart() {
+    state.inviteToken = getInviteToken();
+    if (!state.inviteToken) { showGate(); return; }
+
+    fetch(API_ROOT + '/api/booking/verify-invite?token=' + encodeURIComponent(state.inviteToken))
+      .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b }; }); })
+      .then(function (res) {
+        if (!res.ok) { showGate(); return; }
+        state.contactId = res.body.contact_id;
+        state.isExistingClient = !!res.body.is_existing_client;
+        applyPrefill(res.body.prefill);
+        if (state.isExistingClient) {
+          document.getElementById('isExistingClient').checked = true;
+        }
+        showWorkspace();
+
+        state.tz = detectTz();
+        document.getElementById('tzLabel').textContent = state.tz + ', ' + fmtTzAbbr(state.tz);
+        populateTzPicker(state.tz);
+        loadAvailability();
+      })
+      .catch(function () { showGate(); });
+  }
+
+  verifyInviteAndStart();
 })();
 </script>
 </body>
