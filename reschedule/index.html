@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reschedule your call - Moonraker</title>
+<meta name="description" content="Pick a new time for your strategy call with Scott.">
+<meta name="robots" content="noindex,nofollow">
+<meta property="og:title" content="Reschedule your call - Moonraker">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://moonraker.ai/reschedule">
+<link rel="icon" href="/assets/logo.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles/globals.css">
+<script>
+(function(){var t=localStorage.getItem('moonraker-theme');if(t==='dark')document.documentElement.classList.add('dark')})();
+</script>
+<style>
+/* Page-specific styles. Mirrors the booking page so the reschedule
+   experience feels like a continuation, not a separate flow. */
+
+.contact-wrap {
+  background: linear-gradient(165deg, var(--color-primary-subtle) 0%, var(--color-bg) 60%);
+  border-bottom: 1px solid var(--color-border);
+  padding: 3rem 2rem 2rem;
+}
+.contact-header { max-width: 720px; margin: 0 auto; text-align: center; }
+.contact-header h1 {
+  font-family: 'Outfit', sans-serif; font-weight: 800;
+  font-size: 2.5rem; line-height: 1.15; color: var(--color-heading);
+  margin-bottom: 1rem; letter-spacing: -.01em;
+}
+.contact-header p {
+  font-size: 1rem; color: var(--color-muted);
+  line-height: 1.65; margin-bottom: 1.5rem;
+}
+
+.current-banner {
+  max-width: 720px; margin: 1rem auto 0;
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: 12px; padding: 1rem 1.25rem;
+  display: flex; gap: 1rem; align-items: center;
+  font-size: .9rem; color: var(--color-body); line-height: 1.5;
+  text-align: left;
+}
+.current-banner-icon { font-size: 1.25rem; flex-shrink: 0; }
+.current-banner strong { color: var(--color-heading); font-weight: 600; }
+
+.tz-banner {
+  max-width: 720px; margin: 1rem auto 0;
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: 12px; padding: 1rem 1.25rem;
+  display: flex; gap: 1rem; align-items: center;
+  font-size: .85rem; color: var(--color-body); line-height: 1.5;
+  text-align: left;
+}
+.tz-banner-icon { font-size: 1.25rem; flex-shrink: 0; }
+.tz-banner strong { color: var(--color-heading); font-weight: 600; }
+.tz-banner select {
+  margin-top: .35rem; font-family: inherit; font-size: .82rem;
+  padding: .3rem .5rem; border: 1px solid var(--color-border);
+  border-radius: 6px; background: var(--color-bg); color: var(--color-body);
+}
+
+.booking-workspace { max-width: 720px; margin: 0 auto; padding: 2rem; }
+.booking-card {
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: 14px; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,.04);
+}
+.booking-step h2 {
+  font-family: 'Outfit', sans-serif; font-weight: 700;
+  font-size: 1.4rem; color: var(--color-heading); margin: 0 0 .35rem;
+}
+.booking-step .helper {
+  color: var(--color-muted); font-size: .9rem; margin: 0 0 1.25rem;
+}
+.step-back {
+  display: inline-block; background: none; border: none; padding: 0;
+  color: var(--color-primary); font-size: .85rem; cursor: pointer;
+  margin-bottom: .75rem; font-family: inherit;
+}
+
+.date-strip {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: .6rem;
+}
+.date-pill {
+  background: var(--color-bg); border: 1px solid var(--color-border);
+  border-radius: 10px; padding: .75rem .5rem; cursor: pointer;
+  text-align: center; font-family: inherit; transition: all .15s;
+}
+.date-pill:hover {
+  border-color: var(--color-primary); background: var(--color-primary-subtle);
+}
+.date-pill.selected {
+  border-color: var(--color-primary); background: var(--color-primary-subtle);
+}
+.date-weekday { font-size: .72rem; color: var(--color-muted); text-transform: uppercase; letter-spacing: .04em; }
+.date-day     { font-size: 1.5rem; font-weight: 700; color: var(--color-heading); line-height: 1.1; }
+.date-month   { font-size: .8rem; color: var(--color-body); }
+.date-count   { font-size: .7rem; color: var(--color-muted); margin-top: .35rem; }
+
+.time-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: .6rem;
+}
+.time-pill {
+  background: var(--color-bg); border: 1px solid var(--color-border);
+  border-radius: 8px; padding: .65rem .5rem; cursor: pointer;
+  text-align: center; font-family: inherit; transition: all .15s;
+}
+.time-pill:hover {
+  border-color: var(--color-primary); background: var(--color-primary-subtle);
+}
+.t-main { font-weight: 600; color: var(--color-heading); }
+.t-sub  { font-size: .72rem; color: var(--color-muted); margin-top: .15rem; }
+
+.summary-box {
+  background: var(--color-primary-subtle); border: 1px solid var(--color-primary);
+  border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+}
+.summary-when { font-weight: 600; color: var(--color-heading); }
+.summary-sub  { color: var(--color-body); font-size: .85rem; margin-top: .25rem; }
+
+.submit-row {
+  display: flex; justify-content: space-between; gap: .75rem; margin-top: 1.5rem;
+}
+.btn {
+  font-family: inherit; font-size: .92rem; padding: .65rem 1.25rem;
+  border-radius: 8px; cursor: pointer; transition: all .15s;
+  border: 1px solid var(--color-border); background: var(--color-bg);
+  color: var(--color-body);
+}
+.btn-primary {
+  background: var(--color-primary); color: #fff; border-color: var(--color-primary);
+}
+.btn-primary:disabled { opacity: .6; cursor: not-allowed; }
+.btn-ghost { background: transparent; }
+
+.spinner {
+  display: inline-block; width: 14px; height: 14px;
+  border: 2px solid rgba(255,255,255,.3); border-top-color: #fff;
+  border-radius: 50%; animation: spin .7s linear infinite;
+  vertical-align: -2px; margin-right: .35rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-state, .empty-state, .error-state {
+  text-align: center; padding: 2rem 1rem; color: var(--color-muted);
+}
+.error-state {
+  background: rgba(239,68,68,.08); border: 1px solid rgba(239,68,68,.2);
+  border-radius: 8px; color: #b91c1c; font-size: .88rem;
+}
+
+.confirm-icon {
+  width: 56px; height: 56px; margin: 0 auto 1rem;
+  border-radius: 50%; background: var(--color-primary-subtle);
+  color: var(--color-primary); font-size: 1.75rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.confirm-details {
+  background: var(--color-bg); border: 1px solid var(--color-border);
+  border-radius: 10px; padding: 1rem 1.25rem; margin: 1.25rem 0;
+}
+.detail-row {
+  display: flex; justify-content: space-between; padding: .35rem 0;
+  font-size: .9rem;
+}
+.detail-row + .detail-row { border-top: 1px solid var(--color-border); }
+.detail-label { color: var(--color-muted); }
+.detail-value { color: var(--color-heading); font-weight: 500; }
+
+.confirm { text-align: center; }
+
+@media (max-width: 600px) {
+  .contact-wrap { padding: 2rem 1rem; }
+  .contact-header h1 { font-size: 1.85rem; }
+  .booking-workspace { padding: 1rem; }
+  .booking-card { padding: 1.5rem 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav (matches book-a-call/index.html) -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand"><img src="/assets/logo.png" alt="Moonraker" width="32" height="32"></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li class="nav-dropdown">
+        <a href="/core-marketing-system">CORE System</a>
+        <div class="dropdown-menu">
+          <a href="/core-marketing-system">Overview</a>
+          <a href="/core-marketing-system/credibility">Credibility</a>
+          <a href="/core-marketing-system/optimization">Optimization</a>
+          <a href="/core-marketing-system/reputation">Reputation</a>
+          <a href="/core-marketing-system/engagement">Engagement</a>
+        </div>
+      </li>
+      <li><a href="/results">Results</a></li>
+      <li><a href="/knowledge-base">Knowledge Base</a></li>
+      <li><a href="/team">Team</a></li>
+      <li><a href="/free-strategy-call">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
+      <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+    </div>
+  </div>
+</nav>
+
+<div class="contact-wrap">
+  <div class="contact-header">
+    <h1>Reschedule your call</h1>
+    <p>Pick a new time for your strategy call with Scott. We'll move the calendar invite and send a fresh confirmation.</p>
+  </div>
+
+  <div class="current-banner" id="currentBanner" hidden>
+    <span class="current-banner-icon">&#128197;</span>
+    <div>
+      <div><strong>Currently scheduled for</strong> <span id="currentWhen"></span></div>
+      <div style="margin-top:.25rem;color:var(--color-muted);">Picking a new time below replaces this booking.</div>
+    </div>
+  </div>
+
+  <div class="tz-banner">
+    <span class="tz-banner-icon">&#127758;</span>
+    <div>
+      <div><strong>Scott is based in Adelaide, Australia</strong> and takes new client calls Tuesday through Thursday, 9 AM to 5 PM local time.</div>
+      <div style="margin-top:.35rem;color:var(--color-muted);">All times below are shown in your local zone (<span id="tzLabel">detecting...</span>).</div>
+      <div style="margin-top:.35rem;">Wrong zone? <select id="tzPicker"></select></div>
+    </div>
+  </div>
+</div>
+
+<div id="bookingWorkspace" class="booking-workspace">
+  <div class="booking-card">
+
+    <!-- Token / link error state -->
+    <div class="booking-step" id="stepError" hidden>
+      <h2>This reschedule link is no longer valid.</h2>
+      <p class="helper">Reschedule links expire 14 days after they're sent, and each booking can only be rescheduled once. Please email <a href="mailto:scott@moonraker.ai">scott@moonraker.ai</a> if you need help moving your call.</p>
+    </div>
+
+    <!-- Step 1: pick date -->
+    <div class="booking-step" id="step1" data-active="true">
+      <h2>Pick a new day</h2>
+      <p class="helper">Available days are when Scott has open time over the next three weeks.</p>
+      <div id="dateStrip" class="date-strip">
+        <div class="loading-state">Loading availability...</div>
+      </div>
+    </div>
+
+    <!-- Step 2: pick time -->
+    <div class="booking-step" id="step2" hidden>
+      <button type="button" class="step-back" onclick="goToStep(1)">Back to dates</button>
+      <h2 id="step2Title">Pick a time</h2>
+      <p class="helper">Same call length and same host. We'll just move the time.</p>
+      <div id="timeGrid" class="time-grid"></div>
+    </div>
+
+    <!-- Step 3: confirm + submit -->
+    <div class="booking-step" id="step3" hidden>
+      <button type="button" class="step-back" onclick="goToStep(2)">Back to times</button>
+      <h2>Confirm your new time</h2>
+      <p class="helper">We'll move the calendar invite and email you a fresh confirmation.</p>
+
+      <div class="summary-box">
+        <div class="summary-when" id="summaryWhen"></div>
+        <div class="summary-sub" id="summarySub"></div>
+      </div>
+
+      <div class="submit-row">
+        <button type="button" class="btn btn-ghost" onclick="goToStep(2)">Back</button>
+        <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitReschedule()">Confirm new time</button>
+      </div>
+      <div id="formError" class="error-state" style="display:none;"></div>
+    </div>
+
+    <!-- Step 4: confirmation -->
+    <div class="booking-step confirm" id="step4" hidden>
+      <div class="confirm-icon">&#10003;</div>
+      <h2>Your call is moved.</h2>
+      <p>A fresh confirmation email is on its way and the calendar invite has been updated.</p>
+      <div class="confirm-details" id="confirmDetails"></div>
+      <p style="font-size:.82rem;color:var(--color-muted);">Need to change anything else? Reply to the confirmation email and we will sort it.</p>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/core-marketing-system">CORE System</a>
+    <a href="/results">Results</a>
+    <a href="/knowledge-base">Knowledge Base</a>
+    <a href="/team">Team</a>
+    <a href="/free-strategy-call">Contact</a>
+  </div>
+  <div class="footer-copy">&#169; 2026 Moonraker AI. All rights reserved.</div>
+</footer>
+
+<script>
+window.toggleTheme = function () {
+  function apply() {
+    var dark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('moonraker-theme', dark ? 'dark' : 'light');
+    document.getElementById('themeBtn').innerHTML = dark ? '&#9728;&#65039;' : '&#127769;';
+  }
+  if (document.startViewTransition) document.startViewTransition(apply);
+  else apply();
+};
+(function () {
+  document.getElementById('themeBtn').innerHTML =
+    document.documentElement.classList.contains('dark') ? '&#9728;&#65039;' : '&#127769;';
+})();
+
+(function () {
+  'use strict';
+
+  var API_ROOT = 'https://clients.moonraker.ai';
+
+  var state = {
+    bookingId: null,
+    token: null,
+    fromIso: null,
+    tz: null,
+    slots: [],
+    daysIndex: {},
+    selectedDate: null,
+    selectedSlot: null,
+    booking: null
+  };
+
+  function detectTz() {
+    try { return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'; }
+    catch (e) { return 'UTC'; }
+  }
+
+  function fmtTzAbbr(tz) {
+    try {
+      var parts = new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName: 'short' })
+        .formatToParts(new Date());
+      var n = parts.find(function (p) { return p.type === 'timeZoneName'; });
+      return (n && n.value) || tz;
+    } catch (e) { return tz; }
+  }
+
+  function fmtAdelaide(iso) {
+    var d = new Date(iso);
+    return new Intl.DateTimeFormat('en-US', {
+      timeZone: 'Australia/Adelaide', hour: 'numeric', minute: '2-digit', hour12: true
+    }).format(d);
+  }
+
+  function fmtFriendly(iso, tz) {
+    try {
+      var d = new Date(iso);
+      var date = new Intl.DateTimeFormat('en-US', {
+        timeZone: tz, weekday: 'long', month: 'long', day: 'numeric'
+      }).format(d);
+      var time = new Intl.DateTimeFormat('en-US', {
+        timeZone: tz, hour: 'numeric', minute: '2-digit', hour12: true
+      }).format(d);
+      return date + ' at ' + time + ' (' + fmtTzAbbr(tz) + ')';
+    } catch (e) { return iso; }
+  }
+
+  function populateTzPicker(currentTz) {
+    var common = [
+      'America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles',
+      'America/Toronto', 'America/Vancouver',
+      'Europe/London', 'Europe/Dublin', 'Europe/Paris', 'Europe/Berlin', 'Europe/Madrid',
+      'Australia/Adelaide', 'Australia/Sydney', 'Australia/Perth', 'Australia/Brisbane',
+      'Pacific/Auckland', 'Asia/Singapore', 'Africa/Johannesburg', 'UTC'
+    ];
+    if (common.indexOf(currentTz) === -1) common.unshift(currentTz);
+    var sel = document.getElementById('tzPicker');
+    common.forEach(function (tz) {
+      var opt = document.createElement('option');
+      opt.value = tz;
+      opt.textContent = tz + ' (' + fmtTzAbbr(tz) + ')';
+      if (tz === currentTz) opt.selected = true;
+      sel.appendChild(opt);
+    });
+    sel.addEventListener('change', function (e) {
+      state.tz = e.target.value;
+      document.getElementById('tzLabel').textContent = state.tz + ', ' + fmtTzAbbr(state.tz);
+      if (state.fromIso) {
+        document.getElementById('currentWhen').textContent = fmtFriendly(state.fromIso, state.tz);
+      }
+      loadAvailability();
+    });
+  }
+
+  function showErrorState(message) {
+    [1, 2, 3, 4].forEach(function (i) {
+      var el = document.getElementById('step' + i);
+      if (el) el.setAttribute('hidden', '');
+    });
+    var err = document.getElementById('stepError');
+    if (message) {
+      var helper = err.querySelector('.helper');
+      if (helper) helper.textContent = message;
+    }
+    err.removeAttribute('hidden');
+  }
+
+  function loadAvailability() {
+    var dateStrip = document.getElementById('dateStrip');
+    dateStrip.innerHTML = '<div class="loading-state">Loading availability...</div>';
+
+    var fromDate = new Date();
+    var toDate = new Date(fromDate.getTime() + 22 * 24 * 3600 * 1000);
+    var fmtDate = function (d) {
+      return d.getFullYear() + '-' +
+        String(d.getMonth() + 1).padStart(2, '0') + '-' +
+        String(d.getDate()).padStart(2, '0');
+    };
+
+    fetch(API_ROOT + '/api/booking/availability', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from_date: fmtDate(fromDate),
+        to_date: fmtDate(toDate),
+        attendee_time_zone: state.tz
+      })
+    })
+      .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b }; }); })
+      .then(function (res) {
+        if (!res.ok) {
+          dateStrip.innerHTML = '<div class="error-state">' +
+            (res.body && res.body.error ? res.body.error : 'Unable to load availability') +
+            '</div>';
+          return;
+        }
+        state.slots = res.body.slots || [];
+        state.daysIndex = {};
+        state.slots.forEach(function (s) {
+          if (!state.daysIndex[s.attendee_date]) state.daysIndex[s.attendee_date] = [];
+          state.daysIndex[s.attendee_date].push(s);
+        });
+        renderDates();
+      })
+      .catch(function () {
+        dateStrip.innerHTML = '<div class="error-state">Unable to reach the booking service. Please refresh and try again.</div>';
+      });
+  }
+
+  function renderDates() {
+    var dateStrip = document.getElementById('dateStrip');
+    var dates = Object.keys(state.daysIndex);
+    if (dates.length === 0) {
+      dateStrip.innerHTML = '<div class="empty-state">No openings in the next three weeks. Please email <a href="mailto:scott@moonraker.ai">scott@moonraker.ai</a> and we will find a time.</div>';
+      return;
+    }
+    dates.sort(function (a, b) {
+      return new Date(state.daysIndex[a][0].start_utc) -
+        new Date(state.daysIndex[b][0].start_utc);
+    });
+    var html = '';
+    dates.forEach(function (d) {
+      var slot0 = state.daysIndex[d][0];
+      var dateObj = new Date(slot0.start_utc);
+      var weekday = new Intl.DateTimeFormat('en-US', { timeZone: state.tz, weekday: 'short' }).format(dateObj);
+      var dayNum  = new Intl.DateTimeFormat('en-US', { timeZone: state.tz, day: 'numeric' }).format(dateObj);
+      var month   = new Intl.DateTimeFormat('en-US', { timeZone: state.tz, month: 'short' }).format(dateObj);
+      var count = state.daysIndex[d].length;
+      html += '<button type="button" class="date-pill" data-date="' + d + '">' +
+        '<div class="date-weekday">' + weekday + '</div>' +
+        '<div class="date-day">' + dayNum + '</div>' +
+        '<div class="date-month">' + month + '</div>' +
+        '<div class="date-count">' + count + ' open</div>' +
+        '</button>';
+    });
+    dateStrip.innerHTML = html;
+    dateStrip.querySelectorAll('.date-pill').forEach(function (el) {
+      el.addEventListener('click', function () {
+        selectDate(el.getAttribute('data-date'));
+      });
+    });
+  }
+
+  function selectDate(dateStr) {
+    state.selectedDate = dateStr;
+    document.querySelectorAll('.date-pill').forEach(function (el) {
+      el.classList.toggle('selected', el.getAttribute('data-date') === dateStr);
+    });
+    renderTimes();
+    goToStep(2);
+  }
+
+  function renderTimes() {
+    var slots = state.daysIndex[state.selectedDate] || [];
+    var grid = document.getElementById('timeGrid');
+    document.getElementById('step2Title').textContent =
+      'Pick a time on ' + (slots[0] ? slots[0].attendee_date : '');
+    if (slots.length === 0) {
+      grid.innerHTML = '<div class="empty-state">No times available on this day.</div>';
+      return;
+    }
+    var html = '';
+    slots.forEach(function (s, i) {
+      html += '<button type="button" class="time-pill" data-idx="' + i + '">' +
+        '<div class="t-main">' + s.attendee_time + '</div>' +
+        '<div class="t-sub">' + fmtAdelaide(s.start_utc) + ' Adelaide</div>' +
+        '</button>';
+    });
+    grid.innerHTML = html;
+    grid.querySelectorAll('.time-pill').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var i = Number(el.getAttribute('data-idx'));
+        selectSlot(slots[i]);
+      });
+    });
+  }
+
+  function selectSlot(slot) {
+    state.selectedSlot = slot;
+    populateSummary();
+    goToStep(3);
+  }
+
+  function populateSummary() {
+    var s = state.selectedSlot;
+    if (!s) return;
+    document.getElementById('summaryWhen').textContent =
+      s.attendee_date + ' at ' + s.attendee_time + ' (' + s.attendee_tz_label + ')';
+    document.getElementById('summarySub').textContent =
+      'That is ' + fmtAdelaide(s.start_utc) + ' Adelaide time. Same call length, same host.';
+  }
+
+  window.goToStep = function (n) {
+    [1, 2, 3, 4].forEach(function (i) {
+      var el = document.getElementById('step' + i);
+      if (i === n) el.removeAttribute('hidden');
+      else el.setAttribute('hidden', '');
+    });
+    var errEl = document.getElementById('stepError');
+    if (errEl) errEl.setAttribute('hidden', '');
+    window.scrollTo({ top: document.querySelector('.booking-workspace').offsetTop - 24, behavior: 'smooth' });
+  };
+
+  window.submitReschedule = function () {
+    if (!state.selectedSlot) return;
+
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Moving...';
+    document.getElementById('formError').style.display = 'none';
+
+    var payload = {
+      booking_id: state.bookingId,
+      token:      state.token,
+      start_at:   state.selectedSlot.start_utc
+    };
+
+    fetch(API_ROOT + '/api/booking/reschedule', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b, status: r.status }; }); })
+      .then(function (res) {
+        btn.disabled = false;
+        btn.innerHTML = 'Confirm new time';
+        if (!res.ok) {
+          if (res.status === 401 || res.status === 403) {
+            showErrorState();
+            return;
+          }
+          var msg = (res.body && res.body.error) || 'Reschedule failed. Please try again.';
+          if (res.status === 409) {
+            // Either someone took the slot, or this booking already moved.
+            // Reload availability and bounce back to step 1.
+            msg = msg || 'That time was taken while you were on this page. Please pick another.';
+            loadAvailability();
+            goToStep(1);
+          }
+          document.getElementById('formError').textContent = msg;
+          document.getElementById('formError').style.display = 'block';
+          return;
+        }
+        state.booking = res.body;
+        renderConfirmation();
+        goToStep(4);
+      })
+      .catch(function () {
+        btn.disabled = false;
+        btn.innerHTML = 'Confirm new time';
+        document.getElementById('formError').textContent = 'Network error. Please try again.';
+        document.getElementById('formError').style.display = 'block';
+      });
+  };
+
+  function renderConfirmation() {
+    var s = state.selectedSlot;
+    var html = '';
+    html += '<div class="detail-row"><span class="detail-label">New time</span>' +
+      '<span class="detail-value">' + s.attendee_date + ' at ' + s.attendee_time + ' (' + s.attendee_tz_label + ')</span></div>';
+    html += '<div class="detail-row"><span class="detail-label">Adelaide time</span>' +
+      '<span class="detail-value">' + fmtAdelaide(s.start_utc) + '</span></div>';
+    html += '<div class="detail-row"><span class="detail-label">Duration</span>' +
+      '<span class="detail-value">30 minutes</span></div>';
+    if (state.booking && state.booking.meeting_link) {
+      html += '<div class="detail-row"><span class="detail-label">Zoom</span>' +
+        '<span class="detail-value"><a href="' + state.booking.meeting_link + '" target="_blank" rel="noopener">Join link</a></span></div>';
+    }
+    document.getElementById('confirmDetails').innerHTML = html;
+  }
+
+  function startWorkspace() {
+    state.tz = detectTz();
+    document.getElementById('tzLabel').textContent = state.tz + ', ' + fmtTzAbbr(state.tz);
+    populateTzPicker(state.tz);
+
+    // Read booking_id, token, and (informational) original start_at from URL.
+    var p;
+    try { p = new URLSearchParams(window.location.search); } catch (ex) { p = null; }
+    state.bookingId = p && p.get('b');
+    state.token = p && p.get('t');
+    state.fromIso = p && p.get('from');
+
+    if (!state.bookingId || !state.token) {
+      showErrorState('This page needs a valid reschedule link. Please use the link in your confirmation email.');
+      return;
+    }
+
+    if (state.fromIso) {
+      try {
+        document.getElementById('currentWhen').textContent = fmtFriendly(state.fromIso, state.tz);
+        document.getElementById('currentBanner').removeAttribute('hidden');
+      } catch (ex) {
+        // Bad ISO string. Just don't show the banner.
+      }
+    }
+
+    loadAvailability();
+  }
+
+  startWorkspace();
+})();
+</script>
+</body>
+</html>
