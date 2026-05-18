@@ -72,8 +72,7 @@ p { max-width: 68ch; }
 .section-tight { padding: clamp(3rem, 6vw, 5rem) 0; }
 .eyebrow {
   display: inline-flex; align-items: center; gap: .45rem;
-  padding: .38rem .8rem; border: 1px solid rgba(0, 212, 126, .22);
-  border-radius: 999px; background: var(--color-primary-subtle);
+  padding: 0;
   color: var(--color-primary); font-size: .72rem; font-weight: 700;
   letter-spacing: .06em; text-transform: uppercase;
 }
@@ -290,7 +289,7 @@ html.dark .partner-logo:hover { opacity: .95; }
 .core-step p { color: rgba(232, 245, 239, .72); font-size: .92rem; }
 .core-step a { margin-top: auto; font-weight: 700; font-size: .9rem; }
 .results-preview { display: grid; grid-template-columns: .86fr 1.14fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
-.stats-stack { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; margin-top: 1.6rem; }
+.stats-stack { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .8rem; margin-top: 1.6rem; }
 .stat { border: 1px solid var(--color-border); border-radius: 14px; padding: 1.1rem; background: var(--color-surface); }
 .stat strong { display: block; font-family: 'Outfit', sans-serif; font-size: 2rem; line-height: 1; color: var(--color-primary); }
 .stat span { color: var(--color-muted); font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
@@ -309,6 +308,11 @@ html.dark .partner-logo:hover { opacity: .95; }
 .quote-person img { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2px solid var(--color-primary-light); }
 .quote-person strong { display: block; color: var(--color-heading); font-family: 'Outfit', sans-serif; }
 .quote-person span { color: var(--color-muted); font-size: .86rem; }
+.feedback-strip { margin-top: 2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.feedback-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 14px; padding: 1.2rem; }
+.feedback-stars { color: #F59E0B; font-size: .9rem; letter-spacing: .04em; margin-bottom: .5rem; }
+.feedback-card p { color: var(--color-body); font-size: .92rem; line-height: 1.65; margin-bottom: .85rem; }
+.feedback-card strong { color: var(--color-heading); font-family: 'Outfit', sans-serif; font-size: .9rem; }
 .fit-section .fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
 .fit-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 16px; padding: 1.6rem; }
 .fit-card ul { list-style: none; margin-top: 1rem; display: grid; gap: .65rem; }
@@ -320,6 +324,7 @@ html.dark .partner-logo:hover { opacity: .95; }
 .cta-grid { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
 .cta-band h2 { color: var(--color-on-navy); }
 .cta-band p { margin-top: .8rem; color: rgba(232, 245, 239, .72); font-size: 1.05rem; }
+.cta-band .btn-primary { border: 0; }
 .site-footer { background: var(--color-navy); border-top: 1px solid rgba(232, 245, 239, .1); padding: 2.5rem 0; color: rgba(232, 245, 239, .48); }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
 .footer-brand { display: flex; align-items: center; gap: .65rem; color: var(--color-on-navy); font-family: 'Outfit', sans-serif; font-weight: 700; }
@@ -353,7 +358,7 @@ html.dark .partner-logo:hover { opacity: .95; }
   .partner-row .partner-logo { height: auto; max-height: 52px; max-width: none; object-fit: contain; }
   .partner-row.cols-3 .partner-logo { width: calc(33.33% - 1.2rem); }
   .partner-row.cols-4 .partner-logo { width: calc(50% - 1rem); }
-  .testimonial-grid, .fit-section .fit-grid { grid-template-columns: 1fr; }
+  .testimonial-grid, .feedback-strip, .fit-section .fit-grid { grid-template-columns: 1fr; }
   .stats-stack { grid-template-columns: 1fr; }
   .core-header { display: block; }
   .core-header .btn { margin-top: 1.25rem; }
@@ -425,41 +430,46 @@ html.dark .partner-logo:hover { opacity: .95; }
     <div class="container question-layout">
       <div class="sticky-copy"><span class="eyebrow">Why CORE exists</span><h2>AI will not recommend what it cannot verify.</h2><p>Modern discovery systems need more than a decent homepage. They look for entity proof, structured service clarity, external trust signals, and a clean path from interest to booking.</p></div>
       <div class="question-list">
-        <div class="question-item"><div class="question-letter">C</div><div><h3>Does this practice actually exist?</h3><p>We ground the practice through verified accounts, DNS records, citations, Google profiles, and consistent identity signals.</p><div class="deliverables"><span>DKIM and DMARC</span><span>Citations</span><span>GBP</span><span>Social profiles</span></div></div></div>
-        <div class="question-item"><div class="question-letter">O</div><div><h3>What do they treat, and where?</h3><p>We clarify services, specialties, modalities, locations, FAQs, and schema so search engines can understand the practice.</p><div class="deliverables"><span>Service pages</span><span>Schema</span><span>FAQs</span><span>Location content</span></div></div></div>
-        <div class="question-item"><div class="question-letter">R</div><div><h3>Can the outside world confirm they are trusted?</h3><p>We build distributed reputation signals across reviews, partner endorsements, syndication, social posts, and video surfaces.</p><div class="deliverables"><span>Reviews</span><span>Endorsements</span><span>YouTube</span><span>Press syndication</span></div></div></div>
-        <div class="question-item"><div class="question-letter">E</div><div><h3>Is there a clear path to consultation?</h3><p>We reduce booking friction through stronger hero sections, clearer CTAs, calendar flow, forms, and HIPAA-aware chat support.</p><div class="deliverables"><span>Hero strategy</span><span>Booking flow</span><span>Chatbot</span><span>CRO</span></div></div></div>
+        <div class="question-item"><div class="question-letter">C</div><div><h3>Does your practice actually exist online?</h3><p>We ground your practice through verified accounts, DNS records, citations, Google profiles, and consistent identity signals.</p><div class="deliverables"><span>DKIM and DMARC</span><span>Citations</span><span>GBP</span><span>Active social inventory</span></div></div></div>
+        <div class="question-item"><div class="question-letter">O</div><div><h3>What do you treat, and where?</h3><p>We clarify your services, specialties, modalities, locations, FAQs, and schema so search engines can understand your practice.</p><div class="deliverables"><span>Service pages</span><span>Schema</span><span>FAQs</span><span>Location content</span></div></div></div>
+        <div class="question-item"><div class="question-letter">R</div><div><h3>Can the outside world confirm you are trusted?</h3><p>We build distributed trust signals through peer endorsements, partner proof, syndication, video surfaces, and Rising Tide impression tech on your active socials.</p><div class="deliverables"><span>Peer endorsements</span><span>Partner proof</span><span>YouTube</span><span>Press syndication</span></div></div></div>
+        <div class="question-item"><div class="question-letter">E</div><div><h3>Is there a clear path to consultation?</h3><p>We reduce booking friction through stronger hero sections, clearer CTAs, calendar flow, and HIPAA-aware chat support.</p><div class="deliverables"><span>Hero strategy</span><span>Booking flow</span><span>Chatbot</span><span>CRO</span></div></div></div>
       </div>
     </div>
   </section>
   <section class="section core-band">
     <div class="container">
-      <div class="core-header"><div><span class="eyebrow">CORE Marketing System</span><h2>A framework for being recommended.</h2><p class="section-lede">CORE turns visibility into an operating system: prove the practice, clarify the services, distribute reputation, and guide visitors to book.</p></div><a href="/core-marketing-system" class="btn btn-primary">Explore CORE</a></div>
+      <div class="core-header"><div><span class="eyebrow">CORE Marketing System</span><h2>A framework for being recommended.</h2><p class="section-lede">CORE turns visibility into an operating system: prove your practice exists, clarify your services, distribute trust signals, and guide visitors to book.</p></div><a href="/core-marketing-system" class="btn btn-primary">Explore CORE</a></div>
       <div class="core-map">
-        <div class="core-step"><div class="letter">C</div><h3>Credibility</h3><p>Establish verified, consistent identity across the web so AI systems know the practice is real.</p><a href="/core-marketing-system/credibility">Credibility details &rarr;</a></div>
-        <div class="core-step"><div class="letter">O</div><h3>Optimization</h3><p>Make services, modalities, locations, and credentials legible to Google and AI assistants.</p><a href="/core-marketing-system">CORE overview &rarr;</a></div>
-        <div class="core-step"><div class="letter">R</div><h3>Reputation</h3><p>Build ethical, external trust signals through partners, reviews, video, social, and syndication.</p><a href="/core-marketing-system">CORE overview &rarr;</a></div>
+        <div class="core-step"><div class="letter">C</div><h3>Credibility</h3><p>We establish verified, consistent identity across the web so AI systems know your practice is real.</p><a href="/core-marketing-system/credibility">Credibility details &rarr;</a></div>
+        <div class="core-step"><div class="letter">O</div><h3>Optimization</h3><p>We make your services, modalities, locations, and credentials legible to Google and AI assistants.</p><a href="/core-marketing-system">CORE overview &rarr;</a></div>
+        <div class="core-step"><div class="letter">R</div><h3>Reputation</h3><p>We build ethical trust signals through peer endorsements, partner proof, video, impression tech, and syndication.</p><a href="/core-marketing-system">CORE overview &rarr;</a></div>
         <div class="core-step"><div class="letter">E</div><h3>Engagement</h3><p>Turn growing visibility into booked consultations with a cleaner path from search to action.</p><a href="/core-marketing-system">CORE overview &rarr;</a></div>
       </div>
     </div>
   </section>
   <section class="section results" id="results">
     <div class="container results-preview">
-      <div><span class="eyebrow">Proof over promises</span><h2>Results are shown through search data, not vanity charts.</h2><p class="section-lede">Moonraker reporting focuses on the signals therapy practices care about: visibility, inquiries, appointments, and where new clients actually came from.</p><div class="stats-stack"><div class="stat"><strong>22</strong><span>client results</span></div><div class="stat"><strong>115%</strong><span>avg increase</span></div><div class="stat"><strong>308%</strong><span>top result</span></div></div></div>
-      <div class="evidence-table" aria-label="Moonraker proof table"><table><thead><tr><th>Surface</th><th>What we track</th><th>Signal</th></tr></thead><tbody><tr><td>Google Search Console</td><td>Clicks, impressions, query growth</td><td>Search</td></tr><tr><td>LocalFalcon</td><td>Maps visibility by keyword and location</td><td>Local</td></tr><tr><td>AI search checks</td><td>Gemini, ChatGPT, AI Mode, AI Overviews</td><td>AI</td></tr><tr><td>Attribution reports</td><td>Appointments, inquiries, revenue source</td><td>Demand</td></tr></tbody></table></div>
+      <div><span class="eyebrow">Proof over promises</span><h2>Results are shown through search data, not vanity charts.</h2><p class="section-lede">Our reporting focuses on the signals therapy practices care about: visibility, inquiries, appointments, and where new clients actually came from.</p><div class="stats-stack"><div class="stat"><strong>115%</strong><span>avg GSC increase</span></div><div class="stat"><strong>308%</strong><span>top GSC result</span></div></div></div>
+      <div class="evidence-table" aria-label="Moonraker proof table"><table><thead><tr><th>Surface</th><th>What we track</th><th>Signal</th></tr></thead><tbody><tr><td>Google Search Console</td><td>Clicks, impressions, query growth</td><td>Search</td></tr><tr><td>Geogrids</td><td>Maps visibility by keyword and location</td><td>Local</td></tr><tr><td>AI search checks</td><td>Gemini, ChatGPT, AI Mode, AI Overviews</td><td>AI</td></tr><tr><td>Attribution reports</td><td>Appointments, inquiries, revenue source</td><td>Demand</td></tr></tbody></table></div>
     </div>
   </section>
   <section class="section testimonial-section">
-    <div class="container"><span class="eyebrow">What clients say</span><h2>Therapist-specific work, explained clearly.</h2><div class="testimonial-grid">
+    <div class="container"><span class="eyebrow">Collaboration partners</span><h2>Trusted by people who serve therapists.</h2><div class="testimonial-grid">
       <article class="quote-card featured"><blockquote>"So. Good problem. The SEO is working too good!! I&rsquo;ve had 8 inquiries in the past 10 days. And most are scheduling consultations. I&rsquo;m now faced with some new challenges that I wasn&rsquo;t quite prepared to solve so soon."</blockquote><div class="quote-person"><img src="/assets/headshots/audrey-shoen.png" alt="Audrey Shoen"><div><strong>Audrey Shoen, LMFT</strong><span>Founder, Balanced Private Practice</span></div></div></article>
       <article class="quote-card"><blockquote>"Chris helped me untangle the chaos, streamline my marketing, and optimize my websites for SEO in a way that actually makes sense and gets results."</blockquote><div class="quote-person"><img src="/assets/headshots/kym-tolson.png" alt="Kym Tolson"><div><strong>Kym Tolson</strong><span>Founder, The Traveling Therapist</span></div></div></article>
       <article class="quote-card"><blockquote>"If you&rsquo;re a therapist looking for SEO strategy and implementation, Chris and his Moonraker team know how to rank you high on Google."</blockquote><div class="quote-person"><img src="/assets/headshots/brent-stutzman.png" alt="Brent Stutzman"><div><strong>Brent Stutzman</strong><span>Founder, TheraSaaS</span></div></div></article>
+    </div>
+    <div class="feedback-strip" aria-label="Client feedback">
+      <article class="feedback-card"><div class="feedback-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"Chris is amazing! His expertise is so valuable and we experienced a significant increase in traffic and inquiries through our website."</p><strong>Erinn E.</strong></article>
+      <article class="feedback-card"><div class="feedback-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"Their approach is comprehensive and up-to-date with the ever-changing landscape of SEO and AI. I&rsquo;m already starting to see results."</p><strong>Christine R.</strong></article>
+      <article class="feedback-card"><div class="feedback-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"He explained everything so clearly that I felt completely confident in his services, and within eight months my returns had already doubled."</p><strong>George</strong></article>
     </div></div>
   </section>
   <section class="section fit-section">
     <div class="container"><span class="eyebrow">Good fit</span><h2>Best for practices ready to be understood, not just found.</h2><div class="fit-grid">
-      <div class="fit-card"><h3>Moonraker is a fit if you want</h3><ul><li>More visibility for specific services, specialties, and locations.</li><li>A team that understands therapy marketing constraints.</li><li>Practical implementation across website, search, maps, and AI surfaces.</li><li>Reporting that connects visibility work to real inquiries and bookings.</li></ul></div>
-      <div class="fit-card muted"><h3>It is probably not a fit if you want</h3><ul><li>Cheap backlinks, keyword stuffing, or anonymous content volume.</li><li>A one-time website refresh with no ongoing visibility system.</li><li>Vague AI hype without concrete deliverables or proof.</li><li>A hands-off magic fix that avoids practice positioning decisions.</li></ul></div>
+      <div class="fit-card"><h3>We are a fit if you want</h3><ul><li>More visibility for specific services, specialties, and locations.</li><li>A team that understands therapy marketing constraints.</li><li>Practical implementation across website, search, maps, and AI surfaces.</li><li>Reporting that connects visibility work to real inquiries and bookings.</li></ul></div>
+      <div class="fit-card muted"><h3>We are probably not a fit if you want</h3><ul><li>Cheap backlinks, keyword stuffing, or anonymous content volume.</li><li>A one-time website refresh with no ongoing visibility system.</li><li>Vague AI hype without concrete deliverables or proof.</li><li>A hands-off magic fix that avoids practice positioning decisions.</li></ul></div>
     </div></div>
   </section>
   <section class="section-tight cta-band">

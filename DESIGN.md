@@ -39,7 +39,7 @@ Dark mode can continue using the existing Client HQ palette, but public marketin
 - Green: primary CTA, active navigation state, progress indicators, key highlights, bullets, selected states, form focus.
 - Light green tint: badges, callouts, low-emphasis active states.
 - Background: green-tinted off-white for page body.
-- Surface: panels, forms, quotes, proof modules.
+- Surface: panels, quotes, proof modules.
 
 Do not flood the page with green gradients. Green should feel like a signal, not wallpaper.
 
@@ -55,7 +55,8 @@ Do not flood the page with green gradients. Green should feel like a signal, not
 
 - Site nav: dark navy, sticky when useful, compact, logo left, links center/right, green CTA.
 - Buttons: 10px radius, Outfit 600 or 700, green primary, navy or outline secondary.
-- Badges: small, green-subtle background, uppercase only when short.
+- Supraheadings: green text only, no enclosing pill or badge treatment above section headings.
+- Badges: use sparingly for proof assets or state labels, not as section heading decoration.
 - Cards: 12-14px radius, light surface, 1px border, restrained shadow on hover only.
 - Proof tiles: logo or badge first, one concise support line.
 - CORE rows: letter, question, deliverables, outcome. Avoid four cloned icon cards as the only presentation.
@@ -101,5 +102,5 @@ Do not use generic AI illustrations. If imagery is not available, use product-li
 1. Home: position Moonraker, establish proof, introduce CORE, show results and testimonials, convert to strategy call.
 2. CORE overview: explain the framework as the operating system.
 3. Pillar pages: go deep on each pillar with deliverables, why it matters, and examples.
-4. Results: proof gallery, partner trust, reviews, and clear filters.
+4. Results: proof gallery, partner trust, selected feedback, and clear filters.
 5. Strategy call: conversion path with low-pressure framing.
