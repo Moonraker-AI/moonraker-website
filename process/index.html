@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moonraker Process | Check, Build, Grow</title>
+<meta name="description" content="How Moonraker works: a clear first check, a 90-day foundation build, then ongoing visibility work for qualified therapy practices.">
+<meta property="og:title" content="Moonraker Process">
+<meta property="og:description" content="A clear first check, a 90-day foundation build, then ongoing visibility work.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://moonraker.ai/process">
+<link rel="canonical" href="https://moonraker.ai/process">
+<link rel="icon" href="/assets/logo.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles/globals.css">
+<script>
+(function(){var t=localStorage.getItem('moonraker-theme');if(t==='dark')document.documentElement.classList.add('dark')})();
+</script>
+<style>
+.nav-right { display: flex; align-items: center; gap: .5rem; }
+.nav-cta { display: inline-block; padding: .5rem 1.25rem; border-radius: 99px; background: var(--color-primary); color: #fff; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: .82rem; }
+.nav-cta:hover { background: var(--color-primary-hover); color: #fff; }
+.process-hero { background: linear-gradient(165deg, var(--color-primary-subtle) 0%, var(--color-bg) 55%, var(--color-surface) 100%); border-bottom: 1px solid var(--color-border); padding: 5rem 2rem 3.5rem; }
+.hero-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr .95fr; gap: clamp(2rem, 6vw, 4rem); align-items: center; }
+.hero-kicker { color: var(--color-primary); font-weight: 800; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .8rem; }
+.process-hero h1 { font-size: clamp(2.5rem, 5vw, 4.7rem); line-height: 1.03; letter-spacing: -.02em; margin-bottom: 1.1rem; }
+.process-hero p { color: var(--color-muted); font-size: 1.08rem; line-height: 1.75; }
+.phase-stack { border: 1px solid var(--color-border); border-radius: 18px; overflow: hidden; background: var(--color-surface); box-shadow: 0 14px 34px rgba(30,42,94,.08); }
+.phase-preview { display: grid; grid-template-columns: 64px 1fr; gap: 1rem; padding: 1.1rem; border-bottom: 1px solid var(--color-border); }
+.phase-preview:last-child { border-bottom: 0; }
+.phase-num { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; background: var(--color-navy); color: var(--color-primary); font-family: 'Outfit', sans-serif; font-size: 1.35rem; font-weight: 800; }
+.phase-preview h3 { margin-bottom: .25rem; }
+.phase-preview p { font-size: .84rem; line-height: 1.55; color: var(--color-muted); }
+.section-wrap { max-width: 1120px; margin: 0 auto; padding: clamp(4rem, 7vw, 6rem) 2rem; }
+.section-label { color: var(--color-primary); font-weight: 800; font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .7rem; }
+.section-head { display: grid; grid-template-columns: .9fr 1.1fr; gap: 2rem; margin-bottom: 2rem; align-items: end; }
+.section-head h2 { font-size: clamp(2rem, 3.6vw, 3rem); }
+.section-head p { color: var(--color-muted); line-height: 1.75; }
+.timeline { display: grid; gap: 1rem; }
+.timeline-item { display: grid; grid-template-columns: 160px 1fr; gap: 1rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 16px; padding: 1.25rem; }
+.timeline-time { font-family: 'Outfit', sans-serif; font-weight: 800; color: var(--color-primary); }
+.timeline-item h3 { margin-bottom: .45rem; }
+.timeline-item p { color: var(--color-muted); line-height: 1.65; font-size: .92rem; }
+.access-band { background: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+.access-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+.access-card { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 16px; padding: 1.35rem; }
+.access-card h3 { margin-bottom: .55rem; }
+.access-card ul { list-style: none; display: grid; gap: .5rem; }
+.access-card li { color: var(--color-body); font-size: .9rem; line-height: 1.5; padding-left: 1.1rem; position: relative; }
+.access-card li::before { content: ''; position: absolute; left: 0; top: .65em; width: 6px; height: 6px; border-radius: 50%; background: var(--color-primary); }
+.guarantee { background: var(--color-navy); border-radius: 18px; padding: 2rem; color: rgba(232,245,239,.76); margin-top: 2rem; }
+.guarantee h3 { color: var(--color-on-navy); margin-bottom: .6rem; }
+.guarantee p { color: rgba(232,245,239,.72); line-height: 1.7; }
+.cta-band { background: var(--color-navy); color: rgba(232,245,239,.74); }
+.cta-inner { max-width: 1120px; margin: 0 auto; padding: 3.5rem 2rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
+.cta-inner h2 { color: var(--color-on-navy); margin-bottom: .6rem; }
+.cta-inner p { color: rgba(232,245,239,.72); }
+@media (max-width: 860px) {
+  .hero-inner, .section-head, .access-grid, .cta-inner { grid-template-columns: 1fr; }
+  .timeline-item { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand"><img src="/assets/logo.png" alt="Moonraker" width="32" height="32"></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/core-marketing-system">CORE System</a></li>
+      <li><a href="/results">Results</a></li>
+      <li><a href="/process" class="active">Process</a></li>
+      <li><a href="/scope">Scope</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="/free-strategy-call" class="nav-cta">Entity Health Check</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
+      <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <section class="process-hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-kicker">How engagement works</div>
+        <h1>Start with what is true. Build what is missing. Keep going where it can grow.</h1>
+        <p>Moonraker starts by checking the basics: your website, Google presence, local listings, service pages, and contact path. Then we build the 90-day foundation before moving into ongoing work.</p>
+      </div>
+      <aside class="phase-stack" aria-label="Moonraker phases">
+        <div class="phase-preview"><div class="phase-num">0</div><div><h3>Entity Health Check</h3><p>A clear review of what is working, what is missing, and whether we can help.</p></div></div>
+        <div class="phase-preview"><div class="phase-num">1</div><div><h3>90-day foundation</h3><p>We clean up the website, Google presence, listings, pages, and tracking basics.</p></div></div>
+        <div class="phase-preview"><div class="phase-num">2</div><div><h3>CORE campaign</h3><p>We keep improving the site, proof, reporting, YouTube, Quora, and visibility.</p></div></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section-wrap">
+    <div class="section-head">
+      <div><div class="section-label">Timeline</div><h2>The first 90 days are focused on the basics.</h2></div>
+      <p>Before we ask you to commit to ongoing work, we want the core pieces in place. That makes the next phase more useful and easier to measure.</p>
+    </div>
+    <div class="timeline">
+      <article class="timeline-item"><div class="timeline-time">Phase 0</div><div><h3>Entity Health Check</h3><p>We look at your website, Google profile, local listings, service pages, trust points, and booking path. You get a clear read on where things stand.</p></div></article>
+      <article class="timeline-item"><div class="timeline-time">Days 1-30</div><div><h3>Audit and cleanup plan</h3><p>We find the biggest issues, set priorities, confirm access, and map the work needed to make your practice easier to find and understand.</p></div></article>
+      <article class="timeline-item"><div class="timeline-time">Days 31-60</div><div><h3>Website and listing foundation</h3><p>We improve important pages, service content, Google Business Profile, local listings, FAQs, and the proof visitors need before they contact you.</p></div></article>
+      <article class="timeline-item"><div class="timeline-time">Days 61-90</div><div><h3>Proof and reporting baseline</h3><p>We connect the larger proof system, optimize YouTube after access is granted, prepare Quora for future proof blocks, and set the first reporting baseline.</p></div></article>
+      <article class="timeline-item"><div class="timeline-time">Ongoing</div><div><h3>CORE Marketing Campaign</h3><p>We continue improving the website, publishing proof assets, maintaining YouTube, adding Quora proof blocks, reporting progress, and recommending next steps.</p></div></article>
+    </div>
+  </section>
+
+  <section class="access-band">
+    <div class="section-wrap">
+      <div class="section-label">Working model</div>
+      <h2>You own the accounts. We do the work inside them.</h2>
+      <div class="access-grid">
+        <article class="access-card"><h3>Client owns</h3><ul><li>Domain and website access</li><li>Google Business Profile</li><li>YouTube channel</li><li>Quora account or Space</li><li>Practice credentials and approvals</li></ul></article>
+        <article class="access-card"><h3>Moonraker builds</h3><ul><li>Website cleanup and search basics</li><li>Clear service and location pages</li><li>Local listings and consistency</li><li>Practice proof hub</li><li>Reports and recommendations</li></ul></article>
+        <article class="access-card"><h3>Outside core scope</h3><ul><li>Social media posting</li><li>Paid ads</li><li>GBP posts and review replies</li><li>YouTube channel creation</li><li>HIPAA, legal, or compliance consulting</li></ul></article>
+      </div>
+      <div class="guarantee">
+        <h3>Performance Guarantee</h3>
+        <p>The Performance Guarantee is only for annual plans and must be explained in the proposal or agreement. It is not a promise that every keyword will rank, and we do not present it that way.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="cta-inner">
+      <div><h2>Start with the Entity Health Check.</h2><p>We will look at the current foundation and show whether the 90-day foundation is the right next step.</p></div>
+      <a class="btn btn-primary" href="/free-strategy-call">Book an Entity Health Check</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-links"><a href="/">Home</a><a href="/core-marketing-system">CORE System</a><a href="/results">Results</a><a href="/process">Process</a><a href="/scope">Scope</a></div>
+  <div class="footer-copy">&#169; 2026 Moonraker AI. All rights reserved.</div>
+</footer>
+<script>
+window.toggleTheme=function(){function apply(){var dark=document.documentElement.classList.toggle('dark');localStorage.setItem('moonraker-theme',dark?'dark':'light');document.getElementById('themeBtn').innerHTML=dark?'&#9728;&#65039;':'&#127769;'}if(document.startViewTransition)document.startViewTransition(apply);else apply()};
+(function(){document.getElementById('themeBtn').innerHTML=document.documentElement.classList.contains('dark')?'&#9728;&#65039;':'&#127769;'})();
+</script>
+</body>
+</html>
