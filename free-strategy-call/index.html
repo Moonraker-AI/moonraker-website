@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Book a free Entity Health Check - Moonraker</title>
-<meta name="description" content="Book a free 30-minute Entity Health Check with Scott Pope at Moonraker. We help therapy practices understand how they currently show up on Google, Maps, organic search, and AI tools.">
-<meta property="og:title" content="Book a free Entity Health Check - Moonraker">
-<meta property="og:description" content="A clear first check for therapy practices that shows whether Moonraker can help and where the biggest gaps are.">
+<title>Book a free strategy call - Moonraker</title>
+<meta name="description" content="Book a free 30-minute strategy call with Scott Pope at Moonraker. We help therapy practices understand how they currently show up on Google, Maps, ChatGPT, Gemini, and AI tools.">
+<meta property="og:title" content="Book a free strategy call - Moonraker">
+<meta property="og:description" content="A clear first call for therapy practices that shows whether Moonraker can help and where the biggest gaps are.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://moonraker.ai/free-strategy-call">
 <link rel="canonical" href="https://moonraker.ai/free-strategy-call">
@@ -46,6 +46,8 @@
 }
 .tz-banner-icon { font-size: 1.25rem; flex-shrink: 0; }
 .tz-banner strong { color: var(--color-heading); font-weight: 600; }
+.tz-banner-line { margin-top: .35rem; }
+.tz-zone-line { color: var(--color-muted); }
 .tz-banner select {
   margin-top: .35rem; font-family: inherit; font-size: .82rem;
   padding: .3rem .5rem; border: 1px solid var(--color-border);
@@ -236,6 +238,8 @@
 }
 .error-state { color: var(--color-danger); }
 .empty-state { font-style: italic; }
+.is-hidden { display: none; }
+.confirm-note { font-size: .82rem; color: var(--color-muted); }
 
 @media (max-width: 720px) {
   .contact-header h1 { font-size: 1.85rem; }
@@ -269,24 +273,24 @@
       <li><a href="/scope">Scope</a></li>
     </ul>
     <div class="nav-right">
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
-      <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+      <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
+      <button type="button" class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
     </div>
   </div>
 </nav>
 
 <div class="contact-wrap">
   <div class="contact-header">
-    <h1>Book a free Entity Health Check</h1>
-    <p>A focused 30 minute check with Scott. We will look at how your practice currently shows up across Google, Maps, organic search, ChatGPT, Perplexity, and other AI tools.</p>
+    <h1>Book a free strategy call</h1>
+    <p>A focused 30 minute call with Scott. We will look at how your practice currently shows up across Google, Maps, ChatGPT, Gemini, and other AI tools.</p>
   </div>
 
   <div class="tz-banner">
     <span class="tz-banner-icon">&#127758;</span>
     <div>
       <div><strong>Scott is based in Adelaide, Australia</strong> and takes new client calls Tuesday through Thursday, 9 AM to 5 PM local time.</div>
-      <div style="margin-top:.35rem;color:var(--color-muted);">All times below are shown in your local zone (<span id="tzLabel">detecting...</span>).</div>
-      <div style="margin-top:.35rem;">Wrong zone? <select id="tzPicker"></select></div>
+      <div class="tz-banner-line tz-zone-line">All times below are shown in your local zone (<span id="tzLabel">detecting...</span>).</div>
+      <div class="tz-banner-line">Wrong zone? <select id="tzPicker"></select></div>
     </div>
   </div>
 </div>
@@ -387,7 +391,7 @@
             <option value="unsure">Not sure</option>
           </select>
         </div>
-        <div class="form-row" id="gbpLinkRow" style="display:none;">
+        <div class="form-row is-hidden" id="gbpLinkRow">
           <label for="gbpLink">Google Business Profile link</label>
           <input id="gbpLink" type="url" placeholder="https://maps.app.goo.gl/...">
         </div>
@@ -405,7 +409,7 @@
         <button type="button" class="btn btn-ghost" onclick="goToStep(2)">Back</button>
         <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitBooking()">Confirm booking</button>
       </div>
-      <div id="formError" class="error-state" style="display:none;"></div>
+      <div id="formError" class="error-state is-hidden"></div>
     </div>
 
     <!-- Step 4: confirmation -->
@@ -414,7 +418,7 @@
       <h2>You're booked.</h2>
       <p>A confirmation email is on its way with the Zoom link and a calendar invite. Scott will see you at your selected time.</p>
       <div class="confirm-details" id="confirmDetails"></div>
-      <p style="font-size:.82rem;color:var(--color-muted);">Need to change anything? Reply to the confirmation email and we will sort it.</p>
+      <p class="confirm-note">Need to change anything? Reply to the confirmation email and we will sort it.</p>
     </div>
 
   </div>
@@ -648,7 +652,7 @@ window.toggleTheme = function () {
   };
 
   document.getElementById('hasGbp').addEventListener('change', function (e) {
-    document.getElementById('gbpLinkRow').style.display = e.target.value === 'yes' ? '' : 'none';
+    document.getElementById('gbpLinkRow').classList.toggle('is-hidden', e.target.value !== 'yes');
   });
 
   function setError(rowId, has) {
@@ -682,7 +686,7 @@ window.toggleTheme = function () {
     var btn = document.getElementById('submitBtn');
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner"></span> Booking...';
-    document.getElementById('formError').style.display = 'none';
+    document.getElementById('formError').classList.add('is-hidden');
 
     var payload = {
       attendee_first_name:    document.getElementById('firstName').value.trim(),
@@ -724,7 +728,7 @@ window.toggleTheme = function () {
             goToStep(1);
           }
           document.getElementById('formError').textContent = msg;
-          document.getElementById('formError').style.display = 'block';
+          document.getElementById('formError').classList.remove('is-hidden');
           return;
         }
         state.booking = res.body;
@@ -735,7 +739,7 @@ window.toggleTheme = function () {
         btn.disabled = false;
         btn.innerHTML = 'Confirm booking';
         document.getElementById('formError').textContent = 'Network error. Please try again.';
-        document.getElementById('formError').style.display = 'block';
+        document.getElementById('formError').classList.remove('is-hidden');
       });
   };
 

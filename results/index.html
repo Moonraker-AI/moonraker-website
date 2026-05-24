@@ -49,6 +49,7 @@
 .signal-table tr:last-child td { border-bottom: 0; }
 .quote-band { background: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
 .quote-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.quote-grid-spaced { margin-top: 2rem; }
 .quote-card { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 16px; padding: 1.4rem; }
 .quote-card blockquote { color: var(--color-body); font-size: .94rem; line-height: 1.7; }
 .quote-person { display: flex; gap: .8rem; align-items: center; margin-top: 1rem; }
@@ -92,9 +93,9 @@
       <li><a href="/scope">Scope</a></li>
     </ul>
     <div class="nav-right">
-      <a href="/free-strategy-call" class="nav-cta">Entity Health Check</a>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
-      <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+      <a href="/free-strategy-call" class="nav-cta">Free Strategy Call</a>
+      <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
+      <button type="button" class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
     </div>
   </div>
 </nav>
@@ -107,7 +108,7 @@
         <h1>See what is working, what is not, and what changed.</h1>
         <p>Moonraker reporting focuses on what practice owners can actually use: search growth, local visibility, inquiries, appointments, and where new clients are coming from.</p>
       </div>
-      <div class="proof-tabs" aria-label="Proof surfaces">
+      <div class="proof-tabs">
         <span>Search</span><span>Google Maps</span><span>AI search</span><span>Inquiries</span><span>Partner proof</span>
       </div>
     </div>
@@ -126,8 +127,8 @@
         <h3>Google search growth</h3>
         <p>Google Search Console shows whether more people are finding the practice in search after the website and online footprint are cleaned up.</p>
         <div class="metric-row">
-          <div class="metric"><strong>115%</strong><span>average GSC increase</span></div>
-          <div class="metric"><strong>308%</strong><span>top GSC result</span></div>
+          <div class="metric"><strong>115%</strong><span>average search growth</span></div>
+          <div class="metric"><strong>308%</strong><span>top search result</span></div>
         </div>
       </article>
       <article class="evidence-card"><h3>Google Maps visibility</h3><p>Local reports show where the practice is easier to find on Maps, based on service and location.</p></article>
@@ -147,7 +148,7 @@
       <table>
         <thead><tr><th>Where we look</th><th>What we check</th><th>Why it matters</th></tr></thead>
         <tbody>
-          <tr><td>Google Search Console</td><td>Clicks, impressions, and search terms</td><td>Shows whether more people are finding the website.</td></tr>
+          <tr><td>Google Search</td><td>Website visits, search views, and search terms</td><td>Shows whether more people are finding the website.</td></tr>
           <tr><td>Google Maps</td><td>Visibility by service and location</td><td>Shows whether nearby clients can find the practice.</td></tr>
           <tr><td>AI search checks</td><td>How AI tools describe the practice</td><td>Shows whether AI can understand and trust the practice.</td></tr>
           <tr><td>Inquiry reports</td><td>Inquiries, appointments, and likely source</td><td>Connects marketing work to real demand.</td></tr>
@@ -161,7 +162,7 @@
     <div class="section-wrap">
       <div class="section-label">Selected feedback</div>
       <h2>Trusted by people who serve therapists.</h2>
-      <div class="quote-grid" style="margin-top:2rem;">
+      <div class="quote-grid quote-grid-spaced">
         <article class="quote-card"><blockquote>"So. Good problem. The SEO is working too good!! I&rsquo;ve had 8 inquiries in the past 10 days. And most are scheduling consultations."</blockquote><div class="quote-person"><img src="/assets/headshots/audrey-shoen.png" alt="Audrey Shoen"><div><strong>Audrey Shoen, LMFT</strong><span>Balanced Private Practice</span></div></div></article>
         <article class="quote-card"><blockquote>"Chris helped me untangle the chaos, streamline my marketing, and optimize my websites for SEO in a way that actually makes sense and gets results."</blockquote><div class="quote-person"><img src="/assets/headshots/kym-tolson.png" alt="Kym Tolson"><div><strong>Kym Tolson</strong><span>The Traveling Therapist</span></div></div></article>
         <article class="quote-card"><blockquote>"If you&rsquo;re a therapist looking for SEO strategy and implementation, Chris and his Moonraker team know how to rank you high on Google."</blockquote><div class="quote-person"><img src="/assets/headshots/brent-stutzman.png" alt="Brent Stutzman"><div><strong>Brent Stutzman</strong><span>TheraSaaS</span></div></div></article>
@@ -171,8 +172,8 @@
 
   <section class="cta-band">
     <div class="cta-inner">
-      <div><h2>Want to see what your practice is missing?</h2><p>Book an Entity Health Check and we will review how your practice shows up in search, Maps, AI tools, and your booking path.</p></div>
-      <a class="btn btn-primary" href="/free-strategy-call">Book an Entity Health Check</a>
+      <div><h2>Want to see what your practice is missing?</h2><p>Book a free strategy call and we will review how your practice shows up in search, Maps, AI tools, and your booking path.</p></div>
+      <a class="btn btn-primary" href="/free-strategy-call">Book a Free Strategy Call</a>
     </div>
   </section>
 </main>

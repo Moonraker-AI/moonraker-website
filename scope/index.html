@@ -45,6 +45,7 @@
 .scope-panel.off li::before { background: var(--color-muted); }
 .faq-band { background: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
 .faq-list { display: grid; gap: .8rem; }
+.faq-list-spaced { margin-top: 2rem; }
 details { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 14px; padding: 1rem 1.15rem; }
 summary { cursor: pointer; font-family: 'Outfit', sans-serif; color: var(--color-heading); font-weight: 700; }
 details p { color: var(--color-muted); font-size: .92rem; line-height: 1.7; margin-top: .8rem; }
@@ -69,9 +70,9 @@ details p { color: var(--color-muted); font-size: .92rem; line-height: 1.7; marg
       <li><a href="/scope" class="active">Scope</a></li>
     </ul>
     <div class="nav-right">
-      <a href="/free-strategy-call" class="nav-cta">Entity Health Check</a>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
-      <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+      <a href="/free-strategy-call" class="nav-cta">Free Strategy Call</a>
+      <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
+      <button type="button" class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
     </div>
   </div>
 </nav>
@@ -87,7 +88,7 @@ details p { color: var(--color-muted); font-size: .92rem; line-height: 1.7; marg
       <aside class="boundary-card">
         <h2>Short version</h2>
         <div class="boundary-list">
-          <div><b>Yes</b><span>Website cleanup, Google Business Profile improvements, local listings, clear service pages, YouTube optimization, Quora proof blocks, reporting, and booking path clarity.</span></div>
+          <div><b>Yes</b><span>Website cleanup, Google Business Profile improvements, local listings, clear service pages, YouTube improvements, approved Quora proof content, reporting, and booking path clarity.</span></div>
           <div><b>No</b><span>Social posting, paid ads, YouTube channel creation, Google Business Profile feed posts, review replies, endorsement publishing, or compliance consulting.</span></div>
         </div>
       </aside>
@@ -103,11 +104,11 @@ details p { color: var(--color-muted); font-size: .92rem; line-height: 1.7; marg
       <article class="scope-panel">
         <h3>Inside scope</h3>
         <ul>
-          <li>Entity Health Check and a clear starting-point review.</li>
+          <li>Free strategy call and a clear starting-point review.</li>
           <li>Website cleanup, service-page improvements, and helpful FAQs.</li>
           <li>Local listings, Google Business Profile improvements, and consistent practice details.</li>
-          <li>YouTube optimization after you give manager access.</li>
-          <li>Quora proof blocks using client-created access.</li>
+          <li>YouTube improvements after you give manager access.</li>
+          <li>Approved Quora proof content using client-created access.</li>
           <li>Reporting, recommendations, and clearer paths to book a consultation.</li>
         </ul>
       </article>
@@ -115,7 +116,7 @@ details p { color: var(--color-muted); font-size: .92rem; line-height: 1.7; marg
         <h3>Outside scope</h3>
         <ul>
           <li>Creating or managing social profiles for Facebook, LinkedIn, Instagram, TikTok, Pinterest, or X.</li>
-          <li>Posting to social media, Google Business Profile feeds, or Quora outside approved proof blocks.</li>
+          <li>Posting to social media, Google Business Profile feeds, or Quora outside approved proof content.</li>
           <li>Creating client YouTube channels.</li>
           <li>Publishing endorsements or running review-generation campaigns.</li>
           <li>Paid ads, ad management, or ad creative.</li>
@@ -129,13 +130,13 @@ details p { color: var(--color-muted); font-size: .92rem; line-height: 1.7; marg
     <div class="section-wrap">
       <div class="section-label">FAQ</div>
       <h2>Questions we should answer before a call.</h2>
-      <div class="faq-list" style="margin-top:2rem;">
-        <details open><summary>Do you post on social media?</summary><p>No. Moonraker does not create, manage, or post to Facebook, LinkedIn, Instagram, TikTok, Pinterest, X, or Google Business Profile feeds. If you already use a practice-facing profile, we may connect it where it helps Google and AI understand your practice.</p></details>
+      <div class="faq-list faq-list-spaced">
+        <details open><summary>Do you post on social media?</summary><p>No. Moonraker does not create, manage, or post to Facebook, LinkedIn, Instagram, TikTok, Pinterest, X, or Google Business Profile feeds. If you already use a practice-facing profile, we may connect it where it helps Google and AI tools understand your practice.</p></details>
         <details><summary>Do you create YouTube channels?</summary><p>No. The YouTube channel belongs to you. Once you give Moonraker manager access, we can improve the channel so it supports search and AI visibility.</p></details>
         <details><summary>Do you require Google Workspace?</summary><p>No. A paid domain email account can help your practice look more established, but Google Workspace is recommended, not required. Setting up Workspace itself is not part of our core work.</p></details>
-        <details><summary>What is Quora used for?</summary><p>You create the Quora account or Space. Moonraker uses access only for approved proof blocks that help confirm your practice. We do not use it for general posting.</p></details>
+        <details><summary>What is Quora used for?</summary><p>You create the Quora account or Space. Moonraker uses access only for approved proof content that helps confirm your practice. We do not use it for general posting.</p></details>
         <details><summary>Do you manage Google Business Profile posts or review replies?</summary><p>No. We can improve the Google Business Profile as a search and Maps asset, but feed posting and review replies stay outside our core work.</p></details>
-        <details><summary>Do you run paid ads?</summary><p>No. Moonraker focuses on durable search visibility, local visibility, AI search visibility, reporting, and clearer paths from discovery to consultation.</p></details>
+        <details><summary>Do you run paid ads?</summary><p>No. Moonraker focuses on long-term visibility in search, Maps, and AI tools, plus reporting and clearer paths from discovery to consultation.</p></details>
         <details><summary>Do you provide HIPAA, legal, or compliance consulting?</summary><p>No. Moonraker can make practical implementation recommendations, but legal, HIPAA, and compliance decisions should be handled by the practice and its qualified advisors.</p></details>
       </div>
     </div>
@@ -143,8 +144,8 @@ details p { color: var(--color-muted); font-size: .92rem; line-height: 1.7; marg
 
   <section class="cta-band">
     <div class="cta-inner">
-      <div><h2>Still a fit?</h2><p>Book an Entity Health Check and we will look at whether your practice is ready for Moonraker to help.</p></div>
-      <a class="btn btn-primary" href="/free-strategy-call">Book an Entity Health Check</a>
+      <div><h2>Still a fit?</h2><p>Book a free strategy call and we will look at whether your practice is ready for Moonraker to help.</p></div>
+      <a class="btn btn-primary" href="/free-strategy-call">Book a Free Strategy Call</a>
     </div>
   </section>
 </main>
