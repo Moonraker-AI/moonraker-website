@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-24T15:59:55.550Z",
+  "generatedAt": "2026-05-24T17:07:11.861Z",
   "policy": "Pulled marketing assets are stored locally as optimized AVIF files. Use the title and alt fields when placing images in HTML. Audrey result imagery is intentionally excluded.",
   "assets": [
     {
@@ -273,7 +273,7 @@
       "usage": "Homepage partnership section",
       "source": "/home/cjmorin/Desktop/Moonraker/Biz/Dev/moonraker-website/assets/partners/psychology-business-school.webp",
       "sourceBytes": 56412,
-      "outputBytes": 7137,
+      "outputBytes": 8552,
       "width": 900,
       "height": 660,
       "format": "avif"
@@ -285,7 +285,7 @@
       "usage": "Homepage partnership section",
       "source": "/home/cjmorin/Desktop/Moonraker/Biz/Dev/moonraker-website/assets/partners/private-practice-elevation.webp",
       "sourceBytes": 7976,
-      "outputBytes": 530,
+      "outputBytes": 757,
       "width": 285,
       "height": 150,
       "format": "avif"
@@ -297,7 +297,7 @@
       "usage": "Homepage partnership section",
       "source": "/home/cjmorin/Desktop/Moonraker/Biz/Dev/moonraker-website/assets/partners/traveling-therapist.webp",
       "sourceBytes": 9820,
-      "outputBytes": 2700,
+      "outputBytes": 4468,
       "width": 300,
       "height": 264,
       "format": "avif"
@@ -309,7 +309,7 @@
       "usage": "Homepage partnership section",
       "source": "/home/cjmorin/Desktop/Moonraker/Biz/Dev/moonraker-website/assets/partners/private-practice-academy.webp",
       "sourceBytes": 32930,
-      "outputBytes": 4741,
+      "outputBytes": 8499,
       "width": 900,
       "height": 206,
       "format": "avif"
@@ -321,7 +321,7 @@
       "usage": "Homepage partnership section",
       "source": "/home/cjmorin/Desktop/Moonraker/Biz/Dev/moonraker-website/assets/partners/therasaas.webp",
       "sourceBytes": 6982,
-      "outputBytes": 925,
+      "outputBytes": 2006,
       "width": 350,
       "height": 180,
       "format": "avif"
@@ -333,7 +333,7 @@
       "usage": "Homepage partnership section",
       "source": "/home/cjmorin/Desktop/Moonraker/Biz/Dev/moonraker-website/assets/partners/intensive-therapy-coach.webp",
       "sourceBytes": 25893,
-      "outputBytes": 5833,
+      "outputBytes": 2830,
       "width": 900,
       "height": 508,
       "format": "avif"
@@ -345,7 +345,7 @@
       "usage": "Homepage partnership section",
       "source": "/home/cjmorin/Desktop/Moonraker/Biz/Dev/moonraker-website/assets/partners/prosperous-therapist.webp",
       "sourceBytes": 13216,
-      "outputBytes": 2188,
+      "outputBytes": 4290,
       "width": 300,
       "height": 100,
       "format": "avif"
@@ -357,7 +357,7 @@
       "usage": "Homepage partnership section",
       "source": "/home/cjmorin/Desktop/Moonraker/Biz/Dev/moonraker-website/assets/partners/mccance-method.webp",
       "sourceBytes": 22948,
-      "outputBytes": 6877,
+      "outputBytes": 14035,
       "width": 500,
       "height": 320,
       "format": "avif"

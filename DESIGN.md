@@ -91,8 +91,8 @@ Audrey Shoen result imagery and testimonial copy are not used on the public home
 
 ## Homepage Interactions
 
-- Hero platform strip: Google Maps, ChatGPT, Gemini, and AI Search controls may update a compact proof panel. Keep it supportive of the simple hero, not a second hero.
-- CORE diagnostic rail: the four CORE diagnostic rows may update the adjacent explanation on hover and keyboard focus.
+- Homepage hero stays simple: one platform-forward headline, one support paragraph, one primary call to action, and early trust badges.
+- CORE pillar sections pair each pillar's problem and solution in the same section, with simple tabs to switch between the two.
 - Proof modules: the homepage should show tangible product proof, such as AVIF reporting previews and non-Audrey Google Search Console result images.
 - Partner logos remain static and should not get hover tooltips or interaction behavior.
 
