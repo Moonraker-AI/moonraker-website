@@ -6,7 +6,7 @@ The public website should align with client-facing Client HQ surfaces, especiall
 
 ## Fonts
 
-- Heading: Outfit, weights 600, 700, 800.
+- Heading: Outfit 800 for all authored h1, h2, h3, and h4 elements.
 - Body: Inter, weights 400, 500, 600.
 
 Although these fonts are common, they are already part of the shipped Moonraker identity. Preserve them for consistency across website, proposals, reports, onboarding, and booking surfaces.
@@ -57,15 +57,17 @@ Do not flood the page with green gradients. Green should feel like a signal, not
 - Buttons: 10px radius, Outfit 600 or 700, green primary, navy or outline secondary.
 - Supraheadings: green text only, no enclosing pill or badge treatment above section headings.
 - Badges: use sparingly for proof assets or state labels, not as section heading decoration.
-- Cards: 12-14px radius, light surface, 1px border, restrained shadow on hover only.
+- Cards: 12-14px radius, light surface, 1px border, restrained shadow at rest. On hover or focus-within, use the Moonraker pop effect: translateY(-4px to -5px), green-tinted border, and soft shadow using `cubic-bezier(.22, 1, .36, 1)`.
 - Proof tiles: logo or badge first, one concise support line.
 - CORE rows: letter, question, deliverables, outcome. Avoid four cloned icon cards as the only presentation.
+- Partner logos: use the Client HQ / newsletter 3-3-2 order and shape: Psychology Business School, Private Practice Elevation, Traveling Therapist; Private Practice Academy, TheraSaaS, Intensive Therapy Coach; Prosperous Therapist, McCance Method. Logos stay static, with no hover pop or partner tooltip interaction.
 - Footer: navy, simple links, low-contrast copy.
 
 ## Typography
 
 - Hero H1: 3.5rem to 4.5rem desktop, clamp down on mobile.
 - Section H2: 2rem to 2.75rem.
+- All h1, h2, h3, and h4 headings use Outfit 800 unless the text is not semantically a heading.
 - Body: 1rem to 1.125rem, line-height 1.65 to 1.75.
 - Max paragraph width: 65 to 75 characters.
 - Avoid long all-caps labels. Short badges only.
@@ -82,6 +84,17 @@ Required public proof assets:
 - Client HQ inspired visual motifs: score rings, report rows, progress markers, evidence tables.
 
 Do not use generic AI illustrations. If imagery is not available, use product-like evidence modules from the actual system.
+
+All pulled marketing images must be stored locally as optimized AVIF assets. Do not hotlink WordPress, Google Drive, or Client HQ image URLs from public pages. Each placed image needs meaningful `alt`, `title`, intrinsic `width` and `height`, `loading` where appropriate, and `decoding="async"`. Keep source, title, alt, usage, dimensions, and byte metadata in `assets/image-manifest.json`.
+
+Audrey Shoen result imagery and testimonial copy are not used on the public homepage or public results page.
+
+## Homepage Interactions
+
+- Hero platform strip: Google Maps, ChatGPT, Gemini, and AI Search controls may update a compact proof panel. Keep it supportive of the simple hero, not a second hero.
+- CORE diagnostic rail: the four CORE diagnostic rows may update the adjacent explanation on hover and keyboard focus.
+- Proof modules: the homepage should show tangible product proof, such as AVIF reporting previews and non-Audrey Google Search Console result images.
+- Partner logos remain static and should not get hover tooltips or interaction behavior.
 
 ## Motion
 

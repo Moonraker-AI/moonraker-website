@@ -38,6 +38,7 @@
   border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.25rem;
 }
 .current-box strong { color: var(--color-heading); }
+.cancel-copy { color: var(--color-body); line-height: 1.65; margin: 0 0 1rem; }
 .field { margin: 1.25rem 0; }
 .field label {
   display: block; font-size: .78rem; font-weight: 600;
@@ -93,8 +94,8 @@
       <li><a href="/free-strategy-call">Contact</a></li>
     </ul>
     <div class="nav-right">
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
-      <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+      <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
+      <button type="button" class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
     </div>
   </div>
 </nav>
@@ -110,7 +111,7 @@
   <div class="current-box" id="currentBox" hidden>
     <strong>Scheduled time:</strong> <span id="currentWhen"></span>
   </div>
-  <p style="color:var(--color-body);line-height:1.65;margin:0 0 1rem;">If you would rather move the call, use the reschedule link in your email. If cancellation is correct, confirm below.</p>
+  <p class="cancel-copy">If you would rather move the call, use the reschedule link in your email. If cancellation is correct, confirm below.</p>
   <div class="field">
     <label for="reason">Reason (optional)</label>
     <textarea id="reason" placeholder="Optional note for Scott"></textarea>

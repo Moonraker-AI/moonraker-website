@@ -55,13 +55,88 @@ img { max-width: 100%; display: block; }
 /* ── Typography ── */
 h1, h2, h3, h4 {
   font-family: 'Outfit', sans-serif;
+  font-weight: 800;
   color: var(--color-heading);
   line-height: 1.2;
 }
 h1 { font-weight: 800; font-size: 2.5rem; }
-h2 { font-weight: 700; font-size: 1.75rem; }
-h3 { font-weight: 700; font-size: 1.25rem; }
-h4 { font-weight: 600; font-size: 1rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1rem; }
+
+/* ── Motion ── */
+.card-pop,
+.testimonial-card,
+.review-card,
+.pillar-card,
+.quote-card,
+.evidence-card,
+.metric,
+.timeline-item,
+.access-card,
+.phase-stack,
+.scope-panel,
+details,
+.diagnostic-panel,
+.matrix,
+.deliverable-card,
+.deliverable-detail,
+.callout,
+.preview-card,
+.pillar-question,
+.cancel-card,
+.booking-card {
+  transform: translateY(0);
+  transition:
+    transform 190ms cubic-bezier(.22, 1, .36, 1),
+    border-color 190ms cubic-bezier(.22, 1, .36, 1),
+    box-shadow 190ms cubic-bezier(.22, 1, .36, 1);
+}
+.card-pop:hover,
+.card-pop:focus-within,
+.testimonial-card:hover,
+.testimonial-card:focus-within,
+.review-card:hover,
+.review-card:focus-within,
+.pillar-card:hover,
+.pillar-card:focus-within,
+.quote-card:hover,
+.quote-card:focus-within,
+.evidence-card:hover,
+.evidence-card:focus-within,
+.metric:hover,
+.metric:focus-within,
+.timeline-item:hover,
+.timeline-item:focus-within,
+.access-card:hover,
+.access-card:focus-within,
+.phase-stack:hover,
+.phase-stack:focus-within,
+.scope-panel:hover,
+.scope-panel:focus-within,
+details:hover,
+details:focus-within,
+.diagnostic-panel:hover,
+.diagnostic-panel:focus-within,
+.matrix:hover,
+.matrix:focus-within,
+.deliverable-card:hover,
+.deliverable-card:focus-within,
+.deliverable-detail:hover,
+.deliverable-detail:focus-within,
+.callout:hover,
+.callout:focus-within,
+.preview-card:hover,
+.preview-card:focus-within,
+.pillar-question:hover,
+.pillar-question:focus-within,
+.cancel-card:hover,
+.cancel-card:focus-within,
+.booking-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0, 212, 126, .36);
+  box-shadow: 0 18px 34px rgba(30, 42, 94, .13);
+}
 
 /* ── Layout ── */
 .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
@@ -190,7 +265,7 @@ html.dark .trust-bar img { filter: brightness(1.2); }
 
 /* ── Section Headings ── */
 .section-heading {
-  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.75rem;
+  font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.75rem;
   color: var(--color-heading); margin-bottom: .5rem;
 }
 .section-subhead {
@@ -205,11 +280,9 @@ html.dark .trust-bar img { filter: brightness(1.2); }
 }
 .partner-logo {
   height: 48px; max-width: 180px; object-fit: contain;
-  transition: transform .2s, opacity .2s; opacity: .85;
+  opacity: .85;
 }
-.partner-logo:hover { transform: scale(1.08); opacity: 1; }
 html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; }
-html.dark .partner-logo:hover { opacity: .95; }
 
 /* ── Testimonial Cards ── */
 .testimonials-grid {
@@ -219,11 +292,6 @@ html.dark .partner-logo:hover { opacity: .95; }
 .testimonial-card {
   background: var(--color-surface); border: 1px solid var(--color-border);
   border-radius: 16px; padding: 2rem; position: relative; overflow: hidden;
-  transition: border-color .2s, box-shadow .2s;
-}
-.testimonial-card:hover {
-  border-color: var(--color-primary);
-  box-shadow: 0 4px 20px rgba(0, 212, 126, 0.08);
 }
 .testimonial-card::before {
   content: '\201C'; position: absolute; top: .75rem; right: 1.25rem;
@@ -282,11 +350,6 @@ html.dark .testimonial-logo { filter: brightness(1.3); }
 .pillar-card {
   background: var(--color-surface); border: 1px solid var(--color-border);
   border-radius: 14px; padding: 2rem; text-align: center;
-  transition: border-color .2s, transform .2s, box-shadow .2s;
-}
-.pillar-card:hover {
-  border-color: var(--color-primary); transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0,0,0,.06);
 }
 .pillar-icon {
   font-size: 2.5rem; margin-bottom: 1rem;
@@ -368,4 +431,70 @@ html.dark .testimonial-logo { filter: brightness(1.3); }
 @media (min-width: 769px) and (max-width: 1024px) {
   .reviews-masonry { columns: 2; }
 }
-
+@media (prefers-reduced-motion: reduce) {
+  .card-pop,
+  .card-pop:hover,
+  .card-pop:focus-within,
+  .testimonial-card,
+  .testimonial-card:hover,
+  .testimonial-card:focus-within,
+  .review-card,
+  .review-card:hover,
+  .review-card:focus-within,
+  .pillar-card,
+  .pillar-card:hover,
+  .pillar-card:focus-within,
+  .quote-card,
+  .quote-card:hover,
+  .quote-card:focus-within,
+  .evidence-card,
+  .evidence-card:hover,
+  .evidence-card:focus-within,
+  .metric,
+  .metric:hover,
+  .metric:focus-within,
+  .timeline-item,
+  .timeline-item:hover,
+  .timeline-item:focus-within,
+  .access-card,
+  .access-card:hover,
+  .access-card:focus-within,
+  .phase-stack,
+  .phase-stack:hover,
+  .phase-stack:focus-within,
+  .scope-panel,
+  .scope-panel:hover,
+  .scope-panel:focus-within,
+  details,
+  details:hover,
+  details:focus-within,
+  .diagnostic-panel,
+  .diagnostic-panel:hover,
+  .diagnostic-panel:focus-within,
+  .matrix,
+  .matrix:hover,
+  .matrix:focus-within,
+  .deliverable-card,
+  .deliverable-card:hover,
+  .deliverable-card:focus-within,
+  .deliverable-detail,
+  .deliverable-detail:hover,
+  .deliverable-detail:focus-within,
+  .callout,
+  .callout:hover,
+  .callout:focus-within,
+  .preview-card,
+  .preview-card:hover,
+  .preview-card:focus-within,
+  .pillar-question,
+  .pillar-question:hover,
+  .pillar-question:focus-within,
+  .cancel-card,
+  .cancel-card:hover,
+  .cancel-card:focus-within,
+  .booking-card,
+  .booking-card:hover {
+    transform: none;
+    transition: none;
+  }
+}

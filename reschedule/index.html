@@ -45,6 +45,7 @@
 }
 .current-banner-icon { font-size: 1.25rem; flex-shrink: 0; }
 .current-banner strong { color: var(--color-heading); font-weight: 600; }
+.current-help { margin-top: .25rem; color: var(--color-muted); }
 
 .tz-banner {
   max-width: 720px; margin: 1rem auto 0;
@@ -56,6 +57,8 @@
 }
 .tz-banner-icon { font-size: 1.25rem; flex-shrink: 0; }
 .tz-banner strong { color: var(--color-heading); font-weight: 600; }
+.tz-note { margin-top: .35rem; color: var(--color-muted); }
+.tz-picker-row { margin-top: .35rem; }
 .tz-banner select {
   margin-top: .35rem; font-family: inherit; font-size: .82rem;
   padding: .3rem .5rem; border: 1px solid var(--color-border);
@@ -68,7 +71,7 @@
   border-radius: 14px; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,.04);
 }
 .booking-step h2 {
-  font-family: 'Outfit', sans-serif; font-weight: 700;
+  font-family: 'Outfit', sans-serif; font-weight: 800;
   font-size: 1.4rem; color: var(--color-heading); margin: 0 0 .35rem;
 }
 .booking-step .helper {
@@ -152,6 +155,7 @@
   background: rgba(239,68,68,.08); border: 1px solid rgba(239,68,68,.2);
   border-radius: 8px; color: #b91c1c; font-size: .88rem;
 }
+.form-error-hidden { display: none; }
 
 .confirm-icon {
   width: 56px; height: 56px; margin: 0 auto 1rem;
@@ -172,6 +176,7 @@
 .detail-value { color: var(--color-heading); font-weight: 500; }
 
 .confirm { text-align: center; }
+.confirm-note { font-size: .82rem; color: var(--color-muted); }
 
 @media (max-width: 600px) {
   .contact-wrap { padding: 2rem 1rem; }
@@ -205,8 +210,8 @@
       <li><a href="/free-strategy-call">Contact</a></li>
     </ul>
     <div class="nav-right">
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
-      <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+      <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
+      <button type="button" class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
     </div>
   </div>
 </nav>
@@ -221,7 +226,7 @@
     <span class="current-banner-icon">&#128197;</span>
     <div>
       <div><strong>Currently scheduled for</strong> <span id="currentWhen"></span></div>
-      <div style="margin-top:.25rem;color:var(--color-muted);">Picking a new time below replaces this booking.</div>
+      <div class="current-help">Picking a new time below replaces this booking.</div>
     </div>
   </div>
 
@@ -229,8 +234,8 @@
     <span class="tz-banner-icon">&#127758;</span>
     <div>
       <div><strong>Scott is based in Adelaide, Australia</strong> and takes new client calls Tuesday through Thursday, 9 AM to 5 PM local time.</div>
-      <div style="margin-top:.35rem;color:var(--color-muted);">All times below are shown in your local zone (<span id="tzLabel">detecting...</span>).</div>
-      <div style="margin-top:.35rem;">Wrong zone? <select id="tzPicker"></select></div>
+      <div class="tz-note">All times below are shown in your local zone (<span id="tzLabel">detecting...</span>).</div>
+      <div class="tz-picker-row">Wrong zone? <select id="tzPicker"></select></div>
     </div>
   </div>
 </div>
@@ -276,7 +281,7 @@
         <button type="button" class="btn btn-ghost" onclick="goToStep(2)">Back</button>
         <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitReschedule()">Confirm new time</button>
       </div>
-      <div id="formError" class="error-state" style="display:none;"></div>
+      <div id="formError" class="error-state form-error-hidden"></div>
     </div>
 
     <!-- Step 4: confirmation -->
@@ -285,7 +290,7 @@
       <h2>Your call is moved.</h2>
       <p>A fresh confirmation email is on its way and the calendar invite has been updated.</p>
       <div class="confirm-details" id="confirmDetails"></div>
-      <p style="font-size:.82rem;color:var(--color-muted);">Need to change anything else? Reply to the confirmation email and we will sort it.</p>
+      <p class="confirm-note">Need to change anything else? Reply to the confirmation email and we will sort it.</p>
     </div>
 
   </div>

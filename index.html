@@ -62,10 +62,10 @@ body.nav-open { overflow: hidden; }
 img { max-width: 100%; display: block; }
 a { color: var(--color-primary); text-decoration: none; }
 a:hover { color: var(--color-primary-hover); }
-h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; color: var(--color-heading); line-height: 1.12; }
+h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; color: var(--color-heading); line-height: 1.12; font-weight: 800; }
 h1 { font-size: clamp(2.55rem, 6vw, 5rem); font-weight: 800; letter-spacing: -.02em; }
 h2 { font-size: clamp(2rem, 3vw, 3rem); font-weight: 800; letter-spacing: -.01em; }
-h3 { font-size: 1.25rem; font-weight: 700; }
+h3 { font-size: 1.25rem; }
 p { max-width: 68ch; }
 .container { width: min(1120px, calc(100% - 3rem)); margin: 0 auto; }
 .section { padding: clamp(4rem, 8vw, 7rem) 0; }
@@ -109,39 +109,18 @@ p { max-width: 68ch; }
 .hero-wrap {
   background: linear-gradient(165deg, var(--color-primary-subtle) 0%, var(--color-bg) 50%, var(--color-surface) 100%);
   border-bottom: 1px solid var(--color-border);
-  min-height: 100svh;
+  min-height: 88svh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem 2rem 8rem;
+  padding: 3rem 2rem 4.5rem;
   position: relative;
   overflow: hidden;
-}
-.hero-wrap::before {
-  content: '';
-  position: absolute;
-  top: -40%;
-  right: -10%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(0,212,126,.06) 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero-wrap::after {
-  content: '';
-  position: absolute;
-  bottom: -30%;
-  left: -8%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(30,42,94,.04) 0%, transparent 70%);
-  pointer-events: none;
 }
 html.dark .hero-wrap {
   background: linear-gradient(165deg, var(--color-primary-subtle) 0%, var(--color-bg) 60%);
 }
-html.dark .hero-wrap::before { background: radial-gradient(circle, rgba(0,212,126,.08) 0%, transparent 70%); }
 .hero {
   text-align: center;
   max-width: 940px;
@@ -163,8 +142,53 @@ html.dark .hero-wrap::before { background: radial-gradient(circle, rgba(0,212,12
   font-size: 1.3rem;
   color: var(--color-muted);
   max-width: 680px;
-  margin: 0 auto 2.75rem;
+  margin: 0 auto 1.5rem;
   line-height: 1.7;
+}
+.platform-lens {
+  width: min(760px, 100%);
+  margin: 0 auto 2rem;
+  padding: .7rem;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  box-shadow: 0 8px 24px rgba(30,42,94,.06);
+}
+.platform-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .45rem;
+  margin-bottom: .7rem;
+}
+.platform-tab {
+  min-height: 38px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--color-body);
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-size: .86rem;
+  font-weight: 800;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+.platform-tab:hover,
+.platform-tab:focus-visible {
+  outline: none;
+  border-color: rgba(0, 212, 126, .35);
+  color: var(--color-heading);
+}
+.platform-tab.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #F8FFFC;
+}
+.platform-copy {
+  color: var(--color-muted);
+  font-size: .95rem;
+  line-height: 1.55;
+  margin: 0 auto;
+  max-width: 640px;
 }
 .cta-btn {
   display: inline-block;
@@ -189,8 +213,8 @@ html.dark .hero-wrap::before { background: radial-gradient(circle, rgba(0,212,12
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
-  padding: 3rem 2rem 0;
+  gap: 1rem;
+  padding: 2.25rem 2rem 0;
   flex-wrap: wrap;
   max-width: 960px;
   margin: 0 auto;
@@ -202,18 +226,19 @@ html.dark .hero-wrap::before { background: radial-gradient(circle, rgba(0,212,12
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 14px;
-  padding: .65rem 1.25rem;
-  min-width: 200px;
+  padding: .55rem .9rem;
+  min-width: 0;
+  width: 250px;
   box-shadow: 0 2px 12px rgba(0,0,0,.04);
   transition: transform .2s, box-shadow .2s;
 }
 .badge-pill:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.08); }
-.badge-pill img { height: 80px; max-width: 300px; object-fit: contain; }
+.badge-pill img { height: 58px; max-width: 220px; object-fit: contain; }
 html.dark .badge-pill { box-shadow: 0 2px 12px rgba(0,0,0,.15); }
 html.dark .badge-pill img { filter: brightness(1.15); }
 .scroll-hint {
+  display: none;
   margin-top: 2.5rem;
-  display: flex;
   flex-direction: column;
   align-items: center;
   gap: .25rem;
@@ -223,7 +248,7 @@ html.dark .badge-pill img { filter: brightness(1.15); }
 .scroll-hint svg { width: 28px; height: 28px; stroke: var(--color-muted); }
 @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
 .partners-section {
-  padding: 4rem 2rem;
+  padding: 2.5rem 2rem 4rem;
   max-width: 1100px;
   margin: 0 auto;
   text-align: center;
@@ -259,18 +284,40 @@ html.dark .badge-pill img { filter: brightness(1.15); }
   height: 80px;
   max-width: 200px;
   object-fit: contain;
-  transition: transform .2s, opacity .2s;
   opacity: .85;
 }
-.partner-logo:hover { transform: scale(1.08); opacity: 1; }
 html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; }
-html.dark .partner-logo:hover { opacity: .95; }
 .ai-questions { background: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
 .question-layout { display: grid; grid-template-columns: .82fr 1.18fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
 .sticky-copy { position: sticky; top: 100px; }
 .sticky-copy p { color: var(--color-muted); margin-top: 1rem; font-size: 1.05rem; }
+.diagnostic-card {
+  margin-top: 1.35rem;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: var(--color-bg);
+  padding: 1.2rem;
+  box-shadow: 0 8px 24px rgba(30,42,94,.06);
+}
+.diagnostic-card .diagnostic-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: var(--color-navy);
+  color: var(--color-primary);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  margin-bottom: .85rem;
+}
+.diagnostic-card h3 { margin-bottom: .45rem; }
+.diagnostic-card p { margin-top: 0; font-size: .92rem; line-height: 1.65; }
 .question-list { display: grid; gap: .9rem; }
-.question-item { display: grid; grid-template-columns: 52px 1fr; gap: 1rem; padding: 1.2rem; border: 1px solid var(--color-border); border-radius: 14px; background: var(--color-bg); }
+.question-item { display: grid; grid-template-columns: 52px 1fr; gap: 1rem; padding: 1.2rem; border: 1px solid var(--color-border); border-radius: 14px; background: var(--color-bg); cursor: pointer; }
+.question-item.active { border-color: rgba(0, 212, 126, .45); background: color-mix(in srgb, var(--color-primary-subtle) 60%, var(--color-bg)); }
+.question-item:focus-visible { outline: 3px solid rgba(0, 212, 126, .22); outline-offset: 3px; }
 .question-letter { width: 52px; height: 52px; border-radius: 13px; display: grid; place-items: center; background: var(--color-navy); color: var(--color-primary); font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.3rem; }
 .question-item h3 { margin-bottom: .35rem; }
 .question-item p { color: var(--color-muted); font-size: .94rem; margin-bottom: .8rem; }
@@ -293,6 +340,67 @@ html.dark .partner-logo:hover { opacity: .95; }
 .stat { border: 1px solid var(--color-border); border-radius: 14px; padding: 1.1rem; background: var(--color-surface); }
 .stat strong { display: block; font-family: 'Outfit', sans-serif; font-size: 2rem; line-height: 1; color: var(--color-primary); }
 .stat span { color: var(--color-muted); font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+.proof-module {
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  background: var(--color-surface);
+  padding: .85rem;
+  box-shadow: var(--shadow-soft);
+}
+.proof-toggle {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .5rem;
+  margin-bottom: .85rem;
+}
+.proof-tab {
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-bg);
+  color: var(--color-body);
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  min-height: 40px;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+.proof-tab:hover,
+.proof-tab:focus-visible {
+  outline: none;
+  border-color: rgba(0, 212, 126, .36);
+  color: var(--color-heading);
+}
+.proof-tab.active {
+  background: var(--color-navy);
+  border-color: var(--color-navy);
+  color: var(--color-primary);
+}
+.proof-frame {
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+.proof-frame img {
+  width: 100%;
+  height: auto;
+  background: var(--color-surface);
+}
+.proof-frame figcaption {
+  display: grid;
+  gap: .25rem;
+  padding: .9rem 1rem 1rem;
+}
+.proof-frame figcaption strong {
+  color: var(--color-heading);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+}
+.proof-frame figcaption span {
+  color: var(--color-muted);
+  font-size: .88rem;
+  line-height: 1.55;
+}
 .evidence-table { overflow: hidden; border: 1px solid var(--color-border); border-radius: 16px; background: var(--color-surface); box-shadow: var(--shadow-soft); }
 .evidence-table table { width: 100%; border-collapse: collapse; }
 .evidence-table th { background: var(--color-navy); color: var(--color-on-navy); text-align: left; padding: .9rem 1rem; font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; }
@@ -325,6 +433,37 @@ html.dark .partner-logo:hover { opacity: .95; }
 .phase-card strong { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; height: 32px; border-radius: 9px; background: var(--color-navy); color: var(--color-primary); font-family: 'Outfit', sans-serif; font-weight: 800; margin-bottom: 1rem; }
 .phase-card h3 { margin-bottom: .55rem; }
 .phase-card p { color: var(--color-muted); font-size: .93rem; line-height: 1.65; }
+.question-item,
+.stat,
+.proof-frame,
+.quote-card,
+.feedback-card,
+.fit-card,
+.phase-card {
+  transform: translateY(0);
+  transition:
+    transform 190ms cubic-bezier(.22, 1, .36, 1),
+    border-color 190ms cubic-bezier(.22, 1, .36, 1),
+    box-shadow 190ms cubic-bezier(.22, 1, .36, 1);
+}
+.question-item:hover,
+.question-item:focus-within,
+.stat:hover,
+.stat:focus-within,
+.proof-frame:hover,
+.proof-frame:focus-within,
+.quote-card:hover,
+.quote-card:focus-within,
+.feedback-card:hover,
+.feedback-card:focus-within,
+.fit-card:hover,
+.fit-card:focus-within,
+.phase-card:hover,
+.phase-card:focus-within {
+  transform: translateY(-5px);
+  border-color: rgba(0, 212, 126, .36);
+  box-shadow: 0 18px 34px rgba(30, 42, 94, .13);
+}
 .cta-band { background: var(--color-navy); color: rgba(232, 245, 239, .74); }
 .cta-grid { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
 .cta-band h2 { color: var(--color-on-navy); }
@@ -352,18 +491,22 @@ html.dark .partner-logo:hover { opacity: .95; }
   .nav-links a { padding: .85rem 1rem; }
   .nav-cta { display: none; }
   .nav-toggle { display: inline-flex; }
-  .hero-wrap { min-height: 100svh; padding: 3rem 1.5rem 2.5rem; }
+  .hero-wrap { min-height: auto; padding: 3rem 1.5rem 2.5rem; }
   .hero h1 { font-size: 2.75rem; }
   .hero p { font-size: 1.0625rem; }
-  .trust-bar { gap: .75rem; padding: 2.75rem 1rem 0; }
-  .badge-pill { padding: .5rem .75rem; min-width: auto; width: calc(50% - .5rem); border-radius: 10px; }
-  .badge-pill img { height: 52px; }
-  .partners-section { padding: 2rem 1.5rem 2.5rem; }
+  .platform-lens { margin-bottom: 1.6rem; padding: .6rem; }
+  .platform-tabs { grid-template-columns: repeat(2, 1fr); }
+  .platform-tab { font-size: .82rem; }
+  .trust-bar { gap: .55rem; padding: 1.75rem .75rem 0; }
+  .badge-pill { padding: .45rem .5rem; min-width: auto; width: calc(33.33% - .5rem); border-radius: 10px; }
+  .badge-pill img { height: 34px; max-width: 100%; }
+  .partners-section { padding: 1rem 1.5rem 2.5rem; }
   .section-heading { font-size: 2.25rem; }
   .partner-row { gap: 1.25rem 1.5rem; width: 100%; }
   .partner-row .partner-logo { height: auto; max-height: 52px; max-width: none; object-fit: contain; }
   .partner-row.cols-3 .partner-logo { width: calc(33.33% - 1.2rem); }
   .partner-row.cols-4 .partner-logo { width: calc(50% - 1rem); }
+  .partner-row.cols-2 .partner-logo { width: calc(50% - 1rem); }
   .testimonial-grid, .feedback-strip, .fit-section .fit-grid, .phase-row { grid-template-columns: 1fr; }
   .stats-stack { grid-template-columns: 1fr; }
   .core-header { display: block; }
@@ -380,11 +523,35 @@ html.dark .partner-logo:hover { opacity: .95; }
   .hero h1 { font-size: 2.1rem; }
   .section-heading { font-size: 1.75rem; }
   .partner-logo { max-height: 40px; }
-  .badge-pill { padding: .5rem .6rem; }
-  .badge-pill img { height: 44px; }
+  .partner-row.cols-3 .partner-logo { width: calc(50% - 1rem); }
+  .badge-pill { padding: .45rem .4rem; }
+  .badge-pill img { height: 30px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .question-item,
+  .question-item:hover,
+  .question-item:focus-within,
+  .stat,
+  .stat:hover,
+  .stat:focus-within,
+  .proof-frame,
+  .proof-frame:hover,
+  .proof-frame:focus-within,
+  .quote-card,
+  .quote-card:hover,
+  .quote-card:focus-within,
+  .feedback-card,
+  .feedback-card:hover,
+  .feedback-card:focus-within,
+  .fit-card,
+  .fit-card:hover,
+  .fit-card:focus-within,
+  .phase-card,
+  .phase-card:hover,
+  .phase-card:focus-within {
+    transform: none;
+  }
 }
 </style>
 </head>
@@ -409,15 +576,24 @@ html.dark .partner-logo:hover { opacity: .95; }
 <main>
   <div class="hero-wrap">
     <section class="hero">
-      <h1>Grow your practice&rsquo;s visibility on <span>Google, Gemini, and AI</span></h1>
-      <p>We help therapy practices get found by the clients who need them most. Our CORE Marketing System is trusted by the industry&rsquo;s leading experts in practice building and clinical training.</p>
+      <h1>Grow your practice&rsquo;s visibility on <span>Google, Maps, ChatGPT, Gemini, and AI Search</span></h1>
+      <p>We help therapy practices get found by the clients who need them most with a simple system built for the platforms people already recognize.</p>
+      <section class="platform-lens" aria-label="Visibility platforms">
+        <div class="platform-tabs" role="group" aria-label="Platform examples">
+          <button type="button" class="platform-tab active" data-platform="maps" aria-pressed="true">Google Maps</button>
+          <button type="button" class="platform-tab" data-platform="chatgpt" aria-pressed="false">ChatGPT</button>
+          <button type="button" class="platform-tab" data-platform="gemini" aria-pressed="false">Gemini</button>
+          <button type="button" class="platform-tab" data-platform="ai" aria-pressed="false">AI Search</button>
+        </div>
+        <p class="platform-copy" id="platformCopy">Maps visibility starts with clear location, service, and Google Business Profile signals.</p>
+      </section>
       <a href="/free-strategy-call" class="cta-btn">Book a Free Strategy Call</a>
     </section>
 
     <div class="trust-bar">
-      <div class="badge-pill badge-wide"><img src="/assets/badges/Google%20Partner.webp" alt="Google Partner"></div>
-      <div class="badge-pill badge-wide"><img src="/assets/badges/Google%20Rating%202026.01.09.webp" alt="Google Rating 4.9 stars"></div>
-      <div class="badge-pill"><img src="/assets/badges/Google%20Local%20Guides.webp" alt="Google Local Guides"></div>
+      <div class="badge-pill badge-wide"><img src="/assets/badges/google-partner.avif" alt="Google Partner" title="Google Partner badge" width="348" height="135" decoding="async"></div>
+      <div class="badge-pill badge-wide"><img src="/assets/badges/google-rating-2026-01-09.avif" alt="Google Rating 4.9 stars" title="Google Rating 4.9 stars" width="348" height="135" decoding="async"></div>
+      <div class="badge-pill"><img src="/assets/badges/google-local-guides.avif" alt="Google Local Guides" title="Google Local Guides badge" width="348" height="135" decoding="async"></div>
     </div>
     <div class="scroll-hint">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10l5 5 5-5"/></svg>
@@ -428,19 +604,30 @@ html.dark .partner-logo:hover { opacity: .95; }
     <h2 class="section-heading">Trusted by the Experts Who Educate Therapists</h2>
     <p class="section-subhead">We partner with the industry&rsquo;s most respected names in practice building, clinical training, and therapist entrepreneurship.</p>
       <div class="partner-rows">
-        <div class="partner-row cols-3"><img class="partner-logo" src="/assets/partners/psychology-business-school.webp" alt="Psychology Business School"><img class="partner-logo" src="/assets/partners/walker-co-strategy.webp" alt="Walker Co Strategy"><img class="partner-logo" src="/assets/partners/traveling-therapist.webp" alt="The Traveling Therapist"></div>
-        <div class="partner-row cols-4"><img class="partner-logo" src="/assets/partners/private-practice-academy.webp" alt="The Private Practice Academy"><img class="partner-logo" src="/assets/partners/therasaas.webp" alt="TheraSaaS"><img class="partner-logo" src="/assets/partners/private-practice-elevation.webp" alt="Private Practice Elevation"><img class="partner-logo" src="/assets/partners/balanced-private-practice.webp" alt="Balanced Private Practice"></div>
-        <div class="partner-row cols-3"><img class="partner-logo" src="/assets/partners/intensive-therapy-coach.webp" alt="Intensive Therapy Coach"><img class="partner-logo" src="/assets/partners/prosperous-therapist.webp" alt="The Prosperous Therapist"><img class="partner-logo" src="/assets/partners/mccance-method.webp" alt="The McCance Method"></div>
+        <div class="partner-row cols-3">
+          <img class="partner-logo" src="/assets/partners/psychology-business-school.avif" alt="Psychology Business School logo" title="Psychology Business School logo" width="900" height="660" loading="lazy" decoding="async">
+          <img class="partner-logo" src="/assets/partners/private-practice-elevation.avif" alt="Private Practice Elevation logo" title="Private Practice Elevation logo" width="285" height="150" loading="lazy" decoding="async">
+          <img class="partner-logo" src="/assets/partners/traveling-therapist.avif" alt="The Traveling Therapist logo" title="The Traveling Therapist logo" width="300" height="264" loading="lazy" decoding="async">
+        </div>
+        <div class="partner-row cols-3">
+          <img class="partner-logo" src="/assets/partners/private-practice-academy.avif" alt="The Private Practice Academy logo" title="The Private Practice Academy logo" width="900" height="206" loading="lazy" decoding="async">
+          <img class="partner-logo" src="/assets/partners/therasaas.avif" alt="TheraSaaS logo" title="TheraSaaS logo" width="350" height="180" loading="lazy" decoding="async">
+          <img class="partner-logo" src="/assets/partners/intensive-therapy-coach.avif" alt="Intensive Therapy Coach logo" title="Intensive Therapy Coach logo" width="900" height="508" loading="lazy" decoding="async">
+        </div>
+        <div class="partner-row cols-2">
+          <img class="partner-logo" src="/assets/partners/prosperous-therapist.avif" alt="The Prosperous Therapist logo" title="The Prosperous Therapist logo" width="300" height="100" loading="lazy" decoding="async">
+          <img class="partner-logo" src="/assets/partners/mccance-method.avif" alt="The McCance Method logo" title="The McCance Method logo" width="500" height="320" loading="lazy" decoding="async">
+        </div>
       </div>
   </section>
   <section class="section ai-questions">
     <div class="container question-layout">
-      <div class="sticky-copy"><span class="eyebrow">Why CORE exists</span><h2>AI will not recommend what it cannot verify.</h2><p>Google and AI tools need more than a decent homepage. They look for proof that the practice is real, clear service pages, outside trust, a healthy website, and an easy path to book.</p></div>
+      <div class="sticky-copy"><span class="eyebrow">Why CORE exists</span><h2>AI will not recommend what it cannot verify.</h2><p>Google and AI tools need more than a decent homepage. They look for proof that the practice is real, clear service pages, outside trust, a healthy website, and an easy path to book.</p><div class="diagnostic-card" aria-live="polite"><div class="diagnostic-label" id="diagnosticLetter">C</div><h3 id="diagnosticTitle">Credibility check</h3><p id="diagnosticCopy">We confirm that your practice looks real, consistent, and connected across the places clients and search tools already check.</p></div></div>
       <div class="question-list">
-        <div class="question-item"><div class="question-letter">C</div><div><h3>Does your practice look real and consistent online?</h3><p>We connect your website, Google Business Profile, local listings, credentials, and public practice details.</p><div class="deliverables"><span>Website</span><span>Listings</span><span>Google profile</span><span>Credentials</span></div></div></div>
-        <div class="question-item"><div class="question-letter">O</div><div><h3>What do you treat, and where?</h3><p>We clarify your services, specialties, locations, FAQs, and page structure so search tools and clients can understand your practice.</p><div class="deliverables"><span>Service pages</span><span>Clear headings</span><span>FAQs</span><span>Location pages</span></div></div></div>
-        <div class="question-item"><div class="question-letter">R</div><div><h3>Can the outside world confirm you are trusted?</h3><p>We organize ethical trust points through endorsements, partner proof, public mentions, video, listings, and relevant profile links.</p><div class="deliverables"><span>Endorsements</span><span>Partner proof</span><span>Video proof</span><span>Public mentions</span></div></div></div>
-        <div class="question-item"><div class="question-letter">E</div><div><h3>Is there a clear path to consultation?</h3><p>We make the next step easier through better calls to action, clearer booking flow, stronger contact pages, and useful reporting.</p><div class="deliverables"><span>Calls to action</span><span>Booking flow</span><span>Contact page</span><span>Simple reports</span></div></div></div>
+        <div class="question-item active" tabindex="0" data-letter="C" data-title="Credibility check" data-copy="We confirm that your practice looks real, consistent, and connected across the places clients and search tools already check."><div class="question-letter">C</div><div><h3>Does your practice look real and consistent online?</h3><p>We connect your website, Google Business Profile, local listings, credentials, and public practice details.</p><div class="deliverables"><span>Website</span><span>Listings</span><span>Google profile</span><span>Credentials</span></div></div></div>
+        <div class="question-item" tabindex="0" data-letter="O" data-title="Optimization check" data-copy="We make your services, specialties, locations, FAQs, and page structure clear enough for people, Google, and AI tools to understand."><div class="question-letter">O</div><div><h3>What do you treat, and where?</h3><p>We clarify your services, specialties, locations, FAQs, and page structure so search tools and clients can understand your practice.</p><div class="deliverables"><span>Service pages</span><span>Clear headings</span><span>FAQs</span><span>Location pages</span></div></div></div>
+        <div class="question-item" tabindex="0" data-letter="R" data-title="Reputation check" data-copy="We organize ethical trust points so outside sources can help confirm that your practice is known, relevant, and credible."><div class="question-letter">R</div><div><h3>Can the outside world confirm you are trusted?</h3><p>We organize ethical trust points through endorsements, partner proof, public mentions, video, listings, and relevant profile links.</p><div class="deliverables"><span>Endorsements</span><span>Partner proof</span><span>Video proof</span><span>Public mentions</span></div></div></div>
+        <div class="question-item" tabindex="0" data-letter="E" data-title="Engagement check" data-copy="We make the path from being found to booking a consultation easier to follow, track, and improve."><div class="question-letter">E</div><div><h3>Is there a clear path to consultation?</h3><p>We make the next step easier through better calls to action, clearer booking flow, stronger contact pages, and useful reporting.</p><div class="deliverables"><span>Calls to action</span><span>Booking flow</span><span>Contact page</span><span>Simple reports</span></div></div></div>
       </div>
     </div>
   </section>
@@ -458,14 +645,23 @@ html.dark .partner-logo:hover { opacity: .95; }
   <section class="section results" id="results">
     <div class="container results-preview">
       <div><span class="eyebrow">Proof over promises</span><h2>Results should be easy to understand.</h2><p class="section-lede">Our reporting focuses on what practice owners care about: being found, getting inquiries, booking appointments, and understanding where new clients came from.</p><div class="stats-stack"><div class="stat"><strong>115%</strong><span>average search growth</span></div><div class="stat"><strong>308%</strong><span>top search result</span></div></div></div>
-      <div class="evidence-table"><table aria-label="Moonraker proof table"><thead><tr><th>Area</th><th>What we look for</th><th>Why it matters</th></tr></thead><tbody><tr><td>Google Search</td><td>Website visits, search terms, and page growth</td><td>Being found</td></tr><tr><td>Google Maps</td><td>Visibility by service and location</td><td>Nearby clients</td></tr><tr><td>AI tools</td><td>How ChatGPT, Gemini, and AI search describe the practice</td><td>Clear answers</td></tr><tr><td>New-client path</td><td>Inquiries, bookings, and where they came from</td><td>Real demand</td></tr></tbody></table></div>
+      <div class="proof-module">
+        <div class="proof-toggle" role="group" aria-label="Proof preview">
+          <button type="button" class="proof-tab active" data-proof="reporting" aria-pressed="true">Reporting preview</button>
+          <button type="button" class="proof-tab" data-proof="search" aria-pressed="false">Search Console result</button>
+        </div>
+        <figure class="proof-frame">
+          <img id="proofImage" src="/assets/proof/transparent-reporting.avif" alt="Moonraker reporting preview showing clear campaign data for a therapy practice" title="Moonraker transparent reporting dashboard" width="1400" height="818" loading="lazy" decoding="async">
+          <figcaption><strong id="proofTitle">Transparent reporting</strong><span id="proofCaption">Clear campaign data, practical next steps, and fewer mystery charts.</span></figcaption>
+        </figure>
+      </div>
     </div>
   </section>
   <section class="section testimonial-section">
     <div class="container"><span class="eyebrow">Collaboration partners</span><h2>Trusted by people who serve therapists.</h2><div class="testimonial-grid">
-      <article class="quote-card featured"><blockquote>"So. Good problem. The SEO is working too good!! I&rsquo;ve had 8 inquiries in the past 10 days. And most are scheduling consultations. I&rsquo;m now faced with some new challenges that I wasn&rsquo;t quite prepared to solve so soon."</blockquote><div class="quote-person"><img src="/assets/headshots/audrey-shoen.png" alt="Audrey Shoen"><div><strong>Audrey Shoen, LMFT</strong><span>Founder, Balanced Private Practice</span></div></div></article>
-      <article class="quote-card"><blockquote>"Chris helped me untangle the chaos, streamline my marketing, and optimize my websites for SEO in a way that actually makes sense and gets results."</blockquote><div class="quote-person"><img src="/assets/headshots/kym-tolson.png" alt="Kym Tolson"><div><strong>Kym Tolson</strong><span>Founder, The Traveling Therapist</span></div></div></article>
-      <article class="quote-card"><blockquote>"If you&rsquo;re a therapist looking for SEO strategy and implementation, Chris and his Moonraker team know how to rank you high on Google."</blockquote><div class="quote-person"><img src="/assets/headshots/brent-stutzman.png" alt="Brent Stutzman"><div><strong>Brent Stutzman</strong><span>Founder, TheraSaaS</span></div></div></article>
+      <article class="quote-card featured"><blockquote>"Chris was great to work with. He was responsive, answered our questions clearly, and explained things in a way that made sense. His help improved our SEO, and we appreciate his expertise. Highly recommend!"</blockquote><div class="quote-person"><img src="/assets/headshots/kelly-smyth-dent.avif" alt="Kelly Smyth Dent" title="Kelly Smyth Dent headshot" width="500" height="666" loading="lazy" decoding="async"><div><strong>Kelly Smyth Dent</strong><span>Practice owner</span></div></div></article>
+      <article class="quote-card"><blockquote>"Chris helped me untangle the chaos, streamline my marketing, and optimize my websites for SEO in a way that actually makes sense and gets results."</blockquote><div class="quote-person"><img src="/assets/headshots/kym-tolson.avif" alt="Kym Tolson" title="Kym Tolson headshot" width="500" height="708" loading="lazy" decoding="async"><div><strong>Kym Tolson</strong><span>Founder, The Traveling Therapist</span></div></div></article>
+      <article class="quote-card"><blockquote>"If you&rsquo;re a therapist looking for SEO strategy and implementation, Chris and his Moonraker team know how to rank you high on Google."</blockquote><div class="quote-person"><img src="/assets/headshots/brent-stutzman.avif" alt="Brent Stutzman" title="Brent Stutzman headshot" width="500" height="500" loading="lazy" decoding="async"><div><strong>Brent Stutzman</strong><span>Founder, TheraSaaS</span></div></div></article>
     </div>
     <div class="feedback-strip">
       <article class="feedback-card"><div class="feedback-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"Chris is amazing! His expertise is so valuable and we experienced a significant increase in traffic and inquiries through our website."</p><strong>Erinn E.</strong></article>
@@ -494,6 +690,75 @@ html.dark .partner-logo:hover { opacity: .95; }
   <div class="container footer-inner"><div><div class="footer-brand"><img src="/assets/logo.png" alt="">Moonraker</div><div class="footer-copy">&copy; 2026 Moonraker AI. All rights reserved.</div></div><div class="footer-links"><a href="/">Home</a><a href="/core-marketing-system">CORE System</a><a href="/results">Results</a><a href="/process">Process</a><a href="/scope">Scope</a><a href="/free-strategy-call">Free Strategy Call</a></div></div>
 </footer>
 <script>
+const platformCopy = {
+  maps: 'Maps visibility starts with clear location, service, and Google Business Profile signals.',
+  chatgpt: 'ChatGPT needs plain facts about who you help, where you work, and why your practice can be trusted.',
+  gemini: 'Gemini looks for connected proof across your site, Google presence, listings, and public practice details.',
+  ai: 'AI Search rewards clear pages, consistent entities, and evidence that your practice is relevant to the question.'
+};
+document.querySelectorAll('.platform-tab').forEach(function (tab) {
+  function activate() {
+    document.querySelectorAll('.platform-tab').forEach(function (item) {
+      item.classList.toggle('active', item === tab);
+      item.setAttribute('aria-pressed', item === tab ? 'true' : 'false');
+    });
+    document.getElementById('platformCopy').textContent = platformCopy[tab.dataset.platform];
+  }
+  tab.addEventListener('click', activate);
+  tab.addEventListener('focus', activate);
+  tab.addEventListener('pointerenter', activate);
+});
+
+document.querySelectorAll('.question-item').forEach(function (item) {
+  function activate() {
+    document.querySelectorAll('.question-item').forEach(function (row) { row.classList.toggle('active', row === item); });
+    document.getElementById('diagnosticLetter').textContent = item.dataset.letter;
+    document.getElementById('diagnosticTitle').textContent = item.dataset.title;
+    document.getElementById('diagnosticCopy').textContent = item.dataset.copy;
+  }
+  item.addEventListener('click', activate);
+  item.addEventListener('focus', activate);
+  item.addEventListener('pointerenter', activate);
+});
+
+const proofViews = {
+  reporting: {
+    src: '/assets/proof/transparent-reporting.avif',
+    alt: 'Moonraker reporting preview showing clear campaign data for a therapy practice',
+    title: 'Moonraker transparent reporting dashboard',
+    width: '1400',
+    height: '818',
+    heading: 'Transparent reporting',
+    caption: 'Clear campaign data, practical next steps, and fewer mystery charts.'
+  },
+  search: {
+    src: '/assets/results/gsc-12-solo-308-3-months.avif',
+    alt: 'Google Search Console result showing solo practice +308% search growth in 3 months',
+    title: 'Moonraker GSC result: solo practice +308% search growth in 3 months',
+    width: '1200',
+    height: '642',
+    heading: 'Search growth proof',
+    caption: 'A Google Search Console result showing +308% search growth for a solo practice in 3 months.'
+  }
+};
+document.querySelectorAll('.proof-tab').forEach(function (tab) {
+  tab.addEventListener('click', function () {
+    var view = proofViews[tab.dataset.proof];
+    var image = document.getElementById('proofImage');
+    document.querySelectorAll('.proof-tab').forEach(function (item) {
+      item.classList.toggle('active', item === tab);
+      item.setAttribute('aria-pressed', item === tab ? 'true' : 'false');
+    });
+    image.src = view.src;
+    image.alt = view.alt;
+    image.title = view.title;
+    image.width = view.width;
+    image.height = view.height;
+    document.getElementById('proofTitle').textContent = view.heading;
+    document.getElementById('proofCaption').textContent = view.caption;
+  });
+});
+
 window.toggleTheme=function(){function apply(){var dark=document.documentElement.classList.toggle('dark');localStorage.setItem('moonraker-theme',dark?'dark':'light');document.getElementById('themeBtn').textContent=dark?'Sun':'Moon'}if(document.startViewTransition)document.startViewTransition(apply);else apply()};
 (function(){var btn=document.getElementById('themeBtn');btn.textContent=document.documentElement.classList.contains('dark')?'Sun':'Moon'})();
 </script>
