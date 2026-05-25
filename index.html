@@ -50,7 +50,7 @@ html.dark {
   --shadow-soft: 0 10px 34px rgba(0, 0, 0, .24);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; font-size: 106.25%; }
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background: var(--color-bg);
@@ -181,7 +181,7 @@ html.dark .hero-wrap {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 14px;
-  padding: .65rem 1.25rem;
+  padding: .65rem;
   min-width: 200px;
   box-shadow: 0 2px 12px rgba(0,0,0,.04);
   transition: transform .2s, box-shadow .2s;
@@ -461,7 +461,7 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
   display: grid;
   grid-template-columns: 38px 1fr;
   gap: .85rem;
-  align-items: start;
+  align-items: center;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 14px;
@@ -480,13 +480,12 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
 }
 .fit-icon.good { background: var(--color-primary); box-shadow: 0 0 0 5px rgba(0, 212, 126, .12); }
 .fit-icon.bad { background: #EF4444; box-shadow: 0 0 0 5px rgba(239, 68, 68, .12); }
-.fit-row p { color: var(--color-body); font-size: .94rem; line-height: 1.55; }
+.fit-row p { color: var(--color-body); font-size: 1rem; line-height: 1.5; max-width: 46ch; }
 .phase-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
 .phase-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 16px; padding: 1.5rem; }
 .phase-card strong { display: inline-flex; align-items: center; justify-content: center; min-width: 78px; height: 32px; border-radius: 9px; background: var(--color-navy); color: var(--color-primary); font-family: 'Outfit', sans-serif; font-weight: 800; margin-bottom: 1rem; }
 .phase-card h3 { margin-bottom: .55rem; }
 .phase-card p { color: var(--color-muted); font-size: .93rem; line-height: 1.65; }
-.pillar-story-card,
 .stat,
 .proof-frame,
 .quote-card,
@@ -499,8 +498,6 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
     border-color 190ms cubic-bezier(.22, 1, .36, 1),
     box-shadow 190ms cubic-bezier(.22, 1, .36, 1);
 }
-.pillar-story-card:hover,
-.pillar-story-card:focus-within,
 .stat:hover,
 .stat:focus-within,
 .proof-frame:hover,
@@ -546,7 +543,7 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
   .hero h1 { font-size: 2.75rem; }
   .hero p { font-size: 1.0625rem; }
   .trust-bar { gap: .75rem; padding: 2.75rem 1rem 0; }
-  .badge-pill { padding: .5rem .75rem; min-width: auto; width: calc(50% - .5rem); border-radius: 10px; }
+  .badge-pill { padding: .5rem; min-width: auto; width: calc(50% - .5rem); border-radius: 10px; }
   .badge-pill img { height: 52px; max-width: 100%; }
   .partners-section { padding: 2rem 1.5rem 2.5rem; }
   .section-heading { font-size: 2.25rem; }
@@ -567,14 +564,18 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
   .hero h1 { font-size: 2.1rem; }
   .section-heading { font-size: 1.75rem; }
   .partner-row .partner-logo { max-height: 40px; }
-  .badge-pill { padding: .5rem .6rem; }
+  .badge-pill { padding: .5rem; }
   .badge-pill img { height: 44px; }
+}
+@media (min-width: 761px) {
+  .fit-row p {
+    min-height: 3em;
+    display: flex;
+    align-items: center;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-  .pillar-story-card,
-  .pillar-story-card:hover,
-  .pillar-story-card:focus-within,
   .stat,
   .stat:hover,
   .stat:focus-within,
@@ -793,16 +794,16 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
   <section class="section fit-section">
     <div class="container"><span class="eyebrow">Good fit</span><h2>Best for practices ready to be understood, not just found.</h2><div class="fit-grid">
       <div class="fit-column"><h3>We are a fit if you want</h3><div class="fit-list">
-        <article class="fit-row"><span class="fit-icon good">✓</span><p>More visibility for specific services, specialties, and locations.</p></article>
-        <article class="fit-row"><span class="fit-icon good">✓</span><p>A team that understands therapy marketing constraints.</p></article>
-        <article class="fit-row"><span class="fit-icon good">✓</span><p>Practical help across your website, Google, Maps, and AI tools.</p></article>
-        <article class="fit-row"><span class="fit-icon good">✓</span><p>Reporting that connects marketing work to real inquiries and bookings.</p></article>
+        <article class="fit-row"><span class="fit-icon good">✓</span><p>More visibility for the specific services, specialties, and locations you want to grow.</p></article>
+        <article class="fit-row"><span class="fit-icon good">✓</span><p>A team that understands therapy marketing constraints and ethical search visibility.</p></article>
+        <article class="fit-row"><span class="fit-icon good">✓</span><p>Practical help across your website, Google profile, Maps presence, and AI tools.</p></article>
+        <article class="fit-row"><span class="fit-icon good">✓</span><p>Reporting that connects visibility work to real inquiries, calls, and bookings.</p></article>
       </div></div>
       <div class="fit-column"><h3>We are probably not a fit if you want</h3><div class="fit-list">
-        <article class="fit-row"><span class="fit-icon bad">×</span><p>Cheap backlinks, keyword stuffing, or anonymous content volume.</p></article>
-        <article class="fit-row"><span class="fit-icon bad">×</span><p>Social media posting, paid ads, Google Business Profile feed management, or review replies.</p></article>
-        <article class="fit-row"><span class="fit-icon bad">×</span><p>Vague AI hype without concrete deliverables or proof.</p></article>
-        <article class="fit-row"><span class="fit-icon bad">×</span><p>A hands-off magic fix that avoids practice positioning decisions.</p></article>
+        <article class="fit-row"><span class="fit-icon bad">×</span><p>Cheap backlinks, keyword stuffing, or anonymous content written for search volume.</p></article>
+        <article class="fit-row"><span class="fit-icon bad">×</span><p>Social posting, paid ads, Google Business Profile feed management, or review replies.</p></article>
+        <article class="fit-row"><span class="fit-icon bad">×</span><p>Vague AI hype without concrete deliverables, proof, or implementation work.</p></article>
+        <article class="fit-row"><span class="fit-icon bad">×</span><p>A hands-off magic fix that avoids clear practice positioning decisions.</p></article>
       </div></div>
     </div></div>
   </section>

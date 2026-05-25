@@ -57,7 +57,7 @@ Do not flood the page with green gradients. Green should feel like a signal, not
 - Buttons: 10px radius, Outfit 600 or 700, green primary, navy or outline secondary.
 - Supraheadings: green text only, no enclosing pill or badge treatment above section headings.
 - Badges: use sparingly for proof assets or state labels, not as section heading decoration.
-- Cards: 12-14px radius, light surface, 1px border, restrained shadow at rest. On hover or focus-within, use the Moonraker pop effect: translateY(-4px to -5px), green-tinted border, and soft shadow using `cubic-bezier(.22, 1, .36, 1)`.
+- Cards: 12-14px radius, light surface, 1px border, restrained shadow at rest. On hover or focus-within, use the Moonraker pop effect: translateY(-4px to -5px), green-tinted border, and soft shadow using `cubic-bezier(.22, 1, .36, 1)`. Do not apply hover lift to CORE tab cards because the tabs already provide the interaction cue.
 - Proof tiles: logo or badge first, one concise support line.
 - CORE rows: letter, question, deliverables, outcome. Avoid four cloned icon cards as the only presentation.
 - Partner logos: use the Client HQ / newsletter 3-3-2 order and shape: Psychology Business School, Private Practice Elevation, Traveling Therapist; Private Practice Academy, TheraSaaS, Intensive Therapy Coach; Prosperous Therapist, McCance Method. Use the original source logo assets when AVIF conversion hurts fidelity. Logos stay unboxed and static, with no hover pop or partner tooltip interaction.
@@ -68,7 +68,7 @@ Do not flood the page with green gradients. Green should feel like a signal, not
 - Hero H1: 3.5rem to 4.5rem desktop, clamp down on mobile.
 - Section H2: 2rem to 2.75rem.
 - All h1, h2, h3, and h4 headings use Outfit 800 unless the text is not semantically a heading.
-- Body: 1rem to 1.125rem, line-height 1.65 to 1.75.
+- Body: default root size is slightly enlarged for readability; keep most body copy between 1rem and 1.125rem with line-height 1.65 to 1.75.
 - Max paragraph width: 65 to 75 characters.
 - Avoid long all-caps labels. Short badges only.
 
