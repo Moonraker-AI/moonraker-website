@@ -60,7 +60,7 @@ Do not flood the page with green gradients. Green should feel like a signal, not
 - Cards: 12-14px radius, light surface, 1px border, restrained shadow at rest. On hover or focus-within, use the Moonraker pop effect: translateY(-4px to -5px), green-tinted border, and soft shadow using `cubic-bezier(.22, 1, .36, 1)`.
 - Proof tiles: logo or badge first, one concise support line.
 - CORE rows: letter, question, deliverables, outcome. Avoid four cloned icon cards as the only presentation.
-- Partner logos: use the Client HQ / newsletter 3-3-2 order and shape: Psychology Business School, Private Practice Elevation, Traveling Therapist; Private Practice Academy, TheraSaaS, Intensive Therapy Coach; Prosperous Therapist, McCance Method. Logos stay static, with no hover pop or partner tooltip interaction.
+- Partner logos: use the Client HQ / newsletter 3-3-2 order and shape: Psychology Business School, Private Practice Elevation, Traveling Therapist; Private Practice Academy, TheraSaaS, Intensive Therapy Coach; Prosperous Therapist, McCance Method. Use the original source logo assets when AVIF conversion hurts fidelity. Logos stay unboxed and static, with no hover pop or partner tooltip interaction.
 - Footer: navy, simple links, low-contrast copy.
 
 ## Typography

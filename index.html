@@ -168,8 +168,8 @@ html.dark .hero-wrap {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  padding: 2.25rem 2rem 0;
+  gap: 1.5rem;
+  padding: 3rem 2rem 0;
   flex-wrap: wrap;
   max-width: 960px;
   margin: 0 auto;
@@ -181,14 +181,13 @@ html.dark .hero-wrap {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 14px;
-  padding: .55rem .9rem;
-  min-width: 0;
-  width: 250px;
+  padding: .65rem 1.25rem;
+  min-width: 200px;
   box-shadow: 0 2px 12px rgba(0,0,0,.04);
   transition: transform .2s, box-shadow .2s;
 }
 .badge-pill:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.08); }
-.badge-pill img { height: 58px; max-width: 220px; object-fit: contain; }
+.badge-pill img { height: 80px; max-width: 300px; object-fit: contain; }
 html.dark .badge-pill { box-shadow: 0 2px 12px rgba(0,0,0,.15); }
 html.dark .badge-pill img { filter: brightness(1.15); }
 .scroll-hint {
@@ -226,36 +225,21 @@ html.dark .badge-pill img { filter: brightness(1.15); }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.35rem;
+  gap: 2rem;
 }
 .partner-row {
-  display: grid;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(1.25rem, 3vw, 2.25rem);
-  width: min(760px, 100%);
-}
-.partner-row.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.partner-row.cols-2 { grid-template-columns: repeat(2, minmax(0, 180px)); }
-.partner-slot {
-  display: grid;
-  place-items: center;
-  min-height: 108px;
-  padding: .9rem 1rem;
-  border: 1px solid var(--color-border);
-  border-radius: 14px;
-  background: var(--color-surface);
-  box-shadow: 0 8px 20px rgba(30,42,94,.05);
+  gap: 2rem 3rem;
+  flex-wrap: wrap;
 }
 .partner-logo {
-  width: 100%;
-  height: 82px;
-  max-width: 210px;
+  height: 80px;
+  max-width: 200px;
   object-fit: contain;
-  opacity: .9;
+  opacity: .85;
 }
-.partner-logo.logo-wide { max-width: 240px; }
-.partner-logo.logo-tall { max-width: 150px; height: 92px; }
 html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; }
 .core-pillar-flow { border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
 .pillar-story {
@@ -561,16 +545,15 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
   .hero-wrap { min-height: auto; padding: 3rem 1.5rem 2.5rem; }
   .hero h1 { font-size: 2.75rem; }
   .hero p { font-size: 1.0625rem; }
-  .trust-bar { gap: .55rem; padding: 1.75rem .75rem 0; }
-  .badge-pill { padding: .45rem .5rem; min-width: auto; width: calc(33.33% - .5rem); border-radius: 10px; }
-  .badge-pill img { height: 34px; max-width: 100%; }
-  .partners-section { padding: 1rem 1.5rem 2.5rem; }
+  .trust-bar { gap: .75rem; padding: 2.75rem 1rem 0; }
+  .badge-pill { padding: .5rem .75rem; min-width: auto; width: calc(50% - .5rem); border-radius: 10px; }
+  .badge-pill img { height: 52px; max-width: 100%; }
+  .partners-section { padding: 2rem 1.5rem 2.5rem; }
   .section-heading { font-size: 2.25rem; }
-  .partner-row { gap: .9rem; width: 100%; }
-  .partner-slot { min-height: 78px; padding: .6rem; }
-  .partner-logo { height: 58px; max-width: 150px; }
-  .partner-logo.logo-wide { max-width: 170px; }
-  .partner-logo.logo-tall { max-width: 110px; height: 64px; }
+  .partner-row { gap: 1.25rem 1.5rem; width: 100%; }
+  .partner-row .partner-logo { height: auto; max-height: 52px; max-width: none; object-fit: contain; }
+  .partner-row.cols-3 .partner-logo { width: calc(33.33% - 1.2rem); }
+  .partner-row.cols-2 .partner-logo { width: calc(50% - 1rem); }
   .testimonial-grid, .feedback-strip, .fit-section .fit-grid, .phase-row { grid-template-columns: 1fr; }
   .stats-stack { grid-template-columns: 1fr; }
   .pillar-story { padding: 3.5rem 0; }
@@ -583,14 +566,9 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
   .nav-brand span { display: none; }
   .hero h1 { font-size: 2.1rem; }
   .section-heading { font-size: 1.75rem; }
-  .partner-row.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .partner-row.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .partner-slot { min-height: 64px; padding: .45rem; border-radius: 10px; }
-  .partner-logo { height: 46px; max-width: 112px; }
-  .partner-logo.logo-wide { max-width: 128px; }
-  .partner-logo.logo-tall { max-width: 82px; height: 50px; }
-  .badge-pill { padding: .45rem .4rem; }
-  .badge-pill img { height: 30px; }
+  .partner-row .partner-logo { max-height: 40px; }
+  .badge-pill { padding: .5rem .6rem; }
+  .badge-pill img { height: 44px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
@@ -641,8 +619,8 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
 <main>
   <div class="hero-wrap">
     <section class="hero">
-      <h1>Grow your practice&rsquo;s visibility on <span>Google, Maps, ChatGPT, Gemini, and AI Search</span></h1>
-      <p>We help therapy practices get found by the clients who need them most with a simple system built for the platforms people already recognize.</p>
+      <h1>Grow your practice&rsquo;s visibility on <span>Google, Gemini, and AI</span></h1>
+      <p>We help therapy practices get found by the clients who need them most. Our CORE Marketing System is trusted by the industry&rsquo;s leading experts in practice building and clinical training.</p>
       <a href="/free-strategy-call" class="cta-btn">Book a Free Strategy Call</a>
     </section>
 
@@ -659,20 +637,20 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
   <section class="partners-section">
     <h2 class="section-heading">Trusted by the Experts Who Educate Therapists</h2>
     <p class="section-subhead">We partner with the industry&rsquo;s most respected names in practice building, clinical training, and therapist entrepreneurship.</p>
-      <div class="partner-rows">
+      <div class="partners-rows">
         <div class="partner-row cols-3">
-          <div class="partner-slot"><img class="partner-logo logo-tall" src="/assets/partners/psychology-business-school.avif" alt="Psychology Business School logo" title="Psychology Business School logo" width="900" height="660" loading="lazy" decoding="async"></div>
-          <div class="partner-slot"><img class="partner-logo" src="/assets/partners/private-practice-elevation.avif" alt="Private Practice Elevation logo" title="Private Practice Elevation logo" width="285" height="150" loading="lazy" decoding="async"></div>
-          <div class="partner-slot"><img class="partner-logo logo-tall" src="/assets/partners/traveling-therapist.avif" alt="The Traveling Therapist logo" title="The Traveling Therapist logo" width="300" height="264" loading="lazy" decoding="async"></div>
+          <img class="partner-logo" src="/assets/partners/psychology-business-school.webp" alt="Psychology Business School logo" title="Psychology Business School logo" width="900" height="660" loading="lazy" decoding="async">
+          <img class="partner-logo" src="/assets/partners/private-practice-elevation.webp" alt="Private Practice Elevation logo" title="Private Practice Elevation logo" width="285" height="150" loading="lazy" decoding="async">
+          <img class="partner-logo" src="/assets/partners/traveling-therapist.webp" alt="The Traveling Therapist logo" title="The Traveling Therapist logo" width="300" height="264" loading="lazy" decoding="async">
         </div>
         <div class="partner-row cols-3">
-          <div class="partner-slot"><img class="partner-logo logo-wide" src="/assets/partners/private-practice-academy.avif" alt="The Private Practice Academy logo" title="The Private Practice Academy logo" width="900" height="206" loading="lazy" decoding="async"></div>
-          <div class="partner-slot"><img class="partner-logo" src="/assets/partners/therasaas.avif" alt="TheraSaaS logo" title="TheraSaaS logo" width="350" height="180" loading="lazy" decoding="async"></div>
-          <div class="partner-slot"><img class="partner-logo" src="/assets/partners/intensive-therapy-coach.avif" alt="Intensive Therapy Coach logo" title="Intensive Therapy Coach logo" width="900" height="508" loading="lazy" decoding="async"></div>
+          <img class="partner-logo" src="/assets/partners/private-practice-academy.webp" alt="The Private Practice Academy logo" title="The Private Practice Academy logo" width="900" height="206" loading="lazy" decoding="async">
+          <img class="partner-logo" src="/assets/partners/therasaas.webp" alt="TheraSaaS logo" title="TheraSaaS logo" width="350" height="180" loading="lazy" decoding="async">
+          <img class="partner-logo" src="/assets/partners/intensive-therapy-coach.webp" alt="Intensive Therapy Coach logo" title="Intensive Therapy Coach logo" width="1000" height="565" loading="lazy" decoding="async">
         </div>
         <div class="partner-row cols-2">
-          <div class="partner-slot"><img class="partner-logo logo-wide" src="/assets/partners/prosperous-therapist.avif" alt="The Prosperous Therapist logo" title="The Prosperous Therapist logo" width="300" height="100" loading="lazy" decoding="async"></div>
-          <div class="partner-slot"><img class="partner-logo" src="/assets/partners/mccance-method.avif" alt="The McCance Method logo" title="The McCance Method logo" width="500" height="320" loading="lazy" decoding="async"></div>
+          <img class="partner-logo" src="/assets/partners/prosperous-therapist.webp" alt="The Prosperous Therapist logo" title="The Prosperous Therapist logo" width="300" height="100" loading="lazy" decoding="async">
+          <img class="partner-logo" src="/assets/partners/mccance-method.webp" alt="The McCance Method logo" title="The McCance Method logo" width="500" height="320" loading="lazy" decoding="async">
         </div>
       </div>
   </section>
