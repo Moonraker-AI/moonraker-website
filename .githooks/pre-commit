@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# .githooks/pre-commit
+#
+# Block em-dash (U+2014) from staged files. Moonraker voice rule:
+# replace with comma, period, colon, parenthesis, or restructure.
+#
+# Enabled via `core.hooksPath=.githooks` (set by `npm install` prepare script).
+# Bypass for a single commit: `git commit --no-verify`.
+
+set -u
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
+
+if [ -t 2 ]; then
+  BOLD=$'\033[1m'; RED=$'\033[31m'; DIM=$'\033[2m'; RESET=$'\033[0m'
+else
+  BOLD=""; RED=""; DIM=""; RESET=""
+fi
+
+EMDASH=$'\xe2\x80\x94'
+
+hits=()
+while IFS= read -r f; do
+  [ -z "$f" ] && continue
+  case "$f" in
+    package-lock.json|yarn.lock|pnpm-lock.yaml|*.lock) continue ;;
+    *.min.js|*.min.css|*.svg|*.po|*.mo|*.ico) continue ;;
+    *.png|*.jpg|*.jpeg|*.gif|*.webp|*.avif|*.pdf) continue ;;
+  esac
+  if grep -lI -- "$EMDASH" "$f" >/dev/null 2>&1; then
+    hits+=("$f")
+  fi
+done < <(git diff --cached --name-only --diff-filter=ACM)
+
+if [ "${#hits[@]}" -gt 0 ]; then
+  printf '%s%spre-commit: em-dash (U+2014) found in staged files:%s\n' "$BOLD" "$RED" "$RESET" >&2
+  for f in "${hits[@]}"; do
+    printf '  %s%s%s\n' "$BOLD" "$f" "$RESET" >&2
+    grep -nI --color=always -- "$EMDASH" "$f" | head -5 | sed 's/^/    /' >&2
+  done
+  printf '\n%sFix: replace with comma, period, colon, parenthesis, or restructure.%s\n' "$DIM" "$RESET" >&2
+  printf '%sBypass (discouraged): git commit --no-verify%s\n' "$DIM" "$RESET" >&2
+  exit 1
+fi
+
+exit 0
