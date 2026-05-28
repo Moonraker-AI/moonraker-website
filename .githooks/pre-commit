@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 # .githooks/pre-commit
 #
-# Block em-dash (U+2014) from staged files. Moonraker voice rule:
-# replace with comma, period, colon, parenthesis, or restructure.
+# Block em-dash (U+2014) from being introduced via staged additions.
+# Moonraker voice rule: replace with comma, period, colon, parenthesis,
+# or restructure.
 #
-# Enabled via `core.hooksPath=.githooks` (set by `npm install` prepare script).
+# Only checks ADDED lines in the staged diff, not the whole file. So
+# legacy em-dashes already in a file do not block edits elsewhere in
+# that file. New additions still get caught.
+#
+# Enabled via `core.hooksPath=.githooks` (set by `npm install` prepare
+# script in JS repos, or `git config` for moonraker-agent).
 # Bypass for a single commit: `git commit --no-verify`.
 
 set -u
@@ -28,16 +34,16 @@ while IFS= read -r f; do
     *.min.js|*.min.css|*.svg|*.po|*.mo|*.ico) continue ;;
     *.png|*.jpg|*.jpeg|*.gif|*.webp|*.avif|*.pdf) continue ;;
   esac
-  if grep -lI -- "$EMDASH" "$f" >/dev/null 2>&1; then
+  if git diff --cached -U0 -- "$f" | grep -E '^\+[^+]' | grep -q -- "$EMDASH"; then
     hits+=("$f")
   fi
 done < <(git diff --cached --name-only --diff-filter=ACM)
 
 if [ "${#hits[@]}" -gt 0 ]; then
-  printf '%s%spre-commit: em-dash (U+2014) found in staged files:%s\n' "$BOLD" "$RED" "$RESET" >&2
+  printf '%s%spre-commit: em-dash (U+2014) found in staged additions:%s\n' "$BOLD" "$RED" "$RESET" >&2
   for f in "${hits[@]}"; do
     printf '  %s%s%s\n' "$BOLD" "$f" "$RESET" >&2
-    grep -nI --color=always -- "$EMDASH" "$f" | head -5 | sed 's/^/    /' >&2
+    git diff --cached -U0 -- "$f" | grep -E '^\+[^+]' | grep --color=always -- "$EMDASH" | head -5 | sed 's/^/    /' >&2
   done
   printf '\n%sFix: replace with comma, period, colon, parenthesis, or restructure.%s\n' "$DIM" "$RESET" >&2
   printf '%sBypass (discouraged): git commit --no-verify%s\n' "$DIM" "$RESET" >&2
