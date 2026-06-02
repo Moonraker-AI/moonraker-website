@@ -17,27 +17,40 @@
 (function(){var t=localStorage.getItem('moonraker-theme');if(t==='dark')document.documentElement.classList.add('dark')})();
 </script>
 <style>
-.nav-right { display: flex; align-items: center; gap: .5rem; }
-.nav-cta { display: inline-block; padding: .5rem 1.25rem; border-radius: 99px; background: var(--color-primary); color: #fff; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: .82rem; }
-.nav-cta:hover { background: var(--color-primary-hover); color: #fff; }
-.scope-hero { background: linear-gradient(165deg, var(--color-primary-subtle) 0%, var(--color-bg) 55%, var(--color-surface) 100%); border-bottom: 1px solid var(--color-border); padding: 5rem 2rem 3.5rem; }
+.scope-hero { position: relative; overflow: hidden; background: linear-gradient(180deg, var(--color-primary-subtle) 0%, var(--color-bg) 62%); border-bottom: 1px solid var(--color-hairline); padding: clamp(3.5rem, 7vw, 5rem) 2rem clamp(2.75rem, 5vw, 3.5rem); }
+.scope-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, oklch(0.31 0.072 268 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.31 0.072 268 / 0.045) 1px, transparent 1px);
+  background-size: 62px 62px;
+  -webkit-mask-image: radial-gradient(70% 70% at 70% 35%, #000 0%, transparent 78%);
+  mask-image: radial-gradient(70% 70% at 70% 35%, #000 0%, transparent 78%);
+  pointer-events: none;
+}
+html.dark .scope-hero::before {
+  background-image:
+    linear-gradient(to right, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px);
+}
+.scope-hero .hero-inner { position: relative; z-index: 1; }
 .hero-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: .95fr 1.05fr; gap: clamp(2rem, 6vw, 4rem); align-items: center; }
 .hero-kicker { color: var(--color-primary); font-weight: 800; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .8rem; }
 .scope-hero h1 { font-size: clamp(2.5rem, 5vw, 4.7rem); line-height: 1.03; letter-spacing: -.02em; margin-bottom: 1.1rem; }
 .scope-hero p { color: var(--color-muted); font-size: 1.08rem; line-height: 1.75; }
-.boundary-card { background: var(--color-navy); border-radius: 18px; padding: 1.5rem; color: rgba(232,245,239,.74); }
+.boundary-card { background: linear-gradient(158deg, var(--color-navy) 0%, var(--color-navy-deep) 100%); border-radius: var(--r-lg); padding: 1.75rem; color: var(--color-on-navy-dim); box-shadow: var(--shadow-card); }
 .boundary-card h2 { color: var(--color-on-navy); font-size: 1.5rem; margin-bottom: .9rem; }
 .boundary-list { display: grid; gap: .65rem; }
 .boundary-list div { display: grid; grid-template-columns: 28px 1fr; gap: .65rem; align-items: start; }
 .boundary-list b { color: var(--color-primary); }
-.boundary-list span { color: rgba(232,245,239,.72); font-size: .9rem; line-height: 1.55; }
+.boundary-list span { color: var(--color-on-navy-dim); font-size: .9rem; line-height: 1.55; }
 .section-wrap { max-width: 1120px; margin: 0 auto; padding: clamp(4rem, 7vw, 6rem) 2rem; }
 .section-label { color: var(--color-primary); font-weight: 800; font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .7rem; }
 .section-head { display: grid; grid-template-columns: .9fr 1.1fr; gap: 2rem; align-items: end; margin-bottom: 2rem; }
 .section-head h2 { font-size: clamp(2rem, 3.6vw, 3rem); }
 .section-head p { color: var(--color-muted); line-height: 1.75; }
 .scope-matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.scope-panel { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 16px; padding: 1.5rem; }
+.scope-panel { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); padding: 1.6rem; box-shadow: var(--shadow-card); }
 .scope-panel h3 { margin-bottom: .85rem; }
 .scope-panel ul { list-style: none; display: grid; gap: .65rem; }
 .scope-panel li { color: var(--color-body); font-size: .92rem; line-height: 1.55; padding-left: 1.15rem; position: relative; }
@@ -46,13 +59,23 @@
 .faq-band { background: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
 .faq-list { display: grid; gap: .8rem; }
 .faq-list-spaced { margin-top: 2rem; }
-details { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 14px; padding: 1rem 1.15rem; }
+details { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-md); padding: 1.1rem 1.25rem; }
 summary { cursor: pointer; font-family: 'Outfit', sans-serif; color: var(--color-heading); font-weight: 800; }
 details p { color: var(--color-muted); font-size: .92rem; line-height: 1.7; margin-top: .8rem; }
-.cta-band { background: var(--color-navy); color: rgba(232,245,239,.74); }
-.cta-inner { max-width: 1120px; margin: 0 auto; padding: 3.5rem 2rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
+.cta-band { position: relative; overflow: hidden; background: linear-gradient(158deg, var(--color-navy) 0%, var(--color-navy-deep) 100%); color: var(--color-on-navy-dim); }
+.cta-band::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px);
+  background-size: 58px 58px;
+  -webkit-mask-image: radial-gradient(80% 120% at 50% 0%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(80% 120% at 50% 0%, #000 0%, transparent 72%);
+  pointer-events: none;
+}
+.cta-inner { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; padding: clamp(3rem, 6vw, 4rem) 2rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
 .cta-inner h2 { color: var(--color-on-navy); margin-bottom: .6rem; }
-.cta-inner p { color: rgba(232,245,239,.72); }
+.cta-inner p { color: var(--color-on-navy-dim); }
 @media (max-width: 860px) {
   .hero-inner, .section-head, .scope-matrix, .cta-inner { grid-template-columns: 1fr; }
 }
@@ -64,10 +87,24 @@ details p { color: var(--color-muted); font-size: .92rem; line-height: 1.7; marg
     <a href="/" class="nav-brand"><img src="/assets/logo.png" alt="Moonraker" width="32" height="32"></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/">Home</a></li>
-      <li><a href="/core-marketing-system">CORE System</a></li>
+      <li class="nav-dropdown">
+        <a href="/core-marketing-system">CORE System</a>
+        <div class="dropdown-menu">
+          <a href="/core-marketing-system">Overview</a>
+          <a href="/core-marketing-system/credibility">Credibility</a>
+          <a href="/core-marketing-system/optimization">Optimization</a>
+          <a href="/core-marketing-system/reputation">Reputation</a>
+          <a href="/core-marketing-system/engagement">Engagement</a>
+        </div>
+      </li>
       <li><a href="/results">Results</a></li>
-      <li><a href="/process">Process</a></li>
-      <li><a href="/scope" class="active">Scope</a></li>
+      <li class="nav-dropdown">
+        <a href="/process" class="active">How We Work</a>
+        <div class="dropdown-menu">
+          <a href="/process">Process</a>
+          <a href="/scope">Scope</a>
+        </div>
+      </li>
     </ul>
     <div class="nav-right">
       <a href="/free-strategy-call" class="nav-cta">Free Strategy Call</a>

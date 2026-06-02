@@ -20,49 +20,46 @@
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://moonraker.ai"},{"@type":"ListItem","position":2,"name":"CORE Marketing System","item":"https://moonraker.ai/core-marketing-system"},{"@type":"ListItem","position":3,"name":"Credibility","item":"https://moonraker.ai/core-marketing-system/credibility"}]}
 </script>
 <style>
-/* ── Nav right group ── */
-.nav-right { display: flex; align-items: center; gap: .5rem; }
-.nav-cta {
-  display: inline-block; padding: .5rem 1.25rem; border-radius: 99px;
-  background: var(--color-primary); color: #fff;
-  font-family: 'Outfit', sans-serif; font-weight: 600; font-size: .82rem;
-  text-decoration: none; transition: background .2s, transform .2s;
-}
-.nav-cta:hover { background: var(--color-primary-hover); transform: translateY(-1px); color: #fff; }
-
 /* ── Pillar Hero ── */
 .pillar-hero {
-  text-align: center; padding: 5rem 2rem 3rem;
-  background: linear-gradient(165deg, var(--color-primary-subtle) 0%, var(--color-bg) 50%);
-  border-bottom: 1px solid var(--color-border);
+  text-align: center; padding: clamp(3.5rem, 7vw, 5rem) 1.5rem clamp(2.5rem, 5vw, 3rem);
+  background: linear-gradient(180deg, var(--color-primary-subtle) 0%, var(--color-bg) 62%);
+  border-bottom: 1px solid var(--color-hairline);
   position: relative; overflow: hidden;
 }
 .pillar-hero::before {
-  content: ''; position: absolute; top: -30%; right: -10%; width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(0,212,126,.06) 0%, transparent 70%);
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, oklch(0.31 0.072 268 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.31 0.072 268 / 0.045) 1px, transparent 1px);
+  background-size: 60px 60px;
+  -webkit-mask-image: radial-gradient(62% 62% at 50% 38%, #000 0%, transparent 78%);
+  mask-image: radial-gradient(62% 62% at 50% 38%, #000 0%, transparent 78%);
   pointer-events: none;
 }
-html.dark .pillar-hero {
-  background: linear-gradient(165deg, var(--color-primary-subtle) 0%, var(--color-bg) 60%);
+html.dark .pillar-hero::before {
+  background-image:
+    linear-gradient(to right, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px);
 }
-html.dark .pillar-hero::before { background: radial-gradient(circle, rgba(0,212,126,.08) 0%, transparent 70%); }
 .pillar-badge {
   display: inline-flex; align-items: center; gap: .75rem;
   margin-bottom: 1.25rem; position: relative; z-index: 1;
 }
 .pillar-badge-letter {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 48px; height: 48px; border-radius: 14px;
-  background: #00D47E; color: #fff;
+  width: 48px; height: 48px; border-radius: var(--r-md);
+  background: var(--color-primary); color: oklch(0.99 0.01 165);
   font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.3rem;
+  box-shadow: var(--shadow-signal);
 }
 .pillar-badge-label {
   font-family: 'Outfit', sans-serif; font-weight: 700; font-size: .85rem;
   color: var(--color-primary); text-transform: uppercase; letter-spacing: .06em;
 }
 .pillar-hero h1 {
-  font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 3.5rem;
-  color: var(--color-heading); margin-bottom: 1rem; letter-spacing: -.015em;
+  font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(2.6rem, 6vw, 4.2rem);
+  color: var(--color-heading); margin-bottom: 1rem; letter-spacing: -.03em;
   position: relative; z-index: 1;
 }
 .pillar-hero p {
@@ -71,48 +68,48 @@ html.dark .pillar-hero::before { background: radial-gradient(circle, rgba(0,212,
 }
 
 /* ── Content layout ── */
-.pillar-content { max-width: 1060px; margin: 0 auto; padding: 3rem 2rem 2rem; }
-.content-lead {
-  font-size: 1.05rem; color: var(--color-body); line-height: 1.8;
-  margin-bottom: 3rem; max-width: 860px;
-}
+/* ── Two-part structure ── */
+.pillar-part { padding: clamp(3rem, 6vw, 5rem) 0; }
+.part-head { max-width: 720px; margin: 0 auto clamp(2rem, 4vw, 3rem); text-align: center; }
+.part-head h2 { margin-bottom: .85rem; }
+.part-lead { color: var(--color-muted); font-size: 1.06rem; line-height: 1.75; }
 
-/* ── Deliverable cards ── */
+/* ── Deliverable card grid ── */
+.deliverable-grid { display: flex; flex-direction: column; gap: 1.25rem; }
 .deliverable {
-  margin-bottom: 2.5rem; padding-bottom: 2.5rem;
-  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface); border: 1px solid var(--color-hairline);
+  border-radius: var(--r-lg); padding: 1.75rem 2rem; box-shadow: var(--shadow-card);
+  transition: transform .22s var(--ease-out), border-color .22s var(--ease-out), box-shadow .22s var(--ease-out);
 }
-.deliverable:last-of-type { border-bottom: none; padding-bottom: 0; }
-.deliverable-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; }
+.deliverable:hover, .deliverable:focus-within {
+  transform: translateY(-4px); border-color: oklch(0.74 0.165 162 / 0.42); box-shadow: var(--shadow-lift);
+}
+.deliverable-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.15rem; }
 .deliverable-icon {
   display: flex; align-items: center; justify-content: center;
-  width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
-  background: var(--color-primary-subtle); color: var(--color-primary);
-  font-size: 1.1rem;
+  width: 44px; height: 44px; border-radius: var(--r-md); flex-shrink: 0;
+  background: var(--color-primary-subtle); color: var(--color-primary); font-size: 1.2rem;
 }
-html.dark .deliverable-icon { background: rgba(0,212,126,.12); }
+html.dark .deliverable-icon { background: oklch(0.74 0.165 162 / 0.14); }
 .deliverable h3 {
   font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.2rem;
-  color: var(--color-heading); margin-bottom: .15rem;
+  color: var(--color-heading); margin-bottom: .1rem; line-height: 1.2;
 }
-.deliverable-sub {
-  font-size: .82rem; color: var(--color-muted); font-weight: 500;
-}
-.deliverable p {
-  font-size: .9rem; color: var(--color-body); line-height: 1.75; margin-bottom: .75rem;
-}
-.owned-profile-note { margin-top: 1rem; }
+.deliverable-sub { font-size: .82rem; color: var(--color-muted); font-weight: 600; line-height: 1.4; }
+.deliverable p { font-size: .94rem; color: var(--color-body); line-height: 1.75; margin-bottom: .8rem; max-width: 82ch; }
+.deliverable p:last-child { margin-bottom: 0; }
+.deliverable-detail { max-width: 82ch; }
+.owned-profile-note { color: var(--color-muted); font-size: .84rem; }
 .deliverable-detail {
-  background: var(--color-surface); border: 1px solid var(--color-border);
-  border-radius: 10px; padding: 1.25rem 1.5rem; margin-top: 1rem;
+  background: var(--color-surface-alt); border: 1px solid var(--color-hairline);
+  border-radius: var(--r-md); padding: 1.1rem 1.25rem; margin-top: 1rem;
 }
+.deliverable-detail:hover, .deliverable-detail:focus-within { transform: none; box-shadow: none; border-color: var(--color-hairline); }
 .deliverable-detail h4 {
-  font-family: 'Outfit', sans-serif; font-weight: 800; font-size: .85rem;
+  font-family: 'Outfit', sans-serif; font-weight: 800; font-size: .82rem;
   color: var(--color-heading); margin-bottom: .5rem;
 }
-.detail-list {
-  list-style: none; padding: 0; margin: 0;
-}
+.detail-list { list-style: none; padding: 0; margin: 0; }
 .detail-list li {
   font-size: .82rem; color: var(--color-body); padding: .3rem 0 .3rem 1.25rem;
   position: relative; line-height: 1.55;
@@ -124,36 +121,28 @@ html.dark .deliverable-icon { background: rgba(0,212,126,.12); }
 
 /* ── Why it matters callout ── */
 .callout {
-  background: var(--color-navy); border-radius: 14px;
+  background: linear-gradient(158deg, var(--color-navy) 0%, var(--color-navy-deep) 100%);
+  border-radius: var(--r-lg);
   padding: 2rem 2.25rem; margin: 3rem 0;
   position: relative; overflow: hidden;
 }
-html.dark .callout { background: #0A1630; }
 .callout::before {
-  content: ''; position: absolute; top: -20%; right: -5%; width: 200px; height: 200px;
-  background: radial-gradient(circle, rgba(0,212,126,.1) 0%, transparent 70%);
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(70% 130% at 90% 0%, #000 0%, transparent 70%);
+  mask-image: radial-gradient(70% 130% at 90% 0%, #000 0%, transparent 70%);
   pointer-events: none;
 }
 .callout h3 {
-  font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.1rem;
-  color: #E8F5EF; margin-bottom: .75rem; position: relative; z-index: 1;
+  font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.15rem;
+  color: var(--color-on-navy); margin-bottom: .75rem; position: relative; z-index: 1;
 }
 .callout p {
-  font-size: .875rem; color: rgba(200,216,208,.8); line-height: 1.7;
+  font-size: .9rem; color: var(--color-on-navy-dim); line-height: 1.7;
   position: relative; z-index: 1;
-}
-
-/* ── Part 2 header ── */
-.part-divider {
-  text-align: center; padding: 2rem 0 1.5rem;
-  border-top: 1px solid var(--color-border); margin-top: 1rem;
-}
-.part-divider h2 {
-  font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.5rem;
-  color: var(--color-heading); margin-bottom: .5rem;
-}
-.part-divider p {
-  font-size: .9rem; color: var(--color-muted); max-width: 680px; margin: 0 auto; line-height: 1.7;
 }
 
 /* ── Next pillar nav ── */
@@ -178,14 +167,10 @@ html.dark .callout { background: #0A1630; }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .pillar-hero h1 { font-size: 2.25rem; }
   .pillar-hero p { font-size: .95rem; }
-  .deliverable-header { flex-direction: column; gap: .5rem; }
   .pillar-nav-inner { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
   .pillar-nav .nav-next { text-align: left; }
-}
-@media (max-width: 480px) {
-  .pillar-hero h1 { font-size: 1.6rem; }
+  .deliverable { padding: 1.4rem 1.5rem; }
 }
 </style>
 </head>
@@ -203,11 +188,18 @@ html.dark .callout { background: #0A1630; }
           <a href="/core-marketing-system">Overview</a>
           <a href="/core-marketing-system/credibility">Credibility</a>
           <a href="/core-marketing-system/optimization">Optimization</a>
+          <a href="/core-marketing-system/reputation">Reputation</a>
+          <a href="/core-marketing-system/engagement">Engagement</a>
         </div>
       </li>
       <li><a href="/results">Results</a></li>
-      <li><a href="/process">Process</a></li>
-      <li><a href="/scope">Scope</a></li>
+      <li class="nav-dropdown">
+        <a href="/process">How We Work</a>
+        <div class="dropdown-menu">
+          <a href="/process">Process</a>
+          <a href="/scope">Scope</a>
+        </div>
+      </li>
     </ul>
     <div class="nav-right">
       <a href="/free-strategy-call" class="nav-cta">Free Strategy Call</a>
@@ -228,9 +220,14 @@ html.dark .callout { background: #0A1630; }
 </section>
 
 <!-- Content -->
-<div class="pillar-content">
-  <p class="content-lead">New pages appear online every day, and many are low-quality or fake. Before Google, Gemini, or ChatGPT can trust your practice, they need proof that you are real, located where you say you are, and described consistently across trusted places.</p>
-
+<section class="pillar-part">
+  <div class="container">
+    <div class="part-head">
+      <span class="eyebrow">Part 1</span>
+      <h2>Prove that your practice is real</h2>
+      <p class="part-lead">New pages appear online every day, and many are low-quality or fake. Before Google, Gemini, or ChatGPT can trust your practice, they need proof that you are real, located where you say you are, and described consistently across trusted places.</p>
+    </div>
+    <div class="deliverable-grid">
   <!-- Domain email -->
   <div class="deliverable">
     <div class="deliverable-header">
@@ -313,19 +310,26 @@ html.dark .callout { background: #0A1630; }
     <p>Our proof hub connects important details about the practice, such as location, credentials, owned profiles, and approved proof assets.</p>
     <p>Think of it as a central place that helps search and AI tools see a clearer picture of who you are, where you practice, and why the practice is legitimate.</p>
   </div>
+    </div>
+  </div>
+</section>
 
+<div class="container">
   <!-- Callout -->
   <div class="callout">
     <h3>Why does this matter?</h3>
     <p>When someone asks Google or an AI tool for therapist options, your website is only one piece of the picture. These systems also look for outside proof that the practice exists and can be trusted.</p>
   </div>
+</div>
 
-  <!-- Part 2 -->
-  <div class="part-divider">
-    <h2>Prove That You Can Practice</h2>
-    <p>Once your practice is clearly established online, the next step is showing that you are qualified to provide therapy. Google and AI tools look for clear evidence of professional credentials and authority.</p>
-  </div>
-
+<section class="pillar-part">
+  <div class="container">
+    <div class="part-head">
+      <span class="eyebrow">Part 2</span>
+      <h2>Prove that you can practice</h2>
+      <p class="part-lead">Once your practice is clearly established online, the next step is showing that you are qualified to provide therapy. Google and AI tools look for clear evidence of professional credentials and authority.</p>
+    </div>
+    <div class="deliverable-grid">
   <!-- Professional Credentials -->
   <div class="deliverable">
     <div class="deliverable-header">
@@ -373,7 +377,9 @@ html.dark .callout { background: #0A1630; }
     </div>
     <p>If you've been featured in media, published articles, appeared on podcasts, or spoken at events, we showcase these on your bio page. Each outside mention helps prospective clients and search tools understand your expertise.</p>
   </div>
-</div>
+    </div>
+  </div>
+</section>
 
 <!-- Pillar Navigation -->
 <div class="pillar-nav">

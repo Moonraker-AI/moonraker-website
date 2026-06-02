@@ -17,15 +17,28 @@
 (function(){var t=localStorage.getItem('moonraker-theme');if(t==='dark')document.documentElement.classList.add('dark')})();
 </script>
 <style>
-.nav-right { display: flex; align-items: center; gap: .5rem; }
-.nav-cta { display: inline-block; padding: .5rem 1.25rem; border-radius: 99px; background: var(--color-primary); color: #fff; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: .82rem; }
-.nav-cta:hover { background: var(--color-primary-hover); color: #fff; }
-.process-hero { background: linear-gradient(165deg, var(--color-primary-subtle) 0%, var(--color-bg) 55%, var(--color-surface) 100%); border-bottom: 1px solid var(--color-border); padding: 5rem 2rem 3.5rem; }
+.process-hero { position: relative; overflow: hidden; background: linear-gradient(180deg, var(--color-primary-subtle) 0%, var(--color-bg) 62%); border-bottom: 1px solid var(--color-hairline); padding: clamp(3.5rem, 7vw, 5rem) 2rem clamp(2.75rem, 5vw, 3.5rem); }
+.process-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, oklch(0.31 0.072 268 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.31 0.072 268 / 0.045) 1px, transparent 1px);
+  background-size: 62px 62px;
+  -webkit-mask-image: radial-gradient(70% 70% at 70% 35%, #000 0%, transparent 78%);
+  mask-image: radial-gradient(70% 70% at 70% 35%, #000 0%, transparent 78%);
+  pointer-events: none;
+}
+html.dark .process-hero::before {
+  background-image:
+    linear-gradient(to right, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px);
+}
+.process-hero .hero-inner { position: relative; z-index: 1; }
 .hero-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr .95fr; gap: clamp(2rem, 6vw, 4rem); align-items: center; }
 .hero-kicker { color: var(--color-primary); font-weight: 800; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .8rem; }
 .process-hero h1 { font-size: clamp(2.5rem, 5vw, 4.7rem); line-height: 1.03; letter-spacing: -.02em; margin-bottom: 1.1rem; }
 .process-hero p { color: var(--color-muted); font-size: 1.08rem; line-height: 1.75; }
-.phase-stack { border: 1px solid var(--color-border); border-radius: 18px; overflow: hidden; background: var(--color-surface); box-shadow: 0 14px 34px rgba(30,42,94,.08); }
+.phase-stack { border: 1px solid var(--color-hairline); border-radius: var(--r-lg); overflow: hidden; background: var(--color-surface); box-shadow: var(--shadow-card); }
 .phase-preview { display: grid; grid-template-columns: 64px 1fr; gap: 1rem; padding: 1.1rem; border-bottom: 1px solid var(--color-border); }
 .phase-preview:last-child { border-bottom: 0; }
 .phase-num { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; background: var(--color-navy); color: var(--color-primary); font-family: 'Outfit', sans-serif; font-size: 1.35rem; font-weight: 800; }
@@ -48,13 +61,23 @@
 .access-card ul { list-style: none; display: grid; gap: .5rem; }
 .access-card li { color: var(--color-body); font-size: .9rem; line-height: 1.5; padding-left: 1.1rem; position: relative; }
 .access-card li::before { content: ''; position: absolute; left: 0; top: .65em; width: 6px; height: 6px; border-radius: 50%; background: var(--color-primary); }
-.guarantee { background: var(--color-navy); border-radius: 18px; padding: 2rem; color: rgba(232,245,239,.76); margin-top: 2rem; }
+.guarantee { background: linear-gradient(158deg, var(--color-navy) 0%, var(--color-navy-deep) 100%); border-radius: var(--r-lg); padding: 2rem; color: var(--color-on-navy-dim); margin-top: 2rem; }
 .guarantee h3 { color: var(--color-on-navy); margin-bottom: .6rem; }
-.guarantee p { color: rgba(232,245,239,.72); line-height: 1.7; }
-.cta-band { background: var(--color-navy); color: rgba(232,245,239,.74); }
-.cta-inner { max-width: 1120px; margin: 0 auto; padding: 3.5rem 2rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
+.guarantee p { color: var(--color-on-navy-dim); line-height: 1.7; }
+.cta-band { position: relative; overflow: hidden; background: linear-gradient(158deg, var(--color-navy) 0%, var(--color-navy-deep) 100%); color: var(--color-on-navy-dim); }
+.cta-band::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px);
+  background-size: 58px 58px;
+  -webkit-mask-image: radial-gradient(80% 120% at 50% 0%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(80% 120% at 50% 0%, #000 0%, transparent 72%);
+  pointer-events: none;
+}
+.cta-inner { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; padding: clamp(3rem, 6vw, 4rem) 2rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
 .cta-inner h2 { color: var(--color-on-navy); margin-bottom: .6rem; }
-.cta-inner p { color: rgba(232,245,239,.72); }
+.cta-inner p { color: var(--color-on-navy-dim); }
 @media (max-width: 860px) {
   .hero-inner, .section-head, .access-grid, .cta-inner { grid-template-columns: 1fr; }
   .timeline-item { grid-template-columns: 1fr; }
@@ -67,10 +90,24 @@
     <a href="/" class="nav-brand"><img src="/assets/logo.png" alt="Moonraker" width="32" height="32"></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/">Home</a></li>
-      <li><a href="/core-marketing-system">CORE System</a></li>
+      <li class="nav-dropdown">
+        <a href="/core-marketing-system">CORE System</a>
+        <div class="dropdown-menu">
+          <a href="/core-marketing-system">Overview</a>
+          <a href="/core-marketing-system/credibility">Credibility</a>
+          <a href="/core-marketing-system/optimization">Optimization</a>
+          <a href="/core-marketing-system/reputation">Reputation</a>
+          <a href="/core-marketing-system/engagement">Engagement</a>
+        </div>
+      </li>
       <li><a href="/results">Results</a></li>
-      <li><a href="/process" class="active">Process</a></li>
-      <li><a href="/scope">Scope</a></li>
+      <li class="nav-dropdown">
+        <a href="/process" class="active">How We Work</a>
+        <div class="dropdown-menu">
+          <a href="/process">Process</a>
+          <a href="/scope">Scope</a>
+        </div>
+      </li>
     </ul>
     <div class="nav-right">
       <a href="/free-strategy-call" class="nav-cta">Free Strategy Call</a>

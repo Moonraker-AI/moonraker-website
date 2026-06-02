@@ -13,41 +13,71 @@
 <link rel="icon" href="/assets/logo.png" type="image/png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script>
-(function(){var t=localStorage.getItem('moonraker-theme');if(t==='dark')document.documentElement.classList.add('dark')})();
+(function(){var d=document.documentElement;d.classList.add('js');var t=localStorage.getItem('moonraker-theme');if(t==='dark')d.classList.add('dark');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('js-reveal')}catch(e){}})();
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"Moonraker AI","url":"https://moonraker.ai","logo":"https://moonraker.ai/assets/logo.png","description":"Google and AI visibility partner for therapy practices.","contactPoint":{"@type":"ContactPoint","contactType":"sales","url":"https://moonraker.ai/free-strategy-call"}}
 </script>
 <style>
 :root {
-  --color-primary: #00D47E;
-  --color-primary-hover: #00b86c;
-  --color-primary-light: #B4EEE0;
-  --color-primary-subtle: #DDF8F2;
-  --color-bg: #F7FDFB;
-  --color-surface: #FFFFFF;
-  --color-surface-alt: #F0FAF5;
-  --color-border: #E2E8F0;
-  --color-heading: #1E2A5E;
-  --color-body: #333F70;
-  --color-muted: #6B7599;
-  --color-navy: #141C3A;
-  --color-on-navy: #E8F5EF;
-  --shadow-soft: 0 8px 28px rgba(30, 42, 94, .08);
+  /* Green: the live signal. Reserved for action, state, proof. */
+  --color-primary: oklch(0.74 0.165 162);
+  --color-primary-hover: oklch(0.67 0.155 161);
+  --color-primary-light: oklch(0.90 0.072 167);
+  --color-primary-subtle: oklch(0.965 0.030 168);
+  --color-signal: oklch(0.80 0.18 160);
+  /* Surfaces: off-white tinted toward the brand, never pure #fff. */
+  --color-bg: oklch(0.992 0.006 165);
+  --color-surface: oklch(1 0.002 165);
+  --color-surface-alt: oklch(0.975 0.011 166);
+  --color-border: oklch(0.915 0.008 255);
+  --color-hairline: oklch(0.93 0.006 255);
+  /* Ink + navy: structural authority, tinted toward the brand hue. */
+  --color-heading: oklch(0.31 0.072 268);
+  --color-body: oklch(0.42 0.058 268);
+  --color-muted: oklch(0.575 0.038 266);
+  --color-navy: oklch(0.255 0.055 268);
+  --color-navy-deep: oklch(0.205 0.052 269);
+  --color-navy-soft: oklch(0.32 0.05 267);
+  --color-on-navy: oklch(0.945 0.018 166);
+  --color-on-navy-dim: oklch(0.80 0.022 230);
+  /* Elevation: navy-tinted, layered. */
+  --shadow-soft: 0 8px 28px oklch(0.31 0.072 268 / 0.08);
+  --shadow-card: 0 1px 2px oklch(0.31 0.072 268 / 0.05), 0 12px 30px oklch(0.31 0.072 268 / 0.07);
+  --shadow-lift: 0 2px 4px oklch(0.31 0.072 268 / 0.06), 0 22px 44px oklch(0.31 0.072 268 / 0.13);
+  --shadow-signal: 0 8px 24px oklch(0.74 0.165 162 / 0.22);
+  /* Radius: one system, 8 to 20. No 99px pills. */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 20px;
+  /* Motion: exponential ease-out only. */
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --ease-out-expo: cubic-bezier(.16, 1, .3, 1);
 }
 html.dark {
-  --color-primary-hover: #00f598;
-  --color-primary-light: #1A4A38;
-  --color-primary-subtle: #0D2E22;
-  --color-bg: #080F0B;
-  --color-surface: #0E1A14;
-  --color-surface-alt: #0A1A12;
-  --color-border: #1E3530;
-  --color-heading: #E8F5EF;
-  --color-body: #C8D8D0;
-  --color-muted: #6F8B81;
-  --color-navy: #0A1630;
-  --shadow-soft: 0 10px 34px rgba(0, 0, 0, .24);
+  --color-primary: oklch(0.80 0.17 161);
+  --color-primary-hover: oklch(0.86 0.18 160);
+  --color-primary-light: oklch(0.42 0.09 165);
+  --color-primary-subtle: oklch(0.27 0.055 168);
+  --color-signal: oklch(0.84 0.185 160);
+  --color-bg: oklch(0.17 0.028 264);
+  --color-surface: oklch(0.215 0.034 266);
+  --color-surface-alt: oklch(0.20 0.032 266);
+  --color-border: oklch(0.32 0.035 266);
+  --color-hairline: oklch(0.29 0.03 266);
+  --color-heading: oklch(0.95 0.018 166);
+  --color-body: oklch(0.86 0.022 220);
+  --color-muted: oklch(0.66 0.03 230);
+  --color-navy: oklch(0.155 0.03 266);
+  --color-navy-deep: oklch(0.125 0.028 268);
+  --color-navy-soft: oklch(0.25 0.035 266);
+  --color-on-navy: oklch(0.945 0.018 166);
+  --color-on-navy-dim: oklch(0.74 0.025 230);
+  --shadow-soft: 0 10px 34px oklch(0 0 0 / 0.34);
+  --shadow-card: 0 1px 2px oklch(0 0 0 / 0.3), 0 12px 30px oklch(0 0 0 / 0.36);
+  --shadow-lift: 0 2px 4px oklch(0 0 0 / 0.34), 0 22px 44px oklch(0 0 0 / 0.5);
+  --shadow-signal: 0 8px 24px oklch(0.80 0.17 161 / 0.28);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; font-size: 106.25%; }
@@ -62,19 +92,20 @@ body.nav-open { overflow: hidden; }
 img { max-width: 100%; display: block; }
 a { color: var(--color-primary); text-decoration: none; }
 a:hover { color: var(--color-primary-hover); }
-h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; color: var(--color-heading); line-height: 1.12; font-weight: 800; }
-h1 { font-size: clamp(2.55rem, 6vw, 5rem); font-weight: 800; letter-spacing: -.02em; }
-h2 { font-size: clamp(2rem, 3vw, 3rem); font-weight: 800; letter-spacing: -.01em; }
-h3 { font-size: 1.25rem; }
-p { max-width: 68ch; }
+h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; color: var(--color-heading); line-height: 1.1; font-weight: 800; text-wrap: balance; }
+h1 { font-size: clamp(2.6rem, 6vw, 5rem); letter-spacing: -.028em; }
+h2 { font-size: clamp(2.05rem, 3.4vw, 3.1rem); letter-spacing: -.022em; }
+h3 { font-size: clamp(1.2rem, 1.6vw, 1.4rem); letter-spacing: -.012em; line-height: 1.22; }
+h4 { font-size: 1.05rem; letter-spacing: -.01em; }
+p { max-width: 68ch; text-wrap: pretty; }
 .container { width: min(1120px, calc(100% - 3rem)); margin: 0 auto; }
 .section { padding: clamp(4rem, 8vw, 7rem) 0; }
 .section-tight { padding: clamp(3rem, 6vw, 5rem) 0; }
 .eyebrow {
-  display: inline-flex; align-items: center; gap: .45rem;
-  padding: 0;
-  color: var(--color-primary); font-size: .72rem; font-weight: 700;
-  letter-spacing: .06em; text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: .85rem;
+  color: var(--color-primary); font-size: .74rem; font-weight: 800;
+  letter-spacing: .1em; text-transform: uppercase;
 }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: .45rem;
@@ -83,8 +114,8 @@ p { max-width: 68ch; }
   border: 1px solid transparent;
   transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease, border-color .18s ease;
 }
-.btn-primary { background: var(--color-primary); color: #F8FFFC; box-shadow: 0 8px 22px rgba(0, 212, 126, .23); }
-.btn-primary:hover { background: var(--color-primary-hover); color: #F8FFFC; transform: translateY(-1px); box-shadow: 0 12px 28px rgba(0, 212, 126, .28); }
+.btn-primary { background: var(--color-primary); color: oklch(0.99 0.01 165); box-shadow: var(--shadow-signal); }
+.btn-primary:hover { background: var(--color-primary-hover); color: oklch(0.99 0.01 165); transform: translateY(-1px); box-shadow: 0 12px 28px oklch(0.74 0.165 162 / 0.3); }
 .btn-secondary { background: transparent; color: var(--color-heading); border-color: var(--color-border); }
 .btn-secondary:hover { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-surface); }
 .site-nav { position: sticky; top: 0; z-index: 100; background: var(--color-navy); border-bottom: 1px solid rgba(232, 245, 239, .1); }
@@ -95,6 +126,25 @@ p { max-width: 68ch; }
 .nav-links { display: flex; align-items: center; gap: .15rem; list-style: none; }
 .nav-links a { display: inline-flex; align-items: center; padding: .48rem .78rem; border-radius: 8px; color: rgba(232, 245, 239, .76); font-size: .9rem; font-weight: 500; }
 .nav-links a:hover, .nav-links a.active { color: var(--color-primary); background: rgba(232, 245, 239, .07); }
+.nav-dropdown { position: relative; }
+.nav-dropdown > a::after {
+  content: ''; display: inline-block; width: 0; height: 0;
+  border-left: 4px solid transparent; border-right: 4px solid transparent;
+  border-top: 4px solid currentColor; margin-left: 6px; transition: transform .2s;
+}
+.nav-dropdown:hover > a::after { transform: rotate(180deg); }
+.dropdown-menu {
+  display: none; position: absolute; top: calc(100% + 6px); left: 0;
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: var(--r-md); padding: .5rem; min-width: 210px;
+  box-shadow: var(--shadow-card); z-index: 101;
+}
+.nav-dropdown:hover .dropdown-menu { display: block; }
+.dropdown-menu a {
+  display: block; padding: .55rem .75rem; border-radius: var(--r-sm);
+  color: var(--color-body); font-size: .85rem; font-weight: 500;
+}
+.dropdown-menu a:hover { background: var(--color-primary-subtle); color: var(--color-primary); }
 .nav-actions { display: flex; align-items: center; gap: .55rem; }
 .nav-cta { min-height: 38px; padding: .56rem 1rem; font-size: .86rem; }
 .icon-btn {
@@ -104,92 +154,140 @@ p { max-width: 68ch; }
   cursor: pointer; font-size: .72rem; font-weight: 700;
 }
 .icon-btn:hover { border-color: var(--color-primary); }
+.icon-btn .icon-moon, .icon-btn .icon-sun { font-size: 1.05rem; line-height: 1; }
+.icon-btn .icon-sun { display: none; }
+html.dark .icon-btn .icon-moon { display: none; }
+html.dark .icon-btn .icon-sun { display: inline; }
 .nav-toggle { display: none; flex-direction: column; gap: 4px; }
 .nav-toggle span { width: 18px; height: 2px; border-radius: 2px; background: currentColor; }
 .hero-wrap {
-  background: linear-gradient(165deg, var(--color-primary-subtle) 0%, var(--color-bg) 50%, var(--color-surface) 100%);
-  border-bottom: 1px solid var(--color-border);
-  min-height: 88svh;
+  background:
+    radial-gradient(58% 42% at 50% 10%, oklch(0.74 0.165 162 / 0.09) 0%, transparent 62%),
+    linear-gradient(180deg, var(--color-primary-subtle) 0%, var(--color-bg) 60%);
+  border-bottom: 1px solid var(--color-hairline);
+  min-height: min(90svh, 820px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 3rem 2rem 4.5rem;
+  padding: clamp(3rem, 7vw, 5.5rem) 1.5rem clamp(3.5rem, 6vw, 5rem);
   position: relative;
   overflow: hidden;
 }
-html.dark .hero-wrap {
-  background: linear-gradient(165deg, var(--color-primary-subtle) 0%, var(--color-bg) 60%);
+.hero-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, oklch(0.31 0.072 268 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.31 0.072 268 / 0.045) 1px, transparent 1px);
+  background-size: 62px 62px;
+  -webkit-mask-image: radial-gradient(68% 58% at 50% 42%, #000 0%, transparent 76%);
+  mask-image: radial-gradient(68% 58% at 50% 42%, #000 0%, transparent 76%);
+  pointer-events: none;
 }
+html.dark .hero-wrap::before {
+  background-image:
+    linear-gradient(to right, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px);
+}
+.hero-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+  opacity: .045;
+  pointer-events: none;
+}
+html.dark .hero-wrap::after { opacity: .07; }
 .hero {
   text-align: center;
-  max-width: 940px;
+  max-width: 920px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
 }
 .hero h1 {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 800;
-  font-size: 4.25rem;
-  line-height: 1.08;
+  font-size: clamp(2.5rem, 5.6vw, 4.6rem);
+  line-height: 1.04;
   color: var(--color-heading);
-  margin-bottom: 1.75rem;
-  letter-spacing: -.02em;
+  margin-bottom: 1.6rem;
+  letter-spacing: -.03em;
 }
 .hero h1 span { color: var(--color-primary); }
 .hero p {
-  font-size: 1.3rem;
+  font-size: clamp(1.1rem, 1.7vw, 1.32rem);
   color: var(--color-muted);
-  max-width: 680px;
-  margin: 0 auto 2.5rem;
-  line-height: 1.7;
+  max-width: 640px;
+  margin: 0 auto 2.4rem;
+  line-height: 1.65;
 }
 .cta-btn {
-  display: inline-block;
-  padding: 1.05rem 3.25rem;
-  border-radius: 99px;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: 1.05rem 2.4rem;
+  border-radius: var(--r-md);
   background: var(--color-primary);
-  color: #F8FFFC;
+  color: oklch(0.99 0.01 165);
   text-decoration: none;
   font-family: 'Outfit', sans-serif;
-  font-weight: 600;
-  font-size: 1.15rem;
-  transition: background .2s, transform .15s, box-shadow .2s;
-  box-shadow: 0 4px 20px rgba(0,212,126,.3);
+  font-weight: 700;
+  font-size: 1.08rem;
+  letter-spacing: -.005em;
+  transition: background .22s var(--ease-out), transform .22s var(--ease-out), box-shadow .22s var(--ease-out);
+  box-shadow: var(--shadow-signal);
 }
 .cta-btn:hover {
   background: var(--color-primary-hover);
-  color: #F8FFFC;
+  color: oklch(0.99 0.01 165);
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0,212,126,.4);
+  box-shadow: 0 14px 34px oklch(0.74 0.165 162 / 0.32);
 }
+.hero-reassure {
+  display: block;
+  margin-top: 1.15rem;
+  font-size: .9rem;
+  color: var(--color-muted);
+}
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.hero > *, .hero-wrap > .trust-bar { animation: rise .75s var(--ease-out-expo) both; }
+.hero h1 { animation-delay: .04s; }
+.hero p { animation-delay: .13s; }
+.hero .cta-btn { animation-delay: .22s; }
+.hero .hero-reassure { animation-delay: .3s; }
+.hero-wrap > .trust-bar { animation-delay: .4s; }
+html.js-reveal .partners-section,
+html.js-reveal .core-os,
+html.js-reveal .section,
+html.js-reveal .cta-band {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+}
+html.js-reveal .is-in { opacity: 1; transform: none; }
 .trust-bar {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  gap: 1.5rem;
-  padding: 3rem 2rem 0;
+  gap: clamp(.75rem, 2vw, 1.25rem);
+  margin: clamp(2.5rem, 4vw, 3.25rem) auto 0;
   flex-wrap: wrap;
-  max-width: 960px;
-  margin: 0 auto;
 }
 .badge-pill {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: .7rem 1rem;
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 14px;
-  padding: .65rem;
-  min-width: 200px;
-  box-shadow: 0 2px 12px rgba(0,0,0,.04);
-  transition: transform .2s, box-shadow .2s;
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-card);
 }
-.badge-pill:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.08); }
-.badge-pill img { height: 80px; max-width: 300px; object-fit: contain; }
-html.dark .badge-pill { box-shadow: 0 2px 12px rgba(0,0,0,.15); }
-html.dark .badge-pill img { filter: brightness(1.15); }
+.badge-pill img { height: 74px; width: auto; max-width: 280px; object-fit: contain; }
+html.dark .badge-pill img { filter: brightness(1.12); }
 .scroll-hint {
   display: none;
   margin-top: 2.5rem;
@@ -210,7 +308,8 @@ html.dark .badge-pill img { filter: brightness(1.15); }
 .section-heading {
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: 2.75rem;
+  font-size: clamp(2.05rem, 3.4vw, 3.1rem);
+  letter-spacing: -.022em;
   color: var(--color-heading);
   margin-bottom: .5rem;
 }
@@ -241,133 +340,75 @@ html.dark .badge-pill img { filter: brightness(1.15); }
   opacity: .85;
 }
 html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; }
-.core-pillar-flow { border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
-.pillar-story {
-  padding: clamp(4rem, 7vw, 6rem) 0;
-  background: var(--color-surface);
+/* CORE: the operating-system panel. One navy full-bleed instrument. */
+.core-os {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(168deg, var(--color-navy) 0%, var(--color-navy-deep) 100%);
+  color: var(--color-on-navy-dim);
+  padding: clamp(3.5rem, 6vw, 5.5rem) 0 0;
 }
-.pillar-story:nth-child(even) { background: var(--color-bg); }
-.pillar-story-inner {
-  display: grid;
-  grid-template-columns: .88fr 1.12fr;
-  gap: clamp(2rem, 6vw, 4.5rem);
-  align-items: center;
-}
-.pillar-story.flip .pillar-story-copy { order: 2; }
-.pillar-story.flip .pillar-story-card { order: 1; }
-.pillar-mark {
-  display: inline-grid;
-  grid-template-columns: 48px 1fr;
-  gap: .85rem;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-.pillar-mark .letter {
-  width: 48px;
-  height: 48px;
-  border-radius: 13px;
-  display: grid;
-  place-items: center;
-  background: var(--color-navy);
-  color: var(--color-primary);
-  font-family: 'Outfit', sans-serif;
-  font-weight: 800;
-  font-size: 1.3rem;
-}
-.pillar-mark span {
-  color: var(--color-primary);
-  font-size: .74rem;
-  font-weight: 800;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-}
-.pillar-story h2 {
-  font-size: clamp(2rem, 3.8vw, 3rem);
-  margin-bottom: .85rem;
-}
-.pillar-story-copy p {
-  color: var(--color-muted);
-  font-size: 1.04rem;
-  line-height: 1.75;
-}
-.pillar-story-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 18px;
-  padding: 1rem;
-  box-shadow: var(--shadow-soft);
-}
-.pillar-tabs {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: .5rem;
-  margin-bottom: 1rem;
-}
-.pillar-tab {
-  min-height: 42px;
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
-  background: var(--color-bg);
-  color: var(--color-body);
-  cursor: pointer;
-  font-family: 'Outfit', sans-serif;
-  font-weight: 800;
-  transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
-}
-.pillar-tab:hover,
-.pillar-tab:focus-visible {
-  outline: none;
-  border-color: rgba(0, 212, 126, .36);
-  color: var(--color-heading);
-}
-.pillar-tab.active {
-  background: var(--color-navy);
-  border-color: var(--color-navy);
-  color: var(--color-primary);
-}
-.pillar-view {
-  border: 1px solid var(--color-border);
-  border-radius: 14px;
-  background: var(--color-bg);
-  padding: 1.35rem;
-}
-.pillar-view[hidden] { display: none; }
-.pillar-view h3 { margin-bottom: .55rem; }
-.pillar-view p {
-  color: var(--color-muted);
-  font-size: .95rem;
-  line-height: 1.65;
-  margin-bottom: 1rem;
-}
-.pillar-list {
-  display: grid;
-  gap: .6rem;
-  list-style: none;
-}
-.pillar-list li {
-  display: grid;
-  grid-template-columns: 28px 1fr;
-  gap: .7rem;
-  align-items: start;
-  color: var(--color-body);
-  font-size: .92rem;
-  line-height: 1.55;
-}
-.pillar-list li::before {
+.core-os::before {
   content: '';
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  margin: .5rem auto 0;
-  box-shadow: 0 0 0 5px rgba(0, 212, 126, .12);
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, oklch(0.945 0.018 166 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.945 0.018 166 / 0.045) 1px, transparent 1px);
+  background-size: 60px 60px;
+  -webkit-mask-image: radial-gradient(120% 90% at 15% 0%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(120% 90% at 15% 0%, #000 0%, transparent 72%);
+  pointer-events: none;
 }
-.pillar-link {
-  display: inline-flex;
-  margin-top: 1rem;
-  font-family: 'Outfit', sans-serif;
-  font-weight: 800;
+.core-os > .container, .core-os-stage { position: relative; z-index: 1; }
+.core-os-head { max-width: 780px; margin: 0 auto; text-align: center; }
+.core-os-stage {
+  margin-top: clamp(3.5rem, 6vw, 5.5rem);
+  padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(4rem, 8vw, 6rem);
+  background: oklch(0.945 0.018 166 / 0.05);
+  border-top: 1px solid oklch(0.945 0.018 166 / 0.12);
 }
+.core-os-head h2 { color: var(--color-on-navy); margin: 0 auto .9rem; max-width: 22ch; }
+.core-os-head p { color: var(--color-on-navy-dim); font-size: 1.08rem; line-height: 1.7; max-width: 58ch; margin: 0 auto; }
+.core-os-grid { display: grid; grid-template-columns: 232px 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+.core-rail { display: grid; gap: .4rem; position: sticky; top: 88px; }
+.core-rail-item {
+  display: grid; grid-template-columns: 46px 1fr; gap: .85rem; align-items: center;
+  text-align: left; padding: .55rem .65rem; border: 0; border-radius: var(--r-md);
+  background: transparent; color: var(--color-on-navy-dim); cursor: pointer;
+  transition: background .2s var(--ease-out), color .2s var(--ease-out);
+}
+.core-rail-item:hover { background: oklch(0.945 0.018 166 / 0.06); color: var(--color-on-navy); }
+.core-rail-item .ltr {
+  width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center;
+  font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.25rem;
+  background: oklch(0.945 0.018 166 / 0.08); color: var(--color-on-navy);
+  transition: background .25s var(--ease-out), color .25s var(--ease-out), box-shadow .25s var(--ease-out);
+}
+.core-rail-item .lbl { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1rem; }
+.core-rail-item .lbl small { display: block; font-family: 'Inter', sans-serif; font-weight: 500; font-size: .76rem; color: var(--color-on-navy-dim); letter-spacing: 0; text-transform: none; }
+.core-rail-item.active { background: oklch(0.945 0.018 166 / 0.05); }
+.core-rail-item.active .ltr { background: var(--color-primary); color: var(--color-navy-deep); box-shadow: var(--shadow-signal); }
+.core-rail-item.active .lbl { color: var(--color-primary); }
+.core-stage { min-height: 1px; }
+.core-claim { color: var(--color-on-navy); font-size: clamp(1.5rem, 2.7vw, 2.15rem); line-height: 1.12; letter-spacing: -.02em; margin-bottom: .85rem; max-width: 22ch; }
+.core-lede { color: var(--color-on-navy-dim); font-size: 1.06rem; line-height: 1.7; max-width: 62ch; margin-bottom: 1.7rem; }
+.core-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.core-col { border: 1px solid oklch(0.945 0.018 166 / 0.13); border-radius: var(--r-lg); padding: 1.35rem 1.4rem; background: oklch(0.945 0.018 166 / 0.03); }
+.core-col h4 { font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .8rem; }
+.core-col.problem h4 { color: var(--color-on-navy-dim); }
+.core-col.solution h4 { color: var(--color-primary); }
+.core-col p { color: var(--color-on-navy-dim); font-size: .95rem; line-height: 1.6; margin-bottom: 1.05rem; }
+.core-col ul { list-style: none; display: grid; gap: .6rem; }
+.core-col li { display: grid; grid-template-columns: 16px 1fr; gap: .6rem; align-items: start; color: var(--color-on-navy); font-size: .9rem; line-height: 1.5; }
+.core-col li::before { content: ''; margin-top: .42rem; width: 7px; height: 7px; border-radius: 50%; }
+.core-col.problem li::before { background: var(--color-on-navy-dim); }
+.core-col.solution li::before { background: var(--color-primary); box-shadow: 0 0 0 4px oklch(0.74 0.165 162 / 0.18); }
+.core-link { display: inline-flex; align-items: center; gap: .4rem; margin-top: 1.3rem; color: var(--color-primary); font-family: 'Outfit', sans-serif; font-weight: 800; font-size: .95rem; }
+.core-link:hover { color: var(--color-primary); gap: .65rem; transition: gap .2s var(--ease-out); }
+@keyframes corefade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+html.js .core-panel { display: none; }
+html.js .core-panel.active { display: block; animation: corefade .45s var(--ease-out) both; }
 .results-preview { display: grid; grid-template-columns: .86fr 1.14fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
 .stats-stack { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .8rem; margin-top: 1.6rem; }
 .stat { border: 1px solid var(--color-border); border-radius: 14px; padding: 1.1rem; background: var(--color-surface); }
@@ -383,30 +424,34 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
 .proof-toggle {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: .5rem;
+  gap: 4px;
   margin-bottom: .85rem;
+  padding: 4px;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--r-md);
 }
 .proof-tab {
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
-  background: var(--color-bg);
-  color: var(--color-body);
+  border: 0;
+  border-radius: calc(var(--r-md) - 4px);
+  background: transparent;
+  color: var(--color-muted);
   cursor: pointer;
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  min-height: 40px;
-  transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+  font-size: .9rem;
+  min-height: 38px;
+  transition: background 180ms var(--ease-out), color 180ms var(--ease-out), box-shadow 180ms var(--ease-out);
 }
 .proof-tab:hover,
 .proof-tab:focus-visible {
   outline: none;
-  border-color: rgba(0, 212, 126, .36);
   color: var(--color-heading);
 }
 .proof-tab.active {
-  background: var(--color-navy);
-  border-color: var(--color-navy);
-  color: var(--color-primary);
+  background: var(--color-primary);
+  color: oklch(0.99 0.01 165);
+  box-shadow: var(--shadow-soft);
 }
 .proof-frame {
   border: 1px solid var(--color-border);
@@ -440,18 +485,21 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
 .evidence-table td { padding: .95rem 1rem; border-bottom: 1px solid var(--color-border); color: var(--color-body); font-size: .93rem; }
 .evidence-table tr:last-child td { border-bottom: none; }
 .evidence-table td:last-child { color: var(--color-primary); font-family: 'Outfit', sans-serif; font-weight: 800; text-align: right; }
-.testimonial-section { background: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
-.testimonial-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
-.quote-card { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 16px; padding: 1.6rem; }
-.quote-card.featured { grid-row: span 2; }
-.quote-card blockquote { color: var(--color-body); font-size: 1.02rem; line-height: 1.78; }
-.quote-person { display: flex; align-items: center; gap: .9rem; margin-top: 1.4rem; }
-.quote-person img { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2px solid var(--color-primary-light); }
+.testimonial-section { background: var(--color-surface); border-top: 1px solid var(--color-hairline); border-bottom: 1px solid var(--color-hairline); }
+.testimonial-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); margin-top: 2.5rem; align-items: stretch; }
+.quote-lead { display: flex; flex-direction: column; justify-content: center; background: var(--color-bg); border: 1px solid var(--color-hairline); border-radius: var(--r-xl); padding: clamp(1.75rem, 3.2vw, 2.6rem); }
+.quote-lead blockquote { color: var(--color-heading); font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(1.4rem, 2.3vw, 1.85rem); line-height: 1.3; letter-spacing: -.02em; }
+.quote-lead blockquote::before { content: '\201C'; display: block; font-family: 'Outfit', sans-serif; font-weight: 800; color: var(--color-primary); font-size: 2.8rem; line-height: .5; margin-bottom: .5rem; }
+.testimonial-side { display: grid; gap: 1rem; align-content: start; }
+.quote-note { background: var(--color-bg); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); padding: 1.4rem; }
+.quote-note blockquote { color: var(--color-body); font-size: .98rem; line-height: 1.7; }
+.quote-person { display: flex; align-items: center; gap: .9rem; margin-top: 1.3rem; }
+.quote-person img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid var(--color-primary-light); }
 .quote-person strong { display: block; color: var(--color-heading); font-family: 'Outfit', sans-serif; }
 .quote-person span { color: var(--color-muted); font-size: .86rem; }
 .feedback-strip { margin-top: 2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-.feedback-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 14px; padding: 1.2rem; }
-.feedback-stars { color: #F59E0B; font-size: .9rem; letter-spacing: .04em; margin-bottom: .5rem; }
+.feedback-card { background: var(--color-bg); border: 1px solid var(--color-hairline); border-radius: var(--r-md); padding: 1.2rem; }
+.feedback-stars { color: var(--color-primary); font-size: .9rem; letter-spacing: .04em; margin-bottom: .5rem; }
 .feedback-card p { color: var(--color-body); font-size: .92rem; line-height: 1.65; margin-bottom: .85rem; }
 .feedback-card strong { color: var(--color-heading); font-family: 'Outfit', sans-serif; font-size: .9rem; }
 .fit-section .fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
@@ -473,52 +521,69 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
   border-radius: 50%;
   display: grid;
   place-items: center;
-  color: #F8FFFC;
+  color: oklch(0.99 0.01 165);
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
   line-height: 1;
 }
-.fit-icon.good { background: var(--color-primary); box-shadow: 0 0 0 5px rgba(0, 212, 126, .12); }
+.fit-icon.good { background: var(--color-primary); box-shadow: 0 0 0 5px oklch(0.74 0.165 162 / 0.14); }
 .fit-icon.bad { background: #EF4444; box-shadow: 0 0 0 5px rgba(239, 68, 68, .12); }
 .fit-row p { color: var(--color-body); font-size: 1rem; line-height: 1.5; max-width: 46ch; }
-.phase-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
-.phase-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 16px; padding: 1.5rem; }
-.phase-card strong { display: inline-flex; align-items: center; justify-content: center; min-width: 78px; height: 32px; border-radius: 9px; background: var(--color-navy); color: var(--color-primary); font-family: 'Outfit', sans-serif; font-weight: 800; margin-bottom: 1rem; }
-.phase-card h3 { margin-bottom: .55rem; }
-.phase-card p { color: var(--color-muted); font-size: .93rem; line-height: 1.65; }
+.phase-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.25rem, 4vw, 2.75rem); margin-top: 2.75rem; }
+.phase-step { position: relative; z-index: 1; }
+.phase-step::after {
+  content: '';
+  position: absolute;
+  top: 23px;
+  left: 56px;
+  width: calc(100% - 56px + clamp(1.25rem, 4vw, 2.75rem));
+  height: 2px;
+  background: linear-gradient(to right, var(--color-primary), var(--color-border));
+  z-index: 0;
+}
+.phase-step:last-child::after { display: none; }
+.phase-num { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--color-navy); color: var(--color-primary); font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.05rem; box-shadow: 0 0 0 6px var(--color-bg); }
+.phase-tag { display: block; margin: .9rem 0 .45rem; font-size: .72rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--color-muted); }
+.phase-step h3 { margin-bottom: .5rem; }
+.phase-step p { color: var(--color-muted); font-size: .96rem; line-height: 1.65; }
 .stat,
-.proof-frame,
-.quote-card,
+.quote-note,
 .feedback-card,
-.fit-row,
-.phase-card {
+.fit-row {
   transform: translateY(0);
   transition:
-    transform 190ms cubic-bezier(.22, 1, .36, 1),
-    border-color 190ms cubic-bezier(.22, 1, .36, 1),
-    box-shadow 190ms cubic-bezier(.22, 1, .36, 1);
+    transform 220ms var(--ease-out),
+    border-color 220ms var(--ease-out),
+    box-shadow 220ms var(--ease-out);
 }
 .stat:hover,
 .stat:focus-within,
-.proof-frame:hover,
-.proof-frame:focus-within,
-.quote-card:hover,
-.quote-card:focus-within,
+.quote-note:hover,
+.quote-note:focus-within,
 .feedback-card:hover,
 .feedback-card:focus-within,
 .fit-row:hover,
-.fit-row:focus-within,
-.phase-card:hover,
-.phase-card:focus-within {
+.fit-row:focus-within {
   transform: translateY(-5px);
-  border-color: rgba(0, 212, 126, .36);
-  box-shadow: 0 18px 34px rgba(30, 42, 94, .13);
+  border-color: oklch(0.74 0.165 162 / 0.42);
+  box-shadow: var(--shadow-lift);
 }
-.cta-band { background: var(--color-navy); color: rgba(232, 245, 239, .74); }
-.cta-grid { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
+.cta-band { position: relative; overflow: hidden; background: linear-gradient(158deg, var(--color-navy) 0%, var(--color-navy-deep) 100%); color: var(--color-on-navy-dim); }
+.cta-band::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px);
+  background-size: 58px 58px;
+  -webkit-mask-image: radial-gradient(80% 120% at 100% 0%, #000 0%, transparent 70%);
+  mask-image: radial-gradient(80% 120% at 100% 0%, #000 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
 .cta-band h2 { color: var(--color-on-navy); }
-.cta-band p { margin-top: .8rem; color: rgba(232, 245, 239, .72); font-size: 1.05rem; }
-.cta-band .btn-primary { border: 0; }
+.cta-band p { margin-top: .8rem; color: var(--color-on-navy-dim); font-size: 1.05rem; max-width: 54ch; }
+.cta-band .btn-primary { border: 0; min-height: 52px; padding: 1rem 1.9rem; font-size: 1rem; box-shadow: var(--shadow-signal); }
+.cta-band .btn-primary:hover { box-shadow: 0 14px 34px oklch(0.74 0.165 162 / 0.34); }
 .site-footer { background: var(--color-navy); border-top: 1px solid rgba(232, 245, 239, .1); padding: 2.5rem 0; color: rgba(232, 245, 239, .48); }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
 .footer-brand { display: flex; align-items: center; gap: .65rem; color: var(--color-on-navy); font-family: 'Outfit', sans-serif; font-weight: 700; }
@@ -528,34 +593,42 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
 .footer-links a { color: rgba(232, 245, 239, .58); font-size: .84rem; }
 .footer-links a:hover { color: var(--color-primary); }
 @media (max-width: 960px) {
-  .pillar-story-inner, .results-preview, .cta-grid { grid-template-columns: 1fr; }
-  .pillar-story.flip .pillar-story-copy,
-  .pillar-story.flip .pillar-story-card { order: initial; }
+  .results-preview, .cta-grid { grid-template-columns: 1fr; }
+  .core-os-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+  .core-rail { position: static; grid-auto-flow: column; grid-template-columns: repeat(4, 1fr); gap: .4rem; }
+  .core-rail-item { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: .5rem; padding: .7rem .4rem; }
+  .core-rail-item .lbl small { display: none; }
+  .core-rail-item .lbl { font-size: .85rem; }
 }
 @media (max-width: 760px) {
   .container { width: min(100% - 2rem, 1120px); }
   .nav-links { display: none; position: absolute; top: 68px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: .2rem; padding: 1rem; background: var(--color-navy); border-bottom: 1px solid rgba(232, 245, 239, .1); }
   body.nav-open .nav-links { display: flex; }
   .nav-links a { padding: .85rem 1rem; }
+  .nav-dropdown .dropdown-menu { position: static; display: block; box-shadow: none; border: none; background: transparent; padding: 0 0 .25rem 1rem; min-width: 0; }
+  .nav-dropdown > a::after { display: none; }
+  .dropdown-menu a { color: rgba(232, 245, 239, .76); padding: .6rem 1rem; }
+  .dropdown-menu a:hover { background: rgba(232, 245, 239, .07); color: var(--color-primary); }
   .nav-cta { display: none; }
   .nav-toggle { display: inline-flex; }
   .hero-wrap { min-height: auto; padding: 3rem 1.5rem 2.5rem; }
   .hero h1 { font-size: 2.75rem; }
   .hero p { font-size: 1.0625rem; }
-  .trust-bar { gap: .75rem; padding: 2.75rem 1rem 0; }
-  .badge-pill { padding: .5rem; min-width: auto; width: calc(50% - .5rem); border-radius: 10px; }
-  .badge-pill img { height: 52px; max-width: 100%; }
+  .trust-bar { gap: .6rem; margin-top: 2.25rem; }
+  .badge-pill { padding: .55rem .8rem; }
+  .badge-pill img { height: 52px; max-width: 150px; }
   .partners-section { padding: 2rem 1.5rem 2.5rem; }
   .section-heading { font-size: 2.25rem; }
   .partner-row { gap: 1.25rem 1.5rem; width: 100%; }
   .partner-row .partner-logo { height: auto; max-height: 52px; max-width: none; object-fit: contain; }
   .partner-row.cols-3 .partner-logo { width: calc(33.33% - 1.2rem); }
   .partner-row.cols-2 .partner-logo { width: calc(50% - 1rem); }
-  .testimonial-grid, .feedback-strip, .fit-section .fit-grid, .phase-row { grid-template-columns: 1fr; }
+  .testimonial-grid, .feedback-strip, .fit-section .fit-grid, .phase-row, .core-cols { grid-template-columns: 1fr; }
+  .fit-section .fit-grid { gap: 2.5rem; }
+  .phase-row { gap: 1.75rem; }
+  .phase-step::after { display: none; }
+  .phase-num { box-shadow: none; }
   .stats-stack { grid-template-columns: 1fr; }
-  .pillar-story { padding: 3.5rem 0; }
-  .pillar-mark { grid-template-columns: 42px 1fr; }
-  .pillar-mark .letter { width: 42px; height: 42px; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
   .footer-links { justify-content: flex-start; }
 }
@@ -566,6 +639,12 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
   .partner-row .partner-logo { max-height: 40px; }
   .badge-pill { padding: .5rem; }
   .badge-pill img { height: 44px; }
+  .core-rail { grid-auto-flow: row; grid-template-columns: 1fr; gap: .5rem; }
+  .core-rail-item { grid-template-columns: 44px 1fr; justify-items: start; text-align: left; padding: .6rem .75rem; }
+  .core-rail-item .ltr { width: 44px; height: 44px; }
+  .core-rail-item .lbl { font-size: .98rem; }
+  .core-rail-item .lbl small { display: block; }
+  .proof-toggle { grid-template-columns: 1fr; }
 }
 @media (min-width: 761px) {
   .fit-row p {
@@ -579,21 +658,15 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
   .stat,
   .stat:hover,
   .stat:focus-within,
-  .proof-frame,
-  .proof-frame:hover,
-  .proof-frame:focus-within,
-  .quote-card,
-  .quote-card:hover,
-  .quote-card:focus-within,
+  .quote-note,
+  .quote-note:hover,
+  .quote-note:focus-within,
   .feedback-card,
   .feedback-card:hover,
   .feedback-card:focus-within,
   .fit-row,
   .fit-row:hover,
-  .fit-row:focus-within,
-  .phase-card,
-  .phase-card:hover,
-  .phase-card:focus-within {
+  .fit-row:focus-within {
     transform: none;
   }
 }
@@ -605,14 +678,28 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
     <a href="/" class="nav-brand" aria-label="Moonraker home"><img src="/assets/logo.png" alt=""><span>Moonraker</span></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/" class="active">Home</a></li>
-      <li><a href="/core-marketing-system">CORE System</a></li>
+      <li class="nav-dropdown">
+        <a href="/core-marketing-system">CORE System</a>
+        <div class="dropdown-menu">
+          <a href="/core-marketing-system">Overview</a>
+          <a href="/core-marketing-system/credibility">Credibility</a>
+          <a href="/core-marketing-system/optimization">Optimization</a>
+          <a href="/core-marketing-system/reputation">Reputation</a>
+          <a href="/core-marketing-system/engagement">Engagement</a>
+        </div>
+      </li>
       <li><a href="/results">Results</a></li>
-      <li><a href="/process">Process</a></li>
-      <li><a href="/scope">Scope</a></li>
+      <li class="nav-dropdown">
+        <a href="/process">How We Work</a>
+        <div class="dropdown-menu">
+          <a href="/process">Process</a>
+          <a href="/scope">Scope</a>
+        </div>
+      </li>
     </ul>
     <div class="nav-actions">
       <a href="/free-strategy-call" class="btn btn-primary nav-cta">Free Strategy Call</a>
-      <button type="button" class="icon-btn" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">Moon</button>
+      <button type="button" class="icon-btn" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn"><span class="icon-moon" aria-hidden="true">&#x1F319;</span><span class="icon-sun" aria-hidden="true">&#9728;&#65039;</span></button>
       <button type="button" class="icon-btn nav-toggle" onclick="document.body.classList.toggle('nav-open')" aria-label="Menu" aria-controls="navLinks"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -620,9 +707,10 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
 <main>
   <div class="hero-wrap">
     <section class="hero">
-      <h1>Grow your practice&rsquo;s visibility on <span>Google, Gemini, and AI</span></h1>
-      <p>We help therapy practices get found by the clients who need them most. Our CORE Marketing System is trusted by the industry&rsquo;s leading experts in practice building and clinical training.</p>
-      <a href="/free-strategy-call" class="cta-btn">Book a Free Strategy Call</a>
+      <h1>Help the right clients find your practice on <span>Google, Gemini, and AI</span></h1>
+      <p>When someone searches for a therapist, we make sure your practice is the one Google, Maps, and AI tools can trust and recommend. Built for therapy practices, not generic businesses.</p>
+      <a href="/free-strategy-call" class="cta-btn">Book a Free Strategy Call <span aria-hidden="true">&rarr;</span></a>
+      <span class="hero-reassure">Free 30-minute call. No pressure, no jargon, no commitment.</span>
     </section>
 
     <div class="trust-bar">
@@ -655,114 +743,64 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
         </div>
       </div>
   </section>
-  <section class="core-pillar-flow" aria-label="CORE pillar problems and solutions">
-    <article class="pillar-story">
-      <div class="container pillar-story-inner">
-        <div class="pillar-story-copy">
-          <div class="pillar-mark"><div class="letter">C</div><span>Credibility</span></div>
-          <h2>AI will not recommend a practice it cannot verify.</h2>
-          <p>Before Google, Maps, ChatGPT, Gemini, or AI Search trusts your practice, it needs consistent proof that the practice is real, credentialed, and connected across the web.</p>
+  <section class="core-os" aria-label="The CORE System">
+    <div class="container">
+      <div class="core-os-head">
+        <span class="eyebrow">The CORE System</span>
+        <h2>One system that makes your practice easy to find and trust.</h2>
+        <p>CORE is how we get your practice recognized by Google, Maps, and AI tools. Four parts, in plain terms. Pick one to see the problem it solves and what we actually do.</p>
+      </div>
+    </div>
+    <div class="core-os-stage">
+      <div class="container">
+        <div class="core-os-grid">
+        <div class="core-rail" role="tablist" aria-label="CORE pillars">
+          <button type="button" class="core-rail-item active" role="tab" aria-selected="true" aria-controls="core-c" data-core="c"><span class="ltr">C</span><span class="lbl">Credibility<small>Prove you are real</small></span></button>
+          <button type="button" class="core-rail-item" role="tab" aria-selected="false" aria-controls="core-o" data-core="o"><span class="ltr">O</span><span class="lbl">Optimization<small>Explain what you do</small></span></button>
+          <button type="button" class="core-rail-item" role="tab" aria-selected="false" aria-controls="core-r" data-core="r"><span class="ltr">R</span><span class="lbl">Reputation<small>Build outside trust</small></span></button>
+          <button type="button" class="core-rail-item" role="tab" aria-selected="false" aria-controls="core-e" data-core="e"><span class="ltr">E</span><span class="lbl">Engagement<small>Turn views into clients</small></span></button>
         </div>
-        <div class="pillar-story-card">
-          <div class="pillar-tabs" role="group" aria-label="Credibility problem and solution">
-            <button type="button" class="pillar-tab active" data-pillar-tab="problem" aria-pressed="true">Problem</button>
-            <button type="button" class="pillar-tab" data-pillar-tab="solution" aria-pressed="false">Solution</button>
-          </div>
-          <div class="pillar-view" data-pillar-view="problem">
-            <h3>Does your practice look real and consistent online?</h3>
-            <p>Search systems compare your website, business profile, listings, credentials, and public details. Mixed signals make the practice harder to trust.</p>
-            <ul class="pillar-list"><li>Practice name, location, and services do not match everywhere.</li><li>Credentials and public proof are hard to find.</li><li>Your Google presence is disconnected from the website.</li></ul>
-          </div>
-          <div class="pillar-view" data-pillar-view="solution" hidden>
-            <h3>We connect the proof around your practice.</h3>
-            <p>Credibility work gives Google and AI tools a consistent foundation to verify who you are, where you work, and why your practice is legitimate.</p>
-            <ul class="pillar-list"><li>Website, Google Business Profile, and listings aligned.</li><li>Credentials, provider bios, and practice details clarified.</li><li>Public proof organized into a stronger entity footprint.</li></ul>
-            <a href="/core-marketing-system/credibility" class="pillar-link">Credibility details &rarr;</a>
-          </div>
+        <div class="core-stage">
+          <article class="core-panel active" id="core-c" role="tabpanel" data-core="c">
+            <h3 class="core-claim">AI will not recommend a practice it cannot verify.</h3>
+            <p class="core-lede">Before Google, Maps, ChatGPT, or Gemini trusts your practice, it needs consistent proof that you are real, credentialed, and connected across the web.</p>
+            <div class="core-cols">
+              <div class="core-col problem"><h4>The problem</h4><p>Search systems compare your website, business profile, listings, and credentials. Mixed signals make you harder to trust.</p><ul><li>Name, location, and services do not match everywhere.</li><li>Credentials and proof are hard to find.</li><li>Your Google presence is disconnected from the website.</li></ul></div>
+              <div class="core-col solution"><h4>What we do</h4><p>We give Google and AI one consistent foundation that confirms who you are, where you work, and why you are legitimate.</p><ul><li>Website, Google Business Profile, and listings aligned.</li><li>Credentials and provider bios clarified.</li><li>Public proof organized into a stronger footprint.</li></ul></div>
+            </div>
+            <a href="/core-marketing-system/credibility" class="core-link">See Credibility in detail <span aria-hidden="true">&rarr;</span></a>
+          </article>
+          <article class="core-panel" id="core-o" role="tabpanel" data-core="o">
+            <h3 class="core-claim">People cannot find a service Google does not understand.</h3>
+            <p class="core-lede">Your site may be accurate and still be unclear. Optimization makes your services, specialties, and locations easy for both people and search tools to understand.</p>
+            <div class="core-cols">
+              <div class="core-col problem"><h4>The problem</h4><p>Vague pages make it harder for Google, Maps, and AI to match you with the right client need.</p><ul><li>Important services are buried in general copy.</li><li>Locations and telehealth areas are unclear.</li><li>Titles, headings, and FAQs do not explain the practice.</li></ul></div>
+              <div class="core-col solution"><h4>What we do</h4><p>We turn unclear pages into a clean structure that says what you treat, who you help, and how to reach you.</p><ul><li>Service, location, bio, and FAQ pages clarified.</li><li>Headings, links, and search labels improved.</li><li>Booking paths made easier to follow.</li></ul></div>
+            </div>
+            <a href="/core-marketing-system/optimization" class="core-link">See Optimization in detail <span aria-hidden="true">&rarr;</span></a>
+          </article>
+          <article class="core-panel" id="core-r" role="tabpanel" data-core="r">
+            <h3 class="core-claim">Trust needs to exist outside your own website.</h3>
+            <p class="core-lede">Google and AI look for outside signals that confirm your practice is known, relevant, and connected to real professional context.</p>
+            <div class="core-cols">
+              <div class="core-col problem"><h4>The problem</h4><p>If all your credibility lives on your own site, search and AI have fewer independent signals to trust.</p><ul><li>Partner proof and endorsements are scattered or missing.</li><li>Public mentions and profiles are disconnected.</li><li>Video and educational proof are not tied to the practice.</li></ul></div>
+              <div class="core-col solution"><h4>What we do</h4><p>We connect the public proof around your practice, without social posting, paid ads, or review management.</p><ul><li>Partner proof, citations, and mentions connected.</li><li>Approved proof assets and profile links organized.</li><li>YouTube and Quora support within clear boundaries.</li></ul></div>
+            </div>
+            <a href="/core-marketing-system/reputation" class="core-link">See Reputation in detail <span aria-hidden="true">&rarr;</span></a>
+          </article>
+          <article class="core-panel" id="core-e" role="tabpanel" data-core="e">
+            <h3 class="core-claim">Visibility only matters if the right client can take action.</h3>
+            <p class="core-lede">Once someone finds you, the page needs to make the next step obvious, comfortable, and measurable.</p>
+            <div class="core-cols">
+              <div class="core-col problem"><h4>The problem</h4><p>A practice can be visible and still lose good-fit clients if the contact path is vague or hard to trust.</p><ul><li>Calls to action are inconsistent or hard to find.</li><li>Contact and booking flows create friction.</li><li>Reporting does not connect visibility to inquiries.</li></ul></div>
+              <div class="core-col solution"><h4>What we do</h4><p>We improve the actions, page flow, and reporting that turn visibility into real conversations.</p><ul><li>Calls to action and contact pages clarified.</li><li>Booking and inquiry routes tightened.</li><li>Reporting focused on what changed and what to improve.</li></ul></div>
+            </div>
+            <a href="/core-marketing-system/engagement" class="core-link">See Engagement in detail <span aria-hidden="true">&rarr;</span></a>
+          </article>
+        </div>
         </div>
       </div>
-    </article>
-
-    <article class="pillar-story flip">
-      <div class="container pillar-story-inner">
-        <div class="pillar-story-copy">
-          <div class="pillar-mark"><div class="letter">O</div><span>Optimization</span></div>
-          <h2>People cannot find a service Google does not understand.</h2>
-          <p>Your site may be accurate and still be unclear. Optimization makes your services, specialties, locations, and next steps easier for both people and search tools to understand.</p>
-        </div>
-        <div class="pillar-story-card">
-          <div class="pillar-tabs" role="group" aria-label="Optimization problem and solution">
-            <button type="button" class="pillar-tab active" data-pillar-tab="problem" aria-pressed="true">Problem</button>
-            <button type="button" class="pillar-tab" data-pillar-tab="solution" aria-pressed="false">Solution</button>
-          </div>
-          <div class="pillar-view" data-pillar-view="problem">
-            <h3>What do you treat, and where?</h3>
-            <p>Vague pages make it harder for Google, Maps, and AI tools to match your practice with the right client need.</p>
-            <ul class="pillar-list"><li>Important services are buried inside general copy.</li><li>Locations and telehealth areas are unclear.</li><li>Page titles, headings, FAQs, and links do not explain the practice clearly.</li></ul>
-          </div>
-          <div class="pillar-view" data-pillar-view="solution" hidden>
-            <h3>We make your services easier to understand.</h3>
-            <p>Optimization turns unclear pages into a cleaner structure that explains what you treat, who you help, where you work, and how to contact you.</p>
-            <ul class="pillar-list"><li>Service, location, bio, and FAQ pages clarified.</li><li>Headings, internal links, and search labels improved.</li><li>Booking paths and calls to action made easier to follow.</li></ul>
-            <a href="/core-marketing-system/optimization" class="pillar-link">Optimization details &rarr;</a>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article class="pillar-story">
-      <div class="container pillar-story-inner">
-        <div class="pillar-story-copy">
-          <div class="pillar-mark"><div class="letter">R</div><span>Reputation</span></div>
-          <h2>Trust needs to exist outside your own website.</h2>
-          <p>Google and AI systems look for outside signals that confirm your practice is known, relevant, ethical, and connected to real professional context.</p>
-        </div>
-        <div class="pillar-story-card">
-          <div class="pillar-tabs" role="group" aria-label="Reputation problem and solution">
-            <button type="button" class="pillar-tab active" data-pillar-tab="problem" aria-pressed="true">Problem</button>
-            <button type="button" class="pillar-tab" data-pillar-tab="solution" aria-pressed="false">Solution</button>
-          </div>
-          <div class="pillar-view" data-pillar-view="problem">
-            <h3>Can the outside world confirm you are trusted?</h3>
-            <p>If all credibility lives on your own site, search and AI tools have fewer independent signals to confirm your expertise.</p>
-            <ul class="pillar-list"><li>Partner proof and endorsements are scattered or missing.</li><li>Public mentions, citations, and profiles are disconnected.</li><li>Video and educational proof are not tied back to the practice.</li></ul>
-          </div>
-          <div class="pillar-view" data-pillar-view="solution" hidden>
-            <h3>We organize ethical, distributed trust signals.</h3>
-            <p>Reputation work connects the public proof around your practice without drifting into social posting, paid ads, or review management.</p>
-            <ul class="pillar-list"><li>Partner proof, citations, and public mentions connected.</li><li>Approved proof assets and profile links organized.</li><li>YouTube and Quora support handled within clear boundaries.</li></ul>
-            <a href="/scope" class="pillar-link">Scope boundaries &rarr;</a>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article class="pillar-story flip">
-      <div class="container pillar-story-inner">
-        <div class="pillar-story-copy">
-          <div class="pillar-mark"><div class="letter">E</div><span>Engagement</span></div>
-          <h2>Visibility only matters if the right client can take action.</h2>
-          <p>Once someone finds the practice, the page needs to make the next step obvious, comfortable, and measurable.</p>
-        </div>
-        <div class="pillar-story-card">
-          <div class="pillar-tabs" role="group" aria-label="Engagement problem and solution">
-            <button type="button" class="pillar-tab active" data-pillar-tab="problem" aria-pressed="true">Problem</button>
-            <button type="button" class="pillar-tab" data-pillar-tab="solution" aria-pressed="false">Solution</button>
-          </div>
-          <div class="pillar-view" data-pillar-view="problem">
-            <h3>Is there a clear path to consultation?</h3>
-            <p>A practice can be visible and still lose good-fit clients if the contact path is vague, buried, or hard to trust.</p>
-            <ul class="pillar-list"><li>Calls to action are inconsistent or hard to find.</li><li>Contact and booking flows create friction.</li><li>Reporting does not connect visibility to inquiries.</li></ul>
-          </div>
-          <div class="pillar-view" data-pillar-view="solution" hidden>
-            <h3>We make the path from search to consultation clearer.</h3>
-            <p>Engagement work improves the actions, page flow, reporting, and recommendations that turn visibility into real conversations.</p>
-            <ul class="pillar-list"><li>Calls to action and contact pages clarified.</li><li>Booking paths and inquiry routes tightened.</li><li>Reporting focused on what changed and what to improve next.</li></ul>
-            <a href="/process" class="pillar-link">Process details &rarr;</a>
-          </div>
-        </div>
-      </div>
-    </article>
+    </div>
   </section>
   <section class="section results" id="results">
     <div class="container results-preview">
@@ -780,10 +818,12 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
     </div>
   </section>
   <section class="section testimonial-section">
-    <div class="container"><span class="eyebrow">Collaboration partners</span><h2>Trusted by people who serve therapists.</h2><div class="testimonial-grid">
-      <article class="quote-card featured"><blockquote>"Chris was great to work with. He was responsive, answered our questions clearly, and explained things in a way that made sense. His help improved our SEO, and we appreciate his expertise. Highly recommend!"</blockquote><div class="quote-person"><img src="/assets/headshots/kelly-smyth-dent.avif" alt="Kelly Smyth Dent" title="Kelly Smyth Dent headshot" width="500" height="666" loading="lazy" decoding="async"><div><strong>Kelly Smyth Dent</strong><span>Practice owner</span></div></div></article>
-      <article class="quote-card"><blockquote>"Chris helped me untangle the chaos, streamline my marketing, and optimize my websites for SEO in a way that actually makes sense and gets results."</blockquote><div class="quote-person"><img src="/assets/headshots/kym-tolson.avif" alt="Kym Tolson" title="Kym Tolson headshot" width="500" height="708" loading="lazy" decoding="async"><div><strong>Kym Tolson</strong><span>Founder, The Traveling Therapist</span></div></div></article>
-      <article class="quote-card"><blockquote>"If you&rsquo;re a therapist looking for SEO strategy and implementation, Chris and his Moonraker team know how to rank you high on Google."</blockquote><div class="quote-person"><img src="/assets/headshots/brent-stutzman.avif" alt="Brent Stutzman" title="Brent Stutzman headshot" width="500" height="500" loading="lazy" decoding="async"><div><strong>Brent Stutzman</strong><span>Founder, TheraSaaS</span></div></div></article>
+    <div class="container"><span class="eyebrow">In their words</span><h2>Trusted by people who serve therapists.</h2><div class="testimonial-grid">
+      <article class="quote-lead"><blockquote>"Chris was great to work with. He was responsive, answered our questions clearly, and explained things in a way that made sense. His help improved our SEO, and we appreciate his expertise. Highly recommend!"</blockquote><div class="quote-person"><img src="/assets/headshots/kelly-smyth-dent.avif" alt="Kelly Smyth Dent" title="Kelly Smyth Dent headshot" width="500" height="666" loading="lazy" decoding="async"><div><strong>Kelly Smyth Dent</strong><span>Practice owner</span></div></div></article>
+      <div class="testimonial-side">
+        <article class="quote-note"><blockquote>"Chris helped me untangle the chaos, streamline my marketing, and optimize my websites for SEO in a way that actually makes sense and gets results."</blockquote><div class="quote-person"><img src="/assets/headshots/kym-tolson.avif" alt="Kym Tolson" title="Kym Tolson headshot" width="500" height="708" loading="lazy" decoding="async"><div><strong>Kym Tolson</strong><span>Founder, The Traveling Therapist</span></div></div></article>
+        <article class="quote-note"><blockquote>"If you&rsquo;re a therapist looking for SEO strategy and implementation, Chris and his Moonraker team know how to rank you high on Google."</blockquote><div class="quote-person"><img src="/assets/headshots/brent-stutzman.avif" alt="Brent Stutzman" title="Brent Stutzman headshot" width="500" height="500" loading="lazy" decoding="async"><div><strong>Brent Stutzman</strong><span>Founder, TheraSaaS</span></div></div></article>
+      </div>
     </div>
     <div class="feedback-strip">
       <article class="feedback-card"><div class="feedback-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p>"Chris is amazing! His expertise is so valuable and we experienced a significant increase in traffic and inquiries through our website."</p><strong>Erinn E.</strong></article>
@@ -808,10 +848,10 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
     </div></div>
   </section>
   <section class="section">
-    <div class="container"><span class="eyebrow">Engagement path</span><h2>A 3-Phase approach to get your practice visible online.</h2><p class="section-lede">We start by finding the gaps, then build the foundation your visibility depends on, then keep improving the signals that help good-fit clients find and contact you.</p><div class="phase-row">
-      <article class="phase-card"><strong>Phase 0</strong><h3>Free Strategy Call</h3><p>We review your current visibility across Google, Maps, AI tools, service pages, and booking path so you know what is working and what is missing.</p></article>
-      <article class="phase-card"><strong>Phase 1</strong><h3>90-Day Foundation</h3><p>We clean up the website, Google Business Profile, listings, service pages, proof hub, and reporting baseline that durable visibility depends on.</p></article>
-      <article class="phase-card"><strong>Phase 2</strong><h3>Ongoing CORE Support</h3><p>We continue improving site content, public proof, video support, reporting, and recommendations so visibility keeps compounding.</p></article>
+    <div class="container"><span class="eyebrow">How we work together</span><h2>A clear, three-step path to lasting visibility.</h2><p class="section-lede">We start by finding the gaps, then build the foundation your visibility depends on, then keep improving the signals that help good-fit clients find and contact you.</p><div class="phase-row">
+      <article class="phase-step"><span class="phase-num">0</span><span class="phase-tag">Start here</span><h3>Free Strategy Call</h3><p>We review your current visibility across Google, Maps, AI tools, service pages, and booking path, so you know what is working and what is missing.</p></article>
+      <article class="phase-step"><span class="phase-num">1</span><span class="phase-tag">First 90 days</span><h3>90-Day Foundation</h3><p>We clean up the website, Google Business Profile, listings, service pages, proof hub, and reporting baseline that durable visibility depends on.</p></article>
+      <article class="phase-step"><span class="phase-num">2</span><span class="phase-tag">Ongoing</span><h3>Ongoing CORE Support</h3><p>We keep improving site content, public proof, video support, reporting, and recommendations so visibility keeps compounding.</p></article>
     </div></div>
   </section>
   <section class="section-tight cta-band">
@@ -822,20 +862,32 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
   <div class="container footer-inner"><div><div class="footer-brand"><img src="/assets/logo.png" alt="">Moonraker</div><div class="footer-copy">&copy; 2026 Moonraker AI. All rights reserved.</div></div><div class="footer-links"><a href="/">Home</a><a href="/core-marketing-system">CORE System</a><a href="/results">Results</a><a href="/process">Process</a><a href="/scope">Scope</a><a href="/free-strategy-call">Free Strategy Call</a></div></div>
 </footer>
 <script>
-document.querySelectorAll('.pillar-story-card').forEach(function (card) {
-  card.querySelectorAll('.pillar-tab').forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      var target = tab.dataset.pillarTab;
-      card.querySelectorAll('.pillar-tab').forEach(function (item) {
-        item.classList.toggle('active', item === tab);
-        item.setAttribute('aria-pressed', item === tab ? 'true' : 'false');
-      });
-      card.querySelectorAll('.pillar-view').forEach(function (view) {
-        view.hidden = view.dataset.pillarView !== target;
-      });
+(function () {
+  var rail = document.querySelector('.core-rail');
+  if (!rail) return;
+  var items = rail.querySelectorAll('.core-rail-item');
+  var panels = document.querySelectorAll('.core-panel');
+  function select(key) {
+    items.forEach(function (it) {
+      var on = it.dataset.core === key;
+      it.classList.toggle('active', on);
+      it.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    panels.forEach(function (p) { p.classList.toggle('active', p.dataset.core === key); });
+  }
+  items.forEach(function (it) {
+    it.addEventListener('click', function () { select(it.dataset.core); });
+    it.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowDown' && e.key !== 'ArrowRight' && e.key !== 'ArrowUp' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      var list = Array.prototype.slice.call(items);
+      var i = list.indexOf(it);
+      var next = (e.key === 'ArrowDown' || e.key === 'ArrowRight') ? (i + 1) % list.length : (i - 1 + list.length) % list.length;
+      list[next].focus();
+      select(list[next].dataset.core);
     });
   });
-});
+})();
 
 const proofViews = {
   reporting: {
@@ -875,8 +927,19 @@ document.querySelectorAll('.proof-tab').forEach(function (tab) {
   });
 });
 
-window.toggleTheme=function(){function apply(){var dark=document.documentElement.classList.toggle('dark');localStorage.setItem('moonraker-theme',dark?'dark':'light');document.getElementById('themeBtn').textContent=dark?'Sun':'Moon'}if(document.startViewTransition)document.startViewTransition(apply);else apply()};
-(function(){var btn=document.getElementById('themeBtn');btn.textContent=document.documentElement.classList.contains('dark')?'Sun':'Moon'})();
+if (document.documentElement.classList.contains('js-reveal') && 'IntersectionObserver' in window) {
+  var revealEls = document.querySelectorAll('.partners-section, .core-os, .section, .cta-band');
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) { entry.target.classList.add('is-in'); io.unobserve(entry.target); }
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  revealEls.forEach(function (el) { io.observe(el); });
+} else {
+  document.querySelectorAll('.partners-section, .core-os, .section, .cta-band').forEach(function (el) { el.classList.add('is-in'); });
+}
+
+window.toggleTheme=function(){function apply(){var dark=document.documentElement.classList.toggle('dark');localStorage.setItem('moonraker-theme',dark?'dark':'light')}if(document.startViewTransition)document.startViewTransition(apply);else apply()};
 </script>
 </body>
 </html>
