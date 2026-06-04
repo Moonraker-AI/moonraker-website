@@ -85,7 +85,6 @@ details p { color: var(--color-muted); font-size: .92rem; line-height: 1.7; marg
   <div class="nav-inner">
     <a href="/" class="nav-brand"><img src="/assets/logo.png" alt="Moonraker" width="32" height="32"></a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="/">Home</a></li>
       <li class="nav-dropdown">
         <a tabindex="0" role="button" aria-haspopup="true">CORE System</a>
         <div class="dropdown-menu">
@@ -96,8 +95,6 @@ details p { color: var(--color-muted); font-size: .92rem; line-height: 1.7; marg
           <a href="/core-marketing-system/engagement">Engagement</a>
         </div>
       </li>
-      <li><a href="/results">Results</a></li>
-      <li><a href="/knowledge-hub">Knowledge Hub</a></li>
       <li class="nav-dropdown">
         <a href="/process" class="active">How We Work</a>
         <div class="dropdown-menu">
@@ -105,10 +102,12 @@ details p { color: var(--color-muted); font-size: .92rem; line-height: 1.7; marg
           <a href="/scope">Scope</a>
         </div>
       </li>
+      <li><a href="/results">Results</a></li>
+      <li><a href="/knowledge-hub">Knowledge Hub</a></li>
     </ul>
     <div class="nav-right">
-      <a href="/free-strategy-call" class="nav-cta">Free Strategy Call</a>
       <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
+      <a href="/free-strategy-call" class="nav-cta">Free Strategy Call</a>
       <button type="button" class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
     </div>
   </div>
