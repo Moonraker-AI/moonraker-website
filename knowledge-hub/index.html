@@ -57,6 +57,9 @@ html.dark .kh-hero::before {
 .kh-grid { display: grid; gap: 1.5rem; }
 .kh-grid.two { grid-template-columns: 1fr 1fr; }
 .kh-stack { display: grid; gap: 1.25rem; max-width: 720px; }
+.kh-embed.deck { aspect-ratio: 14 / 9; background: var(--color-surface-alt); }
+.kh-year { font-size: 1.45rem; letter-spacing: -.01em; padding-bottom: .5rem; border-bottom: 1px solid var(--color-hairline); margin: 0; }
+.kh-year:not(:first-child) { margin-top: 1.25rem; }
 
 .kh-card { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-card); display: flex; flex-direction: column; }
 .kh-embed { position: relative; width: 100%; aspect-ratio: 16 / 9; background: var(--color-navy-deep); }
@@ -135,7 +138,7 @@ html.dark .kh-hero::before {
     <div class="kh-tablist" role="tablist" aria-label="Knowledge Hub formats">
       <button type="button" class="kh-tab" role="tab" id="tab-videos" aria-controls="panel-videos" aria-selected="true" tabindex="0">Videos &amp; Webinars <span class="kh-count">12</span></button>
       <button type="button" class="kh-tab" role="tab" id="tab-podcasts" aria-controls="panel-podcasts" aria-selected="false" tabindex="-1">Podcasts <span class="kh-count">7</span></button>
-      <button type="button" class="kh-tab" role="tab" id="tab-decks" aria-controls="panel-decks" aria-selected="false" tabindex="-1">Slide Decks</button>
+      <button type="button" class="kh-tab" role="tab" id="tab-decks" aria-controls="panel-decks" aria-selected="false" tabindex="-1">Slide Decks <span class="kh-count">12</span></button>
     </div>
 
     <!-- VIDEOS: two columns -->
@@ -297,26 +300,75 @@ html.dark .kh-hero::before {
       </div>
     </div>
 
-    <!-- SLIDE DECKS: one column placeholder -->
+    <!-- SLIDE DECKS: one column, newest first. To add a deck: enable embedding in Gamma, then drop a card with src https://gamma.app/embed/<id>. New embed platforms need their origin added to frame-src in vercel.json. -->
     <div class="kh-panel" role="tabpanel" id="panel-decks" aria-labelledby="tab-decks" tabindex="0" hidden>
-      <p class="kh-panel-intro">Slides from our talks and trainings. Single column so each deck is big enough to read.</p>
+      <p class="kh-panel-intro">Slides from our talks and trainings, newest first. Open any deck to flip through it full screen.</p>
       <div class="kh-stack">
-        <article class="kh-empty">
-          <h3>Slide decks coming soon</h3>
-          <p>Drop in talk decks here. Any embeddable source works: Google Slides, Canva, SlideShare, or a hosted PDF.</p>
-          <a class="btn btn-outline" href="/free-strategy-call">Book a Free Strategy Call</a>
+
+        <h3 class="kh-year">2026</h3>
+
+        <article class="kh-card">
+          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/gt5m8tbn69lltb2" loading="lazy" allow="fullscreen" title="Future Proof Your Practice (pt. 1): How to Thrive in the AI Era"></iframe></div>
+          <div class="kh-card-body"><div class="kh-card-eyebrow">Future-Proof Your Practice</div><h3>Part 1: How to Thrive in the AI Era</h3></div>
         </article>
 
-        <!-- TEMPLATE: a deck card. Google Slides example:
         <article class="kh-card">
-          <div class="kh-embed">
-            <iframe src="https://docs.google.com/presentation/d/PRESENTATION_ID/embed" loading="lazy" allowfullscreen title="DECK TITLE"></iframe>
-          </div>
-          <div class="kh-card-body"><div class="kh-card-eyebrow">Slide deck</div><h3>DECK TITLE</h3></div>
+          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/v43yirk36cjd3g6" loading="lazy" allow="fullscreen" title="Future Proof Your Practice (pt. 2): How to Prove You Really Exist"></iframe></div>
+          <div class="kh-card-body"><div class="kh-card-eyebrow">Future-Proof Your Practice</div><h3>Part 2: How to Prove You Really Exist</h3></div>
         </article>
-        Canva, SlideShare, and PDF (via <iframe src="/assets/decks/file.pdf">) work the same way.
-        Note: if you embed a new platform, add its origin to frame-src in vercel.json.
-        -->
+
+        <article class="kh-card">
+          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/m3o44c73fugh1pa" loading="lazy" allow="fullscreen" title="Future Proof Your Practice (pt. 3): How to Teach AI About Your Services"></iframe></div>
+          <div class="kh-card-body"><div class="kh-card-eyebrow">Future-Proof Your Practice</div><h3>Part 3: How to Teach AI About Your Services</h3></div>
+        </article>
+
+        <article class="kh-card">
+          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/r3gwlo8wwtjbsaa" loading="lazy" allow="fullscreen" title="Future Proof Your Practice (pt. 4): Building Authority Through Reputation"></iframe></div>
+          <div class="kh-card-body"><div class="kh-card-eyebrow">Future-Proof Your Practice</div><h3>Part 4: Building Authority Through Reputation</h3></div>
+        </article>
+
+        <article class="kh-card">
+          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/6tztc88r5r6kt7a" loading="lazy" allow="fullscreen" title="Moonraker - The Ultimate Guide to Website Optimization"></iframe></div>
+          <div class="kh-card-body"><div class="kh-card-eyebrow">Guide</div><h3>The Ultimate Guide to Website Optimization</h3></div>
+        </article>
+
+        <article class="kh-card">
+          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/h9ue3vtxadc8pvh" loading="lazy" allow="fullscreen" title="10 Ranking Factors That Actually Improve Your Practice Visibility on Google Maps and AI in 2026"></iframe></div>
+          <div class="kh-card-body"><div class="kh-card-eyebrow">Guide</div><h3>10 Ranking Factors That Actually Improve Your Practice Visibility on Google Maps and AI in 2026</h3></div>
+        </article>
+
+        <h3 class="kh-year">2025</h3>
+
+        <article class="kh-card">
+          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/rk1b9xma8zv0wtt" loading="lazy" allow="fullscreen" title="From Clicks to Clients (Part 1): A Marketing Masterclass for Scaling Your Practice in 2025"></iframe></div>
+          <div class="kh-card-body"><div class="kh-card-eyebrow">From Clicks to Clients</div><h3>Part 1: A Marketing Masterclass for Scaling Your Practice in 2025</h3></div>
+        </article>
+
+        <article class="kh-card">
+          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/ex32c3lodiatlqw" loading="lazy" allow="fullscreen" title="From Clicks to Clients (Part 2): Strategies For Purposeful Traffic Generation in 2025"></iframe></div>
+          <div class="kh-card-body"><div class="kh-card-eyebrow">From Clicks to Clients</div><h3>Part 2: Strategies for Purposeful Traffic Generation in 2025</h3></div>
+        </article>
+
+        <article class="kh-card">
+          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/0vq4i2cwyw3oain" loading="lazy" allow="fullscreen" title="From Clicks to Clients (Part 3): Optimize Your Website to Book More Consultations"></iframe></div>
+          <div class="kh-card-body"><div class="kh-card-eyebrow">From Clicks to Clients</div><h3>Part 3: Optimize Your Website to Book More Consultations</h3></div>
+        </article>
+
+        <article class="kh-card">
+          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/j8tb0lwxd0us9uh" loading="lazy" allow="fullscreen" title="From Clicks to Clients (Part 4): Strategies to Maximize Booked Call Attendance"></iframe></div>
+          <div class="kh-card-body"><div class="kh-card-eyebrow">From Clicks to Clients</div><h3>Part 4: Strategies to Maximize Booked Call Attendance</h3></div>
+        </article>
+
+        <article class="kh-card">
+          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/cgsnltfbgon9x83" loading="lazy" allow="fullscreen" title="From Clicks to Clients (Part 5): Turn Consultations into Lasting Relationships"></iframe></div>
+          <div class="kh-card-body"><div class="kh-card-eyebrow">From Clicks to Clients</div><h3>Part 5: Turn Consultations into Lasting Relationships</h3></div>
+        </article>
+
+        <article class="kh-card">
+          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/mt9qgl791qknpty" loading="lazy" allow="fullscreen" title="From Clicks to Clients (Part 6): Mastering Client Retention and Long-Term Value"></iframe></div>
+          <div class="kh-card-body"><div class="kh-card-eyebrow">From Clicks to Clients</div><h3>Part 6: Mastering Client Retention and Long-Term Value</h3></div>
+        </article>
+
       </div>
     </div>
   </section>
