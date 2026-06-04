@@ -41,7 +41,7 @@ html.dark .kh-hero::before {
 .kh-wrap { max-width: 1120px; margin: 0 auto; padding: clamp(2.5rem, 5vw, 3.5rem) 2rem clamp(4rem, 7vw, 6rem); }
 
 /* Tablist */
-.kh-tablist { display: flex; flex-wrap: wrap; gap: .25rem; border-bottom: 1px solid var(--color-border); margin-bottom: 2.25rem; }
+.kh-tablist { display: flex; flex-wrap: wrap; justify-content: center; gap: .25rem; border-bottom: 1px solid var(--color-border); margin-bottom: 2.25rem; }
 .kh-tab { appearance: none; background: none; border: none; cursor: pointer; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem; color: var(--color-muted); padding: .85rem 1.1rem; position: relative; border-radius: var(--r-sm) var(--r-sm) 0 0; transition: color .2s var(--ease-out), background .2s var(--ease-out); }
 .kh-tab:hover { color: var(--color-heading); background: var(--color-surface-alt); }
 .kh-tab::after { content: ''; position: absolute; left: 1.1rem; right: 1.1rem; bottom: -1px; height: 2.5px; border-radius: 2px; background: var(--color-primary); transform: scaleX(0); transform-origin: center; transition: transform .25s var(--ease-out-expo); }
@@ -51,12 +51,13 @@ html.dark .kh-hero::before {
 .kh-tab:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 
 .kh-panel[hidden] { display: none; }
-.kh-panel-intro { color: var(--color-muted); line-height: 1.7; max-width: 640px; margin-bottom: 1.75rem; }
+.kh-panel-intro { color: var(--color-muted); line-height: 1.7; max-width: 640px; margin: 0 auto 1.75rem; text-align: center; }
 
 /* Grids */
 .kh-grid { display: grid; gap: 1.5rem; }
 .kh-grid.two { grid-template-columns: 1fr 1fr; }
-.kh-stack { display: grid; gap: 1.25rem; max-width: 720px; }
+.kh-stack { display: grid; gap: 1.25rem; max-width: 720px; margin: 0 auto; }
+.kh-decks .kh-year { grid-column: 1 / -1; }
 .kh-embed.deck { aspect-ratio: 14 / 9; background: var(--color-surface-alt); }
 .kh-year { font-size: 1.45rem; letter-spacing: -.01em; padding-bottom: .5rem; border-bottom: 1px solid var(--color-hairline); margin: 0; }
 .kh-year:not(:first-child) { margin-top: 1.25rem; }
@@ -64,6 +65,13 @@ html.dark .kh-hero::before {
 .kh-card { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-card); display: flex; flex-direction: column; }
 .kh-embed { position: relative; width: 100%; aspect-ratio: 16 / 9; background: var(--color-navy-deep); }
 .kh-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* Slide-deck facade: click to load the Gamma embed (keeps 12 heavy iframes from loading on page open) */
+.kh-facade { display: flex; align-items: center; justify-content: center; padding: 0; border: 0; cursor: pointer; width: 100%; background: linear-gradient(150deg, var(--color-surface-alt) 0%, var(--color-surface) 100%); transition: background .25s var(--ease-out); }
+.kh-facade::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 0 0 1px var(--color-hairline); pointer-events: none; }
+.kh-facade-cta { display: inline-flex; align-items: center; gap: .5rem; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: .9rem; color: #fff; background: var(--color-primary); padding: .7rem 1.15rem; border-radius: 999px; box-shadow: var(--shadow-card); transition: transform .2s var(--ease-out); }
+.kh-facade:hover .kh-facade-cta { transform: translateY(-2px); }
+.kh-facade:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 .kh-card-body { padding: 1.1rem 1.25rem 1.3rem; }
 .kh-card-eyebrow { color: var(--color-primary); font-weight: 800; font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .45rem; }
 .kh-card-body h3 { font-size: 1.08rem; line-height: 1.32; margin-bottom: .35rem; }
@@ -303,69 +311,69 @@ html.dark .kh-hero::before {
     <!-- SLIDE DECKS: one column, newest first. To add a deck: enable embedding in Gamma, then drop a card with src https://gamma.app/embed/<id>. New embed platforms need their origin added to frame-src in vercel.json. -->
     <div class="kh-panel" role="tabpanel" id="panel-decks" aria-labelledby="tab-decks" tabindex="0" hidden>
       <p class="kh-panel-intro">Slides from our talks and trainings, newest first. Open any deck to flip through it full screen.</p>
-      <div class="kh-stack">
+      <div class="kh-grid two kh-decks">
 
         <h3 class="kh-year">2026</h3>
 
         <article class="kh-card">
-          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/gt5m8tbn69lltb2" loading="lazy" allow="fullscreen" title="Future Proof Your Practice (pt. 1): How to Thrive in the AI Era"></iframe></div>
+          <button type="button" class="kh-embed deck kh-facade" data-embed="https://gamma.app/embed/gt5m8tbn69lltb2" aria-label="View slides: Future Proof Your Practice (pt. 1): How to Thrive in the AI Era"><span class="kh-facade-cta"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>View slides</span></button>
           <div class="kh-card-body"><div class="kh-card-eyebrow">Future-Proof Your Practice</div><h3>Part 1: How to Thrive in the AI Era</h3></div>
         </article>
 
         <article class="kh-card">
-          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/v43yirk36cjd3g6" loading="lazy" allow="fullscreen" title="Future Proof Your Practice (pt. 2): How to Prove You Really Exist"></iframe></div>
+          <button type="button" class="kh-embed deck kh-facade" data-embed="https://gamma.app/embed/v43yirk36cjd3g6" aria-label="View slides: Future Proof Your Practice (pt. 2): How to Prove You Really Exist"><span class="kh-facade-cta"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>View slides</span></button>
           <div class="kh-card-body"><div class="kh-card-eyebrow">Future-Proof Your Practice</div><h3>Part 2: How to Prove You Really Exist</h3></div>
         </article>
 
         <article class="kh-card">
-          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/m3o44c73fugh1pa" loading="lazy" allow="fullscreen" title="Future Proof Your Practice (pt. 3): How to Teach AI About Your Services"></iframe></div>
+          <button type="button" class="kh-embed deck kh-facade" data-embed="https://gamma.app/embed/m3o44c73fugh1pa" aria-label="View slides: Future Proof Your Practice (pt. 3): How to Teach AI About Your Services"><span class="kh-facade-cta"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>View slides</span></button>
           <div class="kh-card-body"><div class="kh-card-eyebrow">Future-Proof Your Practice</div><h3>Part 3: How to Teach AI About Your Services</h3></div>
         </article>
 
         <article class="kh-card">
-          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/r3gwlo8wwtjbsaa" loading="lazy" allow="fullscreen" title="Future Proof Your Practice (pt. 4): Building Authority Through Reputation"></iframe></div>
+          <button type="button" class="kh-embed deck kh-facade" data-embed="https://gamma.app/embed/r3gwlo8wwtjbsaa" aria-label="View slides: Future Proof Your Practice (pt. 4): Building Authority Through Reputation"><span class="kh-facade-cta"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>View slides</span></button>
           <div class="kh-card-body"><div class="kh-card-eyebrow">Future-Proof Your Practice</div><h3>Part 4: Building Authority Through Reputation</h3></div>
         </article>
 
         <article class="kh-card">
-          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/6tztc88r5r6kt7a" loading="lazy" allow="fullscreen" title="Moonraker - The Ultimate Guide to Website Optimization"></iframe></div>
+          <button type="button" class="kh-embed deck kh-facade" data-embed="https://gamma.app/embed/6tztc88r5r6kt7a" aria-label="View slides: The Ultimate Guide to Website Optimization"><span class="kh-facade-cta"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>View slides</span></button>
           <div class="kh-card-body"><div class="kh-card-eyebrow">Guide</div><h3>The Ultimate Guide to Website Optimization</h3></div>
         </article>
 
         <article class="kh-card">
-          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/h9ue3vtxadc8pvh" loading="lazy" allow="fullscreen" title="10 Ranking Factors That Actually Improve Your Practice Visibility on Google Maps and AI in 2026"></iframe></div>
+          <button type="button" class="kh-embed deck kh-facade" data-embed="https://gamma.app/embed/h9ue3vtxadc8pvh" aria-label="View slides: 10 Ranking Factors That Actually Improve Your Practice Visibility on Google Maps and AI in 2026"><span class="kh-facade-cta"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>View slides</span></button>
           <div class="kh-card-body"><div class="kh-card-eyebrow">Guide</div><h3>10 Ranking Factors That Actually Improve Your Practice Visibility on Google Maps and AI in 2026</h3></div>
         </article>
 
         <h3 class="kh-year">2025</h3>
 
         <article class="kh-card">
-          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/rk1b9xma8zv0wtt" loading="lazy" allow="fullscreen" title="From Clicks to Clients (Part 1): A Marketing Masterclass for Scaling Your Practice in 2025"></iframe></div>
+          <button type="button" class="kh-embed deck kh-facade" data-embed="https://gamma.app/embed/rk1b9xma8zv0wtt" aria-label="View slides: From Clicks to Clients (Part 1): A Marketing Masterclass for Scaling Your Practice in 2025"><span class="kh-facade-cta"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>View slides</span></button>
           <div class="kh-card-body"><div class="kh-card-eyebrow">From Clicks to Clients</div><h3>Part 1: A Marketing Masterclass for Scaling Your Practice in 2025</h3></div>
         </article>
 
         <article class="kh-card">
-          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/ex32c3lodiatlqw" loading="lazy" allow="fullscreen" title="From Clicks to Clients (Part 2): Strategies For Purposeful Traffic Generation in 2025"></iframe></div>
+          <button type="button" class="kh-embed deck kh-facade" data-embed="https://gamma.app/embed/ex32c3lodiatlqw" aria-label="View slides: From Clicks to Clients (Part 2): Strategies For Purposeful Traffic Generation in 2025"><span class="kh-facade-cta"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>View slides</span></button>
           <div class="kh-card-body"><div class="kh-card-eyebrow">From Clicks to Clients</div><h3>Part 2: Strategies for Purposeful Traffic Generation in 2025</h3></div>
         </article>
 
         <article class="kh-card">
-          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/0vq4i2cwyw3oain" loading="lazy" allow="fullscreen" title="From Clicks to Clients (Part 3): Optimize Your Website to Book More Consultations"></iframe></div>
+          <button type="button" class="kh-embed deck kh-facade" data-embed="https://gamma.app/embed/0vq4i2cwyw3oain" aria-label="View slides: From Clicks to Clients (Part 3): Optimize Your Website to Book More Consultations"><span class="kh-facade-cta"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>View slides</span></button>
           <div class="kh-card-body"><div class="kh-card-eyebrow">From Clicks to Clients</div><h3>Part 3: Optimize Your Website to Book More Consultations</h3></div>
         </article>
 
         <article class="kh-card">
-          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/j8tb0lwxd0us9uh" loading="lazy" allow="fullscreen" title="From Clicks to Clients (Part 4): Strategies to Maximize Booked Call Attendance"></iframe></div>
+          <button type="button" class="kh-embed deck kh-facade" data-embed="https://gamma.app/embed/j8tb0lwxd0us9uh" aria-label="View slides: From Clicks to Clients (Part 4): Strategies to Maximize Booked Call Attendance"><span class="kh-facade-cta"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>View slides</span></button>
           <div class="kh-card-body"><div class="kh-card-eyebrow">From Clicks to Clients</div><h3>Part 4: Strategies to Maximize Booked Call Attendance</h3></div>
         </article>
 
         <article class="kh-card">
-          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/cgsnltfbgon9x83" loading="lazy" allow="fullscreen" title="From Clicks to Clients (Part 5): Turn Consultations into Lasting Relationships"></iframe></div>
+          <button type="button" class="kh-embed deck kh-facade" data-embed="https://gamma.app/embed/cgsnltfbgon9x83" aria-label="View slides: From Clicks to Clients (Part 5): Turn Consultations into Lasting Relationships"><span class="kh-facade-cta"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>View slides</span></button>
           <div class="kh-card-body"><div class="kh-card-eyebrow">From Clicks to Clients</div><h3>Part 5: Turn Consultations into Lasting Relationships</h3></div>
         </article>
 
         <article class="kh-card">
-          <div class="kh-embed deck"><iframe src="https://gamma.app/embed/mt9qgl791qknpty" loading="lazy" allow="fullscreen" title="From Clicks to Clients (Part 6): Mastering Client Retention and Long-Term Value"></iframe></div>
+          <button type="button" class="kh-embed deck kh-facade" data-embed="https://gamma.app/embed/mt9qgl791qknpty" aria-label="View slides: From Clicks to Clients (Part 6): Mastering Client Retention and Long-Term Value"><span class="kh-facade-cta"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>View slides</span></button>
           <div class="kh-card-body"><div class="kh-card-eyebrow">From Clicks to Clients</div><h3>Part 6: Mastering Client Retention and Long-Term Value</h3></div>
         </article>
 
@@ -422,6 +430,23 @@ window.toggleTheme=function(){function apply(){var dark=document.documentElement
     var match = tabs.filter(function(t){ return t.id === 'tab-'+hash; })[0];
     if(match) select(match);
   }
+})();
+(function(){
+  var facades = document.querySelectorAll('.kh-facade');
+  Array.prototype.forEach.call(facades, function(btn){
+    btn.addEventListener('click', function(){
+      var src = btn.getAttribute('data-embed');
+      if(!src) return;
+      var wrap = document.createElement('div');
+      wrap.className = 'kh-embed deck';
+      var f = document.createElement('iframe');
+      f.src = src;
+      f.setAttribute('allow', 'fullscreen');
+      f.setAttribute('title', (btn.getAttribute('aria-label') || '').replace(/^View slides: /, ''));
+      wrap.appendChild(f);
+      btn.replaceWith(wrap);
+    });
+  });
 })();
 </script>
 </body>
