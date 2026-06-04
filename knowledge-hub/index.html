@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Knowledge Hub | Moonraker</title>
+<meta name="description" content="Webinars, podcasts, slide decks, and case studies on getting therapy practices found on Google and AI tools, from the Moonraker team.">
+<meta property="og:title" content="Knowledge Hub | Moonraker">
+<meta property="og:description" content="Webinars, podcasts, slide decks, and case studies for therapy practices.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://moonraker.ai/knowledge-hub">
+<link rel="canonical" href="https://moonraker.ai/knowledge-hub">
+<link rel="icon" href="/assets/logo.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles/globals.css">
+<script>
+(function(){var t=localStorage.getItem('moonraker-theme');if(t==='dark')document.documentElement.classList.add('dark')})();
+</script>
+<style>
+.kh-hero { position: relative; overflow: hidden; background: linear-gradient(180deg, var(--color-primary-subtle) 0%, var(--color-bg) 72%); border-bottom: 1px solid var(--color-hairline); padding: clamp(3.5rem, 7vw, 5rem) 2rem clamp(2.5rem, 4vw, 3.25rem); }
+.kh-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, oklch(0.31 0.072 268 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.31 0.072 268 / 0.045) 1px, transparent 1px);
+  background-size: 62px 62px;
+  -webkit-mask-image: radial-gradient(70% 70% at 65% 30%, #000 0%, transparent 78%);
+  mask-image: radial-gradient(70% 70% at 65% 30%, #000 0%, transparent 78%);
+  pointer-events: none;
+}
+html.dark .kh-hero::before {
+  background-image:
+    linear-gradient(to right, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px);
+}
+.kh-hero-inner { position: relative; z-index: 1; max-width: 820px; margin: 0 auto; }
+.hero-kicker { color: var(--color-primary); font-weight: 800; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .8rem; }
+.kh-hero h1 { font-size: clamp(2.4rem, 4.8vw, 4rem); line-height: 1.04; letter-spacing: -.02em; margin-bottom: 1rem; }
+.kh-hero p { color: var(--color-muted); font-size: 1.08rem; line-height: 1.75; }
+
+.kh-wrap { max-width: 1120px; margin: 0 auto; padding: clamp(2.5rem, 5vw, 3.5rem) 2rem clamp(4rem, 7vw, 6rem); }
+
+/* Tablist */
+.kh-tablist { display: flex; flex-wrap: wrap; gap: .25rem; border-bottom: 1px solid var(--color-border); margin-bottom: 2.25rem; }
+.kh-tab { appearance: none; background: none; border: none; cursor: pointer; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem; color: var(--color-muted); padding: .85rem 1.1rem; position: relative; border-radius: var(--r-sm) var(--r-sm) 0 0; transition: color .2s var(--ease-out), background .2s var(--ease-out); }
+.kh-tab:hover { color: var(--color-heading); background: var(--color-surface-alt); }
+.kh-tab::after { content: ''; position: absolute; left: 1.1rem; right: 1.1rem; bottom: -1px; height: 2.5px; border-radius: 2px; background: var(--color-primary); transform: scaleX(0); transform-origin: center; transition: transform .25s var(--ease-out-expo); }
+.kh-tab[aria-selected="true"] { color: var(--color-heading); }
+.kh-tab[aria-selected="true"]::after { transform: scaleX(1); }
+.kh-tab .kh-count { color: var(--color-muted); font-weight: 600; font-size: .82em; margin-left: .35rem; }
+.kh-tab:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+.kh-panel[hidden] { display: none; }
+.kh-panel-intro { color: var(--color-muted); line-height: 1.7; max-width: 640px; margin-bottom: 1.75rem; }
+
+/* Grids */
+.kh-grid { display: grid; gap: 1.5rem; }
+.kh-grid.two { grid-template-columns: 1fr 1fr; }
+.kh-stack { display: grid; gap: 1.25rem; max-width: 720px; }
+
+.kh-card { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-card); display: flex; flex-direction: column; }
+.kh-embed { position: relative; width: 100%; aspect-ratio: 16 / 9; background: var(--color-navy-deep); }
+.kh-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.kh-card-body { padding: 1.1rem 1.25rem 1.3rem; }
+.kh-card-eyebrow { color: var(--color-primary); font-weight: 800; font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .45rem; }
+.kh-card-body h3 { font-size: 1.12rem; line-height: 1.3; margin-bottom: .35rem; }
+.kh-card-body p { color: var(--color-muted); font-size: .9rem; line-height: 1.6; }
+
+/* Audio (podcast) cards: native embed height, no 16:9 */
+.kh-audio { padding: 1rem 1.1rem; }
+.kh-audio .kh-card-eyebrow { margin-bottom: .6rem; }
+.kh-audio iframe { display: block; width: 100%; border: 0; border-radius: var(--r-md); }
+
+/* Empty / placeholder state */
+.kh-empty { border: 1px dashed var(--color-border); border-radius: var(--r-lg); background: var(--color-surface-alt); padding: clamp(2rem, 5vw, 3.25rem) 1.5rem; text-align: center; color: var(--color-muted); }
+.kh-empty h3 { color: var(--color-heading); font-size: 1.2rem; margin-bottom: .5rem; }
+.kh-empty p { line-height: 1.65; max-width: 460px; margin: 0 auto .25rem; font-size: .95rem; }
+.kh-empty .btn-outline { margin-top: 1.1rem; display: inline-flex; }
+
+.cta-band { position: relative; overflow: hidden; background: linear-gradient(158deg, var(--color-navy) 0%, var(--color-navy-deep) 100%); color: var(--color-on-navy-dim); }
+.cta-inner { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; padding: clamp(3rem, 6vw, 4rem) 2rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
+.cta-inner h2 { color: var(--color-on-navy); margin-bottom: .6rem; }
+.cta-inner p { color: var(--color-on-navy-dim); }
+
+@media (max-width: 860px) {
+  .kh-grid.two { grid-template-columns: 1fr; }
+  .cta-inner { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand"><img src="/assets/logo.png" alt="Moonraker" width="32" height="32"></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li class="nav-dropdown">
+        <a href="/core-marketing-system">CORE System</a>
+        <div class="dropdown-menu">
+          <a href="/core-marketing-system">Overview</a>
+          <a href="/core-marketing-system/credibility">Credibility</a>
+          <a href="/core-marketing-system/optimization">Optimization</a>
+          <a href="/core-marketing-system/reputation">Reputation</a>
+          <a href="/core-marketing-system/engagement">Engagement</a>
+        </div>
+      </li>
+      <li><a href="/results">Results</a></li>
+      <li><a href="/knowledge-hub" class="active">Knowledge Hub</a></li>
+      <li class="nav-dropdown">
+        <a href="/process">How We Work</a>
+        <div class="dropdown-menu">
+          <a href="/process">Process</a>
+          <a href="/scope">Scope</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-right">
+      <a href="/free-strategy-call" class="nav-cta">Free Strategy Call</a>
+      <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
+      <button type="button" class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <section class="kh-hero">
+    <div class="kh-hero-inner">
+      <div class="hero-kicker">Knowledge Hub</div>
+      <h1>Everything we know about getting therapists found.</h1>
+      <p>Webinars, podcast appearances, slide decks, and real case studies on how therapy practices earn visibility on Google, Maps, and AI tools like ChatGPT and Gemini. Pick a format below and dig in.</p>
+    </div>
+  </section>
+
+  <section class="kh-wrap">
+    <div class="kh-tablist" role="tablist" aria-label="Knowledge Hub formats">
+      <button type="button" class="kh-tab" role="tab" id="tab-videos" aria-controls="panel-videos" aria-selected="true" tabindex="0">Videos &amp; Webinars</button>
+      <button type="button" class="kh-tab" role="tab" id="tab-podcasts" aria-controls="panel-podcasts" aria-selected="false" tabindex="-1">Podcasts <span class="kh-count">7</span></button>
+      <button type="button" class="kh-tab" role="tab" id="tab-decks" aria-controls="panel-decks" aria-selected="false" tabindex="-1">Slide Decks</button>
+      <button type="button" class="kh-tab" role="tab" id="tab-cases" aria-controls="panel-cases" aria-selected="false" tabindex="-1">Case Studies</button>
+    </div>
+
+    <!-- VIDEOS: two columns -->
+    <div class="kh-panel" role="tabpanel" id="panel-videos" aria-labelledby="tab-videos" tabindex="0">
+      <p class="kh-panel-intro">Talks, webinars, and explainers on entity visibility for therapy practices. Two per row on desktop.</p>
+      <div class="kh-grid two">
+
+        <article class="kh-card">
+          <div class="kh-embed">
+            <iframe src="https://player.vimeo.com/video/1058519393?h=fdb3901c9e&amp;title=1&amp;byline=0&amp;portrait=0" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="Moonraker webinar"></iframe>
+          </div>
+          <div class="kh-card-body">
+            <div class="kh-card-eyebrow">Webinar</div>
+            <h3>Visibility for therapy practices</h3>
+            <p>How Google and AI tools decide which practices to surface, and what that means for you.</p>
+          </div>
+        </article>
+
+        <!-- TEMPLATE: copy an article block below to add a video. -->
+        <!-- YouTube form:
+        <article class="kh-card">
+          <div class="kh-embed">
+            <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="VIDEO TITLE"></iframe>
+          </div>
+          <div class="kh-card-body">
+            <div class="kh-card-eyebrow">Video</div>
+            <h3>VIDEO TITLE</h3>
+            <p>One-line description.</p>
+          </div>
+        </article>
+        -->
+        <!-- Vimeo form: same as the live card above, swap the video id and the ?h= hash. -->
+
+        <article class="kh-empty">
+          <h3>More videos coming</h3>
+          <p>Paste your full webinar and video list here. Each one drops into the two-column grid using the template in this file.</p>
+          <a class="btn btn-outline" href="/free-strategy-call">Book a Free Strategy Call</a>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- PODCASTS: one column -->
+    <div class="kh-panel" role="tabpanel" id="panel-podcasts" aria-labelledby="tab-podcasts" tabindex="0" hidden>
+      <p class="kh-panel-intro">Episodes where the Moonraker team breaks down SEO and AI visibility for therapists. Single column so each player has room to breathe.</p>
+      <div class="kh-stack">
+
+        <article class="kh-card kh-audio">
+          <div class="kh-card-eyebrow">Apple Podcasts</div>
+          <iframe allow="autoplay *; encrypted-media *; clipboard-write" height="175" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.podcasts.apple.com/us/podcast/198-is-traditional-seo-dead-for-therapists/id1452892284?i=1000743824301" loading="lazy" title="Is Traditional SEO Dead for Therapists?"></iframe>
+        </article>
+
+        <article class="kh-card kh-audio">
+          <div class="kh-card-eyebrow">Apple Podcasts</div>
+          <iframe allow="autoplay *; encrypted-media *; clipboard-write" height="175" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.podcasts.apple.com/us/podcast/ep-178-biggest-needle-movers-for-therapy-seo-with/id1609204764?i=1000712396233" loading="lazy" title="The Biggest Needle Movers for Therapy SEO"></iframe>
+        </article>
+
+        <article class="kh-card kh-audio">
+          <div class="kh-card-eyebrow">Apple Podcasts</div>
+          <iframe allow="autoplay *; encrypted-media *; clipboard-write" height="175" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.podcasts.apple.com/us/podcast/ep-193-how-therapists-can-get-featured-on-chatgpt-with/id1609204764?i=1000728190280" loading="lazy" title="How Therapists Can Get Featured on ChatGPT"></iframe>
+        </article>
+
+        <article class="kh-card kh-audio">
+          <div class="kh-card-eyebrow">Apple Podcasts</div>
+          <iframe allow="autoplay *; encrypted-media *; clipboard-write" height="175" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.podcasts.apple.com/us/podcast/how-ai-is-reshaping-seo-for-mental-health-professionals/id1818368656?i=1000740626568" loading="lazy" title="How AI Is Reshaping SEO for Mental Health Professionals"></iframe>
+        </article>
+
+        <article class="kh-card kh-audio">
+          <div class="kh-card-eyebrow">Spotify</div>
+          <iframe src="https://open.spotify.com/embed/episode/04vwlNg4TwdeNBW3gyE2X2?utm_source=generator" height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Moonraker podcast episode"></iframe>
+        </article>
+
+        <article class="kh-card kh-audio">
+          <div class="kh-card-eyebrow">Spotify</div>
+          <iframe src="https://open.spotify.com/embed/episode/4mBZCHW9undnghDxSneDo5?utm_source=generator" height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Moonraker podcast episode"></iframe>
+        </article>
+
+        <article class="kh-card kh-audio">
+          <div class="kh-card-eyebrow">Spotify</div>
+          <iframe src="https://open.spotify.com/embed/episode/5njSp9rRZxvlhVLfEVXAjn?utm_source=generator" height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Moonraker podcast episode"></iframe>
+        </article>
+
+        <!-- TEMPLATE: add an Apple or Spotify episode by copying one card above and swapping the src. -->
+
+      </div>
+    </div>
+
+    <!-- SLIDE DECKS: one column -->
+    <div class="kh-panel" role="tabpanel" id="panel-decks" aria-labelledby="tab-decks" tabindex="0" hidden>
+      <p class="kh-panel-intro">Slides from our talks and trainings. Single column so each deck is big enough to read.</p>
+      <div class="kh-stack">
+        <article class="kh-empty">
+          <h3>Slide decks coming soon</h3>
+          <p>Drop in talk decks here. Any embeddable source works: Google Slides, Canva, SlideShare, or a hosted PDF.</p>
+          <a class="btn btn-outline" href="/free-strategy-call">Book a Free Strategy Call</a>
+        </article>
+
+        <!-- TEMPLATE: a deck card. Google Slides example:
+        <article class="kh-card kh-audio">
+          <div class="kh-card-eyebrow">Slide deck</div>
+          <div class="kh-embed">
+            <iframe src="https://docs.google.com/presentation/d/PRESENTATION_ID/embed" loading="lazy" allowfullscreen title="DECK TITLE"></iframe>
+          </div>
+        </article>
+        Canva, SlideShare, and PDF (via <iframe src="/assets/decks/file.pdf">) all work the same way.
+        -->
+      </div>
+    </div>
+
+    <!-- CASE STUDIES: one column placeholder, format TBD -->
+    <div class="kh-panel" role="tabpanel" id="panel-cases" aria-labelledby="tab-cases" tabindex="0" hidden>
+      <p class="kh-panel-intro">Real results from real therapy practices. We are still deciding how to present these.</p>
+      <div class="kh-stack">
+        <article class="kh-empty">
+          <h3>Case studies are on the way</h3>
+          <p>We will design the case-study format together, then add Search Console growth, local visibility, and AI-citation proof here. For now, the strongest proof lives on the Results page.</p>
+          <a class="btn btn-outline" href="/results">See the Results page</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="cta-inner">
+      <div><h2>Want this working for your practice?</h2><p>Book a free strategy call and we will look at how Google and AI tools see your practice today.</p></div>
+      <a class="btn btn-primary" href="/free-strategy-call">Book a Free Strategy Call</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-links"><a href="/">Home</a><a href="/core-marketing-system">CORE System</a><a href="/results">Results</a><a href="/knowledge-hub">Knowledge Hub</a><a href="/process">Process</a><a href="/scope">Scope</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+  <div class="footer-copy">&#169; 2026 Moonraker AI. All rights reserved.</div>
+</footer>
+<script>
+window.toggleTheme=function(){function apply(){var dark=document.documentElement.classList.toggle('dark');localStorage.setItem('moonraker-theme',dark?'dark':'light');document.getElementById('themeBtn').innerHTML=dark?'&#9728;&#65039;':'&#127769;'}if(document.startViewTransition)document.startViewTransition(apply);else apply()};
+(function(){document.getElementById('themeBtn').innerHTML=document.documentElement.classList.contains('dark')?'&#9728;&#65039;':'&#127769;'})();
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.kh-tab'));
+  if(!tabs.length) return;
+  function panelFor(tab){ return document.getElementById(tab.getAttribute('aria-controls')); }
+  function select(tab, focus){
+    tabs.forEach(function(t){
+      var on = t === tab;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      var p = panelFor(t);
+      if(p){ if(on){ p.removeAttribute('hidden'); } else { p.setAttribute('hidden',''); } }
+    });
+    if(focus) tab.focus();
+    var id = tab.id.replace('tab-','');
+    if(history.replaceState) history.replaceState(null,'','#'+id);
+  }
+  tabs.forEach(function(tab, i){
+    tab.addEventListener('click', function(){ select(tab); });
+    tab.addEventListener('keydown', function(e){
+      var idx = i;
+      if(e.key === 'ArrowRight' || e.key === 'ArrowDown'){ idx = (i+1) % tabs.length; }
+      else if(e.key === 'ArrowLeft' || e.key === 'ArrowUp'){ idx = (i-1+tabs.length) % tabs.length; }
+      else if(e.key === 'Home'){ idx = 0; }
+      else if(e.key === 'End'){ idx = tabs.length-1; }
+      else { return; }
+      e.preventDefault();
+      select(tabs[idx], true);
+    });
+  });
+  // Deep-link: open the tab named in the URL hash, if any.
+  var hash = (location.hash || '').replace('#','');
+  if(hash){
+    var match = tabs.filter(function(t){ return t.id === 'tab-'+hash; })[0];
+    if(match) select(match);
+  }
+})();
+</script>
+</body>
+</html>
