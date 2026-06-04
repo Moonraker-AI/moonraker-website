@@ -1,21 +1,64 @@
-// Moonraker marketing site: auto-hide nav + FAQ accordion behavior.
+// Moonraker marketing site: auto-hide nav + tap/click dropdowns + FAQ accordion.
 // Loaded site-wide via <script defer src="/assets/site.js">.
 (function () {
-  // Auto-hide sticky nav: slide up on scroll down, reveal on scroll up.
   var nav = document.querySelector('.site-nav');
+
+  // Nav dropdowns: open on tap/click (and keyboard), so menus do not flash away
+  // on touch and do not flicker across a hover gap. CSS :hover still opens them
+  // for mouse users.
+  var dropdowns = nav ? nav.querySelectorAll('.nav-dropdown') : [];
+  function closeDropdowns(except) {
+    Array.prototype.forEach.call(dropdowns, function (dd) {
+      if (dd === except) return;
+      dd.classList.remove('open');
+      var t = dd.querySelector(':scope > a');
+      if (t) { t.setAttribute('aria-expanded', 'false'); }
+    });
+  }
+  Array.prototype.forEach.call(dropdowns, function (dd) {
+    var trigger = dd.querySelector(':scope > a');
+    if (!trigger) return;
+    trigger.setAttribute('aria-expanded', 'false');
+    function toggle(e) {
+      e.preventDefault();
+      var willOpen = !dd.classList.contains('open');
+      closeDropdowns(dd);
+      dd.classList.toggle('open', willOpen);
+      trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    }
+    trigger.addEventListener('click', toggle);
+    trigger.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { toggle(e); }
+    });
+  });
+  if (nav) {
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.nav-dropdown')) { closeDropdowns(null); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { closeDropdowns(null); }
+    });
+  }
+
+  // Auto-hide sticky nav: slide up on scroll down, reveal on scroll up. A small
+  // delta threshold keeps tiny scroll jitter from toggling it (no twitch), and it
+  // never hides while a menu or dropdown is open.
   if (nav) {
     var lastY = window.pageYOffset || 0;
     var ticking = false;
     function onScroll() {
       var y = window.pageYOffset || 0;
       if (y > 80) { nav.classList.add('nav-scrolled'); } else { nav.classList.remove('nav-scrolled'); }
-      var menuOpen = nav.querySelector('.nav-links.open');
-      if (!menuOpen && y > lastY && y > 140) {
-        nav.classList.add('nav-up');
-      } else if (y < lastY || y <= 140) {
-        nav.classList.remove('nav-up');
+      var delta = y - lastY;
+      if (Math.abs(delta) > 6) {
+        var pinned = nav.querySelector('.nav-links.open, .nav-dropdown.open');
+        if (!pinned && delta > 0 && y > 140) {
+          nav.classList.add('nav-up');
+        } else if (delta < 0 || y <= 140) {
+          nav.classList.remove('nav-up');
+        }
+        lastY = y;
       }
-      lastY = y;
       ticking = false;
     }
     window.addEventListener('scroll', function () {
