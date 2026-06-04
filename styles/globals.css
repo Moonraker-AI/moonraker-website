@@ -196,7 +196,12 @@ details:focus-within,
   position: sticky; top: 0; z-index: 100;
   background: var(--color-navy);
   border-bottom: 1px solid oklch(0.945 0.018 166 / 0.1);
+  transition: transform .35s cubic-bezier(.4, 0, .2, 1), box-shadow .25s ease;
+  will-change: transform;
 }
+.site-nav.nav-up { transform: translateY(-100%); }
+.site-nav.nav-scrolled { box-shadow: 0 6px 28px oklch(0 0 0 / 0.22); }
+.site-nav:has(.nav-links.open) { transform: none; }
 .nav-inner {
   width: min(1180px, calc(100% - 2rem)); margin: 0 auto;
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
