@@ -206,6 +206,7 @@ details:focus-within,
 .nav-brand img { height: 34px; }
 .nav-brand span { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem; }
 .nav-links { display: flex; align-items: center; gap: .15rem; list-style: none; }
+body:has(.nav-links.open) { overflow: hidden; }
 .nav-links a {
   display: inline-flex; align-items: center;
   font-size: .9rem; font-weight: 500;

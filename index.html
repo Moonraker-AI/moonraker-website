@@ -8,6 +8,9 @@
 <meta property="og:title" content="Moonraker - Google and AI Visibility for Therapy Practices">
 <meta property="og:description" content="Google, Maps, ChatGPT, Gemini, and AI search visibility for therapy practices.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://moonraker.ai/assets/logo.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://moonraker.ai/assets/logo.png">
 <meta property="og:url" content="https://moonraker.ai">
 <link rel="canonical" href="https://moonraker.ai">
 <link rel="icon" href="/assets/logo.png" type="image/png">
@@ -88,7 +91,7 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
-body.nav-open { overflow: hidden; }
+body:has(.nav-links.open) { overflow: hidden; }
 img { max-width: 100%; display: block; }
 a { color: var(--color-primary); text-decoration: none; }
 a:hover { color: var(--color-primary-hover); }
@@ -603,7 +606,7 @@ html.js .core-panel.active { display: block; animation: corefade .45s var(--ease
 @media (max-width: 760px) {
   .container { width: min(100% - 2rem, 1120px); }
   .nav-links { display: none; position: absolute; top: 68px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: .2rem; padding: 1rem; background: var(--color-navy); border-bottom: 1px solid rgba(232, 245, 239, .1); }
-  body.nav-open .nav-links { display: flex; }
+  .nav-links.open { display: flex; }
   .nav-links a { padding: .85rem 1rem; }
   .nav-dropdown .dropdown-menu { position: static; display: block; box-shadow: none; border: none; background: transparent; padding: 0 0 .25rem 1rem; min-width: 0; }
   .nav-dropdown > a::after { display: none; }
@@ -701,7 +704,7 @@ html.js .core-panel.active { display: block; animation: corefade .45s var(--ease
     <div class="nav-actions">
       <a href="/free-strategy-call" class="btn btn-primary nav-cta">Free Strategy Call</a>
       <button type="button" class="icon-btn" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn"><span class="icon-moon" aria-hidden="true">&#x1F319;</span><span class="icon-sun" aria-hidden="true">&#9728;&#65039;</span></button>
-      <button type="button" class="icon-btn nav-toggle" onclick="document.body.classList.toggle('nav-open')" aria-label="Menu" aria-controls="navLinks"><span></span><span></span><span></span></button>
+      <button type="button" class="icon-btn nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu" aria-controls="navLinks"><span></span><span></span><span></span></button>
     </div>
   </div>
 </nav>
