@@ -23,24 +23,19 @@
 /* ── Hero ── */
 .page-hero {
   padding: clamp(3.5rem, 7vw, 5rem) 1.5rem clamp(3rem, 6vw, 4rem);
-  background: linear-gradient(180deg, var(--color-primary-subtle) 0%, var(--color-bg) 60%);
-  border-bottom: 1px solid var(--color-hairline);
+  background: linear-gradient(158deg, var(--color-navy) 0%, var(--color-navy-deep) 100%);
+  color: var(--color-on-navy-dim);
   position: relative; overflow: hidden;
 }
 .page-hero::before {
   content: ''; position: absolute; inset: 0;
   background-image:
-    linear-gradient(to right, oklch(0.31 0.072 268 / 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, oklch(0.31 0.072 268 / 0.045) 1px, transparent 1px);
-  background-size: 62px 62px;
-  -webkit-mask-image: radial-gradient(72% 72% at 72% 28%, #000 0%, transparent 76%);
-  mask-image: radial-gradient(72% 72% at 72% 28%, #000 0%, transparent 76%);
-  pointer-events: none;
-}
-html.dark .page-hero::before {
-  background-image:
     linear-gradient(to right, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px),
     linear-gradient(to bottom, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px);
+  background-size: 62px 62px;
+  -webkit-mask-image: radial-gradient(80% 120% at 50% 0%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(80% 120% at 50% 0%, #000 0%, transparent 72%);
+  pointer-events: none;
 }
 .hero-split {
   max-width: 1060px; margin: 0 auto;
@@ -49,11 +44,11 @@ html.dark .page-hero::before {
 .hero-text { position: relative; z-index: 2; }
 .hero-text h1 {
   font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(2.4rem, 5vw, 3.8rem);
-  color: var(--color-heading); margin-bottom: 1.25rem; letter-spacing: -.03em; line-height: 1.05;
+  color: var(--color-on-navy); margin-bottom: 1.25rem; letter-spacing: -.03em; line-height: 1.05;
 }
 .hero-text h1 em { color: var(--color-primary); font-style: normal; }
 .hero-text .tm { font-size: .45em; vertical-align: super; font-weight: 400; opacity: .5; }
-.hero-text p { font-size: 1.05rem; color: var(--color-muted); line-height: 1.75; margin-bottom: 2rem; }
+.hero-text p { font-size: 1.05rem; color: var(--color-on-navy-dim); line-height: 1.75; margin-bottom: 2rem; }
 .hero-text .btn { margin-bottom: 2rem; }
 .hero-badges { display: flex; gap: 1rem; flex-wrap: wrap; }
 .hero-badge-pill {
