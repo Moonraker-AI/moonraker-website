@@ -26,7 +26,7 @@
   position: relative; overflow: hidden;
   background: linear-gradient(158deg, var(--color-navy) 0%, var(--color-navy-deep) 100%);
   color: var(--color-on-navy-dim);
-  padding: clamp(3rem, 6vw, 4.5rem) 2rem 2.5rem;
+  padding: clamp(3rem, 6vw, 4.5rem) 2rem clamp(4rem, 7vw, 6rem);
 }
 .contact-wrap::before {
   content: ''; position: absolute; inset: 0;
@@ -76,7 +76,7 @@
 
 /* Booking workspace */
 .booking-workspace {
-  max-width: 1080px; margin: 2.5rem auto 4rem;
+  max-width: 1080px; margin: clamp(3rem, 6vw, 5rem) auto 4rem;
   padding: 0 2rem;
 }
 .booking-card {
