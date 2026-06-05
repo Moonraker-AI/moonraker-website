@@ -36,12 +36,13 @@
 .hero-kicker { color: var(--color-primary); font-weight: 800; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .8rem; }
 .scope-hero h1 { color: var(--color-on-navy); font-size: clamp(2.5rem, 5vw, 4.7rem); line-height: 1.03; letter-spacing: -.02em; margin-bottom: 1.1rem; }
 .scope-hero p { color: var(--color-on-navy-dim); font-size: 1.08rem; line-height: 1.75; }
-.boundary-card { background: linear-gradient(158deg, var(--color-navy) 0%, var(--color-navy-deep) 100%); border: 1px solid rgba(232, 245, 239, .14); border-radius: var(--r-lg); padding: 1.75rem; color: var(--color-on-navy-dim); box-shadow: var(--shadow-card); }
-.boundary-card h2 { color: var(--color-on-navy); font-size: 1.5rem; margin-bottom: .9rem; }
+.boundary-card { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); padding: 1.75rem; color: var(--color-body); box-shadow: var(--shadow-card); }
+.boundary-card h2 { color: var(--color-heading); font-size: 1.5rem; margin-bottom: .9rem; }
 .boundary-list { display: grid; gap: .65rem; }
 .boundary-list div { display: grid; grid-template-columns: 28px 1fr; gap: .65rem; align-items: start; }
 .boundary-list b { color: var(--color-primary); }
-.boundary-list span { color: var(--color-on-navy-dim); font-size: .9rem; line-height: 1.55; }
+.boundary-list b.no { color: var(--color-danger); }
+.boundary-list span { color: var(--color-muted); font-size: .9rem; line-height: 1.55; }
 .section-wrap { max-width: 1120px; margin: 0 auto; padding: clamp(4rem, 7vw, 6rem) 2rem; }
 .section-label { color: var(--color-primary); font-weight: 800; font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .7rem; }
 .section-head { display: grid; grid-template-columns: .9fr 1.1fr; gap: 2rem; align-items: end; margin-bottom: 2rem; }
@@ -125,7 +126,7 @@ details p { color: var(--color-muted); font-size: .92rem; line-height: 1.7; marg
         <h2>Short version</h2>
         <div class="boundary-list">
           <div><b>Yes</b><span>Website cleanup, Google Business Profile improvements, local listings, clear service pages, YouTube improvements, approved Quora proof content, reporting, and booking path clarity.</span></div>
-          <div><b>No</b><span>Social posting, YouTube channel creation, Google Business Profile feed posts, review replies, endorsement publishing, or compliance consulting.</span></div>
+          <div><b class="no">No</b><span>Social posting, YouTube channel creation, Google Business Profile feed posts, review replies, endorsement publishing, or compliance consulting.</span></div>
         </div>
       </aside>
     </div>

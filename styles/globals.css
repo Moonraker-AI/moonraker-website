@@ -500,7 +500,6 @@ html.dark .testimonial-logo { filter: brightness(1.3); }
     padding-left: 1rem;
   }
   .nav-links.open .nav-dropdown .dropdown-menu a { color: var(--color-on-navy-dim); }
-  .nav-links.open .nav-dropdown:hover .dropdown-menu { display: block; }
 }
 @media (max-width: 480px) {
   .stats-bar { gap: 1rem; }
