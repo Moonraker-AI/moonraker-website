@@ -576,3 +576,20 @@ html.dark .testimonial-logo { filter: brightness(1.3); }
     transition: none;
   }
 }
+
+/* Mobile: left-justify headings and hero sections */
+@media (max-width: 768px) {
+  h1, h2, h3,
+  [class*="hero"],
+  .eyebrow, .hero-kicker, .section-label, .section-lede, .kh-panel-intro, .section-heading, .core-os-head {
+    text-align: left !important;
+  }
+  .hero-badges, .kh-tablist, .hero-split, .pillar-badge {
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+  }
+  h1, h2, .section-lede, .kh-panel-intro, .kh-hero-inner, .hero-split, .core-os-head, .section-heading {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+}
