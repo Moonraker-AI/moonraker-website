@@ -203,7 +203,7 @@ details:focus-within,
 .site-nav.nav-scrolled { box-shadow: 0 6px 28px oklch(0 0 0 / 0.22); }
 .site-nav:has(.nav-links.open) { transform: none; }
 .nav-inner {
-  width: min(1180px, calc(100% - 2rem)); margin: 0 auto;
+  width: min(1120px, calc(100% - 2rem)); margin: 0 auto;
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
   min-height: 68px;
 }

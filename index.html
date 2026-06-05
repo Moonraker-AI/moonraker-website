@@ -125,7 +125,7 @@ p { max-width: 68ch; text-wrap: pretty; }
 .site-nav.nav-up { transform: translateY(-100%); }
 .site-nav.nav-scrolled { box-shadow: 0 6px 28px rgba(0, 0, 0, .22); }
 .site-nav:has(.nav-links.open) { transform: none; }
-.nav-inner { width: min(1180px, calc(100% - 2rem)); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 68px; }
+.nav-inner { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 68px; }
 .nav-brand { display: flex; align-items: center; gap: .7rem; color: var(--color-on-navy); }
 .nav-brand img { width: 34px; height: 34px; }
 .nav-brand span { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem; }
@@ -712,7 +712,7 @@ html.js .core-panel.active { display: block; animation: corefade .45s var(--ease
 <body>
 <nav class="site-nav">
   <div class="nav-inner">
-    <a href="/" class="nav-brand" aria-label="Moonraker home"><img src="/assets/logo.png" alt=""><span>Moonraker</span></a>
+    <a href="/" class="nav-brand" aria-label="Moonraker home"><img src="/assets/logo.png" alt="Moonraker"></a>
     <ul class="nav-links" id="navLinks">
       <li class="nav-dropdown">
         <a tabindex="0" role="button" aria-haspopup="true">CORE System</a>
@@ -731,7 +731,7 @@ html.js .core-panel.active { display: block; animation: corefade .45s var(--ease
           <a href="/scope">Scope</a>
         </div>
       </li>
-      <li><a href="/results">Results</a></li>
+      <li><a href="/results">Results</a></li><li><a href="/team">Team</a></li>
       <li><a href="/knowledge-hub">Knowledge Hub</a></li>
     </ul>
     <div class="nav-actions">
@@ -906,7 +906,7 @@ html.js .core-panel.active { display: block; animation: corefade .45s var(--ease
   </section>
 </main>
 <footer class="site-footer">
-  <div class="container footer-inner"><div><div class="footer-brand"><img src="/assets/logo.png" alt="">Moonraker</div><div class="footer-copy">&copy; 2026 Moonraker AI. All rights reserved.</div></div><div class="footer-links"><a href="/">Home</a><a href="/core-marketing-system">CORE System</a><a href="/results">Results</a><a href="/knowledge-hub">Knowledge Hub</a><a href="/team">Team</a><a href="/process">Process</a><a href="/scope">Scope</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div></div>
+  <div class="container footer-inner"><div><div class="footer-brand"><img src="/assets/logo.png" alt="">Moonraker</div><div class="footer-copy">&copy; 2026 Moonraker AI. All rights reserved.</div></div><div class="footer-links"><a href="/">Home</a><a href="/core-marketing-system">CORE System</a><a href="/results">Results</a><a href="/team">Our Team</a><a href="/knowledge-hub">Knowledge Hub</a><a href="/process">Process</a><a href="/scope">Scope</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div></div>
 </footer>
 <script>
 (function () {
