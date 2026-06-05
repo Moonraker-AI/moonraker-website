@@ -490,7 +490,7 @@ html.dark .testimonial-logo { filter: brightness(1.3); }
   .nav-links { display: none; }
   .nav-toggle { display: block; }
   .nav-links.open {
-    display: flex; flex-direction: column;
+    display: flex; flex-direction: column; align-items: stretch;
     position: absolute; top: 68px; left: 0; right: 0;
     background: var(--color-navy); border-bottom: 1px solid oklch(0.945 0.018 166 / 0.1);
     padding: 1rem 1rem; gap: .25rem;
