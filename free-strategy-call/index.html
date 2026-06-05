@@ -39,11 +39,11 @@
   pointer-events: none;
 }
 .contact-wrap > * { position: relative; z-index: 1; }
-.contact-hero { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
+.contact-hero { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr .95fr; gap: clamp(2rem, 6vw, 4rem); align-items: center; }
 .contact-header { text-align: left; }
 .contact-header h1 {
   font-family: 'Outfit', sans-serif; font-weight: 800;
-  font-size: clamp(2.3rem, 4.5vw, 3.4rem); line-height: 1.1; color: var(--color-on-navy);
+  font-size: clamp(2.5rem, 5vw, 4.7rem); line-height: 1.05; color: var(--color-on-navy);
   margin-bottom: 1rem; letter-spacing: -.02em;
 }
 .contact-header h1 span { color: var(--color-primary); }
@@ -51,9 +51,6 @@
   font-size: 1.05rem; color: var(--color-on-navy-dim);
   line-height: 1.7; margin-bottom: 0;
 }
-.contact-badges { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: clamp(1.75rem, 4vw, 2.5rem); }
-.contact-badge { display: flex; align-items: center; background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-md); padding: .6rem .9rem; box-shadow: var(--shadow-card); }
-.contact-badge img { height: 48px; width: auto; display: block; }
 .contact-video { position: relative; aspect-ratio: 16 / 9; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-lift); background: var(--color-navy-deep); }
 .contact-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
@@ -116,7 +113,7 @@
   text-align: center; transition: border-color .15s, transform .12s;
 }
 .date-pill:hover {
-  border-color: var(--color-primary); transform: translateY(-1px);
+  border-color: var(--color-primary);
 }
 .date-pill.selected {
   background: var(--color-primary); border-color: var(--color-primary); color: #fff;
@@ -319,11 +316,6 @@
     <div class="contact-video">
       <iframe src="https://www.loom.com/embed/df3a5aa47f284ade81a4649695ac42dd" loading="lazy" allow="fullscreen" allowfullscreen title="What a free strategy call with Moonraker looks like"></iframe>
     </div>
-  </div>
-  <div class="contact-badges">
-    <div class="contact-badge"><img src="/assets/badges/google-partner.avif" alt="Google Partner" title="Google Partner badge" width="348" height="135" loading="lazy" decoding="async"></div>
-    <div class="contact-badge"><img src="/assets/badges/google-rating-2026-01-09.avif" alt="Google 4.9 Rating" title="Google Rating 4.9 stars" width="348" height="135" loading="lazy" decoding="async"></div>
-    <div class="contact-badge"><img src="/assets/badges/google-local-guides.avif" alt="Google Local Guide" title="Google Local Guide badge" width="348" height="135" loading="lazy" decoding="async"></div>
   </div>
 </div>
 
