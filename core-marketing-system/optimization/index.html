@@ -67,16 +67,16 @@
 .pillar-hero-inner { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr .95fr; gap: clamp(2rem, 6vw, 4rem); align-items: center; }
 .pillar-text { text-align: left; }
 .pillar-visual { position: relative; z-index: 1; }
-.pillar-card { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-xl); padding: clamp(1.25rem, 3vw, 1.75rem); box-shadow: var(--shadow-lift); }
-.pillar-card-top { display: flex; align-items: center; gap: .85rem; padding-bottom: 1rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-hairline); }
-.pillar-card-icon { width: 44px; height: 44px; border-radius: var(--r-md); background: var(--color-primary-subtle); color: var(--color-primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.pillar-card-icon svg { width: 22px; height: 22px; }
-.pillar-card-title { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--color-heading); }
-.pillar-card-sub { font-size: .82rem; color: var(--color-muted); }
-.pillar-card-list { display: grid; gap: .7rem; }
-.pillar-card-item { display: flex; align-items: flex-start; gap: .6rem; font-size: .9rem; color: var(--color-body); line-height: 1.45; }
-.pillar-card-item .pcheck { color: var(--color-primary); flex-shrink: 0; margin-top: .1rem; }
-.pillar-card-item .pcheck svg { width: 16px; height: 16px; display: block; }
+.pillar-card { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); padding: 1.75rem; box-shadow: var(--shadow-card); }
+.pillar-card-top { display: flex; align-items: center; gap: .9rem; padding-bottom: 1.1rem; margin-bottom: 1.1rem; border-bottom: 1px solid var(--color-hairline); }
+.pillar-card-icon { width: 48px; height: 48px; border-radius: var(--r-md); background: var(--color-primary-subtle); color: var(--color-primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.pillar-card-icon svg { width: 24px; height: 24px; }
+.pillar-card-title { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.2rem; color: var(--color-heading); }
+.pillar-card-sub { font-size: .85rem; color: var(--color-muted); }
+.pillar-card-list { display: grid; gap: .8rem; }
+.pillar-card-item { display: flex; align-items: flex-start; gap: .65rem; font-size: .95rem; color: var(--color-body); line-height: 1.55; }
+.pillar-card-item .pcheck { color: var(--color-primary); flex-shrink: 0; margin-top: .15rem; }
+.pillar-card-item .pcheck svg { width: 17px; height: 17px; display: block; }
 
 /* ── Content layout ── */
 /* ── Two-part structure ── */
@@ -199,7 +199,7 @@ html.dark .deliverable-icon { background: oklch(0.74 0.165 162 / 0.14); }
         <div class="dropdown-menu">
           <a href="/core-marketing-system">Overview</a>
           <a href="/core-marketing-system/credibility">Credibility</a>
-          <a href="/core-marketing-system/optimization">Optimization</a>
+          <a href="/core-marketing-system/optimization" class="active">Optimization</a>
           <a href="/core-marketing-system/reputation">Reputation</a>
           <a href="/core-marketing-system/engagement">Engagement</a>
         </div>

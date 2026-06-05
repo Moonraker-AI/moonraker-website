@@ -245,6 +245,7 @@ body:has(.nav-links.open) { overflow: hidden; }
   color: var(--color-body);
 }
 .dropdown-menu a:hover { background: var(--color-primary-subtle); color: var(--color-primary); }
+.dropdown-menu a.active { background: var(--color-primary-subtle); color: var(--color-primary); }
 
 /* Mobile nav */
 .nav-toggle {
@@ -500,6 +501,7 @@ html.dark .testimonial-logo { filter: brightness(1.3); }
     padding-left: 1rem;
   }
   .nav-links.open .nav-dropdown .dropdown-menu a { color: var(--color-on-navy-dim); }
+  .nav-links.open .nav-dropdown .dropdown-menu a.active { color: var(--color-primary); }
 }
 @media (max-width: 480px) {
   .stats-bar { gap: 1rem; }
