@@ -40,6 +40,18 @@
     });
   }
 
+  // Mobile-only Book a Free Strategy Call CTA at the bottom of the open nav menu.
+  var navLinks = document.getElementById('navLinks');
+  if (navLinks && !navLinks.querySelector('.nav-cta-mobile')) {
+    var ctaLi = document.createElement('li');
+    ctaLi.className = 'nav-cta-mobile';
+    var ctaA = document.createElement('a');
+    ctaA.href = '/free-strategy-call';
+    ctaA.textContent = 'Book a Free Strategy Call';
+    ctaLi.appendChild(ctaA);
+    navLinks.appendChild(ctaLi);
+  }
+
   // Auto-hide sticky nav: slide up on scroll down, reveal on scroll up. A small
   // delta threshold keeps tiny scroll jitter from toggling it (no twitch), and it
   // never hides while a menu or dropdown is open.
