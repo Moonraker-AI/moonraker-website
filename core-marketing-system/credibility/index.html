@@ -25,7 +25,7 @@
 <style>
 /* ── Pillar Hero ── */
 .pillar-hero {
-  text-align: center; padding: clamp(3.5rem, 7vw, 5rem) 1.5rem clamp(2.5rem, 5vw, 3rem);
+  padding: clamp(3.5rem, 7vw, 5rem) 1.5rem clamp(3rem, 5vw, 3.5rem);
   background: linear-gradient(158deg, var(--color-navy) 0%, var(--color-navy-deep) 100%);
   color: var(--color-on-navy-dim);
   position: relative; overflow: hidden;
@@ -61,9 +61,22 @@
   position: relative; z-index: 1;
 }
 .pillar-hero p {
-  font-size: 1.1rem; color: var(--color-on-navy-dim); max-width: 640px;
-  margin: 0 auto; line-height: 1.7; position: relative; z-index: 1;
+  font-size: 1.1rem; color: var(--color-on-navy-dim); max-width: none;
+  margin: 0; line-height: 1.7;
 }
+.pillar-hero-inner { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr .95fr; gap: clamp(2rem, 6vw, 4rem); align-items: center; }
+.pillar-text { text-align: left; }
+.pillar-visual { position: relative; z-index: 1; }
+.pillar-card { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-xl); padding: clamp(1.25rem, 3vw, 1.75rem); box-shadow: var(--shadow-lift); }
+.pillar-card-top { display: flex; align-items: center; gap: .85rem; padding-bottom: 1rem; margin-bottom: 1rem; border-bottom: 1px solid var(--color-hairline); }
+.pillar-card-icon { width: 44px; height: 44px; border-radius: var(--r-md); background: var(--color-primary-subtle); color: var(--color-primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.pillar-card-icon svg { width: 22px; height: 22px; }
+.pillar-card-title { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--color-heading); }
+.pillar-card-sub { font-size: .82rem; color: var(--color-muted); }
+.pillar-card-list { display: grid; gap: .7rem; }
+.pillar-card-item { display: flex; align-items: flex-start; gap: .6rem; font-size: .9rem; color: var(--color-body); line-height: 1.45; }
+.pillar-card-item .pcheck { color: var(--color-primary); flex-shrink: 0; margin-top: .1rem; }
+.pillar-card-item .pcheck svg { width: 16px; height: 16px; display: block; }
 
 /* ── Content layout ── */
 /* ── Two-part structure ── */
@@ -165,6 +178,7 @@ html.dark .deliverable-icon { background: oklch(0.74 0.165 162 / 0.14); }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
+  .pillar-hero-inner { grid-template-columns: 1fr; }
   .pillar-hero p { font-size: .95rem; }
   .pillar-nav-inner { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
   .pillar-nav .nav-next { text-align: left; }
@@ -210,11 +224,29 @@ html.dark .deliverable-icon { background: oklch(0.74 0.165 162 / 0.14); }
 
 <!-- Hero -->
 <section class="pillar-hero">
-  <div class="pillar-badge">
-    <div class="pillar-badge-label">Credibility</div>
+  <div class="pillar-hero-inner">
+    <div class="pillar-text">
+      <div class="pillar-badge">
+        <div class="pillar-badge-label">Credibility</div>
+      </div>
+      <h1>Prove your practice is <span style="color: var(--color-primary)">real and credentialed.</span></h1>
+      <p>Before Google or AI tools trust your website, they need signs that your practice is real, credentialed, and consistent across the web. This is the foundation everything else builds on.</p>
+    </div>
+    <div class="pillar-visual">
+      <div class="pillar-card">
+        <div class="pillar-card-top">
+          <div class="pillar-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div><div class="pillar-card-title">Verified practice</div><div class="pillar-card-sub">Real, credentialed, consistent</div></div>
+        </div>
+        <div class="pillar-card-list">
+          <div class="pillar-card-item"><span class="pcheck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><span>Google Business Profile claimed</span></div>
+          <div class="pillar-card-item"><span class="pcheck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><span>License and credentials listed</span></div>
+          <div class="pillar-card-item"><span class="pcheck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><span>Name, address, and phone match everywhere</span></div>
+          <div class="pillar-card-item"><span class="pcheck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><span>Cited on trusted directories</span></div>
+        </div>
+      </div>
+    </div>
   </div>
-  <h1>Prove your practice is <span style="color: var(--color-primary)">real and credentialed.</span></h1>
-  <p>Before Google or AI tools trust your website, they need signs that your practice is real, credentialed, and consistent across the web. This is the foundation everything else builds on.</p>
 </section>
 
 <!-- Content -->
