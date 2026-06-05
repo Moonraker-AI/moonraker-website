@@ -37,7 +37,10 @@
 .team-hero p { color: var(--color-on-navy-dim); font-size: 1.08rem; line-height: 1.75; max-width: 600px; margin: 0 auto; }
 
 .team-section { max-width: 1180px; margin: 0 auto; padding: clamp(3.5rem, 6vw, 5.5rem) 2rem clamp(4rem, 7vw, 6rem); }
-.team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: clamp(1.25rem, 2.5vw, 2rem); }
+.team-group + .team-group { margin-top: clamp(3rem, 6vw, 5rem); }
+.team-cat { text-align: center; margin-bottom: clamp(1.75rem, 3vw, 2.5rem); }
+.team-cat-title { font-family: 'Outfit', sans-serif; font-size: clamp(1.7rem, 2.8vw, 2.3rem); font-weight: 800; color: var(--color-heading); letter-spacing: -.01em; }
+.team-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(16.5rem, 21rem)); gap: clamp(1.25rem, 2.5vw, 2rem); justify-content: center; }
 .team-card {
   background: var(--color-surface);
   border: 1px solid var(--color-hairline);
@@ -121,7 +124,9 @@
   </section>
 
   <section class="team-section">
-    <div class="team-grid">
+    <div class="team-group">
+      <header class="team-cat"><h2 class="team-cat-title">Management</h2></header>
+      <div class="team-row">
 
       <article class="team-card">
         <div class="team-photo">
@@ -158,6 +163,13 @@
           </a>
         </div>
       </article>
+
+      </div>
+    </div>
+
+    <div class="team-group">
+      <header class="team-cat"><h2 class="team-cat-title">SEO Team</h2></header>
+      <div class="team-row">
 
       <article class="team-card">
         <div class="team-photo">
@@ -213,6 +225,7 @@
         </div>
       </article>
 
+      </div>
     </div>
   </section>
 
