@@ -286,6 +286,20 @@
 .review-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--color-primary-subtle); color: var(--color-primary); display: flex; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: .9rem; flex-shrink: 0; }
 .review-name { font-weight: 700; color: var(--color-heading); font-size: .92rem; }
 .review-meta { color: var(--color-muted); font-size: .8rem; }
+/* Partners */
+.partners-section { padding: clamp(2.5rem, 5vw, 4rem) 2rem clamp(3rem, 6vw, 5rem); max-width: 1100px; margin: 0 auto; text-align: center; }
+.partners-section .section-heading { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(2.05rem, 3.4vw, 3.1rem); letter-spacing: -.022em; color: var(--color-heading); margin-bottom: .5rem; }
+.partners-section .section-subhead { font-size: 1.0625rem; color: var(--color-muted); max-width: 540px; margin: 0 auto 2.5rem; }
+.partners-rows { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+.partner-row { display: flex; align-items: center; justify-content: center; gap: 2rem 3rem; flex-wrap: wrap; }
+.partner-logo { height: 80px; max-width: 200px; object-fit: contain; opacity: .85; }
+html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; }
+@media (max-width: 760px) {
+  .partner-row { gap: 1.25rem 1.5rem; width: 100%; }
+  .partner-row .partner-logo { height: auto; max-height: 52px; max-width: none; object-fit: contain; }
+  .partner-row.cols-3 .partner-logo { width: calc(33.33% - 1.2rem); }
+  .partner-row.cols-2 .partner-logo { width: calc(50% - 1rem); }
+}
 </style>
 <script defer src="/assets/site.js"></script>
 </head>
@@ -520,6 +534,27 @@
       <p class="review-quote">"Honestly the easiest marketing decision we have made. They set the foundation, kept improving it, and the calls keep coming."</p>
       <div class="review-author"><div class="review-avatar">ER</div><div><div class="review-name">Elena Rossi</div><div class="review-meta">Rossi Psychotherapy</div></div></div>
     </article>
+  </div>
+</section>
+
+<section class="partners-section">
+  <h2 class="section-heading">Trusted by the experts who educate therapists</h2>
+  <p class="section-subhead">We partner with the industry&rsquo;s most respected names in practice building, clinical training, and therapist entrepreneurship.</p>
+  <div class="partners-rows">
+    <div class="partner-row cols-3">
+      <img class="partner-logo" src="/assets/partners/psychology-business-school.webp" alt="Psychology Business School logo" title="Psychology Business School logo" width="900" height="660" loading="lazy" decoding="async">
+      <img class="partner-logo" src="/assets/partners/private-practice-elevation.webp" alt="Private Practice Elevation logo" title="Private Practice Elevation logo" width="285" height="150" loading="lazy" decoding="async">
+      <img class="partner-logo" src="/assets/partners/traveling-therapist.webp" alt="The Traveling Therapist logo" title="The Traveling Therapist logo" width="300" height="264" loading="lazy" decoding="async">
+    </div>
+    <div class="partner-row cols-3">
+      <img class="partner-logo" src="/assets/partners/private-practice-academy.webp" alt="The Private Practice Academy logo" title="The Private Practice Academy logo" width="900" height="206" loading="lazy" decoding="async">
+      <img class="partner-logo" src="/assets/partners/therasaas.webp" alt="TheraSaaS logo" title="TheraSaaS logo" width="350" height="180" loading="lazy" decoding="async">
+      <img class="partner-logo" src="/assets/partners/intensive-therapy-coach.webp" alt="Intensive Therapy Coach logo" title="Intensive Therapy Coach logo" width="1000" height="565" loading="lazy" decoding="async">
+    </div>
+    <div class="partner-row cols-2">
+      <img class="partner-logo" src="/assets/partners/prosperous-therapist.webp" alt="The Prosperous Therapist logo" title="The Prosperous Therapist logo" width="300" height="100" loading="lazy" decoding="async">
+      <img class="partner-logo" src="/assets/partners/mccance-method.webp" alt="The McCance Method logo" title="The McCance Method logo" width="500" height="320" loading="lazy" decoding="async">
+    </div>
   </div>
 </section>
 
