@@ -57,14 +57,16 @@
 /* TZ banner */
 .tz-banner {
   margin: 0 0 1.25rem;
-  background: var(--color-surface); border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 32%, transparent);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
   border-radius: var(--r-lg); padding: 1rem 1.25rem;
   display: flex; gap: 1rem; align-items: center;
   font-size: .85rem; color: var(--color-body); line-height: 1.5;
-  text-align: left; box-shadow: var(--shadow-card);
+  text-align: left;
 }
 .tz-banner-icon { font-size: 1.25rem; flex-shrink: 0; }
-.tz-banner strong { color: var(--color-heading); font-weight: 600; }
+.tz-banner strong { color: var(--color-primary); font-weight: 700; }
 .tz-banner-line { margin-top: .35rem; }
 .tz-zone-line { color: var(--color-muted); }
 .tz-banner select {
