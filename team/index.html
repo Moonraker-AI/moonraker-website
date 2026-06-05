@@ -41,6 +41,9 @@
 .team-cat { text-align: center; margin-bottom: clamp(1.75rem, 3vw, 2.5rem); }
 .team-cat-title { font-family: 'Outfit', sans-serif; font-size: clamp(1.7rem, 2.8vw, 2.3rem); font-weight: 800; color: var(--color-heading); letter-spacing: -.01em; }
 .team-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(16.5rem, 21rem)); gap: clamp(1.25rem, 2.5vw, 2rem); justify-content: center; }
+.team-row.three { grid-template-columns: repeat(3, minmax(0, 21rem)); }
+@media (max-width: 880px) { .team-row.three { grid-template-columns: repeat(2, minmax(0, 21rem)); } }
+@media (max-width: 600px) { .team-row, .team-row.three { grid-template-columns: minmax(0, 21rem); } }
 .team-card {
   background: var(--color-surface);
   border: 1px solid var(--color-hairline);
@@ -169,7 +172,7 @@
 
     <div class="team-group">
       <header class="team-cat"><h2 class="team-cat-title">SEO Team</h2></header>
-      <div class="team-row">
+      <div class="team-row three">
 
       <article class="team-card">
         <div class="team-photo">
