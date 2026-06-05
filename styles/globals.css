@@ -584,6 +584,9 @@ html.dark .testimonial-logo { filter: brightness(1.3); }
   .eyebrow, .hero-kicker, .section-label, .section-lede, .kh-panel-intro, .section-heading, .core-os-head {
     text-align: left !important;
   }
+  p, li, summary, dd, dt, blockquote, figcaption, address {
+    text-align: left !important;
+  }
   .hero-badges, .kh-tablist, .hero-split, .pillar-badge {
     justify-content: flex-start !important;
     align-items: flex-start !important;
