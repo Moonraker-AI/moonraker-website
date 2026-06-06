@@ -3,29 +3,40 @@
 #
 # What it does:
 #   1. astro build  -> renders the site into dist/ (the Astro generator)
-#   2. build_r2.py  -> regenerates markdown siblings + the upload manifest from dist/
-#   3. upload_r2.py -> pushes all dist files + .md to client-sites/moonraker-website/
+#   2. ship dist/ + the R2 scripts to the VPS
+#   3. on the VPS: build_r2.py (markdown siblings + upload manifest from dist/)
+#      then upload_r2.py (Cloudflare REST object API PUT via curl, one call/file)
 #
-# HTML cache TTL is 300s at the edge, so content updates show within ~5 min.
-# Worker CODE changes are separate: cd worker && npx wrangler deploy
+# Why the upload runs ON THE VPS:
+#   - The R2-write Cloudflare token (CF_API_TOKEN) lives in the VPS agent .env and
+#     works from that host. A local shell often has a DEAD CLOUDFLARE_API_TOKEN that
+#     shadows any pull (401), and Cloudflare's edge WAF 1010-bans local automated
+#     clients. Running on the VPS sidesteps both and keeps the secret on the box.
+#   - The moonraker-r2-worker INGEST endpoint cannot be used here: it only accepts
+#     client-site key shapes (sites/<slug>/preview|prod/vN/...), not the flat
+#     `moonraker-website/` prefix this site serves from (it 400s "Invalid key shape").
+#   - `wrangler r2 object put` makes several REST calls per file; in bulk that trips
+#     the REST rate limit (HTTP 429 / code 10429). upload_r2.py uses ONE curl PUT
+#     per file at low concurrency.
 #
-# Auth: CLOUDFLARE_API_TOKEN (Workers + R2 scope). Pulled from the VPS agent env
-# if not already set. Account is the Moonraker CF account.
+# After publish: the worker edge-caches HTML. The CF_API_TOKEN lacks cache_purge,
+# so either purge the moonraker.ai cache in the Cloudflare dashboard or wait for
+# the edge TTL for updates to appear.
 set -euo pipefail
 
 DIR="$(cd "$(dirname "$0")/.." && pwd)"
-: "${CLOUDFLARE_API_TOKEN:=$(ssh root@87.99.133.69 'grep -iE "^CLOUDFLARE_API_TOKEN=|^CF_API_TOKEN=" /opt/moonraker-agent/.env | head -1 | cut -d= -f2-')}"
-export CLOUDFLARE_API_TOKEN
-export CLOUDFLARE_ACCOUNT_ID="b0d0e7ccfcabdec0507b4cac779f048a"
+VPS="root@87.99.133.69"
 
 echo "==> building Astro site into dist/"
 ( cd "$DIR" && npm ci && npx astro build )
 
-echo "==> generating markdown + manifest from dist/"
-python3 "$DIR/scripts/build_r2.py"
+echo "==> shipping dist/ + scripts to the VPS"
+tar czf /tmp/mrpub.tgz -C "$DIR" dist scripts/build_r2.py scripts/upload_r2.py
+scp -q /tmp/mrpub.tgz "$VPS:/tmp/mrpub.tgz"
+rm -f /tmp/mrpub.tgz
 
-echo "==> uploading to R2 (client-sites/moonraker-website/)"
-python3 "$DIR/scripts/upload_r2.py"
+echo "==> generating manifest + uploading to R2 (client-sites/moonraker-website/) on the VPS"
+ssh "$VPS" 'set -e; rm -rf /tmp/mrpub && mkdir -p /tmp/mrpub && tar xzf /tmp/mrpub.tgz -C /tmp/mrpub && cd /tmp/mrpub && python3 scripts/build_r2.py && set -a; . /opt/moonraker-agent/.env; set +a; export CLOUDFLARE_API_TOKEN="${CLOUDFLARE_API_TOKEN:-$CF_API_TOKEN}" CLOUDFLARE_ACCOUNT_ID="$CF_ACCOUNT_ID"; python3 scripts/upload_r2.py; rm -rf /tmp/mrpub /tmp/mrpub.tgz'
 
-echo "==> done. Edge HTML TTL is 300s; updates are live within ~5 min."
+echo "==> done. Purge the moonraker.ai cache in the Cloudflare dashboard (token lacks cache_purge), or wait for the edge TTL."
 echo "    Worker code change? cd worker && npx wrangler deploy"
