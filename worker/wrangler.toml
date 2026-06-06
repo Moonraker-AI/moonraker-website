@@ -1,0 +1,25 @@
+name = "moonraker-website-worker"
+main = "src/index.js"
+compatibility_date = "2026-04-01"
+account_id = "b0d0e7ccfcabdec0507b4cac779f048a"
+
+# Production: served via the routes below. No workers.dev (avoid duplicate content).
+workers_dev = false
+
+# Production routes: worker intercepts apex + www before the (now-bypassed)
+# Vercel origin. Rollback = remove these routes + redeploy -> falls back to Vercel.
+routes = [
+  { pattern = "moonraker.ai/*", zone_name = "moonraker.ai" },
+  { pattern = "www.moonraker.ai/*", zone_name = "moonraker.ai" },
+]
+
+[[r2_buckets]]
+binding = "SITE_R2"
+bucket_name = "client-sites"
+preview_bucket_name = "client-sites"
+
+[vars]
+SITE_PREFIX = "moonraker-website"
+APEX_HOST = "moonraker.ai"
+DEFAULT_HTML_TTL = "300"
+DEFAULT_ASSET_TTL = "31536000"
