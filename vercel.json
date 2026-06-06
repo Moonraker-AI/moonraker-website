@@ -26,6 +26,10 @@
           "value": "camera=(), microphone=(), geolocation=()"
         },
         {
+          "key": "Link",
+          "value": "</llms.txt>; rel=\"describedby\""
+        },
+        {
           "key": "Content-Security-Policy",
           "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.loom.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://clients.moonraker.ai; frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com https://player.vimeo.com https://open.spotify.com https://embed.podcasts.apple.com https://gamma.app https://www.loom.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
         }

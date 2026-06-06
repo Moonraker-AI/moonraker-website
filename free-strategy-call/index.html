@@ -335,6 +335,7 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
     </div>
   </div>
 </nav>
+<main>
 
 <div class="contact-wrap">
   <div class="contact-hero">
@@ -343,7 +344,7 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
       <p>A focused 30 minute call with Scott Pope, our Director of Growth and Operations. We will look at how your practice currently shows up across Google, Maps, ChatGPT, Gemini, and other AI tools.</p>
     </div>
     <div class="contact-video">
-      <iframe src="https://www.loom.com/embed/df3a5aa47f284ade81a4649695ac42dd" loading="lazy" allow="fullscreen" allowfullscreen title="What a free strategy call with Moonraker looks like"></iframe>
+      <iframe data-src="https://www.loom.com/embed/df3a5aa47f284ade81a4649695ac42dd" loading="lazy" allow="fullscreen" allowfullscreen title="What a free strategy call with Moonraker looks like"></iframe>
     </div>
   </div>
 </div>
@@ -354,7 +355,7 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
     <div>
       <div><strong>Scott is based in Adelaide, Australia</strong> and takes new client calls Tuesday through Thursday, 9 AM to 5 PM local time.</div>
       <div class="tz-banner-line tz-zone-line">All times below are shown in your local zone (<span id="tzLabel">detecting...</span>).</div>
-      <div class="tz-banner-line">Wrong zone? <select id="tzPicker"></select></div>
+      <div class="tz-banner-line">Wrong zone? <select id="tzPicker" aria-label="Time zone"></select></div>
     </div>
   </div>
   <div class="booking-card">
@@ -556,6 +557,7 @@ html.dark .partner-logo { filter: brightness(1.1) contrast(1.05); opacity: .75; 
   </div>
 </section>
 
+</main>
 <footer class="site-footer">
   <div class="footer-links"><a href="/">Home</a><a href="/core-marketing-system">CORE System</a><a href="/results">Results</a><a href="/team">Our Team</a><a href="/knowledge-hub">Knowledge Hub</a><a href="/process">Process</a><a href="/scope">Scope</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
   <div class="footer-copy">&#169; 2026 Moonraker AI. All rights reserved.</div>

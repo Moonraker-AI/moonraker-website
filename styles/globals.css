@@ -208,7 +208,7 @@ details:focus-within,
   min-height: 68px;
 }
 .nav-brand { display: flex; align-items: center; gap: .7rem; color: var(--color-on-navy); }
-.nav-brand img { height: 34px; }
+.nav-brand img { height: 34px; width: auto; }
 .nav-brand span { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem; }
 .nav-links { display: flex; align-items: center; gap: .15rem; list-style: none; }
 body:has(.nav-links.open) { overflow: hidden; }
@@ -468,12 +468,40 @@ html.dark .testimonial-logo { filter: brightness(1.3); }
 }
 .footer-links a:hover { color: var(--color-primary); }
 .footer-copy {
-  font-size: .8rem; color: oklch(0.945 0.018 166 / 0.48);
+  font-size: .8rem; color: var(--color-on-navy-dim);
 }
 
 /* ── Divider ── */
 .section-divider { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
 .section-divider hr { border: none; border-top: 1px solid var(--color-hairline); }
+
+/* ── Utilities ── */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* Click-to-load facade: defers heavy third-party media iframes until the visitor opts in */
+.embed-facade-wrap { position: relative; display: block; }
+.kh-audio iframe { width: 100%; }
+.embed-facade {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .55rem;
+  width: 100%; height: 100%; padding: 1rem; border: 0; cursor: pointer;
+  background: linear-gradient(150deg, var(--color-navy-soft) 0%, var(--color-navy-deep) 100%);
+  font-family: 'Outfit', sans-serif;
+  transition: background .25s var(--ease-out);
+}
+.embed-facade:hover { background: linear-gradient(150deg, var(--color-navy) 0%, var(--color-navy-deep) 100%); }
+.embed-facade:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -3px; }
+.embed-facade-play {
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-weight: 800; font-size: .88rem; color: #fff;
+  background: var(--color-primary); padding: .6rem 1.05rem; border-radius: 999px;
+  box-shadow: var(--shadow-card); transition: transform .2s var(--ease-out);
+}
+.embed-facade:hover .embed-facade-play { transform: translateY(-2px); }
+.embed-facade-label { font-size: .78rem; color: var(--color-on-navy-dim); max-width: 92%; text-align: center; line-height: 1.3; }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {

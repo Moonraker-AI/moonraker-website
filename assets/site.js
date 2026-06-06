@@ -93,4 +93,41 @@
       });
     });
   });
+
+  // Click-to-load facade: defer heavy third-party media iframes (YouTube, Spotify, Apple, Vimeo, Loom)
+  // until the visitor opts in. The target iframes carry data-src instead of src so nothing loads on open.
+  Array.prototype.forEach.call(document.querySelectorAll('iframe[data-src]'), function (iframe) {
+    var host = iframe.parentNode;
+    if (!host) return;
+    var positioned = host.classList && (host.classList.contains('kh-embed') || host.classList.contains('contact-video'));
+    var anchor;
+    if (positioned) {
+      anchor = host;
+    } else {
+      var wrap = document.createElement('span');
+      wrap.className = 'embed-facade-wrap';
+      host.insertBefore(wrap, iframe);
+      wrap.appendChild(iframe);
+      anchor = wrap;
+    }
+    var title = iframe.getAttribute('title') || 'media';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'embed-facade';
+    btn.setAttribute('aria-label', 'Load and play: ' + title);
+    var play = document.createElement('span');
+    play.className = 'embed-facade-play';
+    play.textContent = '▶ Play';
+    var label = document.createElement('span');
+    label.className = 'embed-facade-label';
+    label.textContent = title;
+    btn.appendChild(play);
+    btn.appendChild(label);
+    anchor.appendChild(btn);
+    btn.addEventListener('click', function () {
+      var src = iframe.getAttribute('data-src');
+      if (src) { iframe.src = src; }
+      btn.remove();
+    });
+  });
 })();
