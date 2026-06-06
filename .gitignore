@@ -1,3 +1,8 @@
 .vercel
 .env*.local
 _audit/
+
+# Astro
+node_modules/
+dist/
+.astro/

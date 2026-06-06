@@ -2,8 +2,9 @@
 # Publish moonraker.ai to R2 (the deploy path after the Vercel -> CF R2 migration).
 #
 # What it does:
-#   1. build_r2.py  -> regenerates markdown siblings + the upload manifest
-#   2. upload_r2.py -> pushes all site files + .md to client-sites/moonraker-website/
+#   1. astro build  -> renders the site into dist/ (the Astro generator)
+#   2. build_r2.py  -> regenerates markdown siblings + the upload manifest from dist/
+#   3. upload_r2.py -> pushes all dist files + .md to client-sites/moonraker-website/
 #
 # HTML cache TTL is 300s at the edge, so content updates show within ~5 min.
 # Worker CODE changes are separate: cd worker && npx wrangler deploy
@@ -17,7 +18,10 @@ DIR="$(cd "$(dirname "$0")/.." && pwd)"
 export CLOUDFLARE_API_TOKEN
 export CLOUDFLARE_ACCOUNT_ID="b0d0e7ccfcabdec0507b4cac779f048a"
 
-echo "==> generating markdown + manifest"
+echo "==> building Astro site into dist/"
+( cd "$DIR" && npm ci && npx astro build )
+
+echo "==> generating markdown + manifest from dist/"
 python3 "$DIR/scripts/build_r2.py"
 
 echo "==> uploading to R2 (client-sites/moonraker-website/)"

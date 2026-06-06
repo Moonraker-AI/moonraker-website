@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
-"""Build the R2 upload set for moonraker.ai:
-- enumerate the static files we serve (html, assets, styles, AI files)
+"""Build the R2 upload set for moonraker.ai from the Astro build output (dist/):
+- enumerate every file Astro emitted into dist/ (html, _astro css/js, assets, AI files)
 - generate a markdown sibling (.md) for each HTML page from its <main> content
 - emit a manifest.tsv: localpath \t r2key \t content-type   (r2key prefixed)
 Markdown stays out of the repo; written to a staging dir.
+Run `astro build` first (publish_r2.sh does this).
 """
-import os, re, glob, html as htmllib
+import os, re, glob, sys, html as htmllib
 from html.parser import HTMLParser
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+DIST = os.path.join(ROOT, "dist")
 STAGE = "/tmp/mr_r2_md"
 PREFIX = "moonraker-website"
 MANIFEST = "/tmp/mr_r2_manifest.tsv"
@@ -27,33 +29,17 @@ CT = {
 def ct_for(p):
     return CT.get(os.path.splitext(p)[1].lower(), "application/octet-stream")
 
-# ---- static file set (served from R2) ----
+# ---- static file set (everything Astro emitted into dist/) ----
 def static_files():
-    files = []
-    # all page HTML
-    files += glob.glob(os.path.join(ROOT, "index.html"))
-    files += glob.glob(os.path.join(ROOT, "**", "index.html"), recursive=True)
-    # asset + style trees
-    for d in ("assets", "styles"):
-        files += glob.glob(os.path.join(ROOT, d, "**", "*"), recursive=True)
-    # AI / discovery files at root
-    for f in ("llms.txt", "robots.txt", "sitemap.xml", "llms-full.txt"):
-        p = os.path.join(ROOT, f)
-        if os.path.exists(p):
-            files.append(p)
+    if not os.path.isdir(DIST):
+        sys.exit(f"ERROR: {DIST} not found. Run `npx astro build` first.")
     out = []
-    seen = set()
-    for f in files:
-        if os.path.isdir(f):
-            continue
-        rp = os.path.relpath(f, ROOT)
-        if rp.startswith(("node_modules", "_audit", "scripts", ".git", ".vercel")):
-            continue
-        if rp in seen:
-            continue
-        seen.add(rp)
-        out.append((f, rp))
-    return out
+    for dirpath, _dirs, files in os.walk(DIST):
+        for fn in files:
+            f = os.path.join(dirpath, fn)
+            rp = os.path.relpath(f, DIST)
+            out.append((f, rp))
+    return sorted(out, key=lambda t: t[1])
 
 # ---- minimal HTML -> Markdown for the <main> content ----
 SKIP = {"script", "style", "svg", "nav", "footer", "select", "button", "form", "iframe", "noscript", "head"}

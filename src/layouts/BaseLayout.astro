@@ -1,0 +1,96 @@
+---
+import '../styles/globals.css';
+
+export interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  ogUrl?: string;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogTitle,
+  ogDescription,
+  ogImage = 'https://moonraker.ai/assets/og-image.jpg',
+  ogUrl,
+} = Astro.props;
+
+const ogTitleResolved = ogTitle ?? title;
+const ogDescriptionResolved = ogDescription ?? description;
+
+// Active nav state, computed from the route (the old static pages hard-coded it).
+const path = (Astro.url.pathname.replace(/\/+$/, '') || '/');
+const isCore = path === '/core-marketing-system' || path.startsWith('/core-marketing-system/');
+const isWork = path === '/process' || path === '/scope';
+const PREPAINT =
+  "(function(){var d=document.documentElement;d.classList.add('js');var t=localStorage.getItem('moonraker-theme');if(t==='dark')d.classList.add('dark');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('js-reveal')}catch(e){}})();";
+const THEME_JS =
+  "window.toggleTheme=function(){function apply(){var dark=document.documentElement.classList.toggle('dark');localStorage.setItem('moonraker-theme',dark?'dark':'light');var b=document.getElementById('themeBtn');if(b)b.innerHTML=dark?'&#9728;&#65039;':'&#127769;'}if(document.startViewTransition)document.startViewTransition(apply);else apply()};(function(){var b=document.getElementById('themeBtn');if(b)b.innerHTML=document.documentElement.classList.contains('dark')?'&#9728;&#65039;':'&#127769;'})();";
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title}</title>
+{description && <meta name="description" content={description}>}
+<meta property="og:title" content={ogTitleResolved}>
+{ogDescriptionResolved && <meta property="og:description" content={ogDescriptionResolved}>}
+<meta property="og:type" content="website">
+<meta property="og:image" content={ogImage}>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content={ogImage}>
+{ogUrl && <meta property="og:url" content={ogUrl}>}
+{canonical && <link rel="canonical" href={canonical}>}
+<link rel="icon" href="/assets/logo.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script is:inline set:html={PREPAINT}></script>
+<slot name="head" />
+<script is:inline src="/assets/site.js" defer></script>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand" aria-label="Moonraker home"><img src="/assets/logo.png" alt="Moonraker" width="32" height="32"></a>
+    <ul class="nav-links" id="navLinks">
+      <li class="nav-dropdown">
+        <a tabindex="0" role="button" aria-haspopup="true" class:list={[isCore && 'active']}>CORE System</a>
+        <div class="dropdown-menu">
+          <a href="/core-marketing-system" class:list={[path === '/core-marketing-system' && 'active']}>Overview</a>
+          <a href="/core-marketing-system/credibility" class:list={[path === '/core-marketing-system/credibility' && 'active']}>Credibility</a>
+          <a href="/core-marketing-system/optimization" class:list={[path === '/core-marketing-system/optimization' && 'active']}>Optimization</a>
+          <a href="/core-marketing-system/reputation" class:list={[path === '/core-marketing-system/reputation' && 'active']}>Reputation</a>
+          <a href="/core-marketing-system/engagement" class:list={[path === '/core-marketing-system/engagement' && 'active']}>Engagement</a>
+        </div>
+      </li>
+      <li class="nav-dropdown">
+        <a href="/process" class:list={[isWork && 'active']}>How We Work</a>
+        <div class="dropdown-menu">
+          <a href="/process" class:list={[path === '/process' && 'active']}>Process</a>
+          <a href="/scope" class:list={[path === '/scope' && 'active']}>Scope</a>
+        </div>
+      </li>
+      <li><a href="/results" class:list={[path === '/results' && 'active']}>Results</a></li><li><a href="/team" class:list={[path === '/team' && 'active']}>Team</a></li>
+      <li><a href="/knowledge-hub" class:list={[path === '/knowledge-hub' && 'active']}>Knowledge Hub</a></li>
+    </ul>
+    <div class="nav-right">
+      <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
+      <a href="/free-strategy-call" class="nav-cta">Free Strategy Call</a>
+      <button type="button" class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+    </div>
+  </div>
+</nav>
+<slot />
+<footer class="site-footer">
+  <div class="footer-links"><a href="/">Home</a><a href="/core-marketing-system">CORE System</a><a href="/results">Results</a><a href="/team">Our Team</a><a href="/knowledge-hub">Knowledge Hub</a><a href="/process">Process</a><a href="/scope">Scope</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+  <div class="footer-copy">&#169; 2026 Moonraker AI. All rights reserved.</div>
+</footer>
+<script is:inline set:html={THEME_JS}></script>
+</body>
+</html>

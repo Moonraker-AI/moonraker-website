@@ -1,0 +1,180 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Cancel your call - Moonraker" description="Cancel your scheduled Moonraker strategy call.">
+<div class="cancel-wrap">
+  <div class="cancel-header">
+    <h1>Cancel your call</h1>
+    <p>This will remove the call from Scott's calendar and close the reminder sequence.</p>
+  </div>
+</div>
+
+<main class="cancel-card">
+  <div class="current-box" id="currentBox" hidden>
+    <strong>Scheduled time:</strong> <span id="currentWhen"></span>
+  </div>
+  <p class="cancel-copy">If you would rather move the call, use the reschedule link in your email. If cancellation is correct, confirm below.</p>
+  <div class="field">
+    <label for="reason">Reason (optional)</label>
+    <textarea id="reason" placeholder="Optional note for Scott"></textarea>
+  </div>
+  <div class="actions">
+    <a class="btn" href="/free-strategy-call">Keep or book another time</a>
+    <button class="btn btn-primary" id="cancelBtn" type="button">Cancel this call</button>
+  </div>
+  <div class="status" id="statusBox"></div>
+</main>
+
+<script is:inline>
+(function () {
+  'use strict';
+  var API_ROOT = 'https://clients.moonraker.ai';
+  var params = new URLSearchParams(window.location.search);
+  var bookingId = params.get('b');
+  var token = params.get('t');
+  var fromIso = params.get('from');
+  var btn = document.getElementById('cancelBtn');
+  var statusBox = document.getElementById('statusBox');
+
+  function setStatus(kind, message) {
+    statusBox.className = 'status ' + kind;
+    statusBox.textContent = message;
+  }
+
+  if (fromIso) {
+    try {
+      var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+      document.getElementById('currentWhen').textContent = new Intl.DateTimeFormat('en-US', {
+        timeZone: tz, weekday: 'long', month: 'long', day: 'numeric',
+        hour: 'numeric', minute: '2-digit', hour12: true
+      }).format(new Date(fromIso));
+      document.getElementById('currentBox').hidden = false;
+    } catch (e) {}
+  }
+
+  if (!bookingId || !token) {
+    btn.disabled = true;
+    setStatus('error', 'This cancel link is missing required information. Please use the link from your confirmation email.');
+    return;
+  }
+
+  btn.addEventListener('click', function () {
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Cancelling...';
+    setStatus('', '');
+    fetch(API_ROOT + '/api/booking/cancel', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        booking_id: bookingId,
+        token: token,
+        reason: document.getElementById('reason').value.trim() || null
+      })
+    })
+      .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b, status: r.status }; }); })
+      .then(function (res) {
+        btn.disabled = false;
+        btn.textContent = 'Cancel this call';
+        if (!res.ok) {
+          setStatus('error', (res.body && res.body.error) || 'Unable to cancel this call. Please try again.');
+          return;
+        }
+        btn.disabled = true;
+        setStatus('success', res.body.status === 'already_cancelled'
+          ? 'This call was already cancelled.'
+          : 'Your call has been cancelled and the calendar event has been removed.');
+      })
+      .catch(function () {
+        btn.disabled = false;
+        btn.textContent = 'Cancel this call';
+        setStatus('error', 'Network error. Please try again.');
+      });
+  });
+})();
+</script>
+</BaseLayout>
+<style>
+.cancel-wrap {
+  position: relative; overflow: hidden;
+  background: linear-gradient(180deg, var(--color-primary-subtle) 0%, var(--color-bg) 62%);
+  border-bottom: 1px solid var(--color-hairline);
+  padding: 3rem 2rem 2rem;
+}
+.cancel-wrap::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, oklch(0.31 0.072 268 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.31 0.072 268 / 0.045) 1px, transparent 1px);
+  background-size: 62px 62px;
+  -webkit-mask-image: radial-gradient(70% 90% at 50% 0%, #000 0%, transparent 78%);
+  mask-image: radial-gradient(70% 90% at 50% 0%, #000 0%, transparent 78%);
+  pointer-events: none;
+}
+html.dark .cancel-wrap::before {
+  background-image:
+    linear-gradient(to right, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px);
+}
+.cancel-wrap > * { position: relative; z-index: 1; }
+.cancel-header { max-width: 720px; margin: 0 auto; text-align: center; }
+.cancel-header h1 {
+  font-family: 'Outfit', sans-serif; font-weight: 800;
+  font-size: 2.5rem; line-height: 1.15; color: var(--color-heading);
+  margin-bottom: 1rem;
+}
+.cancel-header p {
+  font-size: 1rem; color: var(--color-muted);
+  line-height: 1.65; margin-bottom: 1.5rem;
+}
+.cancel-card {
+  max-width: 640px; margin: 2rem auto 4rem; padding: 2rem;
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: var(--r-md); box-shadow: var(--shadow-card);
+}
+.current-box {
+  background: var(--color-primary-subtle); border: 1px solid oklch(0.74 0.165 162 / .25);
+  border-radius: var(--r-sm); padding: 1rem 1.25rem; margin-bottom: 1.25rem;
+}
+.current-box strong { color: var(--color-heading); }
+.cancel-copy { color: var(--color-body); line-height: 1.65; margin: 0 0 1rem; }
+.field { margin: 1.25rem 0; }
+.field label {
+  display: block; font-size: .78rem; font-weight: 600;
+  color: var(--color-heading); margin-bottom: .35rem;
+}
+.field textarea {
+  width: 100%; min-height: 88px; resize: vertical;
+  padding: .65rem .85rem; border: 1px solid var(--color-border);
+  border-radius: 8px; font-family: inherit; font-size: .9rem;
+  background: var(--color-bg); color: var(--color-body);
+}
+.actions { display: flex; gap: .75rem; justify-content: flex-end; flex-wrap: wrap; }
+.btn {
+  font-family: inherit; font-size: .92rem; padding: .7rem 1.25rem;
+  border-radius: 8px; cursor: pointer; transition: all .15s;
+  border: 1px solid var(--color-border); background: var(--color-bg);
+  color: var(--color-body); text-decoration: none;
+}
+.btn-primary { background: var(--color-danger); color: #fff; border-color: var(--color-danger); }
+.btn-primary:disabled { opacity: .6; cursor: not-allowed; }
+.status {
+  display: none; margin-top: 1rem; padding: .9rem 1rem; border-radius: 8px;
+  font-size: .9rem; line-height: 1.5;
+}
+.status.error { display: block; background: rgba(239,68,68,.08); color: #b91c1c; border: 1px solid rgba(239,68,68,.2); }
+.status.success { display: block; background: var(--color-primary-subtle); color: var(--color-heading); border: 1px solid oklch(0.74 0.165 162 / .25); }
+.spinner {
+  display: inline-block; width: 14px; height: 14px;
+  border: 2px solid rgba(255,255,255,.3); border-top-color: #fff;
+  border-radius: 50%; animation: spin .7s linear infinite;
+  vertical-align: -2px; margin-right: .35rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (max-width: 640px) {
+  .cancel-wrap { padding: 2rem 1rem; }
+  .cancel-header h1 { font-size: 1.85rem; }
+  .cancel-card { margin: 1rem; padding: 1.25rem; }
+  .actions { flex-direction: column-reverse; }
+  .actions .btn { width: 100%; text-align: center; }
+}
+</style>

@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Moonraker Process | Check, Build, Grow"
+  description="How Moonraker works: a clear first check, a 90-day foundation build, then ongoing visibility work for qualified therapy practices."
+  canonical="https://moonraker.ai/process"
+  ogTitle="Moonraker Process"
+  ogDescription="A clear first check, a 90-day foundation build, then ongoing visibility work."
+  ogUrl="https://moonraker.ai/process"
+>
+<main>
+  <section class="process-hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-kicker">How engagement works</div>
+        <h1>A clear path forward to <span style="color: var(--color-primary)">boost your visibility.</span></h1>
+        <p>Moonraker starts by checking the basics: your website, Google presence, local listings, service pages, and contact path. Then we build the 90-day foundation before moving into ongoing work.</p>
+      </div>
+      <aside class="phase-stack" aria-label="Moonraker phases">
+        <h2 class="sr-only">Our phases</h2>
+        <div class="phase-preview"><div class="phase-num">0</div><div><h3>Free strategy call</h3><p>A clear review of what is working, what is missing, and whether we can help.</p></div></div>
+        <div class="phase-preview"><div class="phase-num">1</div><div><h3>90-day foundation</h3><p>We clean up the website, Google presence, listings, pages, and tracking basics.</p></div></div>
+        <div class="phase-preview"><div class="phase-num">2</div><div><h3>Ongoing CORE support</h3><p>We keep improving the site, proof, reporting, video, and visibility.</p></div></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section-wrap">
+    <div class="section-head">
+      <div><div class="section-label">Timeline</div><h2>The first 90 days are focused on the basics.</h2></div>
+      <p>Before we ask you to commit to ongoing work, we want the core pieces in place. That makes the next phase more useful and easier to measure.</p>
+    </div>
+    <div class="timeline">
+      <article class="timeline-item"><div class="timeline-time">Phase 0</div><div><h3>Free strategy call</h3><p>We look at your website, Google profile, local listings, service pages, trust points, and booking path. You get a clear read on where things stand.</p></div></article>
+      <article class="timeline-item"><div class="timeline-time">Days 1-30</div><div><h3>Audit and cleanup plan</h3><p>We find the biggest issues, set priorities, confirm access, and map the work needed to make your practice easier to find and understand.</p></div></article>
+      <article class="timeline-item"><div class="timeline-time">Days 31-60</div><div><h3>Website and listing foundation</h3><p>We improve important pages, service content, Google Business Profile, local listings, FAQs, and the proof visitors need before they contact you.</p></div></article>
+      <article class="timeline-item"><div class="timeline-time">Days 61-90</div><div><h3>Proof and reporting baseline</h3><p>We organize the larger proof system, improve YouTube after access is granted, and set the first reporting baseline.</p></div></article>
+      <article class="timeline-item"><div class="timeline-time">Ongoing</div><div><h3>Ongoing CORE support</h3><p>We continue improving the website, publishing proof assets, reporting progress, and recommending next steps.</p></div></article>
+    </div>
+  </section>
+
+  <section class="access-band">
+    <div class="section-wrap">
+      <div class="section-label">Working model</div>
+      <h2>You own the accounts. We do the work inside them.</h2>
+      <div class="access-grid">
+        <article class="access-card"><h3>Client owns</h3><ul><li>Domain and website access</li><li>Google Business Profile</li><li>YouTube channel</li><li>Quora account or Space</li><li>Practice credentials and approvals</li></ul></article>
+        <article class="access-card"><h3>Moonraker builds</h3><ul><li>Website cleanup and search basics</li><li>Clear service and location pages</li><li>Local listings and consistency</li><li>Practice proof hub</li><li>Reports and recommendations</li></ul></article>
+        <article class="access-card"><h3>Outside core scope</h3><ul><li>Social media posting</li><li>Google Business Profile posts and review replies</li><li>YouTube channel creation</li><li>HIPAA, legal, or compliance consulting</li></ul></article>
+      </div>
+      <div class="guarantee">
+        <h3>Performance Guarantee</h3>
+        <p>The Performance Guarantee is only for annual plans and must be explained in the proposal or agreement. It is not a promise that every keyword will rank, and we do not present it that way.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="cta-inner">
+      <div><h2>Start with a free strategy call.</h2><p>We will look at the current foundation and show whether the 90-day foundation is the right next step.</p></div>
+      <a class="btn btn-primary" href="/free-strategy-call">Book a Free Strategy Call</a>
+    </div>
+  </section>
+</main>
+</BaseLayout>
+
+<style>
+.process-hero { position: relative; overflow: hidden; background: linear-gradient(158deg, var(--color-navy) 0%, var(--color-navy-deep) 100%); color: var(--color-on-navy-dim); padding: clamp(3.5rem, 7vw, 5rem) 2rem clamp(2.75rem, 5vw, 3.5rem); }
+.process-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px);
+  background-size: 62px 62px;
+  -webkit-mask-image: radial-gradient(80% 120% at 50% 0%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(80% 120% at 50% 0%, #000 0%, transparent 72%);
+  pointer-events: none;
+}
+.process-hero .hero-inner { position: relative; z-index: 1; }
+.hero-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr .95fr; gap: clamp(2rem, 6vw, 4rem); align-items: center; }
+.hero-kicker { color: var(--color-primary); font-weight: 800; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .8rem; }
+.process-hero h1 { color: var(--color-on-navy); font-size: clamp(2.5rem, 5vw, 4.7rem); line-height: 1.03; letter-spacing: -.02em; margin-bottom: 1.1rem; }
+.process-hero p { color: var(--color-on-navy-dim); font-size: 1.08rem; line-height: 1.75; }
+.phase-stack { border: 1px solid var(--color-hairline); border-radius: var(--r-lg); overflow: hidden; background: var(--color-surface); box-shadow: var(--shadow-card); }
+.phase-preview { display: grid; grid-template-columns: 64px 1fr; gap: 1rem; padding: 1.1rem; border-bottom: 1px solid var(--color-border); }
+.phase-preview:last-child { border-bottom: 0; }
+.phase-num { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; background: var(--color-navy); color: var(--color-primary); font-family: 'Outfit', sans-serif; font-size: 1.35rem; font-weight: 800; }
+.phase-preview h3 { margin-bottom: .25rem; }
+.phase-preview p { font-size: .84rem; line-height: 1.55; color: var(--color-muted); }
+.section-wrap { max-width: 1120px; margin: 0 auto; padding: clamp(4rem, 7vw, 6rem) 2rem; }
+.section-label { color: var(--color-primary); font-weight: 800; font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .7rem; }
+.section-head { display: grid; grid-template-columns: .9fr 1.1fr; gap: 2rem; margin-bottom: 2rem; align-items: end; }
+.section-head h2 { font-size: clamp(2rem, 3.6vw, 3rem); }
+.section-head p { color: var(--color-muted); line-height: 1.75; }
+.timeline { display: grid; gap: 1rem; }
+.timeline-item { display: grid; grid-template-columns: 160px 1fr; gap: 1rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 16px; padding: 1.25rem; }
+.timeline-time { font-family: 'Outfit', sans-serif; font-weight: 800; color: var(--color-primary); }
+.timeline-item h3 { margin-bottom: .45rem; }
+.timeline-item p { color: var(--color-muted); line-height: 1.65; font-size: .92rem; }
+.access-band { background: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+.access-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+.access-card { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 16px; padding: 1.35rem; }
+.access-card h3 { margin-bottom: .55rem; }
+.access-card ul { list-style: none; display: grid; gap: .5rem; }
+.access-card li { color: var(--color-body); font-size: .9rem; line-height: 1.5; padding-left: 1.1rem; position: relative; }
+.access-card li::before { content: ''; position: absolute; left: 0; top: .65em; width: 6px; height: 6px; border-radius: 50%; background: var(--color-primary); }
+.guarantee { background: linear-gradient(158deg, var(--color-navy) 0%, var(--color-navy-deep) 100%); border-radius: var(--r-lg); padding: 2rem; color: var(--color-on-navy-dim); margin-top: 2rem; }
+.guarantee h3 { color: var(--color-on-navy); margin-bottom: .6rem; }
+.guarantee p { color: var(--color-on-navy-dim); line-height: 1.7; }
+.cta-band { position: relative; overflow: hidden; background: linear-gradient(158deg, var(--color-navy) 0%, var(--color-navy-deep) 100%); color: var(--color-on-navy-dim); }
+.cta-band::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px);
+  background-size: 58px 58px;
+  -webkit-mask-image: radial-gradient(80% 120% at 50% 0%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(80% 120% at 50% 0%, #000 0%, transparent 72%);
+  pointer-events: none;
+}
+.cta-inner { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; padding: clamp(3rem, 6vw, 4rem) 2rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
+.cta-inner h2 { color: var(--color-on-navy); margin-bottom: .6rem; }
+.cta-inner p { color: var(--color-on-navy-dim); }
+@media (max-width: 860px) {
+  .hero-inner, .section-head, .access-grid, .cta-inner { grid-template-columns: 1fr; }
+  .timeline-item { grid-template-columns: 1fr; }
+}
+</style>
