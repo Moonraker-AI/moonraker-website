@@ -129,7 +129,15 @@ elif PREFIX:
         existing = None
         print(f"skip prune: list failed: {e}")
     if existing is not None:
-        orphans = [k for k in existing if k not in live]
+        # Never prune content-hashed immutable assets (_astro/index.<hash>.css|js).
+        # Their filename changes with content, so a NEW deploy's HTML never references
+        # an old one: only HTML still cached at the edge does. Deleting one while that
+        # cached HTML is live 404s the stylesheet (unstyled page) until the edge TTL
+        # expires. Leaving the orphan (tiny, immutable) closes that window. Renamed or
+        # removed HTML/md pages are still pruned normally.
+        def _immutable(k):
+            return "/_astro/" in k or k.startswith("_astro/")
+        orphans = [k for k in existing if k not in live and not _immutable(k)]
         if orphans and len(orphans) > max(20, len(existing) // 2):
             print(f"skip prune: {len(orphans)} orphans exceeds safety threshold "
                   f"(half of {len(existing)} live objects); delete manually if intended")
