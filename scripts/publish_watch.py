@@ -77,10 +77,13 @@ def write_marker(value):
 def main():
     env = load_env(AGENT_ENV)
     supabase_url = os.environ.get("SUPABASE_URL") or env.get("SUPABASE_URL")
+    # Prefer the anon key (the poll only reads non-sensitive content_pieces
+    # columns); service-role is a last resort and never reaches the build.
     key = (
-        os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
-        or env.get("SUPABASE_SERVICE_ROLE_KEY")
+        os.environ.get("SUPABASE_ANON_KEY")
         or env.get("SUPABASE_ANON_KEY")
+        or os.environ.get("SUPABASE_SERVICE_ROLE_KEY")
+        or env.get("SUPABASE_SERVICE_ROLE_KEY")
     )
     if not supabase_url or not key:
         sys.exit("ERROR: SUPABASE_URL / key missing from env and agent .env")

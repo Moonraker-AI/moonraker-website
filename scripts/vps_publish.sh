@@ -14,10 +14,12 @@
 #
 # Env mapping:
 #   - The Astro build (src/lib/content.js) reads SUPABASE_URL + SUPABASE_ANON_KEY
-#     at BUILD time to fetch published content_pieces. The host .env carries the
-#     service-role key, not an anon key; we map it in. That key only ever reads
-#     published rows here and the output is public HTML, so this is safe. It never
-#     ships to the static output (getStaticPaths runs at build only).
+#     at BUILD time to fetch published content_pieces. We require the ANON key on
+#     purpose: it can read content_pieces (anon SELECT) but is denied
+#     content_source_raw (no anon policy = the redaction firewall). We never fall
+#     back to the service-role key, so the build can never read un-redacted source
+#     even if build code is later changed. Provision SUPABASE_ANON_KEY in the
+#     host .env (it is the public, RLS-gated key).
 #   - upload_r2.py wants CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID.
 #
 # After upload: the worker edge-caches HTML at s-maxage=300, so a publish appears
@@ -44,10 +46,12 @@ git -C "$REPO" reset --quiet --hard origin/main
 # Pull the host secrets into this shell.
 set -a; . "$AGENT_ENV"; set +a
 export SUPABASE_URL
-export SUPABASE_ANON_KEY="${SUPABASE_ANON_KEY:-${SUPABASE_SERVICE_ROLE_KEY:-}}"
+# Anon key only. No service-role fallback: the build must never hold a key that
+# can read content_source_raw (the redaction firewall). Fail closed if absent.
+export SUPABASE_ANON_KEY="${SUPABASE_ANON_KEY:-}"
 export CLOUDFLARE_API_TOKEN="${CLOUDFLARE_API_TOKEN:-${CF_API_TOKEN:-}}"
 export CLOUDFLARE_ACCOUNT_ID="${CLOUDFLARE_ACCOUNT_ID:-${CF_ACCOUNT_ID:-}}"
-[ -n "${SUPABASE_URL:-}" ] && [ -n "${SUPABASE_ANON_KEY:-}" ] || { echo "ERROR: SUPABASE_URL / key missing" >&2; exit 1; }
+[ -n "${SUPABASE_URL:-}" ] && [ -n "${SUPABASE_ANON_KEY:-}" ] || { echo "ERROR: SUPABASE_URL / SUPABASE_ANON_KEY missing (provision the anon key in the host .env; service-role is intentionally not accepted)" >&2; exit 1; }
 [ -n "${CLOUDFLARE_API_TOKEN:-}" ] && [ -n "${CLOUDFLARE_ACCOUNT_ID:-}" ] || { echo "ERROR: CF token / account missing" >&2; exit 1; }
 
 cd "$REPO"
