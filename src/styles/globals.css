@@ -516,10 +516,10 @@ html.dark .testimonial-logo { filter: brightness(1.3); }
   .trust-bar img { height: 44px; }
   .pillar-grid { grid-template-columns: 1fr 1fr; }
 }
-/* Nav collapses to the hamburger below 960px so the horizontal links never
-   cram on landscape phones / small tablets (769-960px). Kept separate from the
+/* Nav collapses to the hamburger below 1024px so the horizontal links never
+   cram on landscape phones / small tablets (769-1024px). Kept separate from the
    768px block above, which carries layout rules that stay at 768. */
-@media (max-width: 960px) {
+@media (max-width: 1024px) {
   .nav-links { display: none; }
   .nav-toggle { display: block; }
   .nav-links.open {
