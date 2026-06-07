@@ -776,8 +776,10 @@ html.js .core-panel.active { display: block; animation: corefade .45s var(--ease
   .core-rail-item .lbl small { display: none; }
   .core-rail-item .lbl { font-size: .85rem; }
 }
-@media (max-width: 760px) {
-  .container { width: min(100% - 2rem, 1120px); }
+/* Nav collapses to the hamburger below 960px so the horizontal links never
+   cram on landscape phones / small tablets (761-960px). Kept separate from the
+   760px block, which carries hero/container mobile rules that stay at 760. */
+@media (max-width: 960px) {
   .nav-links { display: none; position: absolute; top: 68px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: .2rem; padding: 1rem; background: var(--color-navy); border-bottom: 1px solid rgba(232, 245, 239, .1); }
   .nav-links.open { display: flex; }
   .nav-links a { padding: .85rem .25rem; }
@@ -789,6 +791,9 @@ html.js .core-panel.active { display: block; animation: corefade .45s var(--ease
   .dropdown-menu a:hover { background: rgba(232, 245, 239, .07); color: var(--color-primary); }
   .nav-cta { display: none; }
   .nav-toggle { display: inline-flex; }
+}
+@media (max-width: 760px) {
+  .container { width: min(100% - 2rem, 1120px); }
   .hero-wrap { min-height: auto; padding: 0.5rem 1rem 2.75rem; justify-content: flex-start; }
   .hero h1 { font-size: 3.1rem; }
   .hero p { font-size: 1.0625rem; }
