@@ -78,6 +78,7 @@ const THEME_JS =
       </li>
       <li><a href="/results" class:list={[path === '/results' && 'active']}>Results</a></li><li><a href="/team" class:list={[path === '/team' && 'active']}>Team</a></li>
       <li><a href="/knowledge-hub" class:list={[path === '/knowledge-hub' && 'active']}>Knowledge Hub</a></li>
+      <li><a href="/blog" class:list={[(path === '/blog' || path.startsWith('/blog/')) && 'active']}>Blog</a></li>
     </ul>
     <div class="nav-right">
       <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
@@ -88,7 +89,7 @@ const THEME_JS =
 </nav>
 <slot />
 <footer class="site-footer">
-  <div class="footer-links"><a href="/">Home</a><a href="/core-marketing-system">CORE System</a><a href="/results">Results</a><a href="/team">Our Team</a><a href="/knowledge-hub">Knowledge Hub</a><a href="/process">Process</a><a href="/scope">Scope</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+  <div class="footer-links"><a href="/">Home</a><a href="/core-marketing-system">CORE System</a><a href="/results">Results</a><a href="/team">Our Team</a><a href="/knowledge-hub">Knowledge Hub</a><a href="/blog">Blog</a><a href="/process">Process</a><a href="/scope">Scope</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
   <div class="footer-copy">&#169; 2026 Moonraker AI. All rights reserved.</div>
 </footer>
 <script is:inline set:html={THEME_JS}></script>

@@ -1,0 +1,162 @@
+---
+import { marked } from 'marked';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedPieces, getPieceBySlug, TYPE_LABELS, formatDate } from '../../lib/content.js';
+
+export async function getStaticPaths() {
+  const pieces = await getPublishedPieces();
+  return pieces.map((p) => ({ params: { slug: p.slug } }));
+}
+
+const { slug } = Astro.params;
+const piece = await getPieceBySlug(slug);
+if (!piece) return Astro.redirect('/blog');
+
+const seo = piece.seo || {};
+const canonical = `https://moonraker.ai/blog/${piece.slug}`;
+const description = seo.meta_description || piece.excerpt || '';
+const ogImage = seo.og_image || undefined;
+
+const bodyHtml = piece.body_md ? marked.parse(piece.body_md) : '';
+const metrics = piece.metrics && typeof piece.metrics === 'object' ? Object.entries(piece.metrics) : [];
+
+// Structured data: Article + Breadcrumb (+ FAQPage when the piece carries FAQs).
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: piece.title,
+  description,
+  datePublished: piece.published_at,
+  author: { '@type': 'Organization', name: 'Moonraker AI' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Moonraker AI',
+    logo: { '@type': 'ImageObject', url: 'https://moonraker.ai/assets/logo.png' },
+  },
+  mainEntityOfPage: canonical,
+  ...(ogImage ? { image: ogImage } : {}),
+};
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Blog', item: 'https://moonraker.ai/blog' },
+    { '@type': 'ListItem', position: 2, name: piece.title, item: canonical },
+  ],
+};
+const faqs = Array.isArray(seo.faq) ? seo.faq.filter((f) => f && f.q && f.a) : [];
+const faqLd = faqs.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    }
+  : null;
+---
+<BaseLayout
+  title={`${piece.title} | Moonraker`}
+  description={description}
+  canonical={canonical}
+  ogUrl={canonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(articleLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
+    {faqLd && <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />}
+  </Fragment>
+
+  <article class="post">
+    <header class="post-head">
+      <nav class="post-crumbs"><a href="/blog">Blog</a> <span>/</span> {TYPE_LABELS[piece.type] || piece.type}</nav>
+      <h1>{piece.title}</h1>
+      {piece.published_at && <p class="post-date"><time datetime={piece.published_at}>{formatDate(piece.published_at)}</time></p>}
+      {piece.excerpt && <p class="post-lede">{piece.excerpt}</p>}
+    </header>
+
+    {metrics.length > 0 && (
+      <ul class="post-metrics">
+        {metrics.map(([k, v]) => (
+          <li><strong>{String(v)}</strong><span>{k.replace(/_/g, ' ')}</span></li>
+        ))}
+      </ul>
+    )}
+
+    <div class="post-body" set:html={bodyHtml}></div>
+
+    {faqs.length > 0 && (
+      <section class="post-faq">
+        <h2>Frequently asked questions</h2>
+        {faqs.map((f) => (
+          <details class="post-faq-item">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </section>
+    )}
+
+    <footer class="post-cta">
+      <h2>Want this for your practice?</h2>
+      <p>See whether Moonraker can close the gaps in your search and AI visibility.</p>
+      <a href="/free-strategy-call" class="post-cta-btn">Book a free strategy call</a>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .post { max-width: 720px; margin: 0 auto; padding: 4rem 1.5rem 5rem; }
+  .post-head { margin-bottom: 2.5rem; }
+  .post-crumbs { font-size: 0.85rem; color: var(--color-muted); margin-bottom: 1rem; }
+  .post-crumbs a { color: var(--color-primary); text-decoration: none; }
+  .post-crumbs span { margin: 0 0.4rem; }
+  .post-head h1 { font-size: clamp(1.9rem, 4.5vw, 2.75rem); line-height: 1.12; margin: 0 0 0.75rem; }
+  .post-date { color: var(--color-muted); font-size: 0.9rem; margin: 0 0 1rem; }
+  .post-lede { font-size: 1.2rem; line-height: 1.5; color: var(--color-muted); margin: 0; }
+
+  .post-metrics {
+    list-style: none; display: flex; flex-wrap: wrap; gap: 1.5rem;
+    padding: 1.25rem 1.5rem; margin: 0 0 2.5rem;
+    border: 1px solid var(--color-border); border-radius: 14px; background: var(--color-surface);
+  }
+  .post-metrics li { display: flex; flex-direction: column; }
+  .post-metrics strong { font-size: 1.6rem; color: var(--color-primary); line-height: 1; }
+  .post-metrics span { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-muted); margin-top: 0.35rem; }
+
+  .post-body { font-size: 1.075rem; line-height: 1.75; }
+  .post-body :global(h2) { font-size: 1.6rem; margin: 2.5rem 0 1rem; line-height: 1.2; }
+  .post-body :global(h3) { font-size: 1.25rem; margin: 2rem 0 0.75rem; }
+  .post-body :global(p) { margin: 0 0 1.25rem; }
+  .post-body :global(ul), .post-body :global(ol) { margin: 0 0 1.25rem; padding-left: 1.4rem; }
+  .post-body :global(li) { margin: 0 0 0.5rem; }
+  .post-body :global(a) { color: var(--color-primary); }
+  .post-body :global(blockquote) {
+    margin: 1.5rem 0; padding: 0.5rem 1.25rem; border-left: 3px solid var(--color-primary);
+    color: var(--color-muted); font-style: italic;
+  }
+  .post-body :global(img) { max-width: 100%; height: auto; border-radius: 12px; }
+  .post-body :global(code) {
+    background: var(--color-surface); padding: 0.15em 0.4em; border-radius: 6px; font-size: 0.9em;
+  }
+
+  .post-faq { margin: 3.5rem 0 0; }
+  .post-faq h2 { font-size: 1.5rem; margin: 0 0 1.25rem; }
+  .post-faq-item { border-bottom: 1px solid var(--color-border); padding: 1rem 0; }
+  .post-faq-item summary { cursor: pointer; font-weight: 600; font-size: 1.05rem; }
+  .post-faq-item p { margin: 0.75rem 0 0; color: var(--color-muted); }
+
+  .post-cta {
+    margin: 4rem 0 0; padding: 2.5rem; text-align: center;
+    border: 1px solid var(--color-border); border-radius: 18px; background: var(--color-surface);
+  }
+  .post-cta h2 { font-size: 1.6rem; margin: 0 0 0.5rem; }
+  .post-cta p { color: var(--color-muted); margin: 0 0 1.5rem; }
+  .post-cta-btn {
+    display: inline-block; background: var(--color-primary); color: #fff;
+    padding: 0.85rem 1.75rem; border-radius: 10px; font-weight: 600; text-decoration: none;
+  }
+</style>
