@@ -21,6 +21,9 @@ const keywords = Array.isArray(seo.keywords) ? seo.keywords.filter(Boolean) : []
 // Render the markdown, then make external links open safely in a new tab. Links
 // to moonraker.ai stay as internal same-tab links (no rel change).
 let bodyHtml = piece.body_md ? marked.parse(piece.body_md) : '';
+// Drop a leading H1: the page already renders the title in .post-head, and AI
+// drafts routinely repeat it as the first line of the body. Keeps a single H1.
+bodyHtml = bodyHtml.replace(/^\s*<h1[^>]*>[\s\S]*?<\/h1>\s*/i, '');
 bodyHtml = bodyHtml.replace(/<a href="(https?:\/\/[^"]+)"/g, (m, href) =>
   /^https?:\/\/(www\.)?moonraker\.ai(\/|$)/i.test(href) ? m : `<a href="${href}" target="_blank" rel="noopener"`
 );
@@ -128,12 +131,19 @@ const faqLd = faqs.length
     {faqs.length > 0 && (
       <section class="post-faq">
         <h2>Frequently asked questions</h2>
-        {faqs.map((f) => (
-          <details class="post-faq-item">
-            <summary>{f.q}</summary>
-            <p>{f.a}</p>
-          </details>
-        ))}
+        <div class="faq-accordion" data-faq-accordion>
+          {faqs.map((f, i) => (
+            <div class="faq-item">
+              <button class="faq-trigger" type="button" aria-expanded="false" aria-controls={`faq-a-${i}`} data-faq-trigger>
+                <span class="faq-q">{f.q}</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </button>
+              <div id={`faq-a-${i}`} class="faq-answer-wrap">
+                <div class="faq-answer"><p>{f.a}</p></div>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
     )}
 
@@ -160,7 +170,11 @@ const faqLd = faqs.length
 </BaseLayout>
 
 <style>
-  .post { max-width: 720px; margin: 0 auto; padding: 4rem 1.5rem 5rem; }
+  /* Match the site container width so the article aligns with the nav. The
+     running prose stays at a readable measure and left-aligns to the title;
+     the metrics / FAQ / related / CTA blocks span the full width. */
+  .post { width: min(1120px, calc(100% - 3rem)); margin: 0 auto; padding: 4rem 0 5rem; }
+  .post-head, .post-body { max-width: 760px; }
   .post-head { margin-bottom: 2.5rem; }
   .post-crumbs { font-size: 0.85rem; color: var(--color-muted); margin-bottom: 1rem; }
   .post-crumbs a { color: var(--color-primary); text-decoration: none; }
@@ -212,9 +226,31 @@ const faqLd = faqs.length
 
   .post-faq { margin: 3.5rem 0 0; }
   .post-faq h2 { font-size: 1.5rem; margin: 0 0 1.25rem; }
-  .post-faq-item { border-bottom: 1px solid var(--color-border); padding: 1rem 0; }
-  .post-faq-item summary { cursor: pointer; font-weight: 600; font-size: 1.05rem; }
-  .post-faq-item p { margin: 0.75rem 0 0; color: var(--color-muted); }
+  /* Accordion: single-open, smooth grid-row reveal, padded rows (mirrors the
+     named-template FaqBlock accordion variant). Behaviour script below. */
+  .faq-accordion { display: grid; }
+  .faq-item { border-bottom: 1px solid var(--color-border); }
+  .faq-item:first-child { border-top: 1px solid var(--color-border); }
+  .faq-trigger {
+    width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem;
+    padding: 1.25rem 0.25rem; background: transparent; border: 0; text-align: left; cursor: pointer;
+    color: var(--color-heading, inherit); font: inherit; transition: color 200ms ease;
+  }
+  .faq-trigger:hover { color: var(--color-primary); }
+  .faq-trigger:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; border-radius: 6px; }
+  .faq-q { font-size: 1.075rem; font-weight: 700; line-height: 1.35; }
+  .faq-icon {
+    flex-shrink: 0; font-size: 1.6rem; line-height: 1; color: var(--color-primary);
+    transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1); transform-origin: center;
+  }
+  .faq-trigger[aria-expanded="true"] .faq-icon { transform: rotate(45deg); }
+  .faq-answer-wrap {
+    display: grid; grid-template-rows: 0fr;
+    transition: grid-template-rows 360ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .faq-trigger[aria-expanded="true"] + .faq-answer-wrap { grid-template-rows: 1fr; }
+  .faq-answer { min-height: 0; overflow: hidden; }
+  .faq-answer p { margin: 0; padding: 0 0.25rem 1.4rem; color: var(--color-muted); line-height: 1.7; max-width: 760px; }
 
   .post-cta {
     margin: 4rem 0 0; padding: 2.5rem; text-align: center;
@@ -227,3 +263,40 @@ const faqLd = faqs.length
     padding: 0.85rem 1.75rem; border-radius: 10px; font-weight: 600; text-decoration: none;
   }
 </style>
+
+<script is:inline>
+  // FAQ accordion: single-open, and on open scroll the question to just below
+  // the sticky nav (waiting for the grid-row reveal to settle). Mirrors the
+  // named-template FaqAccordionScript so the behaviour matches the client sites.
+  (() => {
+    function initFaq() {
+      document.querySelectorAll('[data-faq-accordion]').forEach((group) => {
+        if (group.dataset.faqReady === 'true') return;
+        group.dataset.faqReady = 'true';
+        const triggers = Array.from(group.querySelectorAll('[data-faq-trigger]'));
+        triggers.forEach((trigger) => {
+          trigger.addEventListener('click', () => {
+            const expanded = trigger.getAttribute('aria-expanded') === 'true';
+            triggers.forEach((other) => { if (other !== trigger) other.setAttribute('aria-expanded', 'false'); });
+            const willOpen = !expanded;
+            trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+            if (willOpen) {
+              setTimeout(() => {
+                const nav = document.querySelector('.site-nav');
+                const navH = nav ? nav.getBoundingClientRect().height : 0;
+                const rect = trigger.getBoundingClientRect();
+                const minY = navH + 16;
+                const maxY = window.innerHeight - 120;
+                if (rect.top < minY || rect.top > maxY) {
+                  window.scrollTo({ top: Math.max(window.scrollY + rect.top - minY, 0), behavior: 'smooth' });
+                }
+              }, 380);
+            }
+          });
+        });
+      });
+    }
+    initFaq();
+    document.addEventListener('DOMContentLoaded', initFaq);
+  })();
+</script>
