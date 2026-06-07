@@ -51,7 +51,10 @@ function cacheControlFor(key, env) {
   const assetTtl = parseInt(env.DEFAULT_ASSET_TTL || "31536000", 10);
   if (ext === "html" || ext === "md" || ext === "xml" || ext === "txt" ||
       key.endsWith("robots.txt") || key.endsWith("sitemap.xml") || key.endsWith("llms.txt")) {
-    return `public, max-age=${htmlTtl}, s-maxage=86400, stale-while-revalidate=604800`;
+    // s-maxage matches htmlTtl (300s) so a publish self-flips at the edge within
+    // ~5 min. A previous 86400 (24h) s-maxage meant every content update sat
+    // behind a day-long edge cache unless someone manually purged.
+    return `public, max-age=${htmlTtl}, s-maxage=${htmlTtl}, stale-while-revalidate=86400`;
   }
   return `public, max-age=${assetTtl}, immutable`;
 }
