@@ -16,25 +16,59 @@ const seo = piece.seo || {};
 const canonical = `https://moonraker.ai/blog/${piece.slug}`;
 const description = seo.meta_description || piece.excerpt || '';
 const ogImage = seo.og_image || undefined;
+const keywords = Array.isArray(seo.keywords) ? seo.keywords.filter(Boolean) : [];
 
-const bodyHtml = piece.body_md ? marked.parse(piece.body_md) : '';
+// Render the markdown, then make external links open safely in a new tab. Links
+// to moonraker.ai stay as internal same-tab links (no rel change).
+let bodyHtml = piece.body_md ? marked.parse(piece.body_md) : '';
+bodyHtml = bodyHtml.replace(/<a href="(https?:\/\/[^"]+)"/g, (m, href) =>
+  /^https?:\/\/(www\.)?moonraker\.ai(\/|$)/i.test(href) ? m : `<a href="${href}" target="_blank" rel="noopener"`
+);
+const wordCount = piece.body_md
+  ? piece.body_md.replace(/[#*_`>\[\]()!-]/g, ' ').split(/\s+/).filter(Boolean).length
+  : undefined;
 const metrics = piece.metrics && typeof piece.metrics === 'object' ? Object.entries(piece.metrics) : [];
 
-// Structured data: Article + Breadcrumb (+ FAQPage when the piece carries FAQs).
+// Author: named persona for a human E-E-A-T signal. sameAs points at the public
+// profiles linked from the team bio page.
+const AUTHOR = {
+  '@type': 'Person',
+  name: 'Chris Morin',
+  jobTitle: 'Founder',
+  url: 'https://moonraker.ai/team',
+  image: 'https://moonraker.ai/assets/team/chris-morin.png',
+  sameAs: ['https://www.linkedin.com/in/cjmorin/'],
+  worksFor: { '@type': 'Organization', name: 'Moonraker AI', url: 'https://moonraker.ai' },
+};
+
+// Related posts: other published pieces, same type first, newest first, max 3.
+const allPieces = await getPublishedPieces();
+const others = allPieces.filter((p) => p.slug !== piece.slug);
+const related = others
+  .filter((p) => p.type === piece.type)
+  .concat(others.filter((p) => p.type !== piece.type))
+  .slice(0, 3);
+
+// Structured data: BlogPosting + Breadcrumb (+ FAQPage when the piece carries FAQs).
 const articleLd = {
   '@context': 'https://schema.org',
-  '@type': 'Article',
+  '@type': 'BlogPosting',
   headline: piece.title,
   description,
   datePublished: piece.published_at,
-  author: { '@type': 'Organization', name: 'Moonraker AI' },
+  ...(piece.updated_at ? { dateModified: piece.updated_at } : {}),
+  author: AUTHOR,
   publisher: {
     '@type': 'Organization',
     name: 'Moonraker AI',
     logo: { '@type': 'ImageObject', url: 'https://moonraker.ai/assets/logo.png' },
   },
   mainEntityOfPage: canonical,
-  ...(ogImage ? { image: ogImage } : {}),
+  inLanguage: 'en-US',
+  ...(keywords.length ? { keywords: keywords.join(', ') } : {}),
+  ...(wordCount ? { wordCount } : {}),
+  ...(piece.type ? { articleSection: TYPE_LABELS[piece.type] || piece.type } : {}),
+  image: ogImage || 'https://moonraker.ai/assets/logo.png',
 };
 const breadcrumbLd = {
   '@context': 'https://schema.org',
@@ -74,7 +108,10 @@ const faqLd = faqs.length
     <header class="post-head">
       <nav class="post-crumbs"><a href="/blog">Blog</a> <span>/</span> {TYPE_LABELS[piece.type] || piece.type}</nav>
       <h1>{piece.title}</h1>
-      {piece.published_at && <p class="post-date"><time datetime={piece.published_at}>{formatDate(piece.published_at)}</time></p>}
+      <p class="post-byline">
+        By <a href="/team">Chris Morin</a>, Founder
+        {piece.published_at && <> <span aria-hidden="true">&middot;</span> <time datetime={piece.published_at}>{formatDate(piece.published_at)}</time></>}
+      </p>
       {piece.excerpt && <p class="post-lede">{piece.excerpt}</p>}
     </header>
 
@@ -100,6 +137,20 @@ const faqLd = faqs.length
       </section>
     )}
 
+    {related.length > 0 && (
+      <section class="post-related">
+        <h2>Related reading</h2>
+        <ul>
+          {related.map((p) => (
+            <li>
+              <a href={`/blog/${p.slug}`}>{p.title}</a>
+              <span class="post-related-type">{TYPE_LABELS[p.type] || p.type}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
     <footer class="post-cta">
       <h2>Want this for your practice?</h2>
       <p>See whether Moonraker can close the gaps in your search and AI visibility.</p>
@@ -115,8 +166,24 @@ const faqLd = faqs.length
   .post-crumbs a { color: var(--color-primary); text-decoration: none; }
   .post-crumbs span { margin: 0 0.4rem; }
   .post-head h1 { font-size: clamp(1.9rem, 4.5vw, 2.75rem); line-height: 1.12; margin: 0 0 0.75rem; }
-  .post-date { color: var(--color-muted); font-size: 0.9rem; margin: 0 0 1rem; }
+  .post-byline { color: var(--color-muted); font-size: 0.9rem; margin: 0 0 1rem; }
+  .post-byline a { color: var(--color-primary); text-decoration: none; font-weight: 600; }
+  .post-byline time { font-variant-numeric: tabular-nums; }
   .post-lede { font-size: 1.2rem; line-height: 1.5; color: var(--color-muted); margin: 0; }
+
+  .post-related { margin: 3.5rem 0 0; }
+  .post-related h2 { font-size: 1.5rem; margin: 0 0 1.25rem; }
+  .post-related ul { list-style: none; padding: 0; margin: 0; }
+  .post-related li {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+    padding: 0.85rem 0; border-bottom: 1px solid var(--color-border);
+  }
+  .post-related a { color: var(--color-primary); text-decoration: none; font-weight: 600; }
+  .post-related a:hover { text-decoration: underline; }
+  .post-related-type {
+    flex-shrink: 0; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--color-muted);
+  }
 
   .post-metrics {
     list-style: none; display: flex; flex-wrap: wrap; gap: 1.5rem;

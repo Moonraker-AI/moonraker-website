@@ -20,7 +20,7 @@ const SUPABASE_ANON_KEY =
 // from content_source_raw.
 const LIST_COLS = 'id,type,title,slug,excerpt,published_at';
 const FULL_COLS =
-  'id,type,title,slug,excerpt,problem,approach,outcome,metrics,body_md,seo,published_at';
+  'id,type,title,slug,excerpt,problem,approach,outcome,metrics,body_md,seo,published_at,updated_at';
 
 async function query(params) {
   if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
