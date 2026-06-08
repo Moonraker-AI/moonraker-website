@@ -240,10 +240,14 @@ const groups = [
 .bio-close:hover { background: #fff; transform: rotate(90deg); }
 .bio-close:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 .bio-modal-grid { display: grid; grid-template-columns: minmax(0, 320px) 1fr; max-height: inherit; }
-/* Absolute-fill the image so it covers the full (stretched) grid cell with no
-   sub-pixel white strip at the bottom when the bio column is the taller one. */
-.bio-modal-photo { position: relative; background: var(--color-primary-subtle); overflow: hidden; }
-.bio-modal-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 18%; display: block; }
+/* Fill the stretched grid cell through the nested picture wrapper so the modal
+   background cannot show as a strip below the portrait. */
+.bio-modal-photo,
+.bio-modal-photo picture,
+.bio-modal-photo img { height: 100%; }
+.bio-modal-photo { position: relative; background: var(--color-primary-subtle); overflow: hidden; align-self: stretch; }
+.bio-modal-photo picture { display: block; width: 100%; }
+.bio-modal-photo img { width: 100%; min-height: 100%; object-fit: cover; object-position: center 18%; display: block; }
 .bio-modal-text { padding: clamp(1.75rem, 3vw, 2.5rem); overflow-y: auto; }
 .bio-modal-name { font-family: 'Outfit', sans-serif; font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 800; color: var(--color-heading); line-height: 1.12; margin: .4rem 0 1rem; }
 .bio-modal-bio { color: var(--color-body); font-size: 1rem; line-height: 1.75; }
