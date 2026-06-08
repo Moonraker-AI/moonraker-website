@@ -171,10 +171,10 @@ const faqLd = faqs.length
 
 <style>
   /* Match the site container width so the article aligns with the nav. The
-     running prose stays at a readable measure and left-aligns to the title;
-     the metrics / FAQ / related / CTA blocks span the full width. */
+     head and running prose span the full container width to match the rest of
+     the site's page content; the metrics / FAQ / related / CTA blocks already
+     span the full width. */
   .post { width: min(1120px, calc(100% - 3rem)); margin: 0 auto; padding: 4rem 0 5rem; }
-  .post-head, .post-body { max-width: 760px; }
   .post-head { margin-bottom: 2.5rem; }
   .post-crumbs { font-size: 0.85rem; color: var(--color-muted); margin-bottom: 1rem; }
   .post-crumbs a { color: var(--color-primary); text-decoration: none; }
@@ -250,7 +250,7 @@ const faqLd = faqs.length
   }
   .faq-trigger[aria-expanded="true"] + .faq-answer-wrap { grid-template-rows: 1fr; }
   .faq-answer { min-height: 0; overflow: hidden; }
-  .faq-answer p { margin: 0; padding: 0 0.25rem 1.4rem; color: var(--color-muted); line-height: 1.7; max-width: 760px; }
+  .faq-answer p { margin: 0; padding: 0 0.25rem 1.4rem; color: var(--color-muted); line-height: 1.7; }
 
   .post-cta {
     margin: 4rem 0 0; padding: 2.5rem; text-align: center;

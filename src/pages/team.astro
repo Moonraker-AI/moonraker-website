@@ -1,5 +1,89 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+// LinkedIn glyph path, shared by the card-less modal and any inline use.
+const LINKEDIN_PATH = 'M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z';
+
+// Single source of truth for the roster: cards and modals both render from this.
+const groups = [
+  {
+    title: 'Management',
+    layout: 'two',
+    members: [
+      {
+        slug: 'chris-morin',
+        name: 'Chris Morin',
+        role: 'Founder',
+        alt: 'Chris Morin, Founder of Moonraker',
+        avif: '/assets/team/chris-morin.avif',
+        img: '/assets/team/chris-morin.png',
+        width: 1080,
+        height: 1439,
+        loading: 'eager',
+        linkedin: 'https://www.linkedin.com/in/cjmorin/',
+        bio: "Before marketing, I was a massage therapist for over 15 years, providing chair massage to local businesses. That work connected me to countless wellness providers and I had the opportunity to experience firsthand their deep desire to be of service in a world that desperately needs healing. I also witnessed how so many amazing practitioners struggle to connect with the clients who need their services the most. A highly intuitive group, many feel that digital marketing is overwhelming, causing them to avoid the necessary steps to establish an online presence. My goal is to help therapists and wellness providers boost their online visibility and connect with their ideal clients so they can build the practice of their dreams. I encourage you to check out our free resources, and don't hesitate to book a call as I would love to speak with you!",
+      },
+      {
+        slug: 'scott-pope',
+        name: 'Scott Pope',
+        role: 'Director of Growth and Operations',
+        alt: 'Scott Pope, Director of Growth and Operations at Moonraker',
+        avif: '/assets/team/scott-pope.avif',
+        img: '/assets/team/scott-pope.jpg',
+        width: 1996,
+        height: 1789,
+        loading: 'eager',
+        linkedin: 'https://www.linkedin.com/in/scott-pope-607888386/',
+        bio: "At Moonraker, I lead our partnerships with educators, tech companies, and thought leaders across the therapy space. My work sits at the intersection of SEO strategy, AI adoption, and compliance, three areas that overwhelm most practitioners but determine whether their practices grow or stagnate. I write Moonraker's weekly newsletter, translating Google algorithm updates, AI developments, and compliance changes into plain English for busy clinicians. No jargon, just what matters and what to do about it. I manage our affiliate program and contribute to Engage, a HIPAA-compliant AI chatbot we are building specifically for therapy websites. I am currently building Thrive Summit 2026, a virtual event bringing 500+ therapists together with cybersecurity experts, practice consultants, and technology partners.",
+      },
+    ],
+  },
+  {
+    title: 'SEO Team',
+    layout: 'three',
+    members: [
+      {
+        slug: 'ivhan-butalid',
+        name: 'Ivhan Alhen Butalid',
+        role: 'SEO Technician',
+        alt: 'Ivhan Alhen Butalid, SEO Technician at Moonraker',
+        avif: '/assets/team/ivhan-butalid.avif',
+        img: '/assets/team/ivhan-butalid.jpeg',
+        width: 1024,
+        height: 1024,
+        loading: 'lazy',
+        linkedin: 'https://www.linkedin.com/in/ivhan-alhen-butalid-89294523b/',
+        bio: 'My role is to implement the full CORE Marketing System for our clients, transforming invisible websites into local leaders. From initial strategic alignment to the final technical details, my goal is to ensure every pillar of your online presence is rock-solid. I help build the digital footprint your practice needs through entity grounding, social mesh, citations and schema architecture. I craft comprehensive specialty pages and localized content that teach Google exactly why your practice is the best choice in the area. My goal is to bridge the gap between complex technical specifications and your clinical expertise to turn prospects into clients.',
+      },
+      {
+        slug: 'kael-penales',
+        name: 'Kael Marie Penales',
+        role: 'SEO Technician',
+        alt: 'Kael Marie Penales, SEO Technician at Moonraker',
+        avif: '/assets/team/kael-penales.avif',
+        img: '/assets/team/kael-penales.jpeg',
+        width: 450,
+        height: 806,
+        loading: 'lazy',
+        linkedin: 'https://www.linkedin.com/in/kael-marie-penales-594653243/',
+        bio: 'I work with our clients through the full SEO lifecycle, enhancing your clinical authority by optimizing your website to ensure it reflects your unique voice while meeting our rigorous SEO standards. I help our clients become the most prominent recommendation in AI search and Google Maps through a combination of speed, security and conversion rate optimizations and mobile-first design. I help to amplify your online reputation by leveraging your professional endorsements to more effectively demonstrate leadership in your field. What I enjoy most is the blend of creative and analytical work, crafting content that resonates while digging into the technical details that drive search performance.',
+      },
+      {
+        slug: 'karen-francisco',
+        name: 'Karen Francisco',
+        role: 'Client Success Manager',
+        alt: 'Karen Francisco, Client Success Manager at Moonraker',
+        avif: '/assets/team/karen-francisco.avif',
+        img: '/assets/team/karen-francisco.jpeg',
+        width: 450,
+        height: 616,
+        loading: 'lazy',
+        linkedin: 'https://www.linkedin.com/in/karen-francisco-65852713/',
+        bio: 'I focus on making things easier for our clients. Whether I am tackling a complex concern or coordinating with our team behind the scenes, my goal is always the same: to turn technical updates into helpful, straightforward advice. I coordinate with our SEO team to ensure that client requests and feedback are implemented into our processes.',
+      },
+    ],
+  },
+];
 ---
 <BaseLayout title="Meet the Team | Moonraker" description="The specialists behind Moonraker: the people who build your search presence, write the strategy, and help your therapy practice grow online." canonical="https://moonraker.ai/team" ogTitle="Meet the Moonraker Team" ogDescription="Real specialists, not a faceless agency. Meet the people who build your search presence and grow your practice." ogUrl="https://moonraker.ai/team">
 <main>
@@ -12,109 +96,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </section>
 
   <section class="team-section">
-    <div class="team-group">
-      <header class="team-cat"><h2 class="team-cat-title">Management</h2></header>
-      <div class="team-row">
-
-      <article class="team-card">
-        <div class="team-photo">
-          <picture>
-            <source srcset="/assets/team/chris-morin.avif" type="image/avif">
-            <img src="/assets/team/chris-morin.png" alt="Chris Morin, Founder of Moonraker" width="1080" height="1439" loading="eager">
-          </picture>
+    {groups.map((group) => (
+      <div class="team-group">
+        <header class="team-cat"><h2 class="team-cat-title">{group.title}</h2></header>
+        <div class={`team-row ${group.layout === 'three' ? 'three' : ''}`}>
+          {group.members.map((m) => (
+            <article class="team-card">
+              <div class="team-photo">
+                <picture>
+                  <source srcset={m.avif} type="image/avif" />
+                  <img src={m.img} alt={m.alt} width={m.width} height={m.height} loading={m.loading} />
+                </picture>
+              </div>
+              <div class="team-body">
+                <div class="team-role">{m.role}</div>
+                <h2 class="team-name">{m.name}</h2>
+                <button class="team-learn" type="button" data-bio-open={`bio-${m.slug}`} aria-haspopup="dialog" aria-label={`Learn more about ${m.name}`}>
+                  Learn more
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </button>
+              </div>
+            </article>
+          ))}
         </div>
-        <div class="team-body">
-          <div class="team-role">Founder</div>
-          <h2 class="team-name">Chris Morin</h2>
-          <p class="team-bio">Before marketing, I was a massage therapist for over 15 years, providing chair massage to local businesses. That work connected me to countless wellness providers and I had the opportunity to experience firsthand their deep desire to be of service in a world that desperately needs healing. I also witnessed how so many amazing practitioners struggle to connect with the clients who need their services the most. A highly intuitive group, many feel that digital marketing is overwhelming, causing them to avoid the necessary steps to establish an online presence. My goal is to help therapists and wellness providers boost their online visibility and connect with their ideal clients so they can build the practice of their dreams. I encourage you to check out our free resources, and don't hesitate to book a call as I would love to speak with you!</p>
-          <a class="team-linkedin" href="https://www.linkedin.com/in/cjmorin/" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
-            Connect on LinkedIn
-          </a>
-        </div>
-      </article>
-
-      <article class="team-card">
-        <div class="team-photo">
-          <picture>
-            <source srcset="/assets/team/scott-pope.avif" type="image/avif">
-            <img src="/assets/team/scott-pope.jpg" alt="Scott Pope, Director of Growth and Operations at Moonraker" width="1996" height="1789" loading="eager">
-          </picture>
-        </div>
-        <div class="team-body">
-          <div class="team-role">Director of Growth and Operations</div>
-          <h2 class="team-name">Scott Pope</h2>
-          <p class="team-bio">At Moonraker, I lead our partnerships with educators, tech companies, and thought leaders across the therapy space. My work sits at the intersection of SEO strategy, AI adoption, and compliance, three areas that overwhelm most practitioners but determine whether their practices grow or stagnate. I write Moonraker's weekly newsletter, translating Google algorithm updates, AI developments, and compliance changes into plain English for busy clinicians. No jargon, just what matters and what to do about it. I manage our affiliate program and contribute to Engage, a HIPAA-compliant AI chatbot we are building specifically for therapy websites. I am currently building Thrive Summit 2026, a virtual event bringing 500+ therapists together with cybersecurity experts, practice consultants, and technology partners.</p>
-          <a class="team-linkedin" href="https://www.linkedin.com/in/scott-pope-607888386/" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
-            Connect on LinkedIn
-          </a>
-        </div>
-      </article>
-
       </div>
-    </div>
-
-    <div class="team-group">
-      <header class="team-cat"><h2 class="team-cat-title">SEO Team</h2></header>
-      <div class="team-row three">
-
-      <article class="team-card">
-        <div class="team-photo">
-          <picture>
-            <source srcset="/assets/team/ivhan-butalid.avif" type="image/avif">
-            <img src="/assets/team/ivhan-butalid.jpeg" alt="Ivhan Alhen Butalid, SEO Technician at Moonraker" width="1024" height="1024" loading="lazy">
-          </picture>
-        </div>
-        <div class="team-body">
-          <div class="team-role">SEO Technician</div>
-          <h2 class="team-name">Ivhan Alhen Butalid</h2>
-          <p class="team-bio">My role is to implement the full CORE Marketing System for our clients, transforming invisible websites into local leaders. From initial strategic alignment to the final technical details, my goal is to ensure every pillar of your online presence is rock-solid. I help build the digital footprint your practice needs through entity grounding, social mesh, citations and schema architecture. I craft comprehensive specialty pages and localized content that teach Google exactly why your practice is the best choice in the area. My goal is to bridge the gap between complex technical specifications and your clinical expertise to turn prospects into clients.</p>
-          <a class="team-linkedin" href="https://www.linkedin.com/in/ivhan-alhen-butalid-89294523b/" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
-            Connect on LinkedIn
-          </a>
-        </div>
-      </article>
-
-      <article class="team-card">
-        <div class="team-photo">
-          <picture>
-            <source srcset="/assets/team/kael-penales.avif" type="image/avif">
-            <img src="/assets/team/kael-penales.jpeg" alt="Kael Marie Penales, SEO Technician at Moonraker" width="450" height="806" loading="lazy">
-          </picture>
-        </div>
-        <div class="team-body">
-          <div class="team-role">SEO Technician</div>
-          <h2 class="team-name">Kael Marie Penales</h2>
-          <p class="team-bio">I work with our clients through the full SEO lifecycle, enhancing your clinical authority by optimizing your website to ensure it reflects your unique voice while meeting our rigorous SEO standards. I help our clients become the most prominent recommendation in AI search and Google Maps through a combination of speed, security and conversion rate optimizations and mobile-first design. I help to amplify your online reputation by leveraging your professional endorsements to more effectively demonstrate leadership in your field. What I enjoy most is the blend of creative and analytical work, crafting content that resonates while digging into the technical details that drive search performance.</p>
-          <a class="team-linkedin" href="https://www.linkedin.com/in/kael-marie-penales-594653243/" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
-            Connect on LinkedIn
-          </a>
-        </div>
-      </article>
-
-      <article class="team-card">
-        <div class="team-photo">
-          <picture>
-            <source srcset="/assets/team/karen-francisco.avif" type="image/avif">
-            <img src="/assets/team/karen-francisco.jpeg" alt="Karen Francisco, Client Success Manager at Moonraker" width="450" height="616" loading="lazy">
-          </picture>
-        </div>
-        <div class="team-body">
-          <div class="team-role">Client Success Manager</div>
-          <h2 class="team-name">Karen Francisco</h2>
-          <p class="team-bio">I focus on making things easier for our clients. Whether I am tackling a complex concern or coordinating with our team behind the scenes, my goal is always the same: to turn technical updates into helpful, straightforward advice. I coordinate with our SEO team to ensure that client requests and feedback are implemented into our processes.</p>
-          <a class="team-linkedin" href="https://www.linkedin.com/in/karen-francisco-65852713/" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
-            Connect on LinkedIn
-          </a>
-        </div>
-      </article>
-
-      </div>
-    </div>
+    ))}
   </section>
 
   <section class="cta-band">
@@ -123,6 +129,33 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <a class="btn btn-primary" href="/free-strategy-call">Book a Free Strategy Call</a>
     </div>
   </section>
+
+  {groups.flatMap((group) => group.members).map((m) => (
+    <dialog class="bio-modal" id={`bio-${m.slug}`} aria-labelledby={`bio-${m.slug}-name`}>
+      <div class="bio-modal-inner">
+        <button class="bio-close" type="button" data-bio-close aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+        <div class="bio-modal-grid">
+          <div class="bio-modal-photo">
+            <picture>
+              <source srcset={m.avif} type="image/avif" />
+              <img src={m.img} alt={m.alt} width={m.width} height={m.height} loading="lazy" />
+            </picture>
+          </div>
+          <div class="bio-modal-text">
+            <div class="team-role">{m.role}</div>
+            <h2 id={`bio-${m.slug}-name`} class="bio-modal-name">{m.name}</h2>
+            <p class="bio-modal-bio">{m.bio}</p>
+            <a class="team-linkedin" href={m.linkedin} target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={LINKEDIN_PATH}/></svg>
+              Connect on LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </dialog>
+  ))}
 </main>
 </BaseLayout>
 <style>
@@ -164,11 +197,57 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 .team-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
 .team-body { padding: clamp(1.3rem, 2vw, 1.7rem); display: flex; flex-direction: column; flex: 1; }
 .team-role { color: var(--color-primary); font-weight: 800; font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; }
-.team-name { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--color-heading); line-height: 1.15; margin: .35rem 0 .8rem; }
-.team-bio { color: var(--color-body); font-size: .92rem; line-height: 1.7; }
+.team-name { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--color-heading); line-height: 1.15; margin: .35rem 0 1rem; }
+.team-learn {
+  margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--color-primary-subtle); color: var(--color-primary);
+  border: 1px solid color-mix(in oklab, var(--color-primary) 22%, transparent);
+  border-radius: var(--r-md, 10px); padding: .6rem 1.05rem;
+  font-family: inherit; font-weight: 700; font-size: .9rem; cursor: pointer;
+  transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.team-learn svg { width: 16px; height: 16px; flex: none; transition: transform .2s ease; }
+.team-learn:hover { background: var(--color-primary); color: #fff; }
+.team-learn:hover svg { transform: translateX(3px); }
+.team-learn:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 .team-linkedin { margin-top: auto; padding-top: 1.1rem; display: inline-flex; align-items: center; gap: .45rem; color: var(--color-primary); font-weight: 600; font-size: .85rem; text-decoration: none; align-self: flex-start; }
 .team-linkedin svg { width: 17px; height: 17px; flex: none; }
 .team-linkedin:hover { text-decoration: underline; }
+
+/* Bio modal: native dialog, two-column on desktop (larger photo + scrollable bio). */
+.bio-modal {
+  width: min(880px, calc(100vw - 2rem)); max-height: min(90vh, 720px);
+  padding: 0; border: 0; border-radius: var(--r-xl, 20px); overflow: hidden;
+  background: var(--color-surface); color: var(--color-body);
+  box-shadow: 0 30px 80px -20px rgba(7, 18, 33, .55);
+}
+.bio-modal::backdrop { background: rgba(7, 18, 33, .62); backdrop-filter: blur(3px); }
+.bio-modal[open] { animation: bio-pop .28s cubic-bezier(.16, 1, .3, 1); }
+@keyframes bio-pop { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .bio-modal[open] { animation: none; } }
+.bio-modal-inner { position: relative; max-height: inherit; }
+.bio-close {
+  position: absolute; top: .85rem; right: .85rem; z-index: 2;
+  width: 2.3rem; height: 2.3rem; display: grid; place-items: center;
+  border: 0; border-radius: 999px; cursor: pointer;
+  background: rgba(255, 255, 255, .82); color: var(--color-navy, #0b1b2d);
+  box-shadow: 0 2px 10px rgba(7, 18, 33, .2); transition: background .2s ease, transform .2s ease;
+}
+.bio-close svg { width: 18px; height: 18px; }
+.bio-close:hover { background: #fff; transform: rotate(90deg); }
+.bio-close:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.bio-modal-grid { display: grid; grid-template-columns: minmax(0, 320px) 1fr; max-height: inherit; }
+.bio-modal-photo { background: var(--color-primary-subtle); overflow: hidden; }
+.bio-modal-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; display: block; }
+.bio-modal-text { padding: clamp(1.75rem, 3vw, 2.5rem); overflow-y: auto; }
+.bio-modal-name { font-family: 'Outfit', sans-serif; font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 800; color: var(--color-heading); line-height: 1.12; margin: .4rem 0 1rem; }
+.bio-modal-bio { color: var(--color-body); font-size: 1rem; line-height: 1.75; }
+.bio-modal-text .team-linkedin { margin-top: 1.5rem; padding-top: 0; }
+@media (max-width: 680px) {
+  .bio-modal { max-height: 92vh; }
+  .bio-modal-grid { grid-template-columns: 1fr; grid-template-rows: auto 1fr; overflow-y: auto; }
+  .bio-modal-photo { aspect-ratio: 4 / 3; }
+}
 
 .cta-band { position: relative; overflow: hidden; background: linear-gradient(158deg, var(--color-navy) 0%, var(--color-navy-deep) 100%); color: var(--color-on-navy-dim); }
 .cta-band::before {
@@ -188,3 +267,36 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .cta-inner { grid-template-columns: 1fr; }
 }
 </style>
+
+<script is:inline>
+  // Bio modals: open the matching <dialog>, lock body scroll, restore focus on
+  // close. Backdrop click and the close button both dismiss; ESC is native.
+  (() => {
+    let lastTrigger = null;
+    function open(id, trigger) {
+      const dialog = document.getElementById(id);
+      if (!dialog || typeof dialog.showModal !== 'function') return;
+      lastTrigger = trigger || null;
+      dialog.showModal();
+      document.body.style.overflow = 'hidden';
+    }
+    function close(dialog) {
+      if (!dialog || !dialog.open) return;
+      dialog.close();
+    }
+    document.addEventListener('click', (e) => {
+      const opener = e.target.closest('[data-bio-open]');
+      if (opener) { open(opener.getAttribute('data-bio-open'), opener); return; }
+      const closer = e.target.closest('[data-bio-close]');
+      if (closer) { close(closer.closest('dialog')); return; }
+      // Click on the dialog element itself (its backdrop area) closes it.
+      if (e.target.tagName === 'DIALOG') close(e.target);
+    });
+    document.querySelectorAll('dialog.bio-modal').forEach((dialog) => {
+      dialog.addEventListener('close', () => {
+        document.body.style.overflow = '';
+        if (lastTrigger) { lastTrigger.focus(); lastTrigger = null; }
+      });
+    });
+  })();
+</script>
