@@ -101,7 +101,7 @@ const groups = [
         <header class="team-cat"><h2 class="team-cat-title">{group.title}</h2></header>
         <div class={`team-row ${group.layout === 'three' ? 'three' : ''}`}>
           {group.members.map((m) => (
-            <article class="team-card">
+            <article class="team-card" data-bio-open={`bio-${m.slug}`}>
               <div class="team-photo">
                 <picture>
                   <source srcset={m.avif} type="image/avif" />
@@ -192,7 +192,10 @@ const groups = [
   flex-direction: column;
   transition: transform .25s ease, box-shadow .25s ease;
 }
+.team-card { cursor: pointer; }
 .team-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+.team-card:hover .team-learn { background: var(--color-primary); color: #fff; }
+.team-card:hover .team-learn svg { transform: translateX(3px); }
 .team-photo { aspect-ratio: 4 / 5; overflow: hidden; background: var(--color-primary-subtle); }
 .team-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
 .team-body { padding: clamp(1.3rem, 2vw, 1.7rem); display: flex; flex-direction: column; flex: 1; }
@@ -214,9 +217,12 @@ const groups = [
 .team-linkedin svg { width: 17px; height: 17px; flex: none; }
 .team-linkedin:hover { text-decoration: underline; }
 
-/* Bio modal: native dialog, two-column on desktop (larger photo + scrollable bio). */
+/* Bio modal: native dialog, two-column on desktop (larger photo + scrollable bio).
+   Center explicitly: inset:0 + margin:auto + a definite (fit-content) height
+   centers both axes reliably, leaving transform free for the pop animation. */
 .bio-modal {
-  width: min(880px, calc(100vw - 2rem)); max-height: min(90vh, 720px);
+  position: fixed; inset: 0; margin: auto;
+  width: min(880px, calc(100vw - 2rem)); height: fit-content; max-height: min(90vh, 720px);
   padding: 0; border: 0; border-radius: var(--r-xl, 20px); overflow: hidden;
   background: var(--color-surface); color: var(--color-body);
   box-shadow: 0 30px 80px -20px rgba(7, 18, 33, .55);
