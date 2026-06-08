@@ -314,7 +314,7 @@ body:has(.nav-links.open) { overflow: hidden; }
 /* ── Trust Badges ── */
 .trust-bar {
   display: flex; align-items: center; justify-content: center; gap: clamp(.75rem, 2vw, 1.25rem);
-  padding: 1.5rem 2rem; flex-wrap: wrap;
+  padding: .75rem 2rem; flex-wrap: wrap;
 }
 .trust-bar img { height: 56px; width: auto; object-fit: contain; }
 html.dark .trust-bar img { filter: brightness(1.12); }
