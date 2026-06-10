@@ -197,7 +197,7 @@ Core deliverables:
 - Bio pages.
 - Supporting content.
 - Structured FAQs.
-- Cloudflare/R2 migration or optimization path where appropriate.
+- Cloudflare R2 website rebuild or first build.
 - Site performance and crawl clarity.
 
 Conversion angle:
@@ -308,7 +308,7 @@ Book a free Entity Health Check.
 Required sections:
 
 - Phase 0: Entity Health Check.
-- Phase 1: fixed 90-day foundation.
+- Phase 1: fixed 90-day Foundation Rebuild.
 - Phase 2: ongoing CORE Marketing Campaign.
 - What access is needed.
 - What the client owns.

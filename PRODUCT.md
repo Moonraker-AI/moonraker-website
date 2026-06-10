@@ -37,7 +37,7 @@ The CORE Marketing System is the primary public framework.
 ## Funnel
 
 - Phase 0: Entity Health Check. A pre-engagement diagnostic that identifies whether a practice has enough foundation for Moonraker to help and where the gaps are.
-- Phase 1: 90-day foundation engagement. Audit, remediation, Cloudflare/R2 site migration or optimization path, technical SEO, schema, page-by-page optimization, citations, Google Business Profile optimization, Entity Veracity Hub, bio/location/service/supporting pages, endorsement collection forms, client-owned YouTube optimization after manager access, and Quora setup/access for future Entity Veracity Blocks.
+- Phase 1: 90-day Foundation Rebuild. Audit, remediation, mandatory Cloudflare/R2 website rebuild or first build, technical SEO, schema, page-by-page optimization, citations, Google Business Profile optimization, Entity Veracity Hub, bio/location/service/supporting pages, endorsement collection forms, client-owned YouTube optimization after manager access, and Quora setup/access for future Entity Veracity Blocks. The website foundation is prioritized in the first month before the remaining audit-driven remediation work.
 - Phase 2: ongoing CORE Marketing Campaign. Continued site optimization, press releases, NEO image distribution, LiveDrive, Quora Entity Veracity Block publishing, YouTube channel maintenance and optimization, active-profile interlinking, monthly reporting, recommendations, and the annual-plan-only Performance Guarantee.
 
 ## Proof Sources
