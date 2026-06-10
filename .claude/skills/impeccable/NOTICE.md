@@ -39,7 +39,9 @@ Vendored on 2026-04-26.
 
 ## Canonical home and sync
 
-The canonical copy of this skill lives in `client-hq/.claude/skills/impeccable/`.
-Copies in other repos (moonraker-site-template, moonraker-website) are synced
-duplicates: never edit them in place. Edit the client-hq copy, then run
-`sync-vendored.sh` from this directory to propagate, and commit each repo.
+The canonical copy of this skill lives in
+`moonraker-skills/skills/impeccable/` (moved from client-hq 2026-06-11).
+Copies in consuming repos (client-hq, moonraker-site-template,
+moonraker-website) are synced duplicates: never edit them in place. Edit
+the moonraker-skills copy, then run `scripts/sync.sh` from that repo to
+propagate, and commit each consuming repo.
