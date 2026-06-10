@@ -49,6 +49,11 @@ skill covers the full recipe.
 - `moonraker-web-embeds` - add or update a third-party media embed (YouTube,
   Vimeo, Spotify, Apple Podcasts, Gamma, Loom) on the marketing site, including
   the mandatory worker CSP `frame-src` update.
+- `impeccable` - design, critique, polish, or harden any UI surface on the
+  marketing site (typography, color, spacing, motion, responsive, UX writing).
+  Vendored duplicate: the canonical copy lives in
+  `client-hq/.claude/skills/impeccable/`; edit there and run its
+  `sync-vendored.sh`, never edit the copy here.
 
 The canonical cross-repo agent context (AGENT_LOG, the broader memory library)
 lives in the `client-hq` repo's `AGENTS.md`. This file is the self-sufficient
