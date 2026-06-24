@@ -14,7 +14,7 @@ These supersede the upstream rules. The upstream skill is opinionated about avoi
 
 **Internal surfaces (clients.moonraker.ai admin, public moonraker.ai):**
 - **Outfit headings (700/600), Inter body (400/500/600).** Outfit is on the upstream "reflex font" reject list. We override. Brand consistency wins.
-- **Primary green: #00D47E.** Stable across light and dark modes.
+- **Primary green: #00CA8A.** Stable across light and dark modes.
 - **Card radius 14px, row radius 8px, button radius 6-8px.**
 - **Theme via `localStorage moonraker-theme`** read before first paint.
 - Live design tokens reference: `https://clients.moonraker.ai/admin/design/`. Fetch this before modifying any internal surface.
@@ -37,7 +37,7 @@ For brand voice on therapist-facing copy: warm, plain English. No emdashes (use 
 
 Commit to a clear conceptual direction and execute with precision. Bold maximalism and refined minimalism both work; the failure mode is timid middle ground.
 
-For Moonraker internal: refined, calm, professional, with #00D47E as a controlled accent (10% of visual weight, not 30%).
+For Moonraker internal: refined, calm, professional, with #00CA8A as a controlled accent (10% of visual weight, not 30%).
 
 For therapy practice client sites: warm, approachable, non-clinical. Avoid the "wellness app aesthetic" (sage green + cream + Cormorant Garamond — that is itself a generic AI default). Each client's `design_specs` is meant to produce a distinct site.
 

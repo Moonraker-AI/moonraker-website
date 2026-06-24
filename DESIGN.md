@@ -17,7 +17,7 @@ Use the existing Moonraker token family.
 
 ```css
 :root {
-  --color-primary: #00D47E;
+  --color-primary: #00CA8A;
   --color-primary-hover: #00b86c;
   --color-primary-light: #B4EEE0;
   --color-primary-subtle: #DDF8F2;

@@ -33,7 +33,7 @@ Tokens come from `/admin/design`. Always fetch the live reference before changin
 curl -s https://clients.moonraker.ai/admin/design/
 ```
 
-Primary `#00D47E` (stable in light + dark). Outfit headings (700/600), Inter body (400/500/600). Card radius 14px, row 8px, button 6-8px. Dark mode via `localStorage moonraker-theme`, read before first paint. Theme toggle uses `document.startViewTransition()`.
+Primary `#00CA8A` (stable in light + dark). Outfit headings (700/600), Inter body (400/500/600). Card radius 14px, row 8px, button 6-8px. Dark mode via `localStorage moonraker-theme`, read before first paint. Theme toggle uses `document.startViewTransition()`.
 
 ### Identify drift, name the root cause
 
