@@ -1,5 +1,84 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const results = [
+  {pct:213,time:'6 months',type:'group',id:'1uVfNKUBxYy3KCEJEmJU92QE3DN9khHWA'},
+  {pct:170,time:'6 months',type:'group',id:'1spFbq2k8QOqwWbLuvz1JxLgWpM7VFfaa'},
+  {pct:156,time:'3 months',type:'group',id:'1jNjoiNtFgIINAyUpWyvH426qq1HTHG7X'},
+  {pct:137,time:'6 months',type:'group',id:'1kXJKL6OLlUvXNwweYGlAr_M0jNGeBIQa'},
+  {pct:106,time:'3 months',type:'group',id:'1nIQ_ufQh_pFGn49LK_fkehwrSsM7YP7b'},
+  {pct:94,time:'6 months',type:'group',id:'1HpumenhcJp-S7Xh1UHK-SGDQAS3QJWca'},
+  {pct:91,time:'6 months',type:'group',id:'1A7Kjutbuqb2Ak5UT_bw9IC77Qa2tySsb'},
+  {pct:71,time:'3 months',type:'group',id:'1i3SPnzTJwQidkuUHApV9u58LNVEEspCk'},
+  {pct:39,time:'3 months',type:'group',id:'1kaS8HcCcbKY3O9Dz-Y-e8SfRfiCZb3di'},
+  {pct:38,time:'6 months',type:'group',id:'1Auko_Q3Bx48qOucCPkVN2hBciM6VQQkh'},
+  {pct:31,time:'3 months',type:'group',id:'1Z-hA5D3xuMnUpWQkXUPAr5B6TDxstkeV'},
+  {pct:308,time:'3 months',type:'solo',id:'1ClS6rM1HrdGKr1qXKF7J9Yo32HaiFZOE'},
+  {pct:202,time:'6 months',type:'solo',id:'1fdthfPuD2hn4g-yR1yaEd3VYJTYdFN5l'},
+  {pct:168,time:'6 months',type:'solo',id:'1zTy0yzf_cZFPRiQNCykjxTLQfjoRDKVT'},
+  {pct:168,time:'3 months',type:'solo',id:'1I6I47jI8ieqvOviLT0IYn60l9DuGf_Il'},
+  {pct:127,time:'3 months',type:'solo',id:'1zJmPzlmek47aMDPizpJPaRSZHDK70OMc'},
+  {pct:84,time:'3 months',type:'solo',id:'1InJXxG5BGzd5fEu3CG7bqqPmviA6bSoY'},
+  {pct:61,time:'3 months',type:'solo',id:'1-clyu91xGiqKLWykIULLdxo_arM82dsV'},
+  {pct:53,time:'3 months',type:'solo',id:'1xZ6encxHVtjmwZ1frNHC8F9iMfhsyeSs'},
+  {pct:48,time:'3 months',type:'solo',id:'13fQGqw8RJuBEWbFkX6EzY4NyTGB1A-V-'},
+  {pct:36,time:'6 months',type:'solo',id:'1hegvRrLjbtBc-Ulux-7SVuQlgCgVBA1b'},
+  {pct:35,time:'6 months',type:'solo',id:'1XKx4iqwvpBLmzrny-KvPnmgbZGW7TCZi'}
+];
+
+const googleReviews = [
+  {name:'Erinn E.',rating:5,text:'Chris is amazing! His expertise is so valuable and we experienced a significant increase in traffic and inquiries through our website with the help of his SEO knowledge. His honesty and transparency stands out among the service providers out there.'},
+  {name:'Nathan A.',rating:5,text:'Chris is very knowledgeable and a great teacher! Practical tools and resources were shared and explained, providing me with simple steps that I can take to move forward. I am more hopeful, encouraged and excited about building on what I am called to do!'},
+  {name:'Christine R.',rating:5,text:'Chris and his team are amazing at what they do. Their approach is comprehensive and up-to-date with the ever-changing landscape of SEO and AI. It\'s only been a couple of months and I\'m already starting to see results. I highly recommend them!'},
+  {name:'Carolynn',rating:5,text:'He has an excellent ability to distill information into chunks that are accessible and have a clear rationale for the goals they are trying to achieve. He is thorough and knowledgeable and has a clear expertise in SEO and driving traffic to websites.'},
+  {name:'George',rating:5,text:'So grateful I found Chris! He explained everything so clearly that I felt completely confident in his services, and within just eight months my returns had already doubled. Thanks, Chris!'},
+  {name:'Jennifer',rating:5,text:'Chris is so knowledgeable, explains things in a way I can understand without being condescending and is so patient! It is truly refreshing to work with someone on marketing who is as passionate about the mental health field as I am.'},
+  {name:'Kelly S.',rating:5,text:'Chris was great to work with. He was responsive, answered our questions clearly, and explained things in a way that made sense. His help improved our SEO, and we appreciate his expertise. Highly recommend!'},
+  {name:'Kym T.',rating:5,text:'Chris helped me untangle the chaos, streamline my marketing, and optimize my websites for SEO in a way that actually makes sense (and gets results). If you\'re juggling multiple businesses and need expert guidance, this is the team you want in your corner. Highly recommend!'},
+  {name:'Christopher B.',rating:5,text:'In a very short amount of time Chris was able to significantly improve the inbound traffic on my website. A significant chunk of the new business we\'ve gained this past year is due to Chris and the excellent work he does at Moonraker.'},
+  {name:'Julie Ann O.',rating:5,text:'Chris is an incredible, talented SEO wiz. After six months, I\'m seeing a significant increase in traffic to connect with the people I really want to find me. It has totally been worth the investment!'},
+  {name:'Jennifer K.',rating:5,text:'Chris has gone above and beyond for my company. He is very knowledgeable and you can tell that he has a true passion to help small businesses thrive.'},
+  {name:'Ivhan A.',rating:5,text:'Chris is simply phenomenal! His SEO expertise propelled our website to new heights: clear communication, impressive results, and a pleasure to work with. Highly recommend!'},
+  {name:'Hannah T.',rating:5,text:'Chris\' SEO skills are super effective. He is super communicative and personable, making him a joy and super easy to work with! Big thanks to Chris and Moonraker!!!'},
+  {name:'Matthew C.',rating:5,text:'You have to meet Chris to understand the power of what he is capable of doing to transform your business. He makes your visibility jump up dramatically in no time. Do yourself a favor, take a meeting with Chris.'},
+  {name:'Stephanie J.',rating:5,text:'He\'s a great human. Authentic, funny, personable, and present. He cares about my business AND me as a person. He\'s brilliant at his craft. I highly recommend Chris and his team!'},
+  {name:'Hayley J.',rating:5,text:'Chris is Awesome!!! He built me a beautiful customized website and online shop. He is kind and funny and creates a relaxed and enjoyable experience. I highly recommend!!!'},
+  {name:'Jessica D.',rating:5,text:'Chris is very professional and responsive in addition to offering high quality SEO services. I appreciate his innovative thinking and willingness to understand the specific challenges of my business.'},
+  {name:'Bambi R.',rating:5,text:'I honestly think that Chris/Moonraker is the best choice that anyone could ever make for digital marketing. When you hire Chris it\'s like you have an entire team behind you. He really is amazing!'},
+  {name:'Alina\'s Ristorante',rating:5,text:'He designed our online food ordering system from scratch. Ordering time was cut in HALF! This allowed us to cater to more clients and increased our sales. We highly recommend Chris!'},
+  {name:'Karada Detox',rating:5,text:'Chris is really THE BEST!! He is really good at finding opportunities to make money that I didn\'t even see in my business! His marketing knowledge makes me super excited about growing my business.'},
+  {name:'Bob B.',rating:5,text:'Chris is a marketing and search engine optimization genius! He can help increase your customer base exponentially. I cannot recommend his services or speak highly enough of the quality of his work!'},
+  {name:'Michael K.',rating:5,text:'Chris is a human Swiss army knife. He\'s a keen listener and good synthesizer of information when it comes to assessing the goals of a business. He brings humanity to SEO.'},
+  {name:'Ross H.',rating:5,text:'Chris is a magician with this SEO stuff. He held my hand, walked and talked me through it and things began to happen. He made it all work. Thank You Chris!'},
+  {name:'Tracy S.',rating:5,text:'Chris is an SEO Pro! He can scale up or down on projects and brings his great mind and keen wit to any ask. Highly recommend.'},
+  {name:'Mary Kay M.',rating:5,text:'Chris and his team have been fantastic to work with! He\'s professional and wise. His knowledge is unmatched and I can\'t recommend Moonraker enough!'},
+  {name:'Brent S.',rating:5,text:'If you\'re a therapist looking for SEO strategy and implementation, Chris and his Moonraker team know how to rank you high on Google. I highly recommend them.'},
+  {name:'Rocio R.',rating:5,text:'I admire his clarity, passion, and commitment to his partners. Always eager to help and enhance other professionals\' careers. What else can you ask for?'},
+  {name:'Uroboros Mediations',rating:5,text:'Moonraker was the best choice for web design and SEO services for our organization. They were conscientious and courteous. I am a satisfied customer!'},
+  {name:'John M.',rating:5,text:'Chris\'s SEO Services are top shelf. He is very creative and knowledgeable and his website update created more traffic, resulting in more business.'},
+  {name:'Eduardo P.',rating:5,text:'The website created for us was much better than what we expected. The look and feel, content, layout and pictures creates synergies. Recommended++'},
+  {name:'Steve B.',rating:5,text:'Chris is a Marketing & SEO Specialist! He is always friendly, easy to talk with and never pushy. A true gentleman. Thank you Chris!!'},
+  {name:'Shannon M.',rating:5,text:'Moonraker\'s service is the best investment you can make for your business. There isn\'t a problem I\'ve brought to the Moonraker team that they can\'t solve. If you like to win, you pick a winning team.'},
+  {name:'Laura B.',rating:5,text:'Chris is the best in the business! He is so knowledgeable and is always such a pleasure to work with. Go see him for all of your SEO needs!'},
+  {name:'Stephanie C.',rating:5,text:'Chris is an absolute pleasure to work with. He really dove in and got to know our business from the inside out. This knowledge translated into amazing reports with actionable insights.'},
+  {name:'Salim U.',rating:5,text:'They are responsive and reliable. Moonraker\'s biggest strength is being able to internalize the needs and desires of their clients and deliver through curated content.'},
+  {name:'Liz D.',rating:5,text:'Expert level SEO consultant! A true jedi master. Chris is like a living marketing encyclopedia determined to help his colleagues succeed.'},
+  {name:'Myles W.',rating:5,text:'Chris took a data-driven approach to helping us get more traffic and convert more of those visitors into leads. Highly recommended!'},
+  {name:'Rojan S.',rating:5,text:'Without any agreement or cost, Chris helped me take back my Google business account and helped me set it up properly. Highly recommend!'},
+  {name:'Christine C.',rating:5,text:'Chris has been a pleasure to work with. Went above and beyond in getting our website together! Call him, you will not be disappointed!'},
+  {name:'Amy S.',rating:5,text:'This service is even better than I expected. Chris is intuitive, accommodating and extremely competent. I highly recommend Moonraker for search engine optimization.'},
+  {name:'Sophie M.',rating:5,text:'Chris really knows his stuff! He cares deeply about his clients\' success and works hard to get it done.'}
+];
+
+function imgUrl(r, i) {
+  return '/assets/results/gsc-' + String(i + 1).padStart(2, '0') + '-' + r.type + '-' + r.pct + '-' + r.time.replace(/ /g, '-') + '.avif';
+}
+function reviewStars(rating) {
+  return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+}
+function clampText(t) {
+  return t.length > 220 ? t.substring(0, 220) + '...' : t;
+}
 ---
 <BaseLayout title="Results and Proof | Moonraker" description="Moonraker results are shown through search growth, local visibility, inquiries, appointments, testimonials, and partner proof for therapy practices." canonical="https://moonraker.ai/results" ogTitle="Results and Proof | Moonraker" ogDescription="Evidence from search growth, local visibility, inquiries, appointments, testimonials, and partner proof." ogUrl="https://moonraker.ai/results">
 <main>
@@ -42,7 +121,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <button type="button" class="filter-pill" onclick="filterCards('group')">Group Practices <span class="count">11</span></button>
   <button type="button" class="filter-pill" onclick="filterCards('solo')">Solo Therapists <span class="count">11</span></button>
 </div>
-<div class="results-grid" id="resultsGrid"></div>
+<div class="results-grid" id="resultsGrid">
+  {results.map((r, i) => {
+    const badge = '+' + r.pct + '%';
+    const typeLabel = r.type === 'group' ? 'Group Practice' : 'Solo Therapist';
+    const img = imgUrl(r, i);
+    return (
+      <div class="result-card" data-type={r.type} data-img={img} data-caption={`${typeLabel}  ·  ${badge}  ·  ${r.time}`}>
+        <div class="card-image-wrap">
+          <img src={img} alt={`${typeLabel} result: +${r.pct}% in ${r.time}`} loading="lazy" />
+          <div class="card-badge">{badge}</div>
+        </div>
+        <div class="card-body"><div class="card-meta"><span class="card-type-tag">{typeLabel}</span> {r.time}</div></div>
+      </div>
+    );
+  })}
+</div>
 
 <div class="section-divider"><hr></div>
 
@@ -78,7 +172,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
     <div class="carousel-nav">
       <button type="button" class="carousel-arrow" onclick="changeSlide(-1)" aria-label="Previous">&#8592;</button>
-      <div class="carousel-dots" id="carouselDots"></div>
+      <div class="carousel-dots" id="carouselDots">
+        <div class="carousel-dot active" data-slide-index="0"></div>
+        <div class="carousel-dot" data-slide-index="1"></div>
+      </div>
       <button type="button" class="carousel-arrow" onclick="changeSlide(1)" aria-label="Next">&#8594;</button>
     </div>
   </div>
@@ -93,7 +190,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <svg viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FABB05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
     <div><div class="badge-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="badge-text">4.9 stars from 44 Google reviews</div></div>
   </div>
-  <div class="reviews-masonry" id="reviewsMasonry"></div>
+  <div class="reviews-masonry" id="reviewsMasonry">
+    {googleReviews.map((r) => (
+      <div class="review-card">
+        <div class="review-stars">{reviewStars(r.rating)}</div>
+        <div class="review-text">{clampText(r.text)}</div>
+        <div class="review-author">{r.name}</div>
+      </div>
+    ))}
+  </div>
 </section>
 
 <section class="cta-section">
@@ -114,132 +219,53 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </div>
 
 <script is:inline>
-var results = [
-  {pct:213,time:'6 months',type:'group',id:'1uVfNKUBxYy3KCEJEmJU92QE3DN9khHWA'},
-  {pct:170,time:'6 months',type:'group',id:'1spFbq2k8QOqwWbLuvz1JxLgWpM7VFfaa'},
-  {pct:156,time:'3 months',type:'group',id:'1jNjoiNtFgIINAyUpWyvH426qq1HTHG7X'},
-  {pct:137,time:'6 months',type:'group',id:'1kXJKL6OLlUvXNwweYGlAr_M0jNGeBIQa'},
-  {pct:106,time:'3 months',type:'group',id:'1nIQ_ufQh_pFGn49LK_fkehwrSsM7YP7b'},
-  {pct:94,time:'6 months',type:'group',id:'1HpumenhcJp-S7Xh1UHK-SGDQAS3QJWca'},
-  {pct:91,time:'6 months',type:'group',id:'1A7Kjutbuqb2Ak5UT_bw9IC77Qa2tySsb'},
-  {pct:71,time:'3 months',type:'group',id:'1i3SPnzTJwQidkuUHApV9u58LNVEEspCk'},
-  {pct:39,time:'3 months',type:'group',id:'1kaS8HcCcbKY3O9Dz-Y-e8SfRfiCZb3di'},
-  {pct:38,time:'6 months',type:'group',id:'1Auko_Q3Bx48qOucCPkVN2hBciM6VQQkh'},
-  {pct:31,time:'3 months',type:'group',id:'1Z-hA5D3xuMnUpWQkXUPAr5B6TDxstkeV'},
-  {pct:308,time:'3 months',type:'solo',id:'1ClS6rM1HrdGKr1qXKF7J9Yo32HaiFZOE'},
-  {pct:202,time:'6 months',type:'solo',id:'1fdthfPuD2hn4g-yR1yaEd3VYJTYdFN5l'},
-  {pct:168,time:'6 months',type:'solo',id:'1zTy0yzf_cZFPRiQNCykjxTLQfjoRDKVT'},
-  {pct:168,time:'3 months',type:'solo',id:'1I6I47jI8ieqvOviLT0IYn60l9DuGf_Il'},
-  {pct:127,time:'3 months',type:'solo',id:'1zJmPzlmek47aMDPizpJPaRSZHDK70OMc'},
-  {pct:84,time:'3 months',type:'solo',id:'1InJXxG5BGzd5fEu3CG7bqqPmviA6bSoY'},
-  {pct:61,time:'3 months',type:'solo',id:'1-clyu91xGiqKLWykIULLdxo_arM82dsV'},
-  {pct:53,time:'3 months',type:'solo',id:'1xZ6encxHVtjmwZ1frNHC8F9iMfhsyeSs'},
-  {pct:48,time:'3 months',type:'solo',id:'13fQGqw8RJuBEWbFkX6EzY4NyTGB1A-V-'},
-  {pct:36,time:'6 months',type:'solo',id:'1hegvRrLjbtBc-Ulux-7SVuQlgCgVBA1b'},
-  {pct:35,time:'6 months',type:'solo',id:'1XKx4iqwvpBLmzrny-KvPnmgbZGW7TCZi'}
-];
-var currentFilter = 'all';
-function imgUrl(r, i) { return '/assets/results/gsc-' + String(i + 1).padStart(2, '0') + '-' + r.type + '-' + r.pct + '-' + r.time.replace(/ /g, '-') + '.avif'; }
-function renderGrid() {
-  var grid = document.getElementById('resultsGrid'), html = '';
-  results.forEach(function(r, i) {
-    var show = currentFilter === 'all' || r.type === currentFilter;
-    var badge = r.label || ('+' + r.pct + '%');
-    var type = r.type === 'group' ? 'Group Practice' : 'Solo Therapist';
-    html += '<div class="result-card' + (show ? '' : ' hidden') + '" data-type="' + r.type + '" onclick="openLightbox(' + i + ')">';
-    html += '<div class="card-image-wrap' + (r.portrait ? ' portrait' : '') + '"><img src="' + imgUrl(r, i) + '" alt="' + type + ' result: +' + r.pct + '% in ' + r.time + '" loading="lazy"><div class="card-badge">' + badge + '</div></div>';
-    html += '<div class="card-body"><div class="card-meta"><span class="card-type-tag">' + type + '</span> ' + r.time + '</div></div></div>';
-  });
-  grid.innerHTML = html;
-}
+/* Filtering: toggle .hidden on the server-rendered cards (no re-render). */
 window.filterCards = function(type) {
-  currentFilter = type;
   document.querySelectorAll('.filter-pill').forEach(function(pill) {
     var t = pill.textContent.toLowerCase();
     pill.classList.toggle('active', (type === 'all' && t.indexOf('all') !== -1) || (type === 'group' && t.indexOf('group') !== -1) || (type === 'solo' && t.indexOf('solo') !== -1));
   });
-  renderGrid();
+  document.querySelectorAll('.result-card').forEach(function(card) {
+    var show = type === 'all' || card.getAttribute('data-type') === type;
+    card.classList.toggle('hidden', !show);
+  });
 };
-window.openLightbox = function(idx) {
-  var r = results[idx], lb = document.getElementById('lightbox');
-  document.getElementById('lightboxImg').src = imgUrl(r, idx);
-  var type = r.type === 'group' ? 'Group Practice' : 'Solo Therapist';
-  document.getElementById('lightboxCaption').textContent = type + '  ·  ' + (r.label || ('+' + r.pct + '%')) + '  ·  ' + r.time;
-  lb.classList.add('open'); document.body.style.overflow = 'hidden';
-};
-window.closeLightbox = function() { document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow = ''; };
-document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
-renderGrid();
 
-/* Carousel */
-var curSlide = 0, totalSlides = document.querySelectorAll('.testimonial-slide').length;
+/* Lightbox: data carried on each card, opened via delegation. */
+window.openLightbox = function(card) {
+  document.getElementById('lightboxImg').src = card.getAttribute('data-img');
+  document.getElementById('lightboxCaption').textContent = card.getAttribute('data-caption');
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+};
+window.closeLightbox = function() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+};
 (function() {
-  var dots = document.getElementById('carouselDots'), h = '';
-  for (var i = 0; i < totalSlides; i++) h += '<div class="carousel-dot' + (i === 0 ? ' active' : '') + '" onclick="goToSlide(' + i + ')"></div>';
-  dots.innerHTML = h;
+  var grid = document.getElementById('resultsGrid');
+  if (grid) grid.addEventListener('click', function(e) {
+    var card = e.target.closest('.result-card');
+    if (card) window.openLightbox(card);
+  });
 })();
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
+
+/* Testimonial carousel. */
+var curSlide = 0, totalSlides = document.querySelectorAll('.testimonial-slide').length;
 window.goToSlide = function(idx) {
   curSlide = idx;
   document.querySelectorAll('.testimonial-slide').forEach(function(s, i) { s.classList.toggle('active', i === idx); });
   document.querySelectorAll('.carousel-dot').forEach(function(d, i) { d.classList.toggle('active', i === idx); });
 };
 window.changeSlide = function(dir) { goToSlide((curSlide + dir + totalSlides) % totalSlides); };
-
-/* Google Reviews */
-var googleReviews = [
-  {name:'Erinn E.',rating:5,text:'Chris is amazing! His expertise is so valuable and we experienced a significant increase in traffic and inquiries through our website with the help of his SEO knowledge. His honesty and transparency stands out among the service providers out there.'},
-  {name:'Nathan A.',rating:5,text:'Chris is very knowledgeable and a great teacher! Practical tools and resources were shared and explained, providing me with simple steps that I can take to move forward. I am more hopeful, encouraged and excited about building on what I am called to do!'},
-  {name:'Christine R.',rating:5,text:'Chris and his team are amazing at what they do. Their approach is comprehensive and up-to-date with the ever-changing landscape of SEO and AI. It\'s only been a couple of months and I\'m already starting to see results. I highly recommend them!'},
-  {name:'Carolynn',rating:5,text:'He has an excellent ability to distill information into chunks that are accessible and have a clear rationale for the goals they are trying to achieve. He is thorough and knowledgeable and has a clear expertise in SEO and driving traffic to websites.'},
-  {name:'George',rating:5,text:'So grateful I found Chris! He explained everything so clearly that I felt completely confident in his services, and within just eight months my returns had already doubled. Thanks, Chris!'},
-  {name:'Jennifer',rating:5,text:'Chris is so knowledgeable, explains things in a way I can understand without being condescending and is so patient! It is truly refreshing to work with someone on marketing who is as passionate about the mental health field as I am.'},
-  {name:'Kelly S.',rating:5,text:'Chris was great to work with. He was responsive, answered our questions clearly, and explained things in a way that made sense. His help improved our SEO, and we appreciate his expertise. Highly recommend!'},
-  {name:'Kym T.',rating:5,text:'Chris helped me untangle the chaos, streamline my marketing, and optimize my websites for SEO in a way that actually makes sense (and gets results). If you\'re juggling multiple businesses and need expert guidance, this is the team you want in your corner. Highly recommend!'},
-  {name:'Christopher B.',rating:5,text:'In a very short amount of time Chris was able to significantly improve the inbound traffic on my website. A significant chunk of the new business we\'ve gained this past year is due to Chris and the excellent work he does at Moonraker.'},
-  {name:'Julie Ann O.',rating:5,text:'Chris is an incredible, talented SEO wiz. After six months, I\'m seeing a significant increase in traffic to connect with the people I really want to find me. It has totally been worth the investment!'},
-  {name:'Jennifer K.',rating:5,text:'Chris has gone above and beyond for my company. He is very knowledgeable and you can tell that he has a true passion to help small businesses thrive.'},
-  {name:'Ivhan A.',rating:5,text:'Chris is simply phenomenal! His SEO expertise propelled our website to new heights: clear communication, impressive results, and a pleasure to work with. Highly recommend!'},
-  {name:'Hannah T.',rating:5,text:'Chris\' SEO skills are super effective. He is super communicative and personable, making him a joy and super easy to work with! Big thanks to Chris and Moonraker!!!'},
-  {name:'Matthew C.',rating:5,text:'You have to meet Chris to understand the power of what he is capable of doing to transform your business. He makes your visibility jump up dramatically in no time. Do yourself a favor, take a meeting with Chris.'},
-  {name:'Stephanie J.',rating:5,text:'He\'s a great human. Authentic, funny, personable, and present. He cares about my business AND me as a person. He\'s brilliant at his craft. I highly recommend Chris and his team!'},
-  {name:'Hayley J.',rating:5,text:'Chris is Awesome!!! He built me a beautiful customized website and online shop. He is kind and funny and creates a relaxed and enjoyable experience. I highly recommend!!!'},
-  {name:'Jessica D.',rating:5,text:'Chris is very professional and responsive in addition to offering high quality SEO services. I appreciate his innovative thinking and willingness to understand the specific challenges of my business.'},
-  {name:'Bambi R.',rating:5,text:'I honestly think that Chris/Moonraker is the best choice that anyone could ever make for digital marketing. When you hire Chris it\'s like you have an entire team behind you. He really is amazing!'},
-  {name:'Alina\'s Ristorante',rating:5,text:'He designed our online food ordering system from scratch. Ordering time was cut in HALF! This allowed us to cater to more clients and increased our sales. We highly recommend Chris!'},
-  {name:'Karada Detox',rating:5,text:'Chris is really THE BEST!! He is really good at finding opportunities to make money that I didn\'t even see in my business! His marketing knowledge makes me super excited about growing my business.'},
-  {name:'Bob B.',rating:5,text:'Chris is a marketing and search engine optimization genius! He can help increase your customer base exponentially. I cannot recommend his services or speak highly enough of the quality of his work!'},
-  {name:'Michael K.',rating:5,text:'Chris is a human Swiss army knife. He\'s a keen listener and good synthesizer of information when it comes to assessing the goals of a business. He brings humanity to SEO.'},
-  {name:'Ross H.',rating:5,text:'Chris is a magician with this SEO stuff. He held my hand, walked and talked me through it and things began to happen. He made it all work. Thank You Chris!'},
-  {name:'Tracy S.',rating:5,text:'Chris is an SEO Pro! He can scale up or down on projects and brings his great mind and keen wit to any ask. Highly recommend.'},
-  {name:'Mary Kay M.',rating:5,text:'Chris and his team have been fantastic to work with! He\'s professional and wise. His knowledge is unmatched and I can\'t recommend Moonraker enough!'},
-  {name:'Brent S.',rating:5,text:'If you\'re a therapist looking for SEO strategy and implementation, Chris and his Moonraker team know how to rank you high on Google. I highly recommend them.'},
-  {name:'Rocio R.',rating:5,text:'I admire his clarity, passion, and commitment to his partners. Always eager to help and enhance other professionals\' careers. What else can you ask for?'},
-  {name:'Uroboros Mediations',rating:5,text:'Moonraker was the best choice for web design and SEO services for our organization. They were conscientious and courteous. I am a satisfied customer!'},
-  {name:'John M.',rating:5,text:'Chris\'s SEO Services are top shelf. He is very creative and knowledgeable and his website update created more traffic, resulting in more business.'},
-  {name:'Eduardo P.',rating:5,text:'The website created for us was much better than what we expected. The look and feel, content, layout and pictures creates synergies. Recommended++'},
-  {name:'Steve B.',rating:5,text:'Chris is a Marketing & SEO Specialist! He is always friendly, easy to talk with and never pushy. A true gentleman. Thank you Chris!!'},
-  {name:'Shannon M.',rating:5,text:'Moonraker\'s service is the best investment you can make for your business. There isn\'t a problem I\'ve brought to the Moonraker team that they can\'t solve. If you like to win, you pick a winning team.'},
-  {name:'Laura B.',rating:5,text:'Chris is the best in the business! He is so knowledgeable and is always such a pleasure to work with. Go see him for all of your SEO needs!'},
-  {name:'Stephanie C.',rating:5,text:'Chris is an absolute pleasure to work with. He really dove in and got to know our business from the inside out. This knowledge translated into amazing reports with actionable insights.'},
-  {name:'Salim U.',rating:5,text:'They are responsive and reliable. Moonraker\'s biggest strength is being able to internalize the needs and desires of their clients and deliver through curated content.'},
-  {name:'Liz D.',rating:5,text:'Expert level SEO consultant! A true jedi master. Chris is like a living marketing encyclopedia determined to help his colleagues succeed.'},
-  {name:'Myles W.',rating:5,text:'Chris took a data-driven approach to helping us get more traffic and convert more of those visitors into leads. Highly recommended!'},
-  {name:'Rojan S.',rating:5,text:'Without any agreement or cost, Chris helped me take back my Google business account and helped me set it up properly. Highly recommend!'},
-  {name:'Christine C.',rating:5,text:'Chris has been a pleasure to work with. Went above and beyond in getting our website together! Call him, you will not be disappointed!'},
-  {name:'Amy S.',rating:5,text:'This service is even better than I expected. Chris is intuitive, accommodating and extremely competent. I highly recommend Moonraker for search engine optimization.'},
-  {name:'Sophie M.',rating:5,text:'Chris really knows his stuff! He cares deeply about his clients\' success and works hard to get it done.'},
-];
-function renderReviews() {
-  var c = document.getElementById('reviewsMasonry'); if (!c) return;
-  var h = '';
-  googleReviews.forEach(function(r) {
-    var stars = ''; for (var i=0;i<r.rating;i++) stars+='&#9733;'; for (var j=r.rating;j<5;j++) stars+='&#9734;';
-    var t = r.text, d = t.length > 220 ? t.substring(0,220)+'...' : t;
-    h += '<div class="review-card"><div class="review-stars">'+stars+'</div><div class="review-text">'+d+'</div><div class="review-author">'+r.name+'</div></div>';
+(function() {
+  var dots = document.getElementById('carouselDots');
+  if (dots) dots.addEventListener('click', function(e) {
+    var dot = e.target.closest('.carousel-dot');
+    if (dot) goToSlide(Number(dot.getAttribute('data-slide-index')));
   });
-  c.innerHTML = h;
-}
-renderReviews();
+})();
 </script>
 </BaseLayout>
 <style>
