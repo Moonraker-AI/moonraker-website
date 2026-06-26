@@ -88,6 +88,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <div class="err">Please enter a valid website URL starting with https://.</div>
         </div>
         <div class="form-row full">
+          <label for="country">Country <span class="req">*</span></label>
+          <select id="country" autocomplete="country-name">
+            <option value="">Select your country...</option>
+            <option value="United States">United States</option>
+            <option value="Canada">Canada</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="Ireland">Ireland</option>
+            <option value="Australia">Australia</option>
+            <option value="New Zealand">New Zealand</option>
+            <option value="South Africa">South Africa</option>
+            <option value="Other">Other</option>
+          </select>
+          <div class="err">Please select your country.</div>
+        </div>
+        <div class="form-row full">
           <label for="practiceAddress">Practice address <span class="req">*</span></label>
           <input id="practiceAddress" type="text" autocomplete="address-line1" placeholder="Street address" required>
           <div class="err">Please enter your practice street address.</div>
@@ -97,20 +112,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <input id="practiceAddress2" type="text" autocomplete="address-line2" placeholder="Suite 200">
         </div>
         <div class="form-row">
-          <label for="practiceCity">City</label>
-          <input id="practiceCity" type="text" autocomplete="address-level2">
+          <label for="practiceCity"><span id="cityLabelText">City</span> <span class="req">*</span></label>
+          <input id="practiceCity" type="text" autocomplete="address-level2" required>
+          <div class="err" id="cityErr">Please enter your city.</div>
         </div>
         <div class="form-row">
-          <label for="practiceState">State or province</label>
-          <input id="practiceState" type="text" autocomplete="address-level1">
+          <label for="practiceState"><span id="regionLabelText">State or province</span> <span class="req">*</span></label>
+          <input id="practiceState" type="text" autocomplete="address-level1" required>
+          <div class="err" id="regionErr">Please enter your state or province.</div>
         </div>
         <div class="form-row">
-          <label for="postalCode">Postal code</label>
-          <input id="postalCode" type="text" autocomplete="postal-code">
-        </div>
-        <div class="form-row">
-          <label for="country">Country</label>
-          <input id="country" type="text" autocomplete="country-name" placeholder="e.g. United States">
+          <label for="postalCode"><span id="postalLabelText">Postal code</span> <span class="req">*</span></label>
+          <input id="postalCode" type="text" autocomplete="postal-code" required>
+          <div class="err" id="postalErr">Please enter your postal code.</div>
         </div>
         <div class="form-row">
           <label for="hasGbp">Do you have a Google Business Profile?</label>
@@ -465,6 +479,35 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     document.getElementById('gbpLinkRow').classList.toggle('is-hidden', e.target.value !== 'yes');
   });
 
+  // Country-aware address labels. Picking the country first re-labels the
+  // region/postal/city fields to match local convention (State + ZIP for the
+  // US, County + Postcode for the UK, etc). The field IDs and the submitted
+  // payload do not change; only the visible labels and error copy do.
+  var ADDRESS_LOCALE = {
+    'United States':  { region: 'State',             postal: 'ZIP code',      city: 'City' },
+    'Canada':         { region: 'Province',          postal: 'Postal code',   city: 'City' },
+    'United Kingdom': { region: 'County',            postal: 'Postcode',      city: 'Town / City' },
+    'Ireland':        { region: 'County',            postal: 'Eircode',       city: 'Town / City' },
+    'Australia':      { region: 'State / Territory', postal: 'Postcode',      city: 'Suburb / City' },
+    'New Zealand':    { region: 'Region',            postal: 'Postcode',      city: 'Town / City' },
+    'South Africa':   { region: 'Province',          postal: 'Postal code',   city: 'City' }
+  };
+  var ADDRESS_LOCALE_DEFAULT = { region: 'State / Province / Region', postal: 'Postal code', city: 'City' };
+
+  function applyAddressLocale(country) {
+    var loc = ADDRESS_LOCALE[country] || ADDRESS_LOCALE_DEFAULT;
+    document.getElementById('regionLabelText').textContent = loc.region;
+    document.getElementById('postalLabelText').textContent = loc.postal;
+    document.getElementById('cityLabelText').textContent = loc.city;
+    document.getElementById('regionErr').textContent = 'Please enter your ' + loc.region.toLowerCase() + '.';
+    document.getElementById('postalErr').textContent = 'Please enter your ' + loc.postal.toLowerCase() + '.';
+    document.getElementById('cityErr').textContent = 'Please enter your ' + loc.city.toLowerCase() + '.';
+  }
+
+  document.getElementById('country').addEventListener('change', function (e) {
+    applyAddressLocale(e.target.value);
+  });
+
   function setError(rowId, has) {
     document.getElementById(rowId).closest('.form-row').classList.toggle('has-error', has);
   }
@@ -478,7 +521,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       ['phone',           function (v) { return v.trim().length >= 6; }],
       ['practiceName',    function (v) { return v.trim().length > 0; }],
       ['websiteUrl',      function (v) { return /^https?:\/\/.+\..+/.test(v.trim()); }],
-      ['practiceAddress', function (v) { return v.trim().length > 0; }]
+      ['country',         function (v) { return v.trim().length > 0; }],
+      ['practiceAddress', function (v) { return v.trim().length > 0; }],
+      ['practiceCity',    function (v) { return v.trim().length > 0; }],
+      ['practiceState',   function (v) { return v.trim().length > 0; }],
+      ['postalCode',      function (v) { return v.trim().length > 0; }]
     ];
     checks.forEach(function (c) {
       var el = document.getElementById(c[0]);
