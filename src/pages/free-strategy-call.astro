@@ -293,6 +293,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     sel.addEventListener('change', function (e) {
       state.tz = e.target.value;
       document.getElementById('tzLabel').textContent = state.tz + ', ' + fmtTzAbbr(state.tz);
+      // Changing the zone re-labels every slot AND re-groups slots into days
+      // (a slot's local date can shift across the zone change), so the cached
+      // day key in state.selectedDate is no longer valid. Clear the selection
+      // and return to the date picker; loadAvailability re-renders the dates in
+      // the new zone, and the time grid will rebuild from fresh data on the
+      // next pick. Without this, a zone change made while viewing the time grid
+      // leaves the old zone's times on screen.
+      state.selectedDate = null;
+      state.selectedSlot = null;
+      clearNotice();
+      goToStep(1);
       loadAvailability();
     });
   }
