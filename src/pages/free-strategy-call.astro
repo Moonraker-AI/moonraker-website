@@ -126,7 +126,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
         <div class="form-row full">
           <label for="referralSource">How did you hear about Moonraker?</label>
-          <input id="referralSource" type="text" placeholder="A colleague, podcast, search, etc.">
+          <select id="referralSource">
+            <option value="">Select...</option>
+            <option value="Google Search">Google Search</option>
+            <option value="Google Maps">Google Maps</option>
+            <option value="AI Search (ChatGPT, Gemini, Claude, etc)">AI Search (ChatGPT, Gemini, Claude, etc)</option>
+            <option value="Referral">Referral</option>
+            <option value="Webinar">Webinar</option>
+            <option value="Newsletter">Newsletter</option>
+            <option value="Other">Other</option>
+          </select>
         </div>
         <div class="form-row full">
           <label for="notes">Anything you'd like Scott to know in advance?</label>
@@ -634,61 +643,65 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 .step-back:hover { color: var(--color-primary); background: var(--color-primary-subtle); }
 .step-back::before { content: '\2190'; }
 
-/* Date pills */
+/* Date pills.
+   These pills (and the time pills below) are injected at runtime via
+   innerHTML, so they never carry Astro's scope attribute. Their rules
+   MUST be :global() or the scoped selector will not match and the
+   buttons fall back to raw browser styling. */
 .date-strip {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
   gap: .65rem;
 }
-.date-pill {
+:global(.date-pill) {
   background: var(--color-bg); border: 1px solid var(--color-border);
   border-radius: 12px; padding: .85rem .5rem; cursor: pointer;
   text-align: center; transition: border-color .15s, transform .12s;
 }
-.date-pill:hover {
+:global(.date-pill:hover) {
   border-color: var(--color-primary);
 }
-.date-pill.selected {
+:global(.date-pill.selected) {
   background: var(--color-primary); border-color: var(--color-primary); color: #fff;
 }
-.date-pill .date-weekday {
+:global(.date-pill .date-weekday) {
   font-size: .7rem; font-weight: 600; text-transform: uppercase;
   letter-spacing: .04em; color: var(--color-muted); margin-bottom: .35rem;
 }
-.date-pill.selected .date-weekday { color: rgba(255,255,255,.85); }
-.date-pill .date-day {
+:global(.date-pill.selected .date-weekday) { color: rgba(255,255,255,.85); }
+:global(.date-pill .date-day) {
   font-family: 'Outfit', sans-serif; font-weight: 700;
   font-size: 1.5rem; color: var(--color-heading); line-height: 1;
 }
-.date-pill.selected .date-day { color: #fff; }
-.date-pill .date-month {
+:global(.date-pill.selected .date-day) { color: #fff; }
+:global(.date-pill .date-month) {
   font-size: .7rem; color: var(--color-muted); margin-top: .25rem;
 }
-.date-pill.selected .date-month { color: rgba(255,255,255,.8); }
-.date-pill .date-count {
+:global(.date-pill.selected .date-month) { color: rgba(255,255,255,.8); }
+:global(.date-pill .date-count) {
   font-size: .65rem; color: var(--color-primary); margin-top: .25rem;
   font-weight: 600;
 }
-.date-pill.selected .date-count { color: rgba(255,255,255,.85); }
+:global(.date-pill.selected .date-count) { color: rgba(255,255,255,.85); }
 
-/* Time slots */
+/* Time slots (injected via innerHTML, see note above). */
 .time-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: .65rem;
 }
-.time-pill {
+:global(.time-pill) {
   background: var(--color-bg); border: 1px solid var(--color-border);
   border-radius: 10px; padding: .75rem; cursor: pointer; text-align: center;
   transition: border-color .15s, transform .12s, background .15s;
   font-family: inherit;
 }
-.time-pill:hover { border-color: var(--color-primary); transform: translateY(-1px); }
-.time-pill.selected { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
-.time-pill .t-main { font-weight: 600; font-size: .92rem; color: var(--color-heading); }
-.time-pill.selected .t-main { color: #fff; }
-.time-pill .t-sub {
+:global(.time-pill:hover) { border-color: var(--color-primary); transform: translateY(-1px); }
+:global(.time-pill.selected) { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
+:global(.time-pill .t-main) { font-weight: 600; font-size: .92rem; color: var(--color-heading); }
+:global(.time-pill.selected .t-main) { color: #fff; }
+:global(.time-pill .t-sub) {
   font-size: .68rem; color: var(--color-muted); margin-top: 2px;
 }
-.time-pill.selected .t-sub { color: rgba(255,255,255,.8); }
+:global(.time-pill.selected .t-sub) { color: rgba(255,255,255,.8); }
 
 /* Form */
 .form-grid {
@@ -772,23 +785,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   border-radius: 12px; padding: 1.25rem; max-width: 480px; margin: 1.5rem auto;
   text-align: left; font-size: .88rem;
 }
-.confirm-details .detail-row { display: flex; justify-content: space-between; padding: .35rem 0; }
-.confirm-details .detail-label { color: var(--color-muted); }
-.confirm-details .detail-value { color: var(--color-heading); font-weight: 500; }
-.confirm-details .detail-value a { color: var(--color-primary); text-decoration: none; }
+/* detail rows are injected via innerHTML, so :global() is required. */
+:global(.confirm-details .detail-row) { display: flex; justify-content: space-between; padding: .35rem 0; }
+:global(.confirm-details .detail-label) { color: var(--color-muted); }
+:global(.confirm-details .detail-value) { color: var(--color-heading); font-weight: 500; }
+:global(.confirm-details .detail-value a) { color: var(--color-primary); text-decoration: none; }
 
-/* Loading + error states */
-.spinner {
+/* Loading + error states. The spinner and the loading/empty/error state
+   blocks are injected via innerHTML, so they need :global(). error-state
+   and the spinner also appear inside JS-built markup. */
+:global(.spinner) {
   display: inline-block; width: 18px; height: 18px;
   border: 2px solid rgba(255,255,255,.4); border-top-color: #fff;
   border-radius: 50%; animation: spin .6s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
-.loading-state, .empty-state, .error-state {
+:global(.loading-state), :global(.empty-state), :global(.error-state) {
   text-align: center; padding: 2.5rem 1rem; color: var(--color-muted); font-size: .9rem;
 }
-.error-state { color: var(--color-danger); }
-.empty-state { font-style: italic; }
+:global(.error-state) { color: var(--color-danger); }
+:global(.empty-state) { font-style: italic; }
 .is-hidden { display: none; }
 .confirm-note { font-size: .82rem; color: var(--color-muted); }
 
