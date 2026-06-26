@@ -25,6 +25,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="tz-banner-line">Wrong zone? <select id="tzPicker" aria-label="Time zone"></select></div>
     </div>
   </div>
+  <div id="bookingNotice" class="booking-notice is-hidden" role="alert"></div>
   <div class="booking-card">
 
     <!-- Step 1: pick date -->
@@ -380,6 +381,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   function selectDate(dateStr) {
+    clearNotice();
     state.selectedDate = dateStr;
     document.querySelectorAll('.date-pill').forEach(function (el) {
       el.classList.toggle('selected', el.getAttribute('data-date') === dateStr);
@@ -426,6 +428,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       s.attendee_date + ' at ' + s.attendee_time + ' (' + s.attendee_tz_label + ')';
     document.getElementById('summarySub').textContent =
       'That is ' + fmtAdelaide(s.start_utc) + ' Adelaide time. 30 minutes with Scott on Zoom.';
+  }
+
+  function showNotice(msg) {
+    var el = document.getElementById('bookingNotice');
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.remove('is-hidden');
+  }
+  function clearNotice() {
+    var el = document.getElementById('bookingNotice');
+    if (el) el.classList.add('is-hidden');
   }
 
   window.goToStep = function (n) {
@@ -508,10 +521,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         if (!res.ok) {
           var msg = (res.body && res.body.error) || 'Booking failed. Please try again.';
           if (res.status === 409) {
-            // Slot disappeared. Reload availability.
+            // Slot disappeared. Reload availability and send the user back to
+            // the date picker. The formError element lives inside step 3, which
+            // goToStep(1) hides, so surface the reason in the always-visible
+            // notice banner above the card instead.
             msg = 'That time was taken while you were filling in the form. Please pick another.';
             loadAvailability();
             goToStep(1);
+            showNotice(msg);
+            return;
           }
           document.getElementById('formError').textContent = msg;
           document.getElementById('formError').classList.remove('is-hidden');
@@ -614,6 +632,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   border-radius: 6px; background: var(--color-bg); color: var(--color-body);
 }
 .tz-banner select:focus { outline: none; border-color: var(--color-primary); }
+
+/* Booking notice banner (shown above the card, e.g. when a slot is taken). */
+.booking-notice {
+  margin: 0 0 1rem; padding: .85rem 1.1rem;
+  border-radius: var(--r-md); font-size: .88rem; line-height: 1.5;
+  background: color-mix(in srgb, var(--color-danger) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-danger) 35%, transparent);
+  color: var(--color-danger);
+}
 
 /* Booking workspace */
 .booking-workspace {
