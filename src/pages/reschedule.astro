@@ -29,6 +29,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </div>
 
 <div id="bookingWorkspace" class="booking-workspace">
+  <div id="bookingNotice" class="booking-notice form-error-hidden" role="alert"></div>
   <div class="booking-card">
 
     <!-- Token / link error state -->
@@ -161,6 +162,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       if (state.fromIso) {
         document.getElementById('currentWhen').textContent = fmtFriendly(state.fromIso, state.tz);
       }
+      // A zone change re-labels and re-groups slots into days, invalidating the
+      // cached selectedDate. Clear the selection and return to the date picker
+      // so the dates (and the next time grid) render in the new zone instead of
+      // leaving the old zone's times on screen.
+      state.selectedDate = null;
+      state.selectedSlot = null;
+      clearNotice();
+      goToStep(1);
       loadAvailability();
     });
   }
@@ -255,6 +264,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   function selectDate(dateStr) {
+    clearNotice();
     state.selectedDate = dateStr;
     document.querySelectorAll('.date-pill').forEach(function (el) {
       el.classList.toggle('selected', el.getAttribute('data-date') === dateStr);
@@ -303,6 +313,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       'That is ' + fmtAdelaide(s.start_utc) + ' Adelaide time. Same call length, same host.';
   }
 
+  function showNotice(msg) {
+    var el = document.getElementById('bookingNotice');
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.remove('form-error-hidden');
+  }
+  function clearNotice() {
+    var el = document.getElementById('bookingNotice');
+    if (el) el.classList.add('form-error-hidden');
+  }
+
   window.goToStep = function (n) {
     [1, 2, 3, 4].forEach(function (i) {
       var el = document.getElementById('step' + i);
@@ -345,10 +366,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           var msg = (res.body && res.body.error) || 'Reschedule failed. Please try again.';
           if (res.status === 409) {
             // Either someone took the slot, or this booking already moved.
-            // Reload availability and bounce back to step 1.
+            // Reload availability and bounce back to step 1. formError lives in
+            // step 3 which goToStep(1) hides, so surface the reason in the
+            // always-visible notice banner above the card instead.
             msg = msg || 'That time was taken while you were on this page. Please pick another.';
             loadAvailability();
             goToStep(1);
+            showNotice(msg);
+            return;
           }
           document.getElementById('formError').textContent = msg;
           document.getElementById('formError').style.display = 'block';
@@ -483,6 +508,11 @@ html.dark .contact-wrap::before {
 }
 
 .booking-workspace { max-width: 720px; margin: 0 auto; padding: 2rem; }
+.booking-notice {
+  margin: 0 0 1rem; padding: .85rem 1.1rem;
+  border-radius: var(--r-sm); font-size: .88rem; line-height: 1.5;
+  background: rgba(239,68,68,.08); border: 1px solid rgba(239,68,68,.2); color: #b91c1c;
+}
 .booking-card {
   background: var(--color-surface); border: 1px solid var(--color-border);
   border-radius: var(--r-md); padding: 2rem; box-shadow: var(--shadow-card);
@@ -504,36 +534,40 @@ html.dark .contact-wrap::before {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
   gap: .6rem;
 }
-.date-pill {
+/* Date + time pills (and their children) are injected via innerHTML at
+   runtime, so they never carry Astro's scope attribute. These rules MUST be
+   :global() or the scoped selector will not match and the buttons fall back
+   to raw browser styling. */
+:global(.date-pill) {
   background: var(--color-bg); border: 1px solid var(--color-border);
   border-radius: 10px; padding: .75rem .5rem; cursor: pointer;
   text-align: center; font-family: inherit; transition: all .15s;
 }
-.date-pill:hover {
+:global(.date-pill:hover) {
   border-color: var(--color-primary); background: var(--color-primary-subtle);
 }
-.date-pill.selected {
+:global(.date-pill.selected) {
   border-color: var(--color-primary); background: var(--color-primary-subtle);
 }
-.date-weekday { font-size: .72rem; color: var(--color-muted); text-transform: uppercase; letter-spacing: .04em; }
-.date-day     { font-size: 1.5rem; font-weight: 700; color: var(--color-heading); line-height: 1.1; }
-.date-month   { font-size: .8rem; color: var(--color-body); }
-.date-count   { font-size: .7rem; color: var(--color-muted); margin-top: .35rem; }
+:global(.date-weekday) { font-size: .72rem; color: var(--color-muted); text-transform: uppercase; letter-spacing: .04em; }
+:global(.date-day)     { font-size: 1.5rem; font-weight: 700; color: var(--color-heading); line-height: 1.1; }
+:global(.date-month)   { font-size: .8rem; color: var(--color-body); }
+:global(.date-count)   { font-size: .7rem; color: var(--color-muted); margin-top: .35rem; }
 
 .time-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   gap: .6rem;
 }
-.time-pill {
+:global(.time-pill) {
   background: var(--color-bg); border: 1px solid var(--color-border);
   border-radius: 8px; padding: .65rem .5rem; cursor: pointer;
   text-align: center; font-family: inherit; transition: all .15s;
 }
-.time-pill:hover {
+:global(.time-pill:hover) {
   border-color: var(--color-primary); background: var(--color-primary-subtle);
 }
-.t-main { font-weight: 600; color: var(--color-heading); }
-.t-sub  { font-size: .72rem; color: var(--color-muted); margin-top: .15rem; }
+:global(.t-main) { font-weight: 600; color: var(--color-heading); }
+:global(.t-sub)  { font-size: .72rem; color: var(--color-muted); margin-top: .15rem; }
 
 .summary-box {
   background: var(--color-primary-subtle); border: 1px solid var(--color-primary);
@@ -557,7 +591,10 @@ html.dark .contact-wrap::before {
 .btn-primary:disabled { opacity: .6; cursor: not-allowed; }
 .btn-ghost { background: transparent; }
 
-.spinner {
+/* Spinner + state blocks are injected via innerHTML, so :global() is required.
+   error-state also appears on #formError in the template; making it global
+   covers both. */
+:global(.spinner) {
   display: inline-block; width: 14px; height: 14px;
   border: 2px solid rgba(255,255,255,.3); border-top-color: #fff;
   border-radius: 50%; animation: spin .7s linear infinite;
@@ -565,10 +602,10 @@ html.dark .contact-wrap::before {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-.loading-state, .empty-state, .error-state {
+:global(.loading-state), :global(.empty-state), :global(.error-state) {
   text-align: center; padding: 2rem 1rem; color: var(--color-muted);
 }
-.error-state {
+:global(.error-state) {
   background: rgba(239,68,68,.08); border: 1px solid rgba(239,68,68,.2);
   border-radius: 8px; color: #b91c1c; font-size: .88rem;
 }
@@ -584,13 +621,14 @@ html.dark .contact-wrap::before {
   background: var(--color-bg); border: 1px solid var(--color-border);
   border-radius: 10px; padding: 1rem 1.25rem; margin: 1.25rem 0;
 }
-.detail-row {
+/* Confirmation detail rows are injected via innerHTML, so :global() is required. */
+:global(.detail-row) {
   display: flex; justify-content: space-between; padding: .35rem 0;
   font-size: .9rem;
 }
-.detail-row + .detail-row { border-top: 1px solid var(--color-border); }
-.detail-label { color: var(--color-muted); }
-.detail-value { color: var(--color-heading); font-weight: 500; }
+:global(.detail-row + .detail-row) { border-top: 1px solid var(--color-border); }
+:global(.detail-label) { color: var(--color-muted); }
+:global(.detail-value) { color: var(--color-heading); font-weight: 500; }
 
 .confirm { text-align: center; }
 .confirm-note { font-size: .82rem; color: var(--color-muted); }
