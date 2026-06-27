@@ -107,8 +107,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           setStatus('error', (res.body && res.body.error) || 'Unable to cancel this call. Please try again.');
           return;
         }
+        // Cancellation done: strip the whole form down to just the
+        // confirmation message so there is nothing left to click.
         confirmPrompt.hidden = true;
-        confirmYes.textContent = 'Yes, cancel it';
+        actionsRow.hidden = true;
+        var reasonField = document.querySelector('.field');
+        if (reasonField) reasonField.hidden = true;
+        var copy = document.querySelector('.cancel-copy');
+        if (copy) copy.hidden = true;
         setStatus('success', res.body.status === 'already_cancelled'
           ? 'This call was already cancelled.'
           : 'Your call has been cancelled and the calendar event has been removed.');
