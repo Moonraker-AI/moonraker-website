@@ -18,9 +18,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <label for="reason">Reason (optional)</label>
     <textarea id="reason" placeholder="Optional note for Scott"></textarea>
   </div>
-  <div class="actions">
+  <div class="actions" id="actions">
     <a class="btn" href="/free-strategy-call">Keep or book another time</a>
     <button class="btn btn-primary" id="cancelBtn" type="button">Cancel this call</button>
+  </div>
+  <div class="confirm-prompt" id="confirmPrompt" hidden>
+    <p class="confirm-text">Are you sure you want to cancel this call? This removes it from Scott's calendar and cannot be undone.</p>
+    <div class="confirm-actions">
+      <button class="btn" id="confirmNo" type="button">No, keep my call</button>
+      <button class="btn btn-primary" id="confirmYes" type="button">Yes, cancel it</button>
+    </div>
   </div>
   <div class="status" id="statusBox"></div>
 </main>
@@ -58,9 +65,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     return;
   }
 
+  var actionsRow = document.getElementById('actions');
+  var confirmPrompt = document.getElementById('confirmPrompt');
+  var confirmYes = document.getElementById('confirmYes');
+  var confirmNo = document.getElementById('confirmNo');
+
+  // First click only asks for confirmation; the actual cancel does not fire
+  // until the user explicitly confirms below.
   btn.addEventListener('click', function () {
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span> Cancelling...';
+    setStatus('', '');
+    actionsRow.hidden = true;
+    confirmPrompt.hidden = false;
+  });
+
+  confirmNo.addEventListener('click', function () {
+    confirmPrompt.hidden = true;
+    actionsRow.hidden = false;
+  });
+
+  confirmYes.addEventListener('click', function () {
+    confirmYes.disabled = true;
+    confirmNo.disabled = true;
+    confirmYes.innerHTML = '<span class="spinner"></span> Cancelling...';
     setStatus('', '');
     fetch(API_ROOT + '/api/booking/cancel', {
       method: 'POST',
@@ -73,20 +99,24 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     })
       .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b, status: r.status }; }); })
       .then(function (res) {
-        btn.disabled = false;
-        btn.textContent = 'Cancel this call';
         if (!res.ok) {
+          // Keep the confirm prompt visible so the user can retry.
+          confirmYes.disabled = false;
+          confirmNo.disabled = false;
+          confirmYes.textContent = 'Yes, cancel it';
           setStatus('error', (res.body && res.body.error) || 'Unable to cancel this call. Please try again.');
           return;
         }
-        btn.disabled = true;
+        confirmPrompt.hidden = true;
+        confirmYes.textContent = 'Yes, cancel it';
         setStatus('success', res.body.status === 'already_cancelled'
           ? 'This call was already cancelled.'
           : 'Your call has been cancelled and the calendar event has been removed.');
       })
       .catch(function () {
-        btn.disabled = false;
-        btn.textContent = 'Cancel this call';
+        confirmYes.disabled = false;
+        confirmNo.disabled = false;
+        confirmYes.textContent = 'Yes, cancel it';
         setStatus('error', 'Network error. Please try again.');
       });
   });
@@ -149,6 +179,13 @@ html.dark .cancel-wrap::before {
   background: var(--color-bg); color: var(--color-body);
 }
 .actions { display: flex; gap: .75rem; justify-content: flex-end; flex-wrap: wrap; }
+.confirm-prompt {
+  margin-top: 1.25rem; padding: 1.1rem 1.25rem;
+  background: rgba(239,68,68,.06); border: 1px solid rgba(239,68,68,.25);
+  border-radius: 10px;
+}
+.confirm-text { color: var(--color-heading); font-size: .92rem; line-height: 1.55; margin: 0 0 1rem; }
+.confirm-actions { display: flex; gap: .75rem; justify-content: flex-end; flex-wrap: wrap; }
 .btn {
   font-family: inherit; font-size: .92rem; padding: .7rem 1.25rem;
   border-radius: 8px; cursor: pointer; transition: all .15s;
@@ -174,7 +211,7 @@ html.dark .cancel-wrap::before {
   .cancel-wrap { padding: 2rem 1rem; }
   .cancel-header h1 { font-size: 1.85rem; }
   .cancel-card { margin: 1rem; padding: 1.25rem; }
-  .actions { flex-direction: column-reverse; }
-  .actions .btn { width: 100%; text-align: center; }
+  .actions, .confirm-actions { flex-direction: column-reverse; }
+  .actions .btn, .confirm-actions .btn { width: 100%; text-align: center; }
 }
 </style>
