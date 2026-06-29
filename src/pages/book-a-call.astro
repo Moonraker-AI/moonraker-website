@@ -13,7 +13,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <div class="tz-banner">
     <span class="tz-banner-icon">&#127758;</span>
     <div>
-      <div><strong>Scott is based in Adelaide, Australia</strong> and takes new client calls Tuesday through Thursday, 9 AM to 5 PM local time.</div>
+      <div><strong>You will be meeting with Scott, based in Western Australia (AWST).</strong> He takes new client calls Tuesday through Thursday mornings, 7:30 AM to 12 PM his local time. Pick whatever shows up in your own zone below.</div>
       <div class="tz-note">All times below are shown in your local zone (<span id="tzLabel">detecting...</span>).</div>
       <div class="tz-picker-row">Wrong zone? <select id="tzPicker" aria-label="Time zone"></select></div>
     </div>
@@ -124,10 +124,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     } catch (e) { return tz; }
   }
 
-  function fmtAdelaide(iso) {
+  function fmtPerth(iso) {
     var d = new Date(iso);
     return new Intl.DateTimeFormat('en-US', {
-      timeZone: 'Australia/Adelaide', hour: 'numeric', minute: '2-digit', hour12: true
+      timeZone: 'Australia/Perth', hour: 'numeric', minute: '2-digit', hour12: true
     }).format(d);
   }
 
@@ -253,7 +253,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     slots.forEach(function (s, i) {
       html += '<button type="button" class="time-pill" data-idx="' + i + '">' +
         '<div class="t-main">' + s.attendee_time + '</div>' +
-        '<div class="t-sub">' + fmtAdelaide(s.start_utc) + ' Adelaide</div>' +
+        '<div class="t-sub">' + fmtPerth(s.start_utc) + ' Perth</div>' +
         '</button>';
     });
     grid.innerHTML = html;
@@ -277,7 +277,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     document.getElementById('summaryWhen').textContent =
       s.attendee_date + ' at ' + s.attendee_time + ' (' + s.attendee_tz_label + ')';
     document.getElementById('summarySub').textContent =
-      'That is ' + fmtAdelaide(s.start_utc) + ' Adelaide time. 30 minutes with Scott on Zoom.';
+      'That is ' + fmtPerth(s.start_utc) + ' Perth time (Scott\'s zone). 30 minutes with Scott on Zoom.';
   }
 
   window.goToStep = function (n) {
@@ -366,8 +366,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     var html = '';
     html += '<div class="detail-row"><span class="detail-label">When</span>' +
       '<span class="detail-value">' + s.attendee_date + ' at ' + s.attendee_time + ' (' + s.attendee_tz_label + ')</span></div>';
-    html += '<div class="detail-row"><span class="detail-label">Adelaide time</span>' +
-      '<span class="detail-value">' + fmtAdelaide(s.start_utc) + '</span></div>';
+    html += '<div class="detail-row"><span class="detail-label">Perth time</span>' +
+      '<span class="detail-value">' + fmtPerth(s.start_utc) + '</span></div>';
     html += '<div class="detail-row"><span class="detail-label">Duration</span>' +
       '<span class="detail-value">30 minutes</span></div>';
     if (state.booking && state.booking.meeting_link) {
