@@ -16,6 +16,7 @@ description: >-
   guarantee/CSA records are append-only and stay untouched).
 user_invocable: true
 disable_model_invocation: false
+allowed-tools: [Read, Grep, Glob, Edit, Bash]
 ---
 
 # emdash-sweep: remove U+2014 from a code surface without breaking it
@@ -28,6 +29,25 @@ the match). This skill is the classify-first sweep that shipped clean on
 client-hq twice (admin surfaces, then _templates/ + shared/, 156 hits, zero
 regressions).
 
+## Gotchas
+
+- A functional string (compared, parsed, keyed, regexed, or mirrored in a DB
+  row) that gets reworded on the code side only breaks the match silently.
+  Classify before touching anything; never reword a hit you have not traced.
+- When agents draft the sweep as structured patches, the find strings MUST
+  contain the exact em-dash bytes being removed; verify replaces carry zero
+  U+2014 before applying (count the glyph separately in finds vs replaces).
+- En-dashes (U+2013) are allowed; do not sweep them. Only flag one when it
+  sits in the same string you are already rewording.
+- DB-stored copy (page sections, proposals, newsletters) is out of scope for
+  a code sweep; if stored rows carry the glyph, plan a separate data pass
+  with its own backup and verification.
+- The per-repo `.githooks/pre-commit` blocks U+2014 in staged additions; this
+  skill is how you clear a surface proactively instead of fighting the hook
+  hit by hit.
+- `node --check` cannot parse HTML; inline `<script>` blocks need the
+  extract-and-vm.Script validation in step 4.
+
 ## Steps
 
 1. **Inventory.** From the repo root, list every hit with byte context:
@@ -36,9 +56,16 @@ regressions).
    grep -rnP '\x{2014}' <dirs...>
    ```
 
+   Expected output: one line per hit in the shape
+
+   ```
+   <path>:<line>:<line text containing the em-dash>
+   ```
+
+   No output at all means the surface is already clean; report that and stop.
    Count first; a sweep with hundreds of hits across many files is a good
    fan-out candidate (one drafting agent per surface, patches-as-data, then
-   apply-reviewed-patches). A handful of hits: edit directly.
+   use the `apply-reviewed-patches` skill). A handful of hits: edit directly.
 
 2. **Classify EVERY hit before changing any.** Four classes:
    - **Display copy** (HTML text, UI strings, comments): safe to reword.
@@ -56,29 +83,48 @@ regressions).
    (U+2013) or a plain hyphen, NOT a comma; check what the surrounding
    surfaces already use so placeholders stay consistent.
 
-4. **Validate everything touched.**
-   - Pure JS: `node --check <file>` per file.
+4. **Validate the syntax of everything touched.**
+   - Pure JS: `node --check <file>` per file. Expected output on success:
+
+     ```
+     (no output, exit code 0; a failure prints SyntaxError with <file>:<line>)
+     ```
+
    - Inline scripts in HTML: extract each `<script>` block and parse with
      `new (require('vm').Script)(blockText)` (node --check cannot parse HTML).
-   - Re-run the inventory grep over the swept dirs: must return nothing.
+     Success is the same invariant: no throw, no output.
 
-5. **Gate the commit.** Stage with explicit paths (never `git add -A`), then
-   the staged-diff scan must be empty:
+5. **Stage with explicit paths** (never `git add -A`; it sweeps pre-existing
+   untracked files into the commit). Confirm the staged set with
+   `git diff --cached --name-only` before moving to Verify.
+
+## Verify
+
+Both probes must come back empty before the sweep is done.
+
+1. Re-run the inventory grep over the swept dirs:
+
+   ```
+   grep -rnP '\x{2014}' <dirs...>
+   ```
+
+   Expected output:
+
+   ```
+   (no output, exit code 1: the surface is clean)
+   ```
+
+2. Run the staged-diff gate (the same scan the pre-commit hook applies):
 
    ```
    git diff --cached -U0 | grep '^+' | grep -nP '\x{2014}'
    ```
 
-## Notes
+   Expected output:
 
-- When agents draft the sweep as structured patches, the find strings MUST
-  contain the exact em-dash bytes being removed; verify replaces carry zero
-  U+2014 before applying (count the glyph separately in finds vs replaces).
-- En-dashes (U+2013) are allowed; do not sweep them. Only flag one when it
-  sits in the same string you are already rewording.
-- DB-stored copy (page sections, proposals, newsletters) is out of scope for
-  a code sweep; if stored rows carry the glyph, plan a separate data pass
-  with its own backup and verification.
-- The per-repo `.githooks/pre-commit` blocks U+2014 in staged additions; this
-  skill is how you clear a surface proactively instead of fighting the hook
-  hit by hit.
+   ```
+   (no output: staged additions carry zero U+2014)
+   ```
+
+If either probe prints a hit, go back to step 2 and classify it; do not
+commit until both are empty.

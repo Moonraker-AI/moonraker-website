@@ -86,6 +86,7 @@ These come from upstream and apply without exception unless a Moonraker override
 - Every interactive element has all eight states: default, hover, focus, active, disabled, loading, error, success.
 - `:focus-visible` for keyboard rings, never bare `outline: none`.
 - Skeleton screens, not generic spinners.
+- A loading state rendered INSIDE an existing shell (the sidebar/header already mounted) must skeleton ONLY the content region. Never re-draw the shell chrome (no fake sidebar rail, no fake header/avatar) or it paints a duplicate rail/header flashing in the main area. A full-shell silhouette is only correct for a true pre-shell page load. Make the loader layout-aware (section vs page).
 - Undo toast, not confirmation dialog (except for truly irreversible actions).
 
 **Responsive:**
