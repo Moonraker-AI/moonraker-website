@@ -7,6 +7,7 @@ const BASE = 'https://moonraker.ai';
 
 const STATIC: Array<{ path: string; priority: string }> = [
   { path: '/', priority: '1.0' },
+  { path: '/services', priority: '0.9' },
   { path: '/core-marketing-system', priority: '0.9' },
   { path: '/core-marketing-system/credibility', priority: '0.8' },
   { path: '/core-marketing-system/optimization', priority: '0.8' },

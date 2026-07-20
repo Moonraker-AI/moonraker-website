@@ -27,7 +27,7 @@ const ogDescriptionResolved = ogDescription ?? description;
 // Active nav state, computed from the route (the old static pages hard-coded it).
 const path = (Astro.url.pathname.replace(/\/+$/, '') || '/');
 const isCore = path === '/core-marketing-system' || path.startsWith('/core-marketing-system/');
-const isWork = path === '/process' || path === '/scope';
+const isWork = path === '/services' || path === '/process' || path === '/scope';
 const PREPAINT =
   "(function(){var d=document.documentElement;d.classList.add('js');var t=localStorage.getItem('moonraker-theme');if(t==='dark')d.classList.add('dark');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('js-reveal')}catch(e){}})();";
 const THEME_JS =
@@ -72,6 +72,7 @@ const THEME_JS =
       <li class="nav-dropdown">
         <a href="/process" class:list={[isWork && 'active']}>How We Work</a>
         <div class="dropdown-menu">
+          <a href="/services" class:list={[path === '/services' && 'active']}>Services</a>
           <a href="/process" class:list={[path === '/process' && 'active']}>Process</a>
           <a href="/scope" class:list={[path === '/scope' && 'active']}>Scope</a>
         </div>
@@ -89,7 +90,7 @@ const THEME_JS =
 </nav>
 <slot />
 <footer class="site-footer">
-  <div class="footer-links"><a href="/">Home</a><a href="/core-marketing-system">CORE System</a><a href="/results">Results</a><a href="/team">Our Team</a><a href="/knowledge-hub">Knowledge Hub</a><a href="/blog">Blog</a><a href="/process">Process</a><a href="/scope">Scope</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+  <div class="footer-links"><a href="/">Home</a><a href="/services">Services</a><a href="/core-marketing-system">CORE System</a><a href="/results">Results</a><a href="/team">Our Team</a><a href="/knowledge-hub">Knowledge Hub</a><a href="/blog">Blog</a><a href="/process">Process</a><a href="/scope">Scope</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
   <div class="footer-copy">&#169; 2026 Moonraker AI. All rights reserved.</div>
 </footer>
 <script is:inline set:html={THEME_JS}></script>
