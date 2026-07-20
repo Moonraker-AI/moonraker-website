@@ -28,6 +28,22 @@ const ogDescriptionResolved = ogDescription ?? description;
 const path = (Astro.url.pathname.replace(/\/+$/, '') || '/');
 const isCore = path === '/core-marketing-system' || path.startsWith('/core-marketing-system/');
 const isWork = path === '/services' || path === '/process' || path === '/scope';
+// Google tag ids. 'PENDING' disables the tag entirely (no script emitted), so
+// this ships safely before the Ads sub-account exists. Swap in the real ids
+// (G-XXXX, AW-XXXX, AW-XXXX/label) and republish to go live.
+const GA4_ID = 'PENDING';
+const AW_ID = 'PENDING';
+const AW_CONV = 'PENDING';
+const ADS_ENABLED = GA4_ID.startsWith('G-') && AW_ID.startsWith('AW-');
+const GTAG_JS =
+  "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}" +
+  "gtag('js',new Date());gtag('config','" + GA4_ID + "');gtag('config','" + AW_ID + "');" +
+  "try{if(!sessionStorage.getItem('mr_attrib')){var p=new URLSearchParams(location.search),a={};" +
+  "['gclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function(k){if(p.get(k))a[k]=p.get(k);});" +
+  "if(Object.keys(a).length)sessionStorage.setItem('mr_attrib',JSON.stringify(a));}}catch(e){}" +
+  "window.mrTrackConversion=function(txnId){if(typeof gtag!=='function')return;" +
+  "gtag('event','conversion',{send_to:'" + AW_CONV + "',transaction_id:txnId||''});" +
+  "gtag('event','book_strategy_call');};";
 const PREPAINT =
   "(function(){var d=document.documentElement;d.classList.add('js');var t=localStorage.getItem('moonraker-theme');if(t==='dark')d.classList.add('dark');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('js-reveal')}catch(e){}})();";
 const THEME_JS =
@@ -51,6 +67,8 @@ const THEME_JS =
 <link rel="icon" href="/assets/logo.png" type="image/png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script is:inline set:html={PREPAINT}></script>
+{ADS_ENABLED && <script async src={`https://www.googletagmanager.com/gtag/js?id=${AW_ID}`}></script>}
+{ADS_ENABLED && <script is:inline set:html={GTAG_JS}></script>}
 <slot name="head" />
 <script is:inline src="/assets/site.js" defer></script>
 </head>

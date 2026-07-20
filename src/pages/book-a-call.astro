@@ -350,6 +350,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           return;
         }
         state.booking = res.body;
+        try { if (window.mrTrackConversion) window.mrTrackConversion(res.body && res.body.booking_id); } catch (e) {}
         renderConfirmation(payload);
         goToStep(4);
       })

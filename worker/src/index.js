@@ -13,15 +13,25 @@ const SECURITY_HEADERS = {
   "Referrer-Policy": "strict-origin-when-cross-origin",
   "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
   "Content-Security-Policy":
-    "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.loom.com; " +
+    "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.loom.com " +
+    "https://www.googletagmanager.com https://www.googleadservices.com; " +
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
     "font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; " +
-    "connect-src 'self' https://clients.moonraker.ai; " +
+    "connect-src 'self' https://clients.moonraker.ai https://*.google-analytics.com " +
+    "https://*.analytics.google.com https://www.googletagmanager.com " +
+    "https://stats.g.doubleclick.net https://googleads.g.doubleclick.net https://www.google.com; " +
     "frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com " +
     "https://player.vimeo.com https://open.spotify.com https://embed.podcasts.apple.com " +
-    "https://gamma.app https://www.loom.com; frame-ancestors 'none'; base-uri 'self'; " +
+    "https://gamma.app https://www.loom.com https://td.doubleclick.net " +
+    "https://www.googletagmanager.com; frame-ancestors 'none'; base-uri 'self'; " +
     "form-action 'self'; upgrade-insecure-requests",
 };
+
+// Paid-search landing pages: keep out of the organic index (header covers the
+// .md siblings too, which a meta tag could not).
+function isLandingPath(pathname) {
+  return pathname === "/lp" || pathname.startsWith("/lp/");
+}
 
 // permanent (308) redirects ported from vercel.json
 const REDIRECTS = {
@@ -118,6 +128,7 @@ async function handle(request, env) {
         h.set("Content-Type", CT.md);
         h.set("Cache-Control", cacheControlFor(mdRel, env));
         h.set("Vary", "Accept");
+        if (isLandingPath(normalized)) h.set("X-Robots-Tag", "noindex, follow");
         if (typeof mdObj.size === "number") {
           h.set("Content-Length", String(mdObj.size));
           h.set("x-markdown-tokens", String(Math.max(1, Math.round(mdObj.size / 4))));
@@ -134,6 +145,7 @@ async function handle(request, env) {
     const h = new Headers(SECURITY_HEADERS);
     h.set("Content-Type", contentTypeFor(key, obj));
     h.set("Cache-Control", obj.httpMetadata?.cacheControl || cacheControlFor(key, env));
+    if (isLandingPath(normalized)) h.set("X-Robots-Tag", "noindex, follow");
     if (obj.httpEtag) h.set("ETag", obj.httpEtag);
     if (typeof obj.size === "number") h.set("Content-Length", String(obj.size));
     if (key.endsWith(".html")) {
