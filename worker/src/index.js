@@ -19,6 +19,7 @@ const SECURITY_HEADERS = {
     "font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; " +
     "connect-src 'self' https://clients.moonraker.ai https://*.google-analytics.com " +
     "https://*.analytics.google.com https://www.googletagmanager.com " +
+    "https://www.googleadservices.com " +
     "https://stats.g.doubleclick.net https://googleads.g.doubleclick.net https://www.google.com; " +
     "frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com " +
     "https://player.vimeo.com https://open.spotify.com https://embed.podcasts.apple.com " +
