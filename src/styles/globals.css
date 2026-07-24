@@ -15,10 +15,13 @@
   /* Green as TEXT on a light surface. The brand green is a fill colour: at
      L=0.74 it reads 2.14:1 on white, so any label or link painted with it
      fails WCAG AA outright. This is the same hue and chroma dropped to the
-     lightest L that clears 4.5:1 (#00884e). Use --color-primary for fills
-     and accents, --color-primary-text for anything a person has to READ.
+     lightest L that clears AA against the DARKEST light surface we use
+     (--color-primary-subtle), not against white. Solving against white is
+     the trap: white is the easiest background, so a value tuned there still
+     fails on the tinted alternating bands. Use --color-primary for fills and
+     accents, --color-primary-text for anything a person has to READ.
      In dark mode the surface flips, so this maps back to the bright green. */
-  --color-primary-text: oklch(0.535 0.165 162);
+  --color-primary-text: oklch(0.506 0.165 162);
   /* Text colour for content sitting ON the brand green. White on green is
      2.09:1; navy on green is 7.48:1 and keeps the green itself untouched. */
   --color-on-primary: oklch(0.205 0.052 269);
@@ -31,9 +34,10 @@
   /* Ink + navy: structural authority, tinted toward the brand hue. */
   --color-heading: oklch(0.31 0.072 268);
   --color-body: oklch(0.42 0.058 268);
-  /* 0.575 measured 4.38:1 on white, just under AA. Dropped to the first
-     value that clears 4.5:1. The visual difference is imperceptible. */
-  --color-muted: oklch(0.565 0.038 266);
+  /* 0.575 measured 4.38:1 on white, under AA, and worse on the tinted bands.
+     Set to the first value clearing 4.6:1 against every light surface we
+     use, including --color-primary-subtle. Visually imperceptible. */
+  --color-muted: oklch(0.540 0.038 266);
   --color-navy: oklch(0.255 0.055 268);
   --color-navy-deep: oklch(0.205 0.052 269);
   --color-navy-soft: oklch(0.32 0.05 267);
