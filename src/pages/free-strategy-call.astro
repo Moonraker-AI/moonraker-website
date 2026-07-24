@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 // paid landing page cannot drift apart. See src/components/BookingWidget.astro.
 import BookingWidget from '../components/BookingWidget.astro';
 import LoomFacade from '../components/LoomFacade.astro';
+import StatsStrip from '../components/StatsStrip.astro';
 ---
 <BaseLayout title="Book a free strategy call - Moonraker" description="Book a free 30-minute strategy call with Scott Pope at Moonraker. We help therapy practices understand how they currently show up on Google, Maps, ChatGPT, Gemini, and AI tools." canonical="https://moonraker.ai/free-strategy-call" ogTitle="Book a free strategy call - Moonraker" ogDescription="A clear first call for therapy practices that shows whether Moonraker can help and where the biggest gaps are." ogUrl="https://moonraker.ai/free-strategy-call">
 <main>
@@ -97,6 +98,8 @@ import LoomFacade from '../components/LoomFacade.astro';
   </div>
   </div>
 </section>
+
+<StatsStrip />
 
 </main>
 

@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 // converts inline instead of spending a click sending people elsewhere.
 import BookingWidget from '../../components/BookingWidget.astro';
 import LoomFacade from '../../components/LoomFacade.astro';
+import StatsStrip from '../../components/StatsStrip.astro';
 ---
 <BaseLayout
   title="Free Strategy Call for Therapy Practices | Moonraker"
@@ -44,13 +45,10 @@ import LoomFacade from '../../components/LoomFacade.astro';
         <img class="partner-logo" src="/assets/partners/prosperous-therapist.webp" alt="The Prosperous Therapist logo" width="300" height="100" loading="lazy" decoding="async">
         <img class="partner-logo" src="/assets/partners/mccance-method.webp" alt="The McCance Method logo" width="500" height="320" loading="lazy" decoding="async">
       </div>
-      <div class="lp-stats">
-        <div class="lp-stat"><div class="lp-stat-value">+115%</div><div class="lp-stat-label">Average visibility increase</div></div>
-        <div class="lp-stat"><div class="lp-stat-value">+308%</div><div class="lp-stat-label">Best result to date</div></div>
-      </div>
-      <p class="lp-stats-note">Verified Google Search Console data from therapy practices we manage.</p>
     </div>
   </section>
+
+  <StatsStrip />
 
   <section class="band-mint">
     <div class="section-wrap">
@@ -230,11 +228,6 @@ import LoomFacade from '../../components/LoomFacade.astro';
 .partners-heading { font-size: clamp(1.3rem, 2.2vw, 1.7rem); text-align: center; margin-bottom: 1.75rem; }
 .partner-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: clamp(1.5rem, 4vw, 3rem); }
 .partner-logo { height: 56px; width: auto; object-fit: contain; opacity: .85; }
-.lp-stats { display: flex; justify-content: center; gap: clamp(2rem, 6vw, 4.5rem); margin-top: 2.25rem; flex-wrap: wrap; }
-.lp-stat { text-align: center; }
-.lp-stat-value { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(2rem, 3.6vw, 2.8rem); color: var(--color-primary-text); line-height: 1.1; }
-.lp-stat-label { font-size: .82rem; color: var(--color-muted); text-transform: uppercase; letter-spacing: .05em; margin-top: .35rem; }
-.lp-stats-note { text-align: center; font-size: .82rem; color: var(--color-muted); margin-top: 1rem; }
 .people-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem; }
 .person-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--r-lg); padding: 1.75rem; display: grid; grid-template-columns: 176px 1fr; gap: 1.5rem; align-items: start; }
 .person-photo { width: 176px; height: 176px; border-radius: 50%; object-fit: cover; object-position: center 20%; }

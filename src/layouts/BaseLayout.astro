@@ -135,7 +135,10 @@ const THEME_JS =
 {bare && (
   <nav class="site-nav lp-nav">
     <div class="nav-inner">
-      <a href="/" class="nav-brand" aria-label="Moonraker home"><img src="/assets/logo.png" alt="Moonraker" width="32" height="32"></a>
+      {/* Paid landing pages open their few exits in a new tab: a visitor who
+          taps the logo or a legal link should still have the page they landed
+          on when they come back. rel guards against reverse tabnabbing. */}
+      <a href="/" class="nav-brand" aria-label="Moonraker home (opens in a new tab)" target="_blank" rel="noopener"><img src="/assets/logo.png" alt="Moonraker" width="32" height="32"></a>
       <div class="nav-right">
         <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
       </div>
@@ -180,7 +183,7 @@ const THEME_JS =
 <slot />
 {bare ? (
   <footer class="site-footer">
-    <div class="footer-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+    <div class="footer-links"><a href="/privacy" target="_blank" rel="noopener">Privacy</a><a href="/terms" target="_blank" rel="noopener">Terms</a></div>
     <div class="footer-copy">&#169; 2026 Moonraker AI. All rights reserved.</div>
   </footer>
 ) : (

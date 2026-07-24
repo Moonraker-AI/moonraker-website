@@ -1,0 +1,75 @@
+---
+/**
+ * Proof numbers on their own navy strip.
+ *
+ * These were sitting inside the partner-logo band, where they read as a
+ * footnote to the logos rather than as the hardest evidence on the page. On
+ * navy with the brand green they become the one high-contrast moment between
+ * the hero and the reviews.
+ *
+ * Kept deliberately short: it is a strip, not a section. The padding is about
+ * half a normal band so it reads as punctuation between two bands rather than
+ * as another thing to read.
+ */
+export interface Props {
+  /** Optional source line under the numbers. Pass null to omit. */
+  note?: string | null;
+}
+const {
+  note = 'Verified Google Search Console data from therapy practices we manage.',
+} = Astro.props;
+
+const STATS = [
+  { value: '+115%', label: 'Average visibility increase' },
+  { value: '+308%', label: 'Best result to date' },
+];
+---
+<section class="stats-strip">
+  <div class="stats-inner">
+    <div class="stats-row">
+      {STATS.map((s) => (
+        <div class="stat">
+          <div class="stat-value">{s.value}</div>
+          <div class="stat-label">{s.label}</div>
+        </div>
+      ))}
+    </div>
+    {note && <p class="stats-note">{note}</p>}
+  </div>
+</section>
+
+<style>
+.stats-strip {
+  background: linear-gradient(158deg, var(--color-navy) 0%, var(--color-navy-deep) 100%);
+  color: var(--color-on-navy-dim);
+}
+.stats-inner {
+  max-width: 1120px; margin: 0 auto;
+  padding: clamp(1.75rem, 3.5vw, 2.5rem) 2rem;
+  text-align: center;
+}
+.stats-row {
+  display: flex; justify-content: center; flex-wrap: wrap;
+  gap: clamp(2rem, 7vw, 5rem);
+}
+.stat-value {
+  font-family: 'Outfit', sans-serif; font-weight: 800;
+  /* The brand green at full strength: on navy it is high contrast, which is
+     the whole reason these moved off the light band. */
+  color: var(--color-primary);
+  font-size: clamp(2.2rem, 4.4vw, 3.2rem);
+  line-height: 1.05; letter-spacing: -.02em;
+}
+.stat-label {
+  margin-top: .4rem; font-size: .78rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .06em;
+  color: var(--color-on-navy-dim);
+}
+.stats-note {
+  margin-top: 1.1rem; font-size: .82rem;
+  color: var(--color-on-navy-dim); opacity: .85;
+}
+@media (max-width: 520px) {
+  .stats-row { gap: 1.5rem; }
+}
+</style>
