@@ -700,7 +700,8 @@ const { defer = false } = Astro.props;
 }
 .date-pill.selected .date-month { color: rgba(255,255,255,.8); }
 .date-pill .date-count {
-  font-size: .65rem; color: var(--color-primary); margin-top: .25rem;
+  /* Readable green: the fill green measures ~2.1:1 on the pill surface. */
+  font-size: .65rem; color: var(--color-primary-text); margin-top: .25rem;
   font-weight: 600;
 }
 .date-pill.selected .date-count { color: rgba(255,255,255,.85); }

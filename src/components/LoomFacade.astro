@@ -1,0 +1,76 @@
+---
+/**
+ * Click-to-load Loom player.
+ *
+ * The Loom embed pulls ~1.5 MB of script plus ~825 KB of media and its own
+ * third-party cookies. Because our players sit in the hero, `loading="lazy"`
+ * defers nothing: the iframe is in the viewport on arrival. Eager, it put
+ * mobile LCP at 10.3s on pages we pay per click to reach.
+ *
+ * So we render a small self-hosted poster and swap in the real player on
+ * click, with autoplay so the click that asks for the video also starts it.
+ *
+ * Render once per page: the script binds by id.
+ */
+export interface Props {
+  /** Loom video id, the part after /embed/ or /share/. */
+  id: string;
+  /** Poster basename under /assets, without extension. AVIF + WebP expected. */
+  poster: string;
+  /** Accessible name for the play button. */
+  label: string;
+}
+const { id, poster, label } = Astro.props;
+---
+<div class="video-frame">
+  <button type="button" class="video-facade" id="loomFacade"
+    data-loom={`https://www.loom.com/embed/${id}`}
+    aria-label={label}>
+    <picture>
+      <source srcset={`/assets/${poster}.avif`} type="image/avif">
+      <img src={`/assets/${poster}.webp`} alt="" width="960" height="540"
+        fetchpriority="high" decoding="async">
+    </picture>
+    <span class="video-play" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="28" height="28" focusable="false"><path d="M8 5v14l11-7z" fill="currentColor"></path></svg>
+    </span>
+  </button>
+</div>
+
+<script is:inline>
+  (function () {
+    var facade = document.getElementById('loomFacade');
+    if (!facade) return;
+    var loaded = false;
+    function load() {
+      if (loaded) return;
+      loaded = true;
+      var frame = document.createElement('iframe');
+      frame.src = facade.getAttribute('data-loom') + '?autoplay=1';
+      frame.title = facade.getAttribute('aria-label') || 'Video';
+      frame.allow = 'autoplay; fullscreen';
+      frame.setAttribute('allowfullscreen', '');
+      facade.parentNode.replaceChild(frame, facade);
+      frame.focus();
+    }
+    facade.addEventListener('click', load);
+  })();
+</script>
+
+<style is:global>
+  .video-frame { position: relative; aspect-ratio: 16/9; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-lift); background: var(--color-navy-deep); }
+  .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .video-facade { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; cursor: pointer; background: var(--color-navy-deep); display: block; }
+  .video-facade img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .video-play {
+    position: absolute; inset: 0; margin: auto; width: 68px; height: 68px;
+    display: grid; place-items: center; border-radius: 50%;
+    background: var(--color-primary); color: var(--color-on-primary);
+    box-shadow: 0 6px 24px rgb(0 0 0 / .35);
+    transition: transform .18s var(--ease-out);
+  }
+  .video-play svg { margin-left: 3px; }
+  .video-facade:hover .video-play { transform: scale(1.07); }
+  .video-facade:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) { .video-facade:hover .video-play { transform: none; } }
+</style>

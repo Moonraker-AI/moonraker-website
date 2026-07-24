@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 // The booking flow lives in one shared component so this page and the
 // paid landing page cannot drift apart. See src/components/BookingWidget.astro.
 import BookingWidget from '../components/BookingWidget.astro';
+import LoomFacade from '../components/LoomFacade.astro';
 ---
 <BaseLayout title="Book a free strategy call - Moonraker" description="Book a free 30-minute strategy call with Scott Pope at Moonraker. We help therapy practices understand how they currently show up on Google, Maps, ChatGPT, Gemini, and AI tools." canonical="https://moonraker.ai/free-strategy-call" ogTitle="Book a free strategy call - Moonraker" ogDescription="A clear first call for therapy practices that shows whether Moonraker can help and where the biggest gaps are." ogUrl="https://moonraker.ai/free-strategy-call">
 <main>
@@ -13,15 +14,17 @@ import BookingWidget from '../components/BookingWidget.astro';
       <h1>Book a free <span>strategy call.</span></h1>
       <p>A focused 30 minute call with Scott Pope, our Director of Growth and Operations. Scott leads every strategy call here, working hand in hand with founder Chris Morin, so you get the same depth of insight into how your practice shows up across Google, Maps, ChatGPT, Gemini, and other AI tools.</p>
     </div>
-    <div class="contact-video">
-      <iframe src="https://www.loom.com/embed/df3a5aa47f284ade81a4649695ac42dd" loading="lazy" allow="fullscreen" allowfullscreen title="What a free strategy call with Moonraker looks like"></iframe>
-    </div>
+    <LoomFacade
+      id="df3a5aa47f284ade81a4649695ac42dd"
+      poster="strategy-call-video-poster"
+      label="Play video: what a free strategy call with Moonraker looks like" />
   </div>
 </div>
 
 <BookingWidget />
 
-<section class="reviews-section">
+<section class="band-mint">
+  <div class="reviews-section">
   <div class="reviews-head">
     <div class="eyebrow">Reviews</div>
     <h2>Loved by practices like yours</h2>
@@ -69,9 +72,11 @@ import BookingWidget from '../components/BookingWidget.astro';
       <div class="review-author"><div class="review-avatar">CB</div><div><div class="review-name">Christopher Bagg</div><div class="review-meta">Google review</div></div></div>
     </article>
   </div>
+  </div>
 </section>
 
-<section class="partners-section">
+<section class="band-sage">
+  <div class="partners-section">
   <h2 class="section-heading">Trusted by the experts who educate therapists</h2>
   <p class="section-subhead">We partner with the industry&rsquo;s most respected names in practice building, clinical training, and therapist entrepreneurship.</p>
   <div class="partners-rows">
@@ -89,6 +94,7 @@ import BookingWidget from '../components/BookingWidget.astro';
       <img class="partner-logo" src="/assets/partners/prosperous-therapist.webp" alt="The Prosperous Therapist logo" title="The Prosperous Therapist logo" width="300" height="100" loading="lazy" decoding="async">
       <img class="partner-logo" src="/assets/partners/mccance-method.webp" alt="The McCance Method logo" title="The McCance Method logo" width="500" height="320" loading="lazy" decoding="async">
     </div>
+  </div>
   </div>
 </section>
 
@@ -127,8 +133,6 @@ import BookingWidget from '../components/BookingWidget.astro';
   font-size: 1.05rem; color: var(--color-on-navy-dim);
   line-height: 1.7; margin-bottom: 0;
 }
-.contact-video { position: relative; aspect-ratio: 16 / 9; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-lift); background: var(--color-navy-deep); }
-.contact-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
 /* TZ banner */
 @media (max-width: 720px) {
@@ -137,7 +141,7 @@ import BookingWidget from '../components/BookingWidget.astro';
 /* Reviews */
 .reviews-section { max-width: 1120px; margin: 0 auto; padding: clamp(3rem, 6vw, 5rem) 2rem clamp(4rem, 7vw, 6rem); }
 .reviews-head { text-align: center; max-width: 640px; margin: 0 auto clamp(2rem, 4vw, 3rem); }
-.reviews-head .eyebrow { color: var(--color-primary); font-weight: 800; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .7rem; }
+.reviews-head .eyebrow { color: var(--color-primary-text); font-weight: 800; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .7rem; }
 .reviews-head h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); color: var(--color-heading); margin-bottom: .6rem; }
 .reviews-head p { color: var(--color-muted); line-height: 1.7; }
 .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
@@ -145,7 +149,7 @@ import BookingWidget from '../components/BookingWidget.astro';
 .review-stars { color: #f59e0b; font-size: 1.05rem; letter-spacing: .12em; }
 .review-quote { color: var(--color-body); line-height: 1.6; font-size: .98rem; flex: 1; }
 .review-author { display: flex; align-items: center; gap: .7rem; }
-.review-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--color-primary-subtle); color: var(--color-primary); display: flex; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: .9rem; flex-shrink: 0; }
+.review-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--color-navy); color: var(--color-primary); display: flex; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: .9rem; flex-shrink: 0; }
 .review-name { font-weight: 700; color: var(--color-heading); font-size: .92rem; }
 .review-meta { color: var(--color-muted); font-size: .8rem; }
 /* Partners */

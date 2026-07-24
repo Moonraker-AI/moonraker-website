@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 // Same component the /free-strategy-call page renders, so the paid page
 // converts inline instead of spending a click sending people elsewhere.
 import BookingWidget from '../../components/BookingWidget.astro';
+import LoomFacade from '../../components/LoomFacade.astro';
 ---
 <BaseLayout
   title="Free Strategy Call for Therapy Practices | Moonraker"
@@ -21,28 +22,10 @@ import BookingWidget from '../../components/BookingWidget.astro';
         </div>
       </div>
       <div class="hero-video">
-        {/*
-          Click-to-load facade. The Loom embed pulls ~1.5 MB of script plus
-          ~825 KB of media and its own third-party cookies, and because the
-          player sits in the hero, loading="lazy" never deferred anything: it
-          is in the viewport on arrival. That put mobile LCP at 10.3s on a page
-          we pay per click to reach. The poster is a 7 KB self-hosted still;
-          the real player is fetched only when someone actually wants it.
-        */}
-        <div class="video-frame">
-          <button type="button" class="video-facade" id="loomFacade"
-            data-loom="https://www.loom.com/embed/df3a5aa47f284ade81a4649695ac42dd"
-            aria-label="Play video: what a free strategy call with Moonraker looks like">
-            <picture>
-              <source srcset="/assets/strategy-call-video-poster.avif" type="image/avif">
-              <img src="/assets/strategy-call-video-poster.webp" alt="" width="960" height="540"
-                fetchpriority="high" decoding="async">
-            </picture>
-            <span class="video-play" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="28" height="28" focusable="false"><path d="M8 5v14l11-7z" fill="currentColor"></path></svg>
-            </span>
-          </button>
-        </div>
+        <LoomFacade
+          id="df3a5aa47f284ade81a4649695ac42dd"
+          poster="strategy-call-video-poster"
+          label="Play video: what a free strategy call with Moonraker looks like" />
         <p class="video-caption">Watch Chris explain what the call covers before you book.</p>
       </div>
     </div>
@@ -69,7 +52,8 @@ import BookingWidget from '../../components/BookingWidget.astro';
     </div>
   </section>
 
-  <section class="section-wrap">
+  <section class="band-mint">
+    <div class="section-wrap">
     <div class="reviews-head">
       <div class="section-label">Verified Google reviews</div>
       <h2>Therapists we work with, in their own words.</h2>
@@ -106,6 +90,7 @@ import BookingWidget from '../../components/BookingWidget.astro';
         <div class="review-author"><div class="review-avatar">CB</div><div><div class="review-name">Christopher Bagg</div><div class="review-meta">Google review</div></div></div>
       </article>
     </div>
+    </div>
   </section>
 
   <section class="steps-band">
@@ -123,7 +108,8 @@ import BookingWidget from '../../components/BookingWidget.astro';
     </div>
   </section>
 
-  <section class="section-wrap">
+  <section class="band-sage">
+    <div class="section-wrap">
     <div class="section-head">
       <div><div class="section-label">Who you'll talk to</div><h2>Real people, therapy practices only.</h2></div>
       <p>No sales team and no call center. You talk directly with the people who run Moonraker and work with therapy practices every day.</p>
@@ -146,9 +132,11 @@ import BookingWidget from '../../components/BookingWidget.astro';
         </div>
       </article>
     </div>
+    </div>
   </section>
 
-  <section class="section-wrap">
+  <section class="band-paper">
+    <div class="section-wrap">
     <div class="section-head">
       <div><div class="section-label">If we work together</div><h2>Three steps. Start where you are.</h2></div>
       <p>Every engagement is a flat-rate project scoped on the call. You pick the level that fits, and each step includes the one before it.</p>
@@ -158,9 +146,11 @@ import BookingWidget from '../../components/BookingWidget.astro';
       <div class="ladder-preview"><div class="ladder-num">2</div><div><h3>Platform Upgrade</h3><p>Everything above, plus your site moved page for page onto our fast, secure Cloudflare foundation.</p></div></div>
       <div class="ladder-preview"><div class="ladder-num">3</div><div><h3>Full Practice Rebuild</h3><p>Everything above, plus a full redesign and the conversion-focused pages your practice is missing.</p></div></div>
     </div>
+    </div>
   </section>
 
-  <section class="section-wrap faq-wrap">
+  <section class="band-sage">
+    <div class="section-wrap faq-wrap">
     <div class="section-label">Quick answers</div>
     <h2>Before you book.</h2>
     <div class="faq-list">
@@ -169,6 +159,7 @@ import BookingWidget from '../../components/BookingWidget.astro';
       <details name="lp-faq"><summary>Who do you work with?</summary><p>Therapy practices only: solo practitioners, group practices, and intensives or retreats. That focus is why the audit is fast and the recommendations are specific.</p></details>
       <details name="lp-faq"><summary>What does it cost if we go ahead?</summary><p>Every engagement is a flat-rate project quoted in writing after the call, never hourly and never a retainer you have to escape. Our smallest starting step is scoped to the gaps we actually find, so you see the number before you commit to anything.</p></details>
       <details name="lp-faq"><summary>How much of my time will this take?</summary><p>The call is 30 minutes. After that, the work is ours: we handle the audit, the fixes, and the build. We come back to you for approvals and for the details only you can answer, like which services you want to lead with.</p></details>
+    </div>
     </div>
   </section>
 
@@ -205,21 +196,6 @@ import BookingWidget from '../../components/BookingWidget.astro';
 .hero-cta { margin-top: 1.6rem; }
 .lp-cta { font-size: 1.02rem; padding: .9rem 1.6rem; }
 .hero-video { display: grid; gap: .6rem; }
-.video-frame { position: relative; aspect-ratio: 16/9; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-lift); background: var(--color-navy-deep); }
-.video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-.video-facade { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; cursor: pointer; background: var(--color-navy-deep); display: block; }
-.video-facade img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.video-play {
-  position: absolute; inset: 0; margin: auto; width: 68px; height: 68px;
-  display: grid; place-items: center; border-radius: 50%;
-  background: var(--color-primary); color: var(--color-navy-deep);
-  box-shadow: 0 6px 24px rgb(0 0 0 / .35);
-  transition: transform .18s ease;
-}
-.video-play svg { margin-left: 3px; }
-.video-facade:hover .video-play { transform: scale(1.07); }
-.video-facade:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
-@media (prefers-reduced-motion: reduce) { .video-facade:hover .video-play { transform: none; } }
 .video-caption { font-size: .84rem; color: var(--color-on-navy-dim); text-align: center; }
 .section-wrap { max-width: 1120px; margin: 0 auto; padding: clamp(3.5rem, 6vw, 5rem) 2rem; }
 .section-label { color: var(--color-primary-text); font-weight: 800; font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .7rem; }
@@ -229,16 +205,16 @@ import BookingWidget from '../../components/BookingWidget.astro';
 .reviews-head { margin-bottom: 1.75rem; }
 .reviews-head h2 { font-size: clamp(1.9rem, 3.4vw, 2.8rem); }
 .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
-.review-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--r-lg); padding: 1.4rem; display: grid; gap: .8rem; align-content: start; }
+.review-card { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); padding: 1.4rem; display: grid; gap: .8rem; align-content: start; box-shadow: var(--shadow-card); }
 .review-stars { color: var(--color-primary); letter-spacing: .1em; }
 .review-quote { color: var(--color-body); line-height: 1.65; font-size: .94rem; }
 .review-author { display: grid; grid-template-columns: 40px 1fr; gap: .7rem; align-items: center; }
 .review-avatar { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--color-navy); color: var(--color-primary); font-family: 'Outfit', sans-serif; font-weight: 800; font-size: .85rem; }
 .review-name { font-weight: 600; color: var(--color-heading); font-size: .92rem; }
 .review-meta { font-size: .8rem; color: var(--color-muted); }
-.steps-band { background: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+.steps-band { background: var(--band-paper); }
 .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
-.step-card { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--r-lg); padding: 1.4rem; }
+.step-card { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); padding: 1.4rem; box-shadow: var(--shadow-card); }
 .step-num { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--color-navy); color: var(--color-primary); font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.15rem; margin-bottom: .9rem; }
 .step-card h3 { margin-bottom: .45rem; }
 .step-card p { color: var(--color-muted); font-size: .92rem; line-height: 1.65; }
@@ -249,7 +225,7 @@ import BookingWidget from '../../components/BookingWidget.astro';
 .ladder-num { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; background: var(--color-navy); color: var(--color-primary); font-family: 'Outfit', sans-serif; font-size: 1.35rem; font-weight: 800; }
 .ladder-preview h3 { margin-bottom: .25rem; }
 .ladder-preview p { font-size: .88rem; line-height: 1.55; color: var(--color-muted); }
-.partners-band { background: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+.partners-band { background: var(--band-sage); }
 .partners-band .section-wrap { padding-top: clamp(2.5rem, 4vw, 3.5rem); padding-bottom: clamp(2.5rem, 4vw, 3.5rem); }
 .partners-heading { font-size: clamp(1.3rem, 2.2vw, 1.7rem); text-align: center; margin-bottom: 1.75rem; }
 .partner-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: clamp(1.5rem, 4vw, 3rem); }
@@ -294,27 +270,3 @@ details p { color: var(--color-muted); font-size: .92rem; line-height: 1.7; marg
 }
 </style>
 
-<script is:inline>
-  // Swap the poster for the real Loom player on first interaction. Everything
-  // Loom costs (scripts, media, third-party cookies) is deferred until here.
-  (function () {
-    var facade = document.getElementById('loomFacade');
-    if (!facade) return;
-    var loaded = false;
-    function load() {
-      if (loaded) return;
-      loaded = true;
-      var frame = document.createElement('iframe');
-      // autoplay so the click that asked for the video also starts it, rather
-      // than making the visitor press play a second time.
-      frame.src = facade.getAttribute('data-loom') + '?autoplay=1';
-      frame.title = 'What a free strategy call with Moonraker looks like';
-      frame.allow = 'autoplay; fullscreen';
-      frame.setAttribute('allowfullscreen', '');
-      var parent = facade.parentNode;
-      parent.replaceChild(frame, facade);
-      frame.focus();
-    }
-    facade.addEventListener('click', load);
-  })();
-</script>

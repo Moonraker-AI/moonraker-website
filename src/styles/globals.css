@@ -43,6 +43,17 @@
   --color-navy-soft: oklch(0.32 0.05 267);
   --color-on-navy: oklch(0.945 0.018 166);
   --color-on-navy-dim: oklch(0.80 0.022 230);
+  /* Section tones. A long marketing page needs its sections to separate
+     without relying on the heading to announce a new topic. Three light tones
+     plus navy give a rhythm: no two adjacent sections share a tone, and navy
+     anchors the two ends.
+
+     mint is deliberately --color-primary-subtle and no darker: every text
+     token in this file is solved to clear AA against exactly that surface,
+     so a deeper band would quietly break contrast across the site. */
+  --band-paper: var(--color-bg);
+  --band-sage: var(--color-surface-alt);
+  --band-mint: var(--color-primary-subtle);
   /* Semantic */
   --color-overlay: oklch(0.31 0.072 268 / 0.65);
   --color-success: oklch(0.74 0.165 162);
@@ -86,6 +97,12 @@ html.dark {
   --color-navy-soft: oklch(0.25 0.035 266);
   --color-on-navy: oklch(0.945 0.018 166);
   --color-on-navy-dim: oklch(0.74 0.025 230);
+  /* Dark mode gets the same rhythm from elevation rather than tint: the eye
+     reads "lighter surface" as "new section" the way it reads tone in light
+     mode. Chroma stays on the brand hue so the steps feel related. */
+  --band-paper: var(--color-bg);
+  --band-sage: oklch(0.205 0.030 240);
+  --band-mint: oklch(0.235 0.040 172);
   --color-overlay: oklch(0.08 0.02 268 / 0.8);
   --color-danger: oklch(0.7 0.16 25);
   --color-info: oklch(0.72 0.13 250);
@@ -205,6 +222,14 @@ details:focus-within,
   border-color: oklch(0.74 0.165 162 / 0.42);
   box-shadow: var(--shadow-lift);
 }
+
+/* ── Section tone bands ──
+   Put a band class on the full-bleed <section>, keep the max-width wrapper
+   inside it. Bands carry no borders: the tone change IS the boundary, and a
+   hairline on top of a tone change reads as a seam. */
+.band-paper { background: var(--band-paper); }
+.band-sage  { background: var(--band-sage); }
+.band-mint  { background: var(--band-mint); }
 
 /* ── Layout ── */
 .container { width: min(1120px, calc(100% - 3rem)); margin: 0 auto; }
