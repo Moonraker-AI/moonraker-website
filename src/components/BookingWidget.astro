@@ -15,7 +15,7 @@
  *  - Styles are `is:global` on purpose. Astro's scoped styles stamp a
  *    data-astro-cid attribute at BUILD time, but this widget creates its
  *    date pills, time pills and states at RUNTIME, so scoped rules would
- *    never match them. That is why the original file already had :global()
+ *    never match them. That is why the original file already had 
  *    on exactly those selectors.
  */
 const { defer = false } = Astro.props;
@@ -597,6 +597,9 @@ const { defer = false } = Astro.props;
 
 </script>
 
+<!-- Rules are plain selectors, NOT :global(). The block is already global;
+     Astro only strips a :global() wrapper inside SCOPED style blocks, so
+     leaving it here emits literal :global(...) that browsers discard. -->
 <style is:global>
 .tz-banner {
   margin: 0 0 1.25rem;
@@ -662,62 +665,62 @@ const { defer = false } = Astro.props;
 /* Date pills.
    These pills (and the time pills below) are injected at runtime via
    innerHTML, so they never carry Astro's scope attribute. Their rules
-   MUST be :global() or the scoped selector will not match and the
+   MUST be  or the scoped selector will not match and the
    buttons fall back to raw browser styling. */
 .date-strip {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
   gap: .65rem;
 }
-:global(.date-pill) {
+.date-pill {
   background: var(--color-bg); border: 1px solid var(--color-border);
   border-radius: 12px; padding: .85rem .5rem; cursor: pointer;
   text-align: center; transition: border-color .15s, transform .12s;
 }
-:global(.date-pill:hover) {
+.date-pill:hover {
   border-color: var(--color-primary);
 }
-:global(.date-pill.selected) {
+.date-pill.selected {
   background: var(--color-primary); border-color: var(--color-primary); color: #fff;
 }
-:global(.date-pill .date-weekday) {
+.date-pill .date-weekday {
   font-size: .7rem; font-weight: 600; text-transform: uppercase;
   letter-spacing: .04em; color: var(--color-muted); margin-bottom: .35rem;
 }
-:global(.date-pill.selected .date-weekday) { color: rgba(255,255,255,.85); }
-:global(.date-pill .date-day) {
+.date-pill.selected .date-weekday { color: rgba(255,255,255,.85); }
+.date-pill .date-day {
   font-family: 'Outfit', sans-serif; font-weight: 700;
   font-size: 1.5rem; color: var(--color-heading); line-height: 1;
 }
-:global(.date-pill.selected .date-day) { color: #fff; }
-:global(.date-pill .date-month) {
+.date-pill.selected .date-day { color: #fff; }
+.date-pill .date-month {
   font-size: .7rem; color: var(--color-muted); margin-top: .25rem;
 }
-:global(.date-pill.selected .date-month) { color: rgba(255,255,255,.8); }
-:global(.date-pill .date-count) {
+.date-pill.selected .date-month { color: rgba(255,255,255,.8); }
+.date-pill .date-count {
   font-size: .65rem; color: var(--color-primary); margin-top: .25rem;
   font-weight: 600;
 }
-:global(.date-pill.selected .date-count) { color: rgba(255,255,255,.85); }
+.date-pill.selected .date-count { color: rgba(255,255,255,.85); }
 
 /* Time slots (injected via innerHTML, see note above). */
 .time-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: .65rem;
 }
-:global(.time-pill) {
+.time-pill {
   background: var(--color-bg); border: 1px solid var(--color-border);
   border-radius: 10px; padding: .75rem; cursor: pointer; text-align: center;
   transition: border-color .15s, transform .12s, background .15s;
   font-family: inherit;
 }
-:global(.time-pill:hover) { border-color: var(--color-primary); transform: translateY(-1px); }
-:global(.time-pill.selected) { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
-:global(.time-pill .t-main) { font-weight: 600; font-size: .92rem; color: var(--color-heading); }
-:global(.time-pill.selected .t-main) { color: #fff; }
-:global(.time-pill .t-sub) {
+.time-pill:hover { border-color: var(--color-primary); transform: translateY(-1px); }
+.time-pill.selected { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
+.time-pill .t-main { font-weight: 600; font-size: .92rem; color: var(--color-heading); }
+.time-pill.selected .t-main { color: #fff; }
+.time-pill .t-sub {
   font-size: .68rem; color: var(--color-muted); margin-top: 2px;
 }
-:global(.time-pill.selected .t-sub) { color: rgba(255,255,255,.8); }
+.time-pill.selected .t-sub { color: rgba(255,255,255,.8); }
 
 /* Form */
 .form-grid {
@@ -801,26 +804,26 @@ const { defer = false } = Astro.props;
   border-radius: 12px; padding: 1.25rem; max-width: 480px; margin: 1.5rem auto;
   text-align: left; font-size: .88rem;
 }
-/* detail rows are injected via innerHTML, so :global() is required. */
-:global(.confirm-details .detail-row) { display: flex; justify-content: space-between; padding: .35rem 0; }
-:global(.confirm-details .detail-label) { color: var(--color-muted); }
-:global(.confirm-details .detail-value) { color: var(--color-heading); font-weight: 500; }
-:global(.confirm-details .detail-value a) { color: var(--color-primary); text-decoration: none; }
+/* detail rows are injected via innerHTML, so  is required. */
+.confirm-details .detail-row { display: flex; justify-content: space-between; padding: .35rem 0; }
+.confirm-details .detail-label { color: var(--color-muted); }
+.confirm-details .detail-value { color: var(--color-heading); font-weight: 500; }
+.confirm-details .detail-value a { color: var(--color-primary); text-decoration: none; }
 
 /* Loading + error states. The spinner and the loading/empty/error state
-   blocks are injected via innerHTML, so they need :global(). error-state
+   blocks are injected via innerHTML, so they need . error-state
    and the spinner also appear inside JS-built markup. */
-:global(.spinner) {
+.spinner {
   display: inline-block; width: 18px; height: 18px;
   border: 2px solid rgba(255,255,255,.4); border-top-color: #fff;
   border-radius: 50%; animation: spin .6s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
-:global(.loading-state), :global(.empty-state), :global(.error-state) {
+.loading-state, .empty-state, .error-state {
   text-align: center; padding: 2.5rem 1rem; color: var(--color-muted); font-size: .9rem;
 }
-:global(.error-state) { color: var(--color-danger); }
-:global(.empty-state) { font-style: italic; }
+.error-state { color: var(--color-danger); }
+.empty-state { font-style: italic; }
 .is-hidden { display: none; }
 .confirm-note { font-size: .82rem; color: var(--color-muted); }
 
