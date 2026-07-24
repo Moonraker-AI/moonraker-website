@@ -9,6 +9,14 @@ export interface Props {
   ogDescription?: string;
   ogImage?: string;
   ogUrl?: string;
+  /**
+   * Landing-page mode. Drops the site nav and the footer link list, leaving a
+   * logo and a legal-minimum footer. Paid landing pages should set this: the
+   * full chrome adds 25 outbound links to a page whose only job is one
+   * conversion, and every one of them is a way for a click we paid for to
+   * wander off. Organic pages keep the chrome, which is what they want.
+   */
+  bare?: boolean;
 }
 
 const {
@@ -19,6 +27,7 @@ const {
   ogDescription,
   ogImage = 'https://moonraker.ai/assets/og-image.jpg',
   ogUrl,
+  bare = false,
 } = Astro.props;
 
 const ogTitleResolved = ogTitle ?? title;
@@ -121,6 +130,17 @@ const THEME_JS =
 <script is:inline src="/assets/site.js" defer></script>
 </head>
 <body>
+{bare && (
+  <nav class="site-nav lp-nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand" aria-label="Moonraker home"><img src="/assets/logo.png" alt="Moonraker" width="32" height="32"></a>
+      <div class="nav-right">
+        <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
+      </div>
+    </div>
+  </nav>
+)}
+{!bare && (
 <nav class="site-nav">
   <div class="nav-inner">
     <a href="/" class="nav-brand" aria-label="Moonraker home"><img src="/assets/logo.png" alt="Moonraker" width="32" height="32"></a>
@@ -154,11 +174,19 @@ const THEME_JS =
     </div>
   </div>
 </nav>
+)}
 <slot />
+{bare ? (
+  <footer class="site-footer">
+    <div class="footer-links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+    <div class="footer-copy">&#169; 2026 Moonraker AI. All rights reserved.</div>
+  </footer>
+) : (
 <footer class="site-footer">
   <div class="footer-links"><a href="/">Home</a><a href="/services">Services</a><a href="/core-marketing-system">CORE System</a><a href="/results">Results</a><a href="/team">Our Team</a><a href="/knowledge-hub">Knowledge Hub</a><a href="/blog">Blog</a><a href="/process">Process</a><a href="/scope">Scope</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
   <div class="footer-copy">&#169; 2026 Moonraker AI. All rights reserved.</div>
 </footer>
+)}
 <script is:inline set:html={THEME_JS}></script>
 </body>
 </html>

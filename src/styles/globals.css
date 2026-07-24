@@ -12,6 +12,16 @@
   --color-primary-light: oklch(0.90 0.072 167);
   --color-primary-subtle: oklch(0.965 0.030 168);
   --color-signal: oklch(0.80 0.18 160);
+  /* Green as TEXT on a light surface. The brand green is a fill colour: at
+     L=0.74 it reads 2.14:1 on white, so any label or link painted with it
+     fails WCAG AA outright. This is the same hue and chroma dropped to the
+     lightest L that clears 4.5:1 (#00884e). Use --color-primary for fills
+     and accents, --color-primary-text for anything a person has to READ.
+     In dark mode the surface flips, so this maps back to the bright green. */
+  --color-primary-text: oklch(0.535 0.165 162);
+  /* Text colour for content sitting ON the brand green. White on green is
+     2.09:1; navy on green is 7.48:1 and keeps the green itself untouched. */
+  --color-on-primary: oklch(0.205 0.052 269);
   /* Surfaces: off-white tinted toward the brand, never pure #fff. */
   --color-bg: oklch(0.992 0.006 165);
   --color-surface: oklch(1 0.002 165);
@@ -21,7 +31,9 @@
   /* Ink + navy: structural authority, tinted toward the brand hue. */
   --color-heading: oklch(0.31 0.072 268);
   --color-body: oklch(0.42 0.058 268);
-  --color-muted: oklch(0.575 0.038 266);
+  /* 0.575 measured 4.38:1 on white, just under AA. Dropped to the first
+     value that clears 4.5:1. The visual difference is imperceptible. */
+  --color-muted: oklch(0.565 0.038 266);
   --color-navy: oklch(0.255 0.055 268);
   --color-navy-deep: oklch(0.205 0.052 269);
   --color-navy-soft: oklch(0.32 0.05 267);
@@ -50,6 +62,10 @@
 html.dark {
   --color-primary: oklch(0.80 0.17 161);
   --color-primary-hover: oklch(0.86 0.18 160);
+  /* Dark surfaces: the bright green already has plenty of contrast, so green
+     text maps straight back to it, and text on green stays dark. */
+  --color-primary-text: oklch(0.80 0.17 161);
+  --color-on-primary: oklch(0.125 0.028 268);
   --color-primary-light: oklch(0.42 0.09 165);
   --color-primary-subtle: oklch(0.27 0.055 168);
   --color-signal: oklch(0.84 0.185 160);
@@ -86,7 +102,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .25s; }
-a { color: var(--color-primary); text-decoration: none; }
+a { color: var(--color-primary-text); text-decoration: none; }
 a:hover { color: var(--color-primary-hover); }
 img { max-width: 100%; display: block; }
 
@@ -108,7 +124,7 @@ p { text-wrap: pretty; }
 .eyebrow {
   display: inline-block;
   margin-bottom: .85rem;
-  color: var(--color-primary); font-size: .74rem; font-weight: 800;
+  color: var(--color-primary-text); font-size: .74rem; font-weight: 800;
   letter-spacing: .1em; text-transform: uppercase;
 }
 
@@ -272,12 +288,12 @@ body:has(.nav-links.open) { overflow: hidden; }
 .nav-cta {
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 38px; padding: .56rem 1.1rem; border-radius: var(--r-md);
-  background: var(--color-primary); color: oklch(0.99 0.01 165);
+  background: var(--color-primary); color: var(--color-on-primary);
   font-family: 'Outfit', sans-serif; font-weight: 700; font-size: .86rem;
   box-shadow: var(--shadow-signal);
   transition: background .2s var(--ease-out), transform .2s var(--ease-out), color .2s var(--ease-out);
 }
-.nav-cta:hover { background: var(--color-primary-hover); transform: translateY(-1px); color: oklch(0.99 0.01 165); }
+.nav-cta:hover { background: var(--color-primary-hover); transform: translateY(-1px); color: var(--color-on-primary); }
 
 /* ── Hero ── */
 .hero {
@@ -285,7 +301,7 @@ body:has(.nav-links.open) { overflow: hidden; }
   max-width: 880px; margin: 0 auto;
 }
 .hero h1 { margin-bottom: 1.4rem; font-size: clamp(3.2rem, 9vw, 5.5rem); }
-.hero h1 span { color: var(--color-primary); }
+.hero h1 span { color: var(--color-primary-text); }
 .hero p {
   font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--color-muted);
   max-width: 640px; margin: 0 auto 2rem; line-height: 1.65;
@@ -301,15 +317,15 @@ body:has(.nav-links.open) { overflow: hidden; }
   transition: background .2s var(--ease-out), transform .2s var(--ease-out), box-shadow .2s var(--ease-out), border-color .2s var(--ease-out), color .2s var(--ease-out);
 }
 .btn-primary {
-  background: var(--color-primary); color: oklch(0.99 0.01 165);
+  background: var(--color-primary); color: var(--color-on-primary);
   box-shadow: var(--shadow-signal);
 }
-.btn-primary:hover { background: var(--color-primary-hover); transform: translateY(-1px); color: oklch(0.99 0.01 165); box-shadow: 0 12px 28px oklch(0.74 0.165 162 / 0.3); }
+.btn-primary:hover { background: var(--color-primary-hover); transform: translateY(-1px); color: var(--color-on-primary); box-shadow: 0 12px 28px oklch(0.74 0.165 162 / 0.3); }
 .btn-outline {
   background: transparent; color: var(--color-heading);
   border: 1px solid var(--color-border);
 }
-.btn-outline:hover { background: var(--color-surface); color: var(--color-primary); border-color: var(--color-primary); }
+.btn-outline:hover { background: var(--color-surface); color: var(--color-primary-text); border-color: var(--color-primary); }
 
 /* ── Trust Badges ── */
 .trust-bar {

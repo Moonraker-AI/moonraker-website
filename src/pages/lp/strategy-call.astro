@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 <BaseLayout
   title="Free Strategy Call for Therapy Practices | Moonraker"
   description="See exactly where your practice stands on Google, Maps, and AI tools. A free 30-minute strategy call with a marketing team that works only with therapy practices."
+  bare
 >
 <main>
   <section class="lp-hero">
@@ -17,10 +18,29 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         </div>
       </div>
       <div class="hero-video">
+        {/*
+          Click-to-load facade. The Loom embed pulls ~1.5 MB of script plus
+          ~825 KB of media and its own third-party cookies, and because the
+          player sits in the hero, loading="lazy" never deferred anything: it
+          is in the viewport on arrival. That put mobile LCP at 10.3s on a page
+          we pay per click to reach. The poster is a 7 KB self-hosted still;
+          the real player is fetched only when someone actually wants it.
+        */}
         <div class="video-frame">
-          <iframe src="https://www.loom.com/embed/df3a5aa47f284ade81a4649695ac42dd" loading="lazy" allow="fullscreen" allowfullscreen title="What a free strategy call with Moonraker looks like"></iframe>
+          <button type="button" class="video-facade" id="loomFacade"
+            data-loom="https://www.loom.com/embed/df3a5aa47f284ade81a4649695ac42dd"
+            aria-label="Play video: what a free strategy call with Moonraker looks like">
+            <picture>
+              <source srcset="/assets/strategy-call-video-poster.avif" type="image/avif">
+              <img src="/assets/strategy-call-video-poster.webp" alt="" width="960" height="540"
+                fetchpriority="high" decoding="async">
+            </picture>
+            <span class="video-play" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="28" height="28" focusable="false"><path d="M8 5v14l11-7z" fill="currentColor"></path></svg>
+            </span>
+          </button>
         </div>
-        <p class="video-caption">Hear from our founder, Chris, on what the call looks like before you book.</p>
+        <p class="video-caption">Watch Chris explain what the call covers before you book.</p>
       </div>
     </div>
   </section>
@@ -40,7 +60,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       </div>
       <div class="lp-stats">
         <div class="lp-stat"><div class="lp-stat-value">+115%</div><div class="lp-stat-label">Average visibility increase</div></div>
-        <div class="lp-stat"><div class="lp-stat-value">+308%</div><div class="lp-stat-label">Top result</div></div>
+        <div class="lp-stat"><div class="lp-stat-value">+308%</div><div class="lp-stat-label">Best result to date</div></div>
       </div>
       <p class="lp-stats-note">Verified Google Search Console data from therapy practices we manage.</p>
     </div>
@@ -60,7 +80,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       <article class="review-card">
         <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p class="review-quote">"I had no idea how much of an impact SEO could have on my business until I connected with Chris. Within just eight months my returns had already doubled."</p>
-        <div class="review-author"><div class="review-avatar">G</div><div><div class="review-name">George</div><div class="review-meta">Google review</div></div></div>
+        <div class="review-author"><div class="review-avatar">G</div><div><div class="review-name">George M.</div><div class="review-meta">Practice owner, Google review</div></div></div>
       </article>
       <article class="review-card">
         <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
@@ -144,12 +164,18 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       <details open name="lp-faq"><summary>Is the call really free?</summary><p>Yes. The strategy call costs nothing and comes with no obligation. If we can help, you get a flat-rate written proposal afterward. No hourly billing, no long-term contracts.</p></details>
       <details name="lp-faq"><summary>Do we have to move our website?</summary><p>No. Our smallest starting step works entirely on your current platform. We only recommend a platform move when your hosting or builder is genuinely holding the site back.</p></details>
       <details name="lp-faq"><summary>Who do you work with?</summary><p>Therapy practices only: solo practitioners, group practices, and intensives or retreats. That focus is why the audit is fast and the recommendations are specific.</p></details>
+      <details name="lp-faq"><summary>What does it cost if we go ahead?</summary><p>Every engagement is a flat-rate project quoted in writing after the call, never hourly and never a retainer you have to escape. Our smallest starting step is scoped to the gaps we actually find, so you see the number before you commit to anything.</p></details>
+      <details name="lp-faq"><summary>How much of my time will this take?</summary><p>The call is 30 minutes. After that, the work is ours: we handle the audit, the fixes, and the build. We come back to you for approvals and for the details only you can answer, like which services you want to lead with.</p></details>
     </div>
   </section>
 
   <section class="cta-band">
     <div class="cta-inner">
-      <div><h2>See where your practice stands.</h2><p>Book a free strategy call and walk away knowing exactly what shows up, what is missing, and what to fix first.</p></div>
+      <div>
+        <h2>See where your practice stands.</h2>
+        <p>Book a free strategy call and walk away knowing exactly what shows up, what is missing, and what to fix first.</p>
+        <p class="cta-reassure">Pick a time on the next screen. You get an instant confirmation and a calendar invite, and Scott runs the call over Zoom. No credit card, no obligation.</p>
+      </div>
       <a class="btn btn-primary lp-cta" href="/free-strategy-call">Book Your Free Strategy Call</a>
     </div>
   </section>
@@ -178,9 +204,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 .hero-video { display: grid; gap: .6rem; }
 .video-frame { position: relative; aspect-ratio: 16/9; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-lift); background: var(--color-navy-deep); }
 .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-facade { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; cursor: pointer; background: var(--color-navy-deep); display: block; }
+.video-facade img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.video-play {
+  position: absolute; inset: 0; margin: auto; width: 68px; height: 68px;
+  display: grid; place-items: center; border-radius: 50%;
+  background: var(--color-primary); color: var(--color-navy-deep);
+  box-shadow: 0 6px 24px rgb(0 0 0 / .35);
+  transition: transform .18s ease;
+}
+.video-play svg { margin-left: 3px; }
+.video-facade:hover .video-play { transform: scale(1.07); }
+.video-facade:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .video-facade:hover .video-play { transform: none; } }
 .video-caption { font-size: .84rem; color: var(--color-on-navy-dim); text-align: center; }
 .section-wrap { max-width: 1120px; margin: 0 auto; padding: clamp(3.5rem, 6vw, 5rem) 2rem; }
-.section-label { color: var(--color-primary); font-weight: 800; font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .7rem; }
+.section-label { color: var(--color-primary-text); font-weight: 800; font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .7rem; }
 .section-head { display: grid; grid-template-columns: .9fr 1.1fr; gap: 2rem; margin-bottom: 2rem; align-items: end; }
 .section-head h2 { font-size: clamp(1.9rem, 3.4vw, 2.8rem); }
 .section-head p { color: var(--color-muted); line-height: 1.75; }
@@ -214,14 +253,14 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 .partner-logo { height: 56px; width: auto; object-fit: contain; opacity: .85; }
 .lp-stats { display: flex; justify-content: center; gap: clamp(2rem, 6vw, 4.5rem); margin-top: 2.25rem; flex-wrap: wrap; }
 .lp-stat { text-align: center; }
-.lp-stat-value { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(2rem, 3.6vw, 2.8rem); color: var(--color-primary); line-height: 1.1; }
+.lp-stat-value { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(2rem, 3.6vw, 2.8rem); color: var(--color-primary-text); line-height: 1.1; }
 .lp-stat-label { font-size: .82rem; color: var(--color-muted); text-transform: uppercase; letter-spacing: .05em; margin-top: .35rem; }
 .lp-stats-note { text-align: center; font-size: .82rem; color: var(--color-muted); margin-top: 1rem; }
 .people-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem; }
 .person-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--r-lg); padding: 1.75rem; display: grid; grid-template-columns: 176px 1fr; gap: 1.5rem; align-items: start; }
 .person-photo { width: 176px; height: 176px; border-radius: 50%; object-fit: cover; object-position: center 20%; }
 .person-card h3 { margin-bottom: .2rem; }
-.person-role { font-size: .82rem; font-weight: 600; color: var(--color-primary); margin-bottom: .6rem; }
+.person-role { font-size: .82rem; font-weight: 600; color: var(--color-primary-text); margin-bottom: .6rem; }
 .person-card p { color: var(--color-muted); font-size: .9rem; line-height: 1.65; }
 .faq-wrap h2 { font-size: clamp(1.9rem, 3.4vw, 2.8rem); margin-bottom: 1.5rem; }
 .faq-list { display: grid; gap: .8rem; }
@@ -242,6 +281,7 @@ details p { color: var(--color-muted); font-size: .92rem; line-height: 1.7; marg
 .cta-inner { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; padding: clamp(3rem, 6vw, 4rem) 2rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
 .cta-inner h2 { color: var(--color-on-navy); margin-bottom: .6rem; }
 .cta-inner p { color: var(--color-on-navy-dim); }
+.cta-reassure { font-size: .9rem; margin-top: .7rem; opacity: .85; }
 @media (max-width: 860px) {
   .hero-inner, .section-head, .cta-inner { grid-template-columns: 1fr; }
   .partner-logo { height: 44px; }
@@ -249,3 +289,28 @@ details p { color: var(--color-muted); font-size: .92rem; line-height: 1.7; marg
   .person-photo { width: 160px; height: 160px; }
 }
 </style>
+
+<script is:inline>
+  // Swap the poster for the real Loom player on first interaction. Everything
+  // Loom costs (scripts, media, third-party cookies) is deferred until here.
+  (function () {
+    var facade = document.getElementById('loomFacade');
+    if (!facade) return;
+    var loaded = false;
+    function load() {
+      if (loaded) return;
+      loaded = true;
+      var frame = document.createElement('iframe');
+      // autoplay so the click that asked for the video also starts it, rather
+      // than making the visitor press play a second time.
+      frame.src = facade.getAttribute('data-loom') + '?autoplay=1';
+      frame.title = 'What a free strategy call with Moonraker looks like';
+      frame.allow = 'autoplay; fullscreen';
+      frame.setAttribute('allowfullscreen', '');
+      var parent = facade.parentNode;
+      parent.replaceChild(frame, facade);
+      frame.focus();
+    }
+    facade.addEventListener('click', load);
+  })();
+</script>
