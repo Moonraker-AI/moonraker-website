@@ -615,7 +615,10 @@ const { defer = false } = Astro.props;
 /* On the banner's tinted background the brand green reads 1.9:1. Use the
    readable green, and let the body colour carry the secondary lines: the
    muted grey lands at 4.49:1 here, just under AA. */
-.tz-banner strong { color: var(--color-primary-text); font-weight: 700; }
+/* Measured 4.47:1 against this banner's 12% green tint, three hundredths
+   short of AA. Darkening the global green token for one element would be
+   the wrong lever, so this emphasis line uses the heading ink instead. */
+.tz-banner strong { color: var(--color-heading); font-weight: 700; }
 .tz-banner-line { margin-top: .35rem; }
 .tz-zone-line { color: var(--color-body); }
 .tz-banner select {
