@@ -18,8 +18,9 @@
  *    never match them. That is why the original file already had :global()
  *    on exactly those selectors.
  */
+const { defer = false } = Astro.props;
 ---
-<div id="bookingWorkspace" class="booking-workspace">
+<div id="bookingWorkspace" class="booking-workspace" data-defer={defer ? '1' : '0'}>
   <div class="tz-banner">
     <span class="tz-banner-icon">&#127758;</span>
     <div>
@@ -578,7 +579,20 @@
     loadAvailability();
   }
 
-  startWorkspace();
+  // See the component header: `defer` boots this when it nears the
+  // viewport instead of on load. Anyone who clicks a CTA scrolls to it,
+  // which triggers the observer well before they can interact.
+  var root = document.getElementById('bookingWorkspace');
+  if (root && root.getAttribute('data-defer') === '1' && 'IntersectionObserver' in window) {
+    var started = false;
+    var io = new IntersectionObserver(function (entries) {
+      if (started || !entries.some(function (e) { return e.isIntersecting; })) return;
+      started = true; io.disconnect(); startWorkspace();
+    }, { rootMargin: '600px 0px' });
+    io.observe(root);
+  } else {
+    startWorkspace();
+  }
 })();
 
 </script>
@@ -595,9 +609,12 @@
   text-align: left;
 }
 .tz-banner-icon { font-size: 1.25rem; flex-shrink: 0; }
-.tz-banner strong { color: var(--color-primary); font-weight: 700; }
+/* On the banner's tinted background the brand green reads 1.9:1. Use the
+   readable green, and let the body colour carry the secondary lines: the
+   muted grey lands at 4.49:1 here, just under AA. */
+.tz-banner strong { color: var(--color-primary-text); font-weight: 700; }
 .tz-banner-line { margin-top: .35rem; }
-.tz-zone-line { color: var(--color-muted); }
+.tz-zone-line { color: var(--color-body); }
 .tz-banner select {
   margin-top: .35rem; font-family: inherit; font-size: .82rem;
   padding: .3rem .5rem; border: 1px solid var(--color-border);
