@@ -777,18 +777,24 @@ const { defer = false } = Astro.props;
 .summary-box .summary-sub { font-size: .82rem; color: var(--color-body); }
 
 .submit-row { display: flex; justify-content: flex-end; gap: .75rem; margin-top: 2rem; }
-.btn {
+/* Scoped to the widget on purpose. These started life inside a page-scoped
+   <style>, so they only ever styled that page's buttons. In a global block
+   they redefined the design-system .btn-primary for every page hosting the
+   widget, including reintroducing the old white-on-green that fails contrast
+   at 2.08:1. The colour now comes from the design system; only the widget's
+   own sizing and its ghost/disabled states live here. */
+#bookingWorkspace .btn {
   display: inline-flex; align-items: center; gap: .4rem;
   padding: .75rem 1.75rem; border-radius: var(--r-md);
   font-family: 'Outfit', sans-serif; font-weight: 600; font-size: .95rem;
   text-decoration: none; cursor: pointer; border: none;
-  transition: all .2s; font-family: inherit;
+  transition: all .2s;
 }
-.btn-primary { background: var(--color-primary); color: oklch(0.99 0.01 165); }
-.btn-primary:hover { background: var(--color-primary-hover); transform: translateY(-1px); }
-.btn-primary:disabled { opacity: .55; cursor: not-allowed; transform: none; }
-.btn-ghost { background: transparent; color: var(--color-muted); border: 1px solid var(--color-border); }
-.btn-ghost:hover { color: var(--color-heading); border-color: var(--color-heading); }
+#bookingWorkspace .btn-primary { background: var(--color-primary); color: var(--color-on-primary); }
+#bookingWorkspace .btn-primary:hover { background: var(--color-primary-hover); transform: translateY(-1px); }
+#bookingWorkspace .btn-primary:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+#bookingWorkspace .btn-ghost { background: transparent; color: var(--color-body); border: 1px solid var(--color-border); }
+#bookingWorkspace .btn-ghost:hover { color: var(--color-heading); border-color: var(--color-heading); }
 
 /* Confirmation step */
 .confirm {
