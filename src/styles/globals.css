@@ -149,79 +149,89 @@ p { text-wrap: pretty; }
   letter-spacing: .1em; text-transform: uppercase;
 }
 
-/* ── Motion (card pop) ── */
+/* ── Card elevation ──
+   One system, two tiers, because "card" was covering two different things.
+
+   TIER 1, cards: a discrete item you scan and compare against its siblings
+   (a review, a step, a person). These rest on a hairline plus a soft shadow
+   and lift on hover, which reads as "this is one of several things".
+
+   TIER 2, panels: a single large container you read or fill in (the booking
+   form, the service ladder, an FAQ accordion). Same resting elevation so the
+   page feels consistent, but they do NOT lift. A form or an accordion that
+   rises when the pointer crosses it feels unstable, and there is nothing to
+   compare it against.
+
+   Hover is gated behind (hover: hover) and (pointer: fine). Without that,
+   touch devices latch the hover state after a tap and the card stays lifted.
+   Reduced motion keeps the shadow and drops the movement. */
+
 .card-pop,
 .testimonial-card,
 .review-card,
+.step-card,
+.person-card,
 .pillar-card,
 .quote-card,
 .evidence-card,
 .metric,
 .timeline-item,
 .access-card,
-.phase-stack,
-.scope-panel,
-details,
 .diagnostic-panel,
-.matrix,
 .deliverable-card,
-.deliverable-detail,
 .callout,
 .preview-card,
 .pillar-question,
 .cancel-card,
-.booking-card {
-  transform: translateY(0);
+/* Tier 2 shares the resting elevation only. */
+.phase-stack,
+.scope-panel,
+.matrix,
+.deliverable-detail,
+.ladder-stack,
+.booking-card,
+details {
+  box-shadow: var(--shadow-card);
   transition:
     transform 220ms var(--ease-out),
     border-color 220ms var(--ease-out),
     box-shadow 220ms var(--ease-out);
 }
-.card-pop:hover,
-.card-pop:focus-within,
-.testimonial-card:hover,
-.testimonial-card:focus-within,
-.review-card:hover,
-.review-card:focus-within,
-.pillar-card:hover,
-.pillar-card:focus-within,
-.quote-card:hover,
-.quote-card:focus-within,
-.evidence-card:hover,
-.evidence-card:focus-within,
-.metric:hover,
-.metric:focus-within,
-.timeline-item:hover,
-.timeline-item:focus-within,
-.access-card:hover,
-.access-card:focus-within,
-.phase-stack:hover,
-.phase-stack:focus-within,
-.scope-panel:hover,
-.scope-panel:focus-within,
-details:hover,
-details:focus-within,
-.diagnostic-panel:hover,
-.diagnostic-panel:focus-within,
-.matrix:hover,
-.matrix:focus-within,
-.deliverable-card:hover,
-.deliverable-card:focus-within,
-.deliverable-detail:hover,
-.deliverable-detail:focus-within,
-.callout:hover,
-.callout:focus-within,
-.preview-card:hover,
-.preview-card:focus-within,
-.pillar-question:hover,
-.pillar-question:focus-within,
-.cancel-card:hover,
-.cancel-card:focus-within,
-.booking-card:hover {
-  transform: translateY(-5px);
-  border-color: oklch(0.74 0.165 162 / 0.42);
-  box-shadow: var(--shadow-lift);
+
+@media (hover: hover) and (pointer: fine) {
+  .card-pop:hover, .card-pop:focus-within,
+  .testimonial-card:hover, .testimonial-card:focus-within,
+  .review-card:hover, .review-card:focus-within,
+  .step-card:hover, .step-card:focus-within,
+  .person-card:hover, .person-card:focus-within,
+  .pillar-card:hover, .pillar-card:focus-within,
+  .quote-card:hover, .quote-card:focus-within,
+  .evidence-card:hover, .evidence-card:focus-within,
+  .metric:hover, .metric:focus-within,
+  .timeline-item:hover, .timeline-item:focus-within,
+  .access-card:hover, .access-card:focus-within,
+  .diagnostic-panel:hover, .diagnostic-panel:focus-within,
+  .deliverable-card:hover, .deliverable-card:focus-within,
+  .callout:hover, .callout:focus-within,
+  .preview-card:hover, .preview-card:focus-within,
+  .pillar-question:hover, .pillar-question:focus-within,
+  .cancel-card:hover, .cancel-card:focus-within {
+    transform: translateY(-3px);
+    border-color: oklch(0.74 0.165 162 / 0.35);
+    box-shadow: var(--shadow-lift);
+  }
+
+  /* Panels acknowledge the pointer without moving. */
+  details:hover, details:focus-within,
+  .scope-panel:hover, .scope-panel:focus-within,
+  .matrix:hover, .matrix:focus-within,
+  .phase-stack:hover, .phase-stack:focus-within,
+  .deliverable-detail:hover, .deliverable-detail:focus-within,
+  .ladder-stack:hover, .ladder-stack:focus-within {
+    border-color: oklch(0.74 0.165 162 / 0.28);
+  }
 }
+
 
 /* ── Section tone bands ──
    Put a band class on the full-bleed <section>, keep the max-width wrapper
@@ -656,6 +666,12 @@ html.dark .testimonial-logo { filter: brightness(1.3); }
   .cancel-card,
   .cancel-card:hover,
   .cancel-card:focus-within,
+  .step-card,
+  .step-card:hover,
+  .step-card:focus-within,
+  .person-card,
+  .person-card:hover,
+  .person-card:focus-within,
   .booking-card,
   .booking-card:hover {
     transform: none;
