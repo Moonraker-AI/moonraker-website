@@ -11,9 +11,11 @@ description: >
   the operator says "add a video / podcast / webinar / slide deck to the site",
   "add an embed", "the embed is blank / not showing / blocked", "add it to the
   Knowledge Hub", or hands over YouTube / Vimeo / Spotify / Apple / Gamma links
-  for moonraker.ai. Do NOT use for: client managed sites (moonraker-site-template
-  / sites.moonraker.ai, a different repo with a Cloudflare-worker CSP), the
-  client-hq app, or non-embed content edits.
+  for moonraker.ai. Do NOT use for: client managed sites on
+  moonraker-site-template / sites.moonraker.ai (a different repo with its own
+  Cloudflare-worker CSP: content edits there are edit-managed-site, and an
+  uninstrumented page is make-page-editable), the client-hq app, or non-embed
+  content edits to moonraker.ai (edit the Astro page directly).
 user_invocable: true
 disable_model_invocation: false
 allowed-tools: [Read, Edit, Write, Bash, Grep, Glob]

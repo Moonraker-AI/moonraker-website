@@ -98,6 +98,36 @@ regressions).
    untracked files into the commit). Confirm the staged set with
    `git diff --cached --name-only` before moving to Verify.
 
+## Failure modes
+
+- `grep: invalid perl regex`, or zero matches on a surface you know is dirty:
+  the shell ate the escape. Single-quote the pattern exactly as written
+  (`'\x{2014}'`) and confirm your grep supports `-P`.
+- `node --check` throws `SyntaxError` on a file you reworded: the glyph sat
+  inside a string, regex, or template literal you broke. Revert that file (see
+  Rollback) and re-classify the hit before trying again.
+- A comparison, test, or lookup starts failing after the sweep: a functional
+  string was reworded on the code side only. Revert the file, trace every
+  consumer (including any DB row that mirrors it), and leave the hit alone with
+  a follow-up note.
+- The pre-commit hook still blocks after both Verify probes came back empty:
+  something outside your swept dirs is staged. Check
+  `git diff --cached --name-only` and unstage what you did not touch.
+
+## Rollback
+
+Everything this skill does is an uncommitted working-tree edit, so the undo is
+local and total. Nothing builds, deploys, or writes a DB row.
+
+- One file: `git checkout -- <path>` (or `git restore <path>`).
+- Whole sweep: confirm `git status --porcelain` lists only files you swept,
+  then `git checkout -- <dirs...>`.
+- Already staged: `git restore --staged --worktree <path>`.
+- Already committed but not pushed: `git revert <sha>` (or reset the branch),
+  then re-run the sweep with the offending hit reclassified.
+- DB-stored copy is out of scope for this skill, so there is never a data-side
+  rollback to perform here.
+
 ## Verify
 
 Both probes must come back empty before the sweep is done.
