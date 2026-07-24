@@ -578,7 +578,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       // is passed through unhashed; it lets the server-side conversion match
       // the same browser the ad click landed in.
       oai_obref:              readCookie('__obref'),
-      source_url:             location.origin + location.pathname
+      source_url:             location.origin + location.pathname,
+      // First-touch lead source captured on landing (see BaseLayout ATTRIB_JS).
+      attribution:            (window.mrAttribution && window.mrAttribution()) || null
     };
 
     fetch(API_ROOT + '/api/booking/create-with-audit', {

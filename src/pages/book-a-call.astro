@@ -337,7 +337,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       source:             'quick_book',
       // OpenAI Ads match keys, see free-strategy-call for the full note.
       oai_obref:          readCookie('__obref'),
-      source_url:         location.origin + location.pathname
+      source_url:         location.origin + location.pathname,
+      // First-touch lead source captured on landing (see BaseLayout ATTRIB_JS).
+      attribution:        (window.mrAttribution && window.mrAttribution()) || null
     };
 
     fetch(API_ROOT + '/api/booking/quick-book', {

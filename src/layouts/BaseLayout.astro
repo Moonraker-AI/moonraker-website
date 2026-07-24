@@ -49,10 +49,33 @@ const OAI_JS =
   "oaiq('init',{pixelId:'" + OAI_PIXEL_ID + "'});";
 const GTAG_JS =
   "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}" +
-  "gtag('js',new Date());gtag('config','" + GA4_ID + "');gtag('config','" + AW_ID + "');" +
-  "try{if(!sessionStorage.getItem('mr_attrib')){var p=new URLSearchParams(location.search),a={};" +
-  "['gclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function(k){if(p.get(k))a[k]=p.get(k);});" +
-  "if(Object.keys(a).length)sessionStorage.setItem('mr_attrib',JSON.stringify(a));}}catch(e){}";
+  "gtag('js',new Date());gtag('config','" + GA4_ID + "');gtag('config','" + AW_ID + "');";
+// Lead-source capture. FIRST TOUCH within the session: written once, so a
+// visitor who lands on an ad and books three pages later still carries the ad
+// params. Stored even when no tags are present, because the referrer and
+// landing page are themselves the evidence for organic vs direct, and an
+// empty record is what proves capture ran rather than failed.
+//
+// This is deliberately OUTSIDE GTAG_JS: attribution matters whether or not
+// either ad platform is enabled, and it used to be trapped inside the Google
+// tag where it was written and never read by anything.
+//
+// Click ids beyond gclid are captured because Google drops gbraid/wbraid
+// instead of gclid on iOS app and privacy-restricted traffic, and those
+// bookings would otherwise read as direct.
+const ATTRIB_JS =
+  "(function(){try{var K='mr_attrib';if(sessionStorage.getItem(K))return;" +
+  "var p=new URLSearchParams(location.search),a={};" +
+  "['utm_source','utm_medium','utm_campaign','utm_term','utm_content'," +
+  "'gclid','gbraid','wbraid','oppref','msclkid','fbclid']" +
+  ".forEach(function(k){var v=p.get(k);if(v)a[k]=String(v).slice(0,200);});" +
+  "a.landing_page=(location.origin+location.pathname).slice(0,500);" +
+  "if(document.referrer)a.referrer=String(document.referrer).slice(0,500);" +
+  "a.captured_at=new Date().toISOString();" +
+  "sessionStorage.setItem(K,JSON.stringify(a));}catch(e){}})();" +
+  // Read helper so every intake form forwards the same object without
+  // each page reimplementing the parse-and-guard dance.
+  "window.mrAttribution=function(){try{return JSON.parse(sessionStorage.getItem('mr_attrib')||'null');}catch(e){return null;}};";
 // Single booked-call conversion hook, fired by the booking forms. Defined
 // outside GTAG_JS so it exists whenever either ad platform is enabled, and
 // each platform is guarded independently: a missing gtag must not stop the
@@ -89,6 +112,7 @@ const THEME_JS =
 <link rel="icon" href="/assets/logo.png" type="image/png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script is:inline set:html={PREPAINT}></script>
+<script is:inline set:html={ATTRIB_JS}></script>
 {ADS_ENABLED && <script async src={`https://www.googletagmanager.com/gtag/js?id=${AW_ID}`}></script>}
 {ADS_ENABLED && <script is:inline set:html={GTAG_JS}></script>}
 {OAI_ENABLED && <script is:inline set:html={OAI_JS}></script>}
