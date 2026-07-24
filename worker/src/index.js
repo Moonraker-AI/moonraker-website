@@ -14,13 +14,15 @@ const SECURITY_HEADERS = {
   "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
   "Content-Security-Policy":
     "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.loom.com " +
-    "https://www.googletagmanager.com https://www.googleadservices.com; " +
+    "https://www.googletagmanager.com https://www.googleadservices.com " +
+    "https://bzrcdn.openai.com; " +
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
     "font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; " +
     "connect-src 'self' https://clients.moonraker.ai https://*.google-analytics.com " +
     "https://*.analytics.google.com https://www.googletagmanager.com " +
     "https://www.googleadservices.com " +
-    "https://stats.g.doubleclick.net https://googleads.g.doubleclick.net https://www.google.com; " +
+    "https://stats.g.doubleclick.net https://googleads.g.doubleclick.net https://www.google.com " +
+    "https://bzr.openai.com https://bzrcdn.openai.com; " +
     "frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com " +
     "https://player.vimeo.com https://open.spotify.com https://embed.podcasts.apple.com " +
     "https://gamma.app https://www.loom.com https://td.doubleclick.net " +

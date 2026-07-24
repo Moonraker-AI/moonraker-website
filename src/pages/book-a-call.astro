@@ -101,6 +101,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   var API_ROOT = 'https://clients.moonraker.ai';
 
+  // Returns null when the cookie is absent (pixel blocked, consent declined).
+  function readCookie(name) {
+    try {
+      var m = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '=([^;]*)'));
+      return m ? decodeURIComponent(m[1]) : null;
+    } catch (e) { return null; }
+  }
+
   var state = {
     tz: null,
     slots: [],
@@ -326,7 +334,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       practice_name:      document.getElementById('practiceName').value.trim(),
       attendee_time_zone: state.tz,
       start_at:           state.selectedSlot.start_utc,
-      source:             'quick_book'
+      source:             'quick_book',
+      // OpenAI Ads match keys, see free-strategy-call for the full note.
+      oai_obref:          readCookie('__obref'),
+      source_url:         location.origin + location.pathname
     };
 
     fetch(API_ROOT + '/api/booking/quick-book', {

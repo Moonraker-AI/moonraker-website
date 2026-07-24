@@ -35,15 +35,37 @@ const GA4_ID = 'G-L8T7ZPXTD5';
 const AW_ID = 'AW-18338412822';
 const AW_CONV = 'AW-18338412822/g7y6CNbl0dMcEJbyt6hE';
 const ADS_ENABLED = GA4_ID.startsWith('G-') && AW_ID.startsWith('AW-');
+// OpenAI Ads (ChatGPT) Measurement Pixel. Same enable-by-id-shape pattern as
+// the Google tag: 'PENDING' emits nothing. The pixel_id comes from the
+// conversion source on ad account adacct_6a63d570 (Moonraker.AI, LLC).
+// The SDK origin (bzrcdn.openai.com) and the collector (bzr.openai.com) must
+// both stay in the worker CSP or the pixel fails silently.
+const OAI_PIXEL_ID = 'RuDz8A9fNw4SFZMWCp8UFh';
+const OAI_ENABLED = OAI_PIXEL_ID !== 'PENDING';
+const OAI_JS =
+  "(function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;" +
+  "var js=d.createElement(s);js.async=true;js.src=u;var f=d.getElementsByTagName(s)[0];" +
+  "f.parentNode.insertBefore(js,f)})(window,document,'script','https://bzrcdn.openai.com/sdk/oaiq.min.js');" +
+  "oaiq('init',{pixelId:'" + OAI_PIXEL_ID + "'});";
 const GTAG_JS =
   "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}" +
   "gtag('js',new Date());gtag('config','" + GA4_ID + "');gtag('config','" + AW_ID + "');" +
   "try{if(!sessionStorage.getItem('mr_attrib')){var p=new URLSearchParams(location.search),a={};" +
   "['gclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function(k){if(p.get(k))a[k]=p.get(k);});" +
-  "if(Object.keys(a).length)sessionStorage.setItem('mr_attrib',JSON.stringify(a));}}catch(e){}" +
-  "window.mrTrackConversion=function(txnId){if(typeof gtag!=='function')return;" +
+  "if(Object.keys(a).length)sessionStorage.setItem('mr_attrib',JSON.stringify(a));}}catch(e){}";
+// Single booked-call conversion hook, fired by the booking forms. Defined
+// outside GTAG_JS so it exists whenever either ad platform is enabled, and
+// each platform is guarded independently: a missing gtag must not stop the
+// OpenAI event. txnId (the booking id) doubles as the OpenAI event_id, which
+// is what deduplicates this against the server-side Conversions API event.
+const CONV_JS =
+  "window.mrTrackConversion=function(txnId){" +
+  "try{if(typeof gtag==='function'){" +
   "gtag('event','conversion',{send_to:'" + AW_CONV + "',transaction_id:txnId||''});" +
-  "gtag('event','book_strategy_call');};";
+  "gtag('event','book_strategy_call');}}catch(e){}" +
+  "try{if(typeof oaiq==='function'){" +
+  "oaiq('measure','appointment_scheduled',{type:'customer_action'}," +
+  "txnId?{event_id:String(txnId)}:{});}}catch(e){}};";
 const PREPAINT =
   "(function(){var d=document.documentElement;d.classList.add('js');var t=localStorage.getItem('moonraker-theme');if(t==='dark')d.classList.add('dark');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('js-reveal')}catch(e){}})();";
 const THEME_JS =
@@ -69,6 +91,8 @@ const THEME_JS =
 <script is:inline set:html={PREPAINT}></script>
 {ADS_ENABLED && <script async src={`https://www.googletagmanager.com/gtag/js?id=${AW_ID}`}></script>}
 {ADS_ENABLED && <script is:inline set:html={GTAG_JS}></script>}
+{OAI_ENABLED && <script is:inline set:html={OAI_JS}></script>}
+{(ADS_ENABLED || OAI_ENABLED) && <script is:inline set:html={CONV_JS}></script>}
 <slot name="head" />
 <script is:inline src="/assets/site.js" defer></script>
 </head>

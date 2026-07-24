@@ -256,6 +256,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   var API_ROOT = 'https://clients.moonraker.ai';
 
+  // Returns null when the cookie is absent (pixel blocked, consent declined,
+  // first paint not reached). The server treats a missing obref as optional.
+  function readCookie(name) {
+    try {
+      var m = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '=([^;]*)'));
+      return m ? decodeURIComponent(m[1]) : null;
+    } catch (e) { return null; }
+  }
+
   var state = {
     tz: null,
     slots: [],          // raw slots from API
@@ -564,7 +573,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       referral_source:        document.getElementById('referralSource').value.trim() || null,
       start_at:               state.selectedSlot.start_utc,
       notes:                  document.getElementById('notes').value.trim() || null,
-      source:                 'free_strategy_call'
+      source:                 'free_strategy_call',
+      // OpenAI Ads match keys. __obref is the pixel's first-party cookie and
+      // is passed through unhashed; it lets the server-side conversion match
+      // the same browser the ad click landed in.
+      oai_obref:              readCookie('__obref'),
+      source_url:             location.origin + location.pathname
     };
 
     fetch(API_ROOT + '/api/booking/create-with-audit', {
