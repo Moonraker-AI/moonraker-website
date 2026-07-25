@@ -486,7 +486,9 @@ html.dark .badge-pill img { filter: brightness(1.12); }
 .scroll-hint svg { width: 28px; height: 28px; stroke: var(--color-muted); }
 @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
 .partners-section {
-  padding: 2.5rem 2rem 4rem;
+  /* Matches the hero's bottom padding so the divider between the two sits
+     centred, with equal space above and below it. */
+  padding: clamp(3.5rem, 6vw, 5rem) 2rem;
   max-width: 1100px;
   margin: 0 auto;
   text-align: center;
@@ -598,7 +600,7 @@ html.js .core-panel.active { display: block; animation: corefade .45s var(--ease
 .results-preview { display: grid; grid-template-columns: .86fr 1.14fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
 .stats-stack { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .8rem; margin-top: 1.6rem; }
 .stat { border: 1px solid var(--color-border); border-radius: 14px; padding: 1.1rem; background: var(--color-surface); }
-.stat strong { display: block; font-family: 'Outfit', sans-serif; font-size: 2rem; line-height: 1; color: var(--color-primary); }
+.stat strong { display: block; font-family: 'Outfit', sans-serif; font-size: 2rem; line-height: 1; color: var(--color-primary-text); }
 .stat span { color: var(--color-muted); font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
 .proof-module {
   border: 1px solid var(--color-border);
@@ -670,12 +672,12 @@ html.js .core-panel.active { display: block; animation: corefade .45s var(--ease
 .evidence-table th { background: var(--color-navy); color: var(--color-on-navy); text-align: left; padding: .9rem 1rem; font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; }
 .evidence-table td { padding: .95rem 1rem; border-bottom: 1px solid var(--color-border); color: var(--color-body); font-size: .93rem; }
 .evidence-table tr:last-child td { border-bottom: none; }
-.evidence-table td:last-child { color: var(--color-primary); font-family: 'Outfit', sans-serif; font-weight: 800; text-align: right; }
+.evidence-table td:last-child { color: var(--color-primary-text); font-family: 'Outfit', sans-serif; font-weight: 800; text-align: right; }
 .testimonial-section { background: var(--color-surface); border-top: 1px solid var(--color-hairline); border-bottom: 1px solid var(--color-hairline); }
 .testimonial-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); margin-top: 2.5rem; align-items: stretch; }
 .quote-lead { display: flex; flex-direction: column; justify-content: center; background: var(--color-bg); border: 1px solid var(--color-hairline); border-radius: var(--r-xl); padding: clamp(1.75rem, 3.2vw, 2.6rem); }
 .quote-lead blockquote { color: var(--color-heading); font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(1.4rem, 2.3vw, 1.85rem); line-height: 1.3; letter-spacing: -.02em; }
-.quote-lead blockquote::before { content: '\201C'; display: block; font-family: 'Outfit', sans-serif; font-weight: 800; color: var(--color-primary); font-size: 2.8rem; line-height: .5; margin-bottom: .5rem; }
+.quote-lead blockquote::before { content: '\201C'; display: block; font-family: 'Outfit', sans-serif; font-weight: 800; color: var(--color-primary-text); font-size: 2.8rem; line-height: .5; margin-bottom: .5rem; }
 .testimonial-side { display: grid; gap: 1rem; align-content: start; }
 .quote-note { background: var(--color-bg); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); padding: 1.4rem; }
 .quote-note blockquote { color: var(--color-body); font-size: .98rem; line-height: 1.7; }
@@ -810,7 +812,7 @@ html.js .core-panel.active { display: block; animation: corefade .45s var(--ease
   .trust-bar { gap: .6rem; margin-top: 2.25rem; padding-left: 0; padding-right: 0; width: 100%; }
   .badge-pill { flex: 0 1 calc(50% - .3rem); padding: .65rem .7rem; }
   .badge-pill img { height: auto; width: 100%; max-width: 100%; max-height: 72px; object-fit: contain; }
-  .partners-section { padding: 2rem 1.5rem 2.5rem; }
+  .partners-section { padding: 2.75rem 1.5rem; }
   .section-heading { font-size: 2.25rem; }
   .partner-row { gap: 1.25rem 1.5rem; width: 100%; }
   .partner-row .partner-logo { height: auto; max-height: 52px; max-width: none; object-fit: contain; }
