@@ -1,5 +1,18 @@
 ---
 import '../styles/globals.css';
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+
+// Content hash for the cache-busting query on /assets/site.js (see below).
+let siteJsVersion = 'dev';
+try {
+  siteJsVersion = createHash('sha256')
+    .update(readFileSync(new URL('../../public/assets/site.js', import.meta.url)))
+    .digest('hex')
+    .slice(0, 8);
+} catch (e) {
+  // Missing file should not break the build; the URL just goes unversioned.
+}
 
 export interface Props {
   title: string;
@@ -129,7 +142,7 @@ const THEME_JS =
 {OAI_ENABLED && <script is:inline set:html={OAI_JS}></script>}
 {(ADS_ENABLED || OAI_ENABLED) && <script is:inline set:html={CONV_JS}></script>}
 <slot name="head" />
-<script is:inline src="/assets/site.js" defer></script>
+<script is:inline src={`/assets/site.js?v=${siteJsVersion}`} defer></script>
 </head>
 <body>
 {bare && (
