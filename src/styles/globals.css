@@ -59,6 +59,8 @@
   --color-success: oklch(0.74 0.165 162);
   --color-warning: oklch(0.78 0.15 75);
   --color-danger: oklch(0.62 0.2 25);
+  /* Danger as TEXT on a light surface: the fill red reads 3.92:1. */
+  --color-danger-text: oklch(0.52 0.2 25);
   --color-info: oklch(0.62 0.16 250);
   /* Elevation: navy-tinted, layered. */
   --shadow-soft: 0 8px 28px oklch(0.31 0.072 268 / 0.08);
@@ -385,7 +387,8 @@ html.dark .trust-bar img { filter: brightness(1.12); }
 .stat-item { text-align: center; }
 .stat-value {
   font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 2.1rem;
-  color: var(--color-primary); line-height: 1;
+  /* Renders on a light band, so it needs the readable green. */
+  color: var(--color-primary-text); line-height: 1;
 }
 .stat-label {
   font-size: .75rem; font-weight: 700; text-transform: uppercase;
@@ -555,7 +558,7 @@ html.dark .testimonial-logo { filter: brightness(1.3); }
 .embed-facade:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -3px; }
 .embed-facade-play {
   display: inline-flex; align-items: center; gap: .45rem;
-  font-weight: 800; font-size: .88rem; color: #fff;
+  font-weight: 800; font-size: .88rem; color: var(--color-on-primary);
   background: var(--color-primary); padding: .6rem 1.05rem; border-radius: 999px;
   box-shadow: var(--shadow-card); transition: transform .2s var(--ease-out);
 }
