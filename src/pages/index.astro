@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import LoomFacade from '../components/LoomFacade.astro';
 ---
 <BaseLayout
   title="Moonraker - Google and AI Visibility for Therapy Practices"
@@ -167,8 +168,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <span class="eyebrow">See it first</span>
       <h2>What a free strategy call looks like.</h2>
       <p class="section-lede" style="margin-left:auto;margin-right:auto">A quick walkthrough of how we review your visibility across Google, Maps, and AI tools, and exactly what you walk away with.</p>
-      <div style="position:relative;aspect-ratio:16/9;max-width:880px;margin:1.75rem auto 0;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-lift);background:var(--color-navy-deep)">
-        <iframe src="https://www.loom.com/embed/df3a5aa47f284ade81a4649695ac42dd" loading="lazy" allow="fullscreen" allowfullscreen title="What a free strategy call with Moonraker looks like" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
+      {/* Click-to-load: the eager embed pulled ~2.3 MB of Loom on the busiest
+          page on the site. LoomFacade supplies the frame, so this wrapper only
+          carries the measure. */}
+      <div style="max-width:880px;margin:1.75rem auto 0">
+        <LoomFacade
+          id="df3a5aa47f284ade81a4649695ac42dd"
+          poster="strategy-call-video-poster"
+          label="Play video: what a free strategy call with Moonraker looks like" />
       </div>
     </div>
   </section>
@@ -284,8 +291,8 @@ p { max-width: 68ch; text-wrap: pretty; }
   border: 1px solid transparent;
   transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease, border-color .18s ease;
 }
-.btn-primary { background: var(--color-primary); color: oklch(0.99 0.01 165); box-shadow: var(--shadow-signal); }
-.btn-primary:hover { background: var(--color-primary-hover); color: oklch(0.99 0.01 165); transform: translateY(-1px); box-shadow: 0 12px 28px oklch(0.74 0.165 162 / 0.3); }
+.btn-primary { background: var(--color-primary); color: var(--color-on-primary); box-shadow: var(--shadow-signal); }
+.btn-primary:hover { background: var(--color-primary-hover); color: var(--color-on-primary); transform: translateY(-1px); box-shadow: 0 12px 28px oklch(0.74 0.165 162 / 0.3); }
 .btn-secondary { background: transparent; color: var(--color-heading); border-color: var(--color-border); }
 .btn-secondary:hover { border-color: var(--color-primary); color: var(--color-primary); background: var(--color-surface); }
 .site-nav { position: sticky; top: 0; z-index: 100; background: var(--color-navy); border-bottom: 1px solid rgba(232, 245, 239, .1); transition: transform .35s cubic-bezier(.4, 0, .2, 1), box-shadow .25s ease; will-change: transform; }
@@ -408,7 +415,7 @@ html.dark .hero-wrap::after { opacity: .07; }
   padding: 1.05rem 2.4rem;
   border-radius: var(--r-md);
   background: var(--color-primary);
-  color: oklch(0.99 0.01 165);
+  color: var(--color-on-primary);
   text-decoration: none;
   font-family: 'Outfit', sans-serif;
   font-weight: 700;
@@ -419,7 +426,7 @@ html.dark .hero-wrap::after { opacity: .07; }
 }
 .cta-btn:hover {
   background: var(--color-primary-hover);
-  color: oklch(0.99 0.01 165);
+  color: var(--color-on-primary);
   transform: translateY(-2px);
   box-shadow: 0 14px 34px oklch(0.74 0.165 162 / 0.32);
 }
@@ -627,7 +634,7 @@ html.js .core-panel.active { display: block; animation: corefade .45s var(--ease
 }
 .proof-tab.active {
   background: var(--color-primary);
-  color: oklch(0.99 0.01 165);
+  color: var(--color-on-primary);
   box-shadow: var(--shadow-soft);
 }
 .proof-frame {
@@ -698,7 +705,7 @@ html.js .core-panel.active { display: block; animation: corefade .45s var(--ease
   border-radius: 50%;
   display: grid;
   place-items: center;
-  color: oklch(0.99 0.01 165);
+  color: var(--color-on-primary);
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
   line-height: 1;
@@ -785,7 +792,7 @@ html.js .core-panel.active { display: block; animation: corefade .45s var(--ease
   .nav-links.open { display: flex; }
   .nav-links a { padding: .85rem .25rem; }
   .nav-cta-mobile { display: block; margin-top: .75rem; }
-  .nav-links.open .nav-cta-mobile a { display: block; text-align: center; background: var(--color-primary); color: oklch(0.99 0.01 165); font-family: 'Outfit', sans-serif; font-weight: 700; border-radius: var(--r-md); box-shadow: var(--shadow-signal); }
+  .nav-links.open .nav-cta-mobile a { display: block; text-align: center; background: var(--color-primary); color: var(--color-on-primary); font-family: 'Outfit', sans-serif; font-weight: 700; border-radius: var(--r-md); box-shadow: var(--shadow-signal); }
   .nav-dropdown .dropdown-menu { display: block; position: static; box-shadow: none; border: none; background: transparent; padding: 0 0 0 .75rem; min-width: 0; max-height: 0; overflow: hidden; transition: max-height .3s ease; }
   .nav-dropdown.open .dropdown-menu { max-height: 380px; }
   .dropdown-menu a { color: rgba(232, 245, 239, .76); padding: .6rem .25rem; }
@@ -880,4 +887,13 @@ html.js .core-panel.active { display: block; animation: corefade .45s var(--ease
   .hero p { margin-left: auto !important; margin-right: auto !important; margin-bottom: 1.8rem !important; }
   .hero .cta-btn { padding: .95rem 1.5rem !important; font-size: 1rem !important; white-space: nowrap; }
 }
+
+/* Section rhythm: six consecutive .section blocks all inherited the same
+   paper tone, so nothing but the heading told a reader one had ended. Tones
+   alternate down the page; the navy hero and the navy CORE band still anchor
+   it. nth-of-type counts section siblings, so this survives adding or
+   removing one. */
+.section:nth-of-type(even) { background: var(--band-sage); }
+.section:nth-of-type(odd) { background: var(--band-paper); }
+.section-tight { background: var(--band-mint); }
 </style>

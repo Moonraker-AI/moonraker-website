@@ -260,7 +260,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   position: absolute; background: var(--color-surface);
   border: 1px solid var(--color-hairline); border-radius: var(--r-lg);
   padding: 1.25rem 1.5rem; width: 280px;
-  box-shadow: var(--shadow-card);
 }
 .preview-card .pc-header { display: flex; align-items: center; gap: .75rem; margin-bottom: .5rem; }
 .preview-card .pc-icon {
@@ -422,4 +421,8 @@ html.dark .pq-dark { background: #0A1630; }
     transition: none;
   }
 }
+
+/* Four consecutive pillar sections shared one tone. See index.astro. */
+.pillar-section:nth-of-type(even) { background: var(--band-sage); }
+.pillar-section:nth-of-type(odd) { background: var(--band-paper); }
 </style>

@@ -316,13 +316,13 @@ window.changeSlide = function(dir) { goToSlide((curSlide + dir + totalSlides) % 
   transition: border-color .2s var(--ease-out), color .2s var(--ease-out), background .2s var(--ease-out);
 }
 .filter-pill:hover { border-color: oklch(0.74 0.165 162 / 0.42); color: var(--color-heading); }
-.filter-pill.active { background: var(--color-primary); color: oklch(0.99 0.01 165); border-color: var(--color-primary); box-shadow: var(--shadow-signal); }
+.filter-pill.active { background: var(--color-primary); color: var(--color-on-primary); border-color: var(--color-primary); box-shadow: var(--shadow-signal); }
 .filter-pill .count {
   display: inline-block; border-radius: 999px; padding: 0 .45rem;
   font-size: .74rem; margin-left: .3rem;
   background: var(--color-primary-subtle); color: var(--color-primary);
 }
-.filter-pill.active .count { background: oklch(0.945 0.018 166 / 0.22); color: oklch(0.99 0.01 165); }
+.filter-pill.active .count { background: oklch(0.945 0.018 166 / 0.22); color: var(--color-on-primary); }
 
 /* ── Results gallery ── */
 .results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; padding: 0 2rem 3rem; max-width: 1200px; margin: 0 auto; }
@@ -344,7 +344,7 @@ window.changeSlide = function(dir) { goToSlide((curSlide + dir + totalSlides) % 
 .result-card:hover .card-image-wrap img { transform: scale(1.04); }
 .card-badge {
   position: absolute; top: .75rem; right: .75rem;
-  background: var(--color-primary); color: oklch(0.99 0.01 165);
+  background: var(--color-primary); color: var(--color-on-primary);
   font-family: 'Outfit', sans-serif; font-weight: 700; font-size: .875rem;
   padding: .3rem .7rem; border-radius: var(--r-sm); box-shadow: var(--shadow-signal);
 }
@@ -412,7 +412,7 @@ window.changeSlide = function(dir) { goToSlide((curSlide + dir + totalSlides) % 
 .lightbox-close:hover { opacity: 1; }
 .lightbox-caption {
   position: absolute; top: calc(100% + .75rem); left: 50%; transform: translateX(-50%);
-  background: var(--color-primary); color: oklch(0.99 0.01 165);
+  background: var(--color-primary); color: var(--color-on-primary);
   padding: .5rem 1.25rem; border-radius: var(--r-md);
   font-size: .875rem; font-weight: 700; font-family: 'Outfit', sans-serif;
   white-space: nowrap; box-shadow: var(--shadow-signal); z-index: 1;
@@ -444,4 +444,17 @@ window.changeSlide = function(dir) { goToSlide((curSlide + dir + totalSlides) % 
   }
   .testimonial-slide { animation: none; }
 }
+
+/* Proof runs three sections deep here, so the run reads as logos,
+   testimonials, reviews rather than one long block.
+   These three sections were max-width boxes, so painting them directly would
+   have produced a boxed strip instead of a band. The section goes full-bleed
+   and its direct children carry the old measure, which needs no markup
+   change because each section's children are block-level. */
+.partners-section { background: var(--band-sage); max-width: none; }
+.partners-section > * { max-width: 1100px; margin-inline: auto; }
+.testimonials-section { background: var(--band-mint); max-width: none; }
+.testimonials-section > * { max-width: 900px; margin-inline: auto; }
+.google-reviews-section { background: var(--band-paper); max-width: none; }
+.google-reviews-section > * { max-width: 1200px; margin-inline: auto; }
 </style>

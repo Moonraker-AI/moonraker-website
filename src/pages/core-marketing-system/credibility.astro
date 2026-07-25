@@ -249,7 +249,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 .pillar-badge-letter {
   display: inline-flex; align-items: center; justify-content: center;
   width: 48px; height: 48px; border-radius: var(--r-md);
-  background: var(--color-primary); color: oklch(0.99 0.01 165);
+  background: var(--color-primary); color: var(--color-on-primary);
   font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.3rem;
   box-shadow: var(--shadow-signal);
 }
@@ -269,7 +269,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 .pillar-hero-inner { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr .95fr; gap: clamp(2rem, 6vw, 4rem); align-items: center; }
 .pillar-text { text-align: left; }
 .pillar-visual { position: relative; z-index: 1; }
-.pillar-card { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); padding: 1.75rem; box-shadow: var(--shadow-card); text-align: left; }
+.pillar-card { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); padding: 1.75rem; text-align: left; }
 .pillar-card-top { display: flex; align-items: center; gap: .9rem; padding-bottom: 1.1rem; margin-bottom: 1.1rem; border-bottom: 1px solid var(--color-hairline); }
 .pillar-card-icon { width: 48px; height: 48px; border-radius: var(--r-md); background: var(--color-primary-subtle); color: var(--color-primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .pillar-card-icon svg { width: 24px; height: 24px; }
@@ -386,4 +386,8 @@ html.dark .deliverable-icon { background: oklch(0.74 0.165 162 / 0.14); }
   .pillar-nav .nav-next { text-align: left; }
   .deliverable { padding: 1.4rem 1.5rem; }
 }
+
+/* Two consecutive .pillar-part sections shared one tone. */
+.pillar-part:nth-of-type(even) { background: var(--band-sage); }
+.pillar-part:nth-of-type(odd) { background: var(--band-paper); }
 </style>
