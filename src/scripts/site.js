@@ -1,5 +1,7 @@
 // Moonraker marketing site: auto-hide nav + tap/click dropdowns + FAQ accordion.
-// Loaded site-wide via <script defer src="/assets/site.js">.
+// Loaded site-wide from BaseLayout via a Vite ?url import, which gives it a
+// content-hashed filename. Do not move it back to public/: the worker caches
+// by pathname and ignores the query string, so only a changed path busts it.
 (function () {
   var nav = document.querySelector('.site-nav');
 
