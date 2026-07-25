@@ -211,6 +211,9 @@ const faqLd = faqs.length
   .post-metrics span { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-muted); margin-top: 0.35rem; }
 
   .post-body { font-size: 1.075rem; line-height: 1.75; }
+  /* Inline links in prose are underlined, not colour-only, matching the legal
+     pages. Colour alone is not a sufficient cue inside a paragraph. */
+  .post-body :global(a) { color: var(--color-primary-text); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
   .post-body :global(h2) { font-size: 1.6rem; margin: 2.5rem 0 1rem; line-height: 1.2; }
   .post-body :global(h3) { font-size: 1.25rem; margin: 2rem 0 0.75rem; }
   .post-body :global(p) { margin: 0 0 1.25rem; }

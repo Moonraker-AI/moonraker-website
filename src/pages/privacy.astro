@@ -119,6 +119,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 .legal-toc ol { margin: 0; padding-left: 1.2rem; display: grid; gap: .35rem; }
 .legal-toc a { color: var(--color-body); text-decoration: none; }
 .legal-toc a:hover { color: var(--color-primary-text); }
+/* The ordered list already numbers these, so the shared .legal-body bullet is
+   redundant here. Drop it and colour the numbers instead. */
+.legal-toc li::before { content: none; }
+.legal-toc li::marker { color: var(--color-primary-text); font-weight: 700; }
 .legal-note { background: var(--color-primary-subtle); border: 1px solid var(--color-primary-light); border-radius: var(--r-md); padding: 1rem 1.25rem; font-size: .92rem; color: var(--color-body); margin: 1.5rem 0; }
 .cta-band { position: relative; overflow: hidden; background: linear-gradient(158deg, var(--color-navy) 0%, var(--color-navy-deep) 100%); color: var(--color-on-navy-dim); }
 .cta-inner { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; padding: clamp(3rem, 6vw, 4rem) 2rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }

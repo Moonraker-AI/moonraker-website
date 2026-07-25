@@ -18,7 +18,7 @@ import LoomFacade from '../components/LoomFacade.astro';
     <section class="hero">
       <h1>Helping the right clients find your practice on <span>Google, Gemini, and AI</span></h1>
       <p>When someone searches for a therapist, we make sure your practice is the one Google, Maps, and AI tools can trust and recommend. Built for therapy practices, not generic businesses.</p>
-      <a href="/free-strategy-call" class="cta-btn">Book a Free Strategy Call <span aria-hidden="true">&rarr;</span></a>
+      <a href="/free-strategy-call" class="cta-btn">Book a Free Strategy Call</a>
       <span class="hero-reassure">Free 30-minute call. No pressure, no jargon, no commitment.</span>
     </section>
 
@@ -281,7 +281,7 @@ p { max-width: 68ch; text-wrap: pretty; }
 .eyebrow {
   display: inline-block;
   margin-bottom: .85rem;
-  color: var(--color-primary); font-size: .74rem; font-weight: 800;
+  color: var(--color-primary-text); font-size: .74rem; font-weight: 800;
   letter-spacing: .1em; text-transform: uppercase;
 }
 .btn {
@@ -411,7 +411,9 @@ html.dark .hero-wrap::after { opacity: .07; }
 .cta-btn {
   display: inline-flex;
   align-items: center;
-  gap: .5rem;
+  /* Single label, no arrow: centre it explicitly rather than relying on the
+     old flex gap that existed to space the arrow. */
+  justify-content: center;
   padding: 1.05rem 2.4rem;
   border-radius: var(--r-md);
   background: var(--color-primary);
@@ -683,7 +685,7 @@ html.js .core-panel.active { display: block; animation: corefade .45s var(--ease
 .quote-person span { color: var(--color-muted); font-size: .86rem; }
 .feedback-strip { margin-top: 2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .feedback-card { background: var(--color-bg); border: 1px solid var(--color-hairline); border-radius: var(--r-md); padding: 1.2rem; }
-.feedback-stars { color: var(--color-primary); font-size: .9rem; letter-spacing: .04em; margin-bottom: .5rem; }
+.feedback-stars { color: var(--color-primary-text); font-size: .9rem; letter-spacing: .04em; margin-bottom: .5rem; }
 .feedback-card p { color: var(--color-body); font-size: .92rem; line-height: 1.65; margin-bottom: .85rem; }
 .feedback-card strong { color: var(--color-heading); font-family: 'Outfit', sans-serif; font-size: .9rem; }
 .fit-section .fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
@@ -895,5 +897,4 @@ html.js .core-panel.active { display: block; animation: corefade .45s var(--ease
    removing one. */
 .section:nth-of-type(even) { background: var(--band-sage); }
 .section:nth-of-type(odd) { background: var(--band-paper); }
-.section-tight { background: var(--band-mint); }
 </style>
