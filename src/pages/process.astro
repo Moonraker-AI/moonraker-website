@@ -14,8 +14,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="hero-inner">
       <div>
         <div class="hero-kicker">How engagement works</div>
-        <h1>A clear path forward to <span style="color: var(--color-primary)">boost your visibility.</span></h1>
-        <p>Moonraker starts by checking the basics: your website, Google presence, local listings, service pages, and contact path. Then you pick one of <a href="/services" style="color: var(--color-primary); font-weight: 600">three foundation steps</a> that fits your practice, and we close the audit gaps before moving into ongoing work.</p>
+        <h1>A clear path forward to <span style="color: var(--color-primary-text)">boost your visibility.</span></h1>
+        <p>Moonraker starts by checking the basics: your website, Google presence, local listings, service pages, and contact path. Then you pick one of <a href="/services" style="color: var(--color-primary-text); font-weight: 600">three foundation steps</a> that fits your practice, and we close the audit gaps before moving into ongoing work.</p>
       </div>
       <aside class="phase-stack" aria-label="Moonraker phases">
         <h2 class="sr-only">Our phases</h2>
@@ -33,7 +33,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
     <div class="timeline">
       <article class="timeline-item"><div class="timeline-time">Phase 0</div><div><h3>Free strategy call</h3><p>We look at your website, Google profile, local listings, service pages, trust points, and booking path. You get a clear read on where things stand.</p></div></article>
-      <article class="timeline-item"><div class="timeline-time">Days 1-30</div><div><h3>Website foundation</h3><p>We confirm access, run the full audit, and start your chosen <a href="/services" style="color: var(--color-primary); font-weight: 600">foundation step</a>: fixes on your current platform, a page-for-page move onto our Cloudflare foundation, or the full rebuild.</p></div></article>
+      <article class="timeline-item"><div class="timeline-time">Days 1-30</div><div><h3>Website foundation</h3><p>We confirm access, run the full audit, and start your chosen <a href="/services" style="color: var(--color-primary-text); font-weight: 600">foundation step</a>: fixes on your current platform, a page-for-page move onto our Cloudflare foundation, or the full rebuild.</p></div></article>
       <article class="timeline-item"><div class="timeline-time">Days 31-60</div><div><h3>Audit-driven remediation</h3><p>We improve important pages, service content, Google Business Profile, local listings, FAQs, and the proof visitors need before they contact you.</p></div></article>
       <article class="timeline-item"><div class="timeline-time">Days 61-90</div><div><h3>Verification and handoff</h3><p>We organize the larger proof system, set the first reporting baseline, and document what changed.</p></div></article>
       <article class="timeline-item"><div class="timeline-time">Ongoing</div><div><h3>Ongoing CORE support</h3><p>We continue publishing proof assets, reporting progress, and recommending next steps.</p></div></article>
@@ -85,17 +85,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 .phase-stack { border: 1px solid var(--color-hairline); border-radius: var(--r-lg); overflow: hidden; background: var(--color-surface); }
 .phase-preview { display: grid; grid-template-columns: 64px 1fr; gap: 1rem; padding: 1.1rem; border-bottom: 1px solid var(--color-border); }
 .phase-preview:last-child { border-bottom: 0; }
-.phase-num { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; background: var(--color-navy); color: var(--color-primary); font-family: 'Outfit', sans-serif; font-size: 1.35rem; font-weight: 800; }
+.phase-num { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; background: var(--color-navy); color: var(--color-primary-text); font-family: 'Outfit', sans-serif; font-size: 1.35rem; font-weight: 800; }
 .phase-preview h3 { margin-bottom: .25rem; }
 .phase-preview p { font-size: .84rem; line-height: 1.55; color: var(--color-muted); }
 .section-wrap { max-width: 1120px; margin: 0 auto; padding: clamp(4rem, 7vw, 6rem) 2rem; }
-.section-label { color: var(--color-primary); font-weight: 800; font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .7rem; }
+.section-label { color: var(--color-primary-text); font-weight: 800; font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .7rem; }
 .section-head { display: grid; grid-template-columns: .9fr 1.1fr; gap: 2rem; margin-bottom: 2rem; align-items: end; }
 .section-head h2 { font-size: clamp(2rem, 3.6vw, 3rem); }
 .section-head p { color: var(--color-muted); line-height: 1.75; }
 .timeline { display: grid; gap: 1rem; }
 .timeline-item { display: grid; grid-template-columns: 160px 1fr; gap: 1rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 16px; padding: 1.25rem; }
-.timeline-time { font-family: 'Outfit', sans-serif; font-weight: 800; color: var(--color-primary); }
+.timeline-time { font-family: 'Outfit', sans-serif; font-weight: 800; color: var(--color-primary-text); }
 .timeline-item h3 { margin-bottom: .45rem; }
 .timeline-item p { color: var(--color-muted); line-height: 1.65; font-size: .92rem; }
 .access-band { background: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
