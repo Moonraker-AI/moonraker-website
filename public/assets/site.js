@@ -117,10 +117,15 @@
     var btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'embed-facade';
-    btn.setAttribute('aria-label', 'Load and play: ' + title);
+    // No aria-label on purpose: the button's own text is "Play <title>",
+    // so the accessible name and the visible label cannot drift apart.
     var play = document.createElement('span');
     play.className = 'embed-facade-play';
-    play.textContent = '▶ Play';
+    var icon = document.createElement('span');
+    icon.setAttribute('aria-hidden', 'true');
+    icon.textContent = '\u25B6';
+    play.appendChild(icon);
+    play.appendChild(document.createTextNode(' Play'));
     var label = document.createElement('span');
     label.className = 'embed-facade-label';
     label.textContent = title;

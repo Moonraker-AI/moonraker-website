@@ -95,7 +95,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 .legal-body ul { list-style: none; display: grid; gap: .6rem; margin: 0 0 1.25rem; }
 .legal-body li { padding-left: 1.2rem; position: relative; }
 .legal-body li::before { content: ''; position: absolute; left: 0; top: .68em; width: 7px; height: 7px; border-radius: 50%; background: var(--color-primary); }
-.legal-body a { color: var(--color-primary-text); }
+/* Underlined, not colour-only: colour alone is not a sufficient cue for
+   an inline link, and these pages are dense prose. */
+.legal-body a { color: var(--color-primary-text); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
 .legal-toc { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); padding: 1.4rem 1.6rem; margin-bottom: 2.5rem; box-shadow: var(--shadow-card); }
 .legal-toc strong { display: block; font-family: 'Outfit', sans-serif; margin-bottom: .7rem; color: var(--color-heading); }
 .legal-toc ol { margin: 0; padding-left: 1.2rem; display: grid; gap: .35rem; }

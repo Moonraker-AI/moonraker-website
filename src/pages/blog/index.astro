@@ -23,6 +23,7 @@ const itemList = {
 <BaseLayout title={title} description={description} canonical={canonical} ogUrl={canonical}>
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(itemList)} />
 
+  <main>
   <section class="blog-hero">
     <div class="blog-hero-inner">
       <div class="hero-kicker">Blog</div>
@@ -51,6 +52,7 @@ const itemList = {
       </div>
     )}
   </section>
+  </main>
 </BaseLayout>
 
 <style>

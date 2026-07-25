@@ -107,6 +107,7 @@ const faqLd = faqs.length
     {faqLd && <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />}
   </Fragment>
 
+  <main>
   <article class="post">
     <header class="post-head">
       <nav class="post-crumbs"><a href="/blog">Blog</a> <span>/</span> {TYPE_LABELS[piece.type] || piece.type}</nav>
@@ -167,6 +168,7 @@ const faqLd = faqs.length
       <a href="/free-strategy-call" class="post-cta-btn">Book a free strategy call</a>
     </footer>
   </article>
+  </main>
 </BaseLayout>
 
 <style>
