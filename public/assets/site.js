@@ -78,18 +78,21 @@
     }, { passive: true });
   }
 
-  // FAQ accordion: one open at a time, then smooth-scroll the opened panel to center.
+  // FAQ accordion: one open at a time. Deliberately NO scroll-into-view.
+  // These panels are short, so recentring the page on open moved the thing
+  // the reader had just aimed at, which reads as the page jumping rather
+  // than as help. The item stays where it is and simply expands.
+  //
+  // Note the browser handles closing the sibling itself for same-name
+  // details, but only in browsers that support the exclusive-accordion
+  // behaviour; the loop below keeps older ones consistent.
   Array.prototype.forEach.call(document.querySelectorAll('details'), function (d) {
     d.addEventListener('toggle', function () {
       if (!d.open) return;
       var group = d.getAttribute('name');
-      if (group) {
-        Array.prototype.forEach.call(document.querySelectorAll('details[name="' + group + '"]'), function (other) {
-          if (other !== d) { other.open = false; }
-        });
-      }
-      window.requestAnimationFrame(function () {
-        d.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (!group) return;
+      Array.prototype.forEach.call(document.querySelectorAll('details[name="' + group + '"]'), function (other) {
+        if (other !== d) { other.open = false; }
       });
     });
   });
