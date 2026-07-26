@@ -18,6 +18,10 @@
  *    never match them. That is why the original file already had 
  *    on exactly those selectors.
  */
+// ?url keeps this OUT of the render-blocking page CSS bundle and gets a
+// content-hashed filename, which is the only cache-bust that works here.
+import bookingCssUrl from '../styles/booking-widget.css?url';
+
 const { defer = false } = Astro.props;
 ---
 <div id="bookingWorkspace" class="booking-workspace" data-defer={defer ? '1' : '0'}>
@@ -600,7 +604,17 @@ const { defer = false } = Astro.props;
 <!-- Rules are plain selectors, NOT :global(). The block is already global;
      Astro only strips a :global() wrapper inside SCOPED style blocks, so
      leaving it here emits literal :global(...) that browsers discard. -->
+<!-- Below-the-fold widget CSS, off the critical path (oi-172). media="print"
+     downloads without blocking render; onload flips it to all. The noscript
+     copy keeps the widget styled when JS is off, which also keeps the
+     no-JS booking fallback readable. -->
+<link rel="stylesheet" href={bookingCssUrl} media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href={bookingCssUrl} /></noscript>
+
 <style is:global>
+/* CRITICAL subset only. Everything else is in src/styles/booking-widget.css,
+   loaded asynchronously above. These rules reserve the widget's box and style
+   what is on screen first, so the async sheet landing does not shift layout. */
 .tz-banner {
   margin: 0 0 1.25rem;
   background: color-mix(in srgb, var(--color-primary) 12%, transparent);
@@ -620,14 +634,12 @@ const { defer = false } = Astro.props;
    the wrong lever, so this emphasis line uses the heading ink instead. */
 .tz-banner strong { color: var(--color-heading); font-weight: 700; }
 .tz-banner-line { margin-top: .35rem; }
-.tz-zone-line { color: var(--color-body); }
 .tz-banner select {
   margin-top: .35rem; font-family: inherit; font-size: .82rem;
   padding: .3rem .5rem; border: 1px solid var(--color-border);
   border-radius: 6px; background: var(--color-bg); color: var(--color-body);
 }
 .tz-banner select:focus { outline: none; border-color: var(--color-primary); }
-
 /* Booking notice banner (shown above the card, e.g. when a slot is taken). */
 .booking-notice {
   margin: 0 0 1rem; padding: .85rem 1.1rem;
@@ -636,7 +648,6 @@ const { defer = false } = Astro.props;
   border: 1px solid color-mix(in srgb, var(--color-danger) 35%, transparent);
   color: var(--color-danger);
 }
-
 /* Booking workspace */
 .booking-workspace {
   max-width: 1080px; margin: clamp(3rem, 6vw, 5rem) auto 4rem;
@@ -656,193 +667,8 @@ const { defer = false } = Astro.props;
   color: var(--color-muted); font-size: .85rem;
   margin: -.75rem 0 1.5rem; line-height: 1.6;
 }
-.step-back {
-  display: inline-flex; align-items: center; gap: .35rem;
-  background: none; border: none; cursor: pointer; padding: .25rem .5rem;
-  margin-bottom: 1rem; font-family: inherit; font-size: .82rem;
-  color: var(--color-muted); border-radius: 6px;
-}
-.step-back:hover { color: var(--color-primary); background: var(--color-primary-subtle); }
-.step-back::before { content: '\2190'; }
-
-/* Date pills.
-   These pills (and the time pills below) are injected at runtime via
-   innerHTML, so they never carry Astro's scope attribute. Their rules
-   MUST be  or the scoped selector will not match and the
-   buttons fall back to raw browser styling. */
-.date-strip {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
-  gap: .65rem;
-}
-.date-pill {
-  background: var(--color-bg); border: 1px solid var(--color-border);
-  border-radius: 12px; padding: .85rem .5rem; cursor: pointer;
-  text-align: center; transition: border-color .15s, transform .12s;
-}
-.date-pill:hover {
-  border-color: var(--color-primary);
-}
-.date-pill.selected {
-  background: var(--color-primary); border-color: var(--color-primary); color: #fff;
-}
-.date-pill .date-weekday {
-  font-size: .7rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: .04em; color: var(--color-muted); margin-bottom: .35rem;
-}
-.date-pill.selected .date-weekday { color: rgba(255,255,255,.85); }
-.date-pill .date-day {
-  font-family: 'Outfit', sans-serif; font-weight: 700;
-  font-size: 1.5rem; color: var(--color-heading); line-height: 1;
-}
-.date-pill.selected .date-day { color: #fff; }
-.date-pill .date-month {
-  font-size: .7rem; color: var(--color-muted); margin-top: .25rem;
-}
-.date-pill.selected .date-month { color: rgba(255,255,255,.8); }
-.date-pill .date-count {
-  /* Readable green: the fill green measures ~2.1:1 on the pill surface. */
-  font-size: .65rem; color: var(--color-primary-text); margin-top: .25rem;
-  font-weight: 600;
-}
-.date-pill.selected .date-count { color: rgba(255,255,255,.85); }
-
-/* Time slots (injected via innerHTML, see note above). */
-.time-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: .65rem;
-}
-.time-pill {
-  background: var(--color-bg); border: 1px solid var(--color-border);
-  border-radius: 10px; padding: .75rem; cursor: pointer; text-align: center;
-  transition: border-color .15s, transform .12s, background .15s;
-  font-family: inherit;
-}
-.time-pill:hover { border-color: var(--color-primary); transform: translateY(-1px); }
-.time-pill.selected { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
-.time-pill .t-main { font-weight: 600; font-size: .92rem; color: var(--color-heading); }
-.time-pill.selected .t-main { color: #fff; }
-.time-pill .t-sub {
-  font-size: .68rem; color: var(--color-muted); margin-top: 2px;
-}
-.time-pill.selected .t-sub { color: rgba(255,255,255,.8); }
-
-/* Form */
-.form-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.25rem;
-}
-.form-row { display: flex; flex-direction: column; }
-.form-row.full { grid-column: 1 / -1; }
-.form-row label {
-  font-size: .78rem; font-weight: 600;
-  color: var(--color-heading); margin-bottom: .35rem;
-}
-.form-row label .req { color: var(--color-primary); }
-.form-row input, .form-row select, .form-row textarea {
-  width: 100%; padding: .65rem .85rem; border: 1px solid var(--color-border);
-  border-radius: 8px; font-family: inherit; font-size: .9rem;
-  background: var(--color-bg); color: var(--color-body);
-  transition: border-color .15s, box-shadow .15s;
-}
-.form-row textarea { resize: vertical; min-height: 80px; }
-.form-row input:focus, .form-row select:focus, .form-row textarea:focus {
-  outline: none; border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px oklch(0.74 0.165 162 / .1);
-}
-.form-row .helper-text {
-  font-size: .72rem; color: var(--color-muted); margin-top: .35rem; line-height: 1.5;
-}
-.form-row .err { color: var(--color-danger); font-size: .72rem; margin-top: .35rem; display: none; }
-.form-row.has-error input,
-.form-row.has-error select,
-.form-row.has-error textarea { border-color: var(--color-danger); }
-.form-row.has-error .err { display: block; }
-
-.toggle-row {
-  display: flex; align-items: center; gap: .65rem; padding: .85rem 1rem;
-  border: 1px solid var(--color-border); border-radius: 10px;
-  background: var(--color-bg); cursor: pointer; user-select: none;
-  margin-bottom: 1.5rem;
-}
-.toggle-row input { width: 18px; height: 18px; accent-color: var(--color-primary); flex-shrink: 0; }
-.toggle-row .toggle-text { font-size: .88rem; color: var(--color-body); line-height: 1.4; }
-.toggle-row strong { color: var(--color-heading); font-weight: 600; }
-
-.summary-box {
-  background: var(--color-primary-subtle); border: 1px solid oklch(0.74 0.165 162 / .25);
-  border-radius: var(--r-md); padding: 1rem 1.25rem; margin-bottom: 1.5rem;
-}
-.summary-box .summary-when {
-  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem;
-  color: var(--color-heading); margin-bottom: .25rem;
-}
-.summary-box .summary-sub { font-size: .82rem; color: var(--color-body); }
-
-.submit-row { display: flex; justify-content: flex-end; gap: .75rem; margin-top: 2rem; }
-/* Scoped to the widget on purpose. These started life inside a page-scoped
-   <style>, so they only ever styled that page's buttons. In a global block
-   they redefined the design-system .btn-primary for every page hosting the
-   widget, including reintroducing the old white-on-green that fails contrast
-   at 2.08:1. The colour now comes from the design system; only the widget's
-   own sizing and its ghost/disabled states live here. */
-#bookingWorkspace .btn {
-  display: inline-flex; align-items: center; gap: .4rem;
-  padding: .75rem 1.75rem; border-radius: var(--r-md);
-  font-family: 'Outfit', sans-serif; font-weight: 600; font-size: .95rem;
-  text-decoration: none; cursor: pointer; border: none;
-  transition: all .2s;
-}
-#bookingWorkspace .btn-primary { background: var(--color-primary); color: var(--color-on-primary); }
-#bookingWorkspace .btn-primary:hover { background: var(--color-primary-hover); transform: translateY(-1px); }
-#bookingWorkspace .btn-primary:disabled { opacity: .55; cursor: not-allowed; transform: none; }
-#bookingWorkspace .btn-ghost { background: transparent; color: var(--color-body); border: 1px solid var(--color-border); }
-#bookingWorkspace .btn-ghost:hover { color: var(--color-heading); border-color: var(--color-heading); }
-
-/* Confirmation step */
-.confirm {
-  text-align: center; padding: 3rem 2rem;
-}
-.confirm-icon {
-  width: 64px; height: 64px; border-radius: 50%;
-  background: var(--color-primary-subtle); color: var(--color-primary);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2rem; margin: 0 auto 1.25rem;
-}
-.confirm h2 { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.6rem; margin-bottom: .75rem; }
-.confirm p { color: var(--color-body); font-size: .95rem; line-height: 1.65; margin-bottom: 1rem; }
-.confirm-details {
-  background: var(--color-bg); border: 1px solid var(--color-border);
-  border-radius: 12px; padding: 1.25rem; max-width: 480px; margin: 1.5rem auto;
-  text-align: left; font-size: .88rem;
-}
-/* detail rows are injected via innerHTML, so  is required. */
-.confirm-details .detail-row { display: flex; justify-content: space-between; padding: .35rem 0; }
-.confirm-details .detail-label { color: var(--color-muted); }
-.confirm-details .detail-value { color: var(--color-heading); font-weight: 500; }
-.confirm-details .detail-value a { color: var(--color-primary); text-decoration: none; }
-
-/* Loading + error states. The spinner and the loading/empty/error state
-   blocks are injected via innerHTML, so they need . error-state
-   and the spinner also appear inside JS-built markup. */
-.spinner {
-  display: inline-block; width: 18px; height: 18px;
-  border: 2px solid rgba(255,255,255,.4); border-top-color: #fff;
-  border-radius: 50%; animation: spin .6s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
 .loading-state, .empty-state, .error-state {
   text-align: center; padding: 2.5rem 1rem; color: var(--color-muted); font-size: .9rem;
 }
-.error-state { color: var(--color-danger); }
-.empty-state { font-style: italic; }
 .is-hidden { display: none; }
-.confirm-note { font-size: .82rem; color: var(--color-muted); }
-
-@media (max-width: 720px) {
-  .booking-workspace { padding: 0 1rem; margin: 1.5rem auto 3rem; }
-  .booking-step { padding: 1.5rem 1.25rem; }
-  .form-grid { grid-template-columns: 1fr; }
-  .submit-row { flex-direction: column-reverse; align-items: stretch; }
-  .submit-row .btn { width: 100%; justify-content: center; }
-  .tz-banner { flex-direction: column; align-items: flex-start; }
-}
 </style>
