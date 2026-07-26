@@ -125,6 +125,35 @@ Both halves are outward-facing; stop and get an explicit yes before either.
    `worker/`. Without this the new embed stays blocked regardless of the
    content deploy.
 
+## Failure modes
+
+- **Blank iframe + CSP error in the browser console**: the embed origin is not
+  in `frame-src`, or the worker redeploy was skipped. Fix Step 1, redeploy the
+  worker, hard-reload.
+- **Gamma deck frames on gamma.app but nowhere else (HTTP 403,
+  `x-frame-options: SAMEORIGIN`)**: the deck is not published for embed. Ask
+  the operator to enable Share > Publish/Embed (anyone-with-link); no code
+  change fixes this.
+- **Wrong or generic "Gamma" title on the card**: the title was scraped from
+  the doc URL, which returns the app shell. Take the title from the Share >
+  Embed snippet or the operator.
+- **`wrangler deploy` fails (auth or config error)**: nothing shipped; the old
+  CSP is still live. Resolve credentials/wrangler.toml and rerun; do not
+  declare the embed live until Verify step 3 passes.
+- **`node --check` reports a syntax error**: the CSP edit broke the worker
+  source. Fix before any deploy; a broken worker takes down the whole site,
+  not just the embed.
+
+## Rollback
+
+- **Worker (CSP)**: `git revert` the CSP commit in `moonraker-website`, then
+  `wrangler deploy` from `worker/` again. The worker serves whatever was
+  deployed last, so redeploying the reverted source restores the prior CSP.
+- **Site content**: `git revert` the content commit and push; the normal
+  build/deploy path republishes the previous page.
+- Nothing in this skill is unrecoverable: both surfaces redeploy from git
+  history.
+
 ## Verify
 
 1. Syntax-check the worker after the CSP edit:
@@ -155,32 +184,3 @@ Both halves are outward-facing; stop and get an explicit yes before either.
 4. Load the page in a browser and confirm each iframe actually frames (player
    chrome visible, not a blank box). A blank frame almost always means the
    origin is missing from `frame-src` (Step 1) or the worker was not redeployed.
-
-## Failure modes
-
-- **Blank iframe + CSP error in the browser console**: the embed origin is not
-  in `frame-src`, or the worker redeploy was skipped. Fix Step 1, redeploy the
-  worker, hard-reload.
-- **Gamma deck frames on gamma.app but nowhere else (HTTP 403,
-  `x-frame-options: SAMEORIGIN`)**: the deck is not published for embed. Ask
-  the operator to enable Share > Publish/Embed (anyone-with-link); no code
-  change fixes this.
-- **Wrong or generic "Gamma" title on the card**: the title was scraped from
-  the doc URL, which returns the app shell. Take the title from the Share >
-  Embed snippet or the operator.
-- **`wrangler deploy` fails (auth or config error)**: nothing shipped; the old
-  CSP is still live. Resolve credentials/wrangler.toml and rerun; do not
-  declare the embed live until Verify step 3 passes.
-- **`node --check` reports a syntax error**: the CSP edit broke the worker
-  source. Fix before any deploy; a broken worker takes down the whole site,
-  not just the embed.
-
-## Rollback
-
-- **Worker (CSP)**: `git revert` the CSP commit in `moonraker-website`, then
-  `wrangler deploy` from `worker/` again. The worker serves whatever was
-  deployed last, so redeploying the reverted source restores the prior CSP.
-- **Site content**: `git revert` the content commit and push; the normal
-  build/deploy path republishes the previous page.
-- Nothing in this skill is unrecoverable: both surfaces redeploy from git
-  history.
