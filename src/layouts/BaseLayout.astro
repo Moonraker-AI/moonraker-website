@@ -123,7 +123,7 @@ const THEME_JS =
 <meta name="twitter:image" content={ogImage}>
 {ogUrl && <meta property="og:url" content={ogUrl}>}
 {canonical && <link rel="canonical" href={canonical}>}
-<link rel="icon" href="/assets/logo.png" type="image/png">
+<link rel="icon" href="/assets/favicon-96.png" type="image/png" sizes="96x96">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -143,7 +143,7 @@ const THEME_JS =
       {/* Paid landing pages open their few exits in a new tab: a visitor who
           taps the logo or a legal link should still have the page they landed
           on when they come back. rel guards against reverse tabnabbing. */}
-      <a href="/" class="nav-brand" aria-label="Moonraker home (opens in a new tab)" target="_blank" rel="noopener"><img src="/assets/logo.png" alt="Moonraker" width="32" height="32"></a>
+      <a href="/" class="nav-brand" aria-label="Moonraker home (opens in a new tab)" target="_blank" rel="noopener"><img src="/assets/logo-w64.avif" alt="Moonraker" width="32" height="32"></a>
       <div class="nav-right">
         <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">&#127769;</button>
       </div>
@@ -153,7 +153,7 @@ const THEME_JS =
 {!bare && (
 <nav class="site-nav">
   <div class="nav-inner">
-    <a href="/" class="nav-brand" aria-label="Moonraker home"><img src="/assets/logo.png" alt="Moonraker" width="32" height="32"></a>
+    <a href="/" class="nav-brand" aria-label="Moonraker home"><img src="/assets/logo-w64.avif" alt="Moonraker" width="32" height="32"></a>
     <ul class="nav-links" id="navLinks">
       <li class="nav-dropdown">
         <a tabindex="0" role="button" aria-haspopup="true" class:list={[isCore && 'active']}>CORE System</a>
