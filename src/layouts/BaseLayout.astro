@@ -61,9 +61,52 @@ const OAI_JS =
   "var js=d.createElement(s);js.async=true;js.src=u;var f=d.getElementsByTagName(s)[0];" +
   "f.parentNode.insertBefore(js,f)})(window,document,'script','https://bzrcdn.openai.com/sdk/oaiq.min.js');" +
   "oaiq('init',{pixelId:'" + OAI_PIXEL_ID + "'});";
+// The Google tag is DEFERRED to idle or first interaction, whichever comes
+// first (oi-228). It was 321 KB of the critical path: one gtag.js install that
+// then fetches a destination config per configured id (AW ~143 KB, GA4 ~178 KB).
+// PSI reported ~134 KB of it unused and scores swung 66-95 run to run on stable
+// FCP, which is CPU contention from these scripts on a throttled mobile run.
+//
+// What makes deferring safe rather than lossy:
+//   - The gtag STUB and both configs are pushed to dataLayer immediately, at
+//     zero network cost. gtag.js replays that queue on load, so page_view and
+//     any event fired before the library arrives still send. This is the
+//     documented pattern, not a trick.
+//   - Attribution never depended on the tag: ATTRIB_JS above captures gclid /
+//     gbraid / wbraid / msclkid and the utm set into sessionStorage on landing,
+//     before any third-party script runs.
+//   - The idle path fires within a couple of seconds of paint, so a bounce with
+//     zero interaction is still counted. Interaction-only gating would have
+//     dropped those; this deliberately does not.
+//   - mrTrackConversion force-loads the library (see CONV_JS), so a conversion
+//     never waits on idle.
 const GTAG_JS =
   "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}" +
-  "gtag('js',new Date());gtag('config','" + GA4_ID + "');gtag('config','" + AW_ID + "');";
+  "gtag('js',new Date());gtag('config','" + GA4_ID + "');gtag('config','" + AW_ID + "');" +
+  // Idempotent loader. Returns the same promise on every call, so the idle
+  // path, an interaction and a conversion can all ask for it and only one
+  // request is made. Resolves false on network error rather than rejecting:
+  // no caller should have to wrap this in a try/catch to avoid an unhandled
+  // rejection, and a blocked tag must never break a booking.
+  "window.mrLoadGtag=(function(){var p=null;return function(){if(p)return p;" +
+  "p=new Promise(function(res){var s=document.createElement('script');s.async=true;" +
+  "s.src='https://www.googletagmanager.com/gtag/js?id=" + AW_ID + "';" +
+  "s.onload=function(){res(true)};s.onerror=function(){res(false)};" +
+  "document.head.appendChild(s)});return p}})();" +
+  "(function(){var done=false;function go(){if(done)return;done=true;window.mrLoadGtag()}" +
+  // Interaction wins immediately at any point: someone who taps at 200ms is
+  // engaged, and their session should be measured from the start.
+  "['pointerdown','keydown','touchstart','scroll','mousemove'].forEach(function(e){" +
+  "window.addEventListener(e,go,{passive:true,once:true})});" +
+  // The idle path waits for LOAD first. requestIdleCallback alone was not
+  // enough: measured locally it fired at 393ms, before first paint at 424ms,
+  // so the tag was still racing the critical path it was supposed to leave.
+  // After load, idle with a timeout so a busy main thread cannot postpone it
+  // indefinitely; setTimeout is the Safari fallback.
+  "function sched(){if('requestIdleCallback' in window)requestIdleCallback(go,{timeout:3500});" +
+  "else setTimeout(go,2500)}" +
+  "if(document.readyState==='complete')sched();" +
+  "else window.addEventListener('load',sched,{once:true})})();";
 // Lead-source capture. FIRST TOUCH within the session: written once, so a
 // visitor who lands on an ad and books three pages later still carries the ad
 // params. Stored even when no tags are present, because the referrer and
@@ -97,6 +140,10 @@ const ATTRIB_JS =
 // is what deduplicates this against the server-side Conversions API event.
 const CONV_JS =
   "window.mrTrackConversion=function(txnId){" +
+  // Force the deferred library up before firing. The events below are queued
+  // on dataLayer either way and replay on load, so they are not lost while it
+  // arrives; this just stops a conversion from waiting on the idle callback.
+  "try{if(typeof window.mrLoadGtag==='function')window.mrLoadGtag();}catch(e){}" +
   "try{if(typeof gtag==='function'){" +
   "gtag('event','conversion',{send_to:'" + AW_CONV + "',transaction_id:txnId||''});" +
   "gtag('event','book_strategy_call');}}catch(e){}" +
@@ -129,8 +176,10 @@ const THEME_JS =
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script is:inline set:html={PREPAINT}></script>
 <script is:inline set:html={ATTRIB_JS}></script>
-{ADS_ENABLED && <script async src={`https://www.googletagmanager.com/gtag/js?id=${AW_ID}`}></script>}
+{/* No eager gtag.js tag here on purpose: GTAG_JS queues the configs and loads
+    the library on idle or first interaction. See the GTAG_JS comment. */}
 {ADS_ENABLED && <script is:inline set:html={GTAG_JS}></script>}
+{ADS_ENABLED && <link rel="preconnect" href="https://www.googletagmanager.com">}
 {OAI_ENABLED && <script is:inline set:html={OAI_JS}></script>}
 {(ADS_ENABLED || OAI_ENABLED) && <script is:inline set:html={CONV_JS}></script>}
 <slot name="head" />
