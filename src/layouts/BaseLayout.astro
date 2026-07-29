@@ -120,19 +120,43 @@ const GTAG_JS =
 // Click ids beyond gclid are captured because Google drops gbraid/wbraid
 // instead of gclid on iOS app and privacy-restricted traffic, and those
 // bookings would otherwise read as direct.
+// Storage is localStorage with a 90-day expiry, NOT sessionStorage.
+// sessionStorage dies with the tab, so anyone who clicked an ad on Monday
+// and booked on Thursday was recorded as direct. 90 days matches Google's
+// own click lookback, so our number and theirs describe the same window.
+// sessionStorage is still written as a fallback for Safari private mode,
+// where localStorage throws.
+//
+// Overwrite rule: first touch WINS, except that a visit carrying a paid
+// click id always overwrites. Pure first-touch would credit an ad click to
+// an organic visit from two months earlier and hide the paid channel from
+// the only report we use to decide spend.
 const ATTRIB_JS =
-  "(function(){try{var K='mr_attrib';if(sessionStorage.getItem(K))return;" +
-  "var p=new URLSearchParams(location.search),a={};" +
+  "(function(){var K='mr_attrib',TTL=7776000000;" +
+  "function rd(){var s=null;try{s=localStorage.getItem(K);}catch(e){}" +
+  "if(!s){try{s=sessionStorage.getItem(K);}catch(e){}}" +
+  "if(!s)return null;try{return JSON.parse(s);}catch(e){return null;}}" +
+  "function wr(o){var s=JSON.stringify(o);" +
+  "try{localStorage.setItem(K,s);}catch(e){}try{sessionStorage.setItem(K,s);}catch(e){}}" +
+  "var PAID=['gclid','gbraid','wbraid','msclkid','fbclid'];" +
+  // Unwrap both shapes: the current {a,exp} envelope and the bare object
+  // written by the sessionStorage-only version, which is still sitting in
+  // returning visitors' browsers.
+  "window.mrAttribRecord=function(){var r=rd();if(!r)return null;" +
+  "if(r.a){return(r.exp&&r.exp<Date.now())?null:r.a;}return r;};" +
+  "try{var p=new URLSearchParams(location.search),a={};" +
   "['utm_source','utm_medium','utm_campaign','utm_term','utm_content'," +
   "'gclid','gbraid','wbraid','oppref','msclkid','fbclid']" +
   ".forEach(function(k){var v=p.get(k);if(v)a[k]=String(v).slice(0,200);});" +
   "a.landing_page=(location.origin+location.pathname).slice(0,500);" +
   "if(document.referrer)a.referrer=String(document.referrer).slice(0,500);" +
   "a.captured_at=new Date().toISOString();" +
-  "sessionStorage.setItem(K,JSON.stringify(a));}catch(e){}})();" +
+  "var paid=PAID.some(function(k){return !!a[k];});" +
+  "if(paid||!window.mrAttribRecord())wr({a:a,exp:Date.now()+TTL});}catch(e){}})();" +
   // Read helper so every intake form forwards the same object without
-  // each page reimplementing the parse-and-guard dance.
-  "window.mrAttribution=function(){try{return JSON.parse(sessionStorage.getItem('mr_attrib')||'null');}catch(e){return null;}};";
+  // each page reimplementing the parse-and-guard dance. Returns the flat
+  // record the booking API expects, never the storage envelope.
+  "window.mrAttribution=function(){try{return window.mrAttribRecord();}catch(e){return null;}};";
 // Single booked-call conversion hook, fired by the booking forms. Defined
 // outside GTAG_JS so it exists whenever either ad platform is enabled, and
 // each platform is guarded independently: a missing gtag must not stop the

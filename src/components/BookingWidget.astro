@@ -15,14 +15,25 @@
  *  - Styles are `is:global` on purpose. Astro's scoped styles stamp a
  *    data-astro-cid attribute at BUILD time, but this widget creates its
  *    date pills, time pills and states at RUNTIME, so scoped rules would
- *    never match them. That is why the original file already had 
+ *    never match them. That is why the original file already had
  *    on exactly those selectors.
+ *  - `lean` drops the practice-address block (country, street, city,
+ *    region, postal) plus practice name and the GBP question. Every field
+ *    is therefore OPTIONAL to the script: read values through val() and
+ *    guard element lookups, because on a lean page those ids do not
+ *    exist. A bare getElementById().value here is a TypeError that kills
+ *    the whole booking.
  */
 // ?url keeps this OUT of the render-blocking page CSS bundle and gets a
 // content-hashed filename, which is the only cache-bust that works here.
 import bookingCssUrl from '../styles/booking-widget.css?url';
 
-const { defer = false } = Astro.props;
+// lean: the short intake used on paid landing pages. Cold ad traffic will
+// not fill in a street address to book a free call, and the full form was
+// 10 required fields across a 3-step flow. What we lose is audit prep
+// richness (city/state feed the local audit), which ops can fill in after
+// the call; what we gain is the booking existing at all.
+const { defer = false, lean = false } = Astro.props;
 ---
 <div id="bookingWorkspace" class="booking-workspace" data-defer={defer ? '1' : '0'}>
   <div class="tz-banner">
@@ -85,17 +96,17 @@ const { defer = false } = Astro.props;
           <input id="phone" type="tel" autocomplete="tel" required>
           <div class="err">Please enter a phone number.</div>
         </div>
-        <div class="form-row">
+        {!lean && <div class="form-row">
           <label for="practiceName">Practice name <span class="req">*</span></label>
           <input id="practiceName" type="text" autocomplete="organization" required>
           <div class="err">Please enter your practice name.</div>
-        </div>
+        </div>}
         <div class="form-row">
           <label for="websiteUrl">Practice website <span class="req">*</span></label>
           <input id="websiteUrl" type="url" placeholder="https://yourpractice.com" autocomplete="url" required>
           <div class="err">Please enter a valid website URL starting with https://.</div>
         </div>
-        <div class="form-row full">
+        {!lean && <Fragment><div class="form-row full">
           <label for="country">Country <span class="req">*</span></label>
           <select id="country" autocomplete="country-name">
             <option value="">Select your country...</option>
@@ -146,11 +157,16 @@ const { defer = false } = Astro.props;
         <div class="form-row is-hidden" id="gbpLinkRow">
           <label for="gbpLink">Google Business Profile link</label>
           <input id="gbpLink" type="url" placeholder="https://maps.app.goo.gl/...">
-        </div>
+        </div></Fragment>}
         <div class="form-row full">
           <label for="referralSource">How did you hear about Moonraker?</label>
           <select id="referralSource">
             <option value="">Select...</option>
+            {/* "Google Ad" is its own option because without it every ad
+                click that self-reports picks "Google Search", which makes
+                paid and organic indistinguishable in the one field where
+                the client tells us directly. */}
+            <option value="Google Ad">Google Ad</option>
             <option value="Google Search">Google Search</option>
             <option value="Google Maps">Google Maps</option>
             <option value="AI Search (ChatGPT, Gemini, Claude, etc)">AI Search (ChatGPT, Gemini, Claude, etc)</option>
@@ -420,7 +436,10 @@ const { defer = false } = Astro.props;
     window.scrollTo({ top: document.querySelector('.booking-workspace').offsetTop - 24, behavior: 'smooth' });
   };
 
-  document.getElementById('hasGbp').addEventListener('change', function (e) {
+  // Absent on a lean page. el() is a hoisted function declaration below, so
+  // it is safe to call here.
+  var gbpEl = el('hasGbp');
+  if (gbpEl) gbpEl.addEventListener('change', function (e) {
     document.getElementById('gbpLinkRow').classList.toggle('is-hidden', e.target.value !== 'yes');
   });
 
@@ -439,22 +458,34 @@ const { defer = false } = Astro.props;
   };
   var ADDRESS_LOCALE_DEFAULT = { region: 'State / Province / Region', postal: 'Postal code', city: 'City' };
 
+  // On a lean page the address, practice-name and GBP fields are not
+  // rendered at all, so every lookup below has to tolerate a null. el()
+  // and val() are the only sanctioned way to touch a form field.
+  function el(id) { return document.getElementById(id); }
+  function val(id) { var e = el(id); return e ? e.value : ''; }
+  function setText(id, text) { var e = el(id); if (e) e.textContent = text; }
+
   function applyAddressLocale(country) {
     var loc = ADDRESS_LOCALE[country] || ADDRESS_LOCALE_DEFAULT;
-    document.getElementById('regionLabelText').textContent = loc.region;
-    document.getElementById('postalLabelText').textContent = loc.postal;
-    document.getElementById('cityLabelText').textContent = loc.city;
-    document.getElementById('regionErr').textContent = 'Please enter your ' + loc.region.toLowerCase() + '.';
-    document.getElementById('postalErr').textContent = 'Please enter your ' + loc.postal.toLowerCase() + '.';
-    document.getElementById('cityErr').textContent = 'Please enter your ' + loc.city.toLowerCase() + '.';
+    setText('regionLabelText', loc.region);
+    setText('postalLabelText', loc.postal);
+    setText('cityLabelText', loc.city);
+    setText('regionErr', 'Please enter your ' + loc.region.toLowerCase() + '.');
+    setText('postalErr', 'Please enter your ' + loc.postal.toLowerCase() + '.');
+    setText('cityErr', 'Please enter your ' + loc.city.toLowerCase() + '.');
   }
 
-  document.getElementById('country').addEventListener('change', function (e) {
-    applyAddressLocale(e.target.value);
-  });
+  var countryEl = el('country');
+  if (countryEl) {
+    countryEl.addEventListener('change', function (e) {
+      applyAddressLocale(e.target.value);
+    });
+  }
 
   function setError(rowId, has) {
-    document.getElementById(rowId).closest('.form-row').classList.toggle('has-error', has);
+    var e = el(rowId);
+    if (!e) return;
+    e.closest('.form-row').classList.toggle('has-error', has);
   }
 
   function validate() {
@@ -473,8 +504,10 @@ const { defer = false } = Astro.props;
       ['postalCode',      function (v) { return v.trim().length > 0; }]
     ];
     checks.forEach(function (c) {
-      var el = document.getElementById(c[0]);
-      var bad = !c[1](el.value);
+      // A field that is not on the page is not a failed field. This is what
+      // makes one validate() serve both the full and the lean form.
+      if (!el(c[0])) return;
+      var bad = !c[1](val(c[0]));
       setError(c[0], bad);
       if (bad) ok = false;
     });
@@ -491,24 +524,24 @@ const { defer = false } = Astro.props;
     document.getElementById('formError').classList.add('is-hidden');
 
     var payload = {
-      attendee_first_name:    document.getElementById('firstName').value.trim(),
-      attendee_last_name:     document.getElementById('lastName').value.trim(),
-      attendee_email:         document.getElementById('email').value.trim(),
-      attendee_phone:         document.getElementById('phone').value.trim(),
+      attendee_first_name:    val('firstName').trim(),
+      attendee_last_name:     val('lastName').trim(),
+      attendee_email:         val('email').trim(),
+      attendee_phone:         val('phone').trim(),
       attendee_time_zone:     state.tz,
-      practice_name:          document.getElementById('practiceName').value.trim(),
-      website_url:            document.getElementById('websiteUrl').value.trim(),
-      practice_address:       document.getElementById('practiceAddress').value.trim(),
-      practice_address_line2: document.getElementById('practiceAddress2').value.trim() || null,
-      practice_city:          document.getElementById('practiceCity').value.trim() || null,
-      practice_state:         document.getElementById('practiceState').value.trim() || null,
-      postal_code:            document.getElementById('postalCode').value.trim() || null,
-      country:                document.getElementById('country').value.trim() || null,
-      has_gbp:                document.getElementById('hasGbp').value === 'yes',
-      gbp_link:               document.getElementById('gbpLink').value.trim() || null,
-      referral_source:        document.getElementById('referralSource').value.trim() || null,
+      practice_name:          val('practiceName').trim() || null,
+      website_url:            val('websiteUrl').trim(),
+      practice_address:       val('practiceAddress').trim() || null,
+      practice_address_line2: val('practiceAddress2').trim() || null,
+      practice_city:          val('practiceCity').trim() || null,
+      practice_state:         val('practiceState').trim() || null,
+      postal_code:            val('postalCode').trim() || null,
+      country:                val('country').trim() || null,
+      has_gbp:                val('hasGbp') === 'yes',
+      gbp_link:               val('gbpLink').trim() || null,
+      referral_source:        val('referralSource').trim() || null,
       start_at:               state.selectedSlot.start_utc,
-      notes:                  document.getElementById('notes').value.trim() || null,
+      notes:                  val('notes').trim() || null,
       source:                 'free_strategy_call',
       // OpenAI Ads match keys. __obref is the pixel's first-party cookie and
       // is passed through unhashed; it lets the server-side conversion match
