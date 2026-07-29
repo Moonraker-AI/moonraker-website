@@ -86,7 +86,6 @@ import StatsStrip from '../../components/StatsStrip.astro';
         <p class="review-quote">"In a very short amount of time Chris significantly improved the inbound traffic on my website. A significant chunk of the new business we have gained this past year is due to Chris and the excellent work he does at Moonraker."</p>
         <div class="review-author"><div class="review-avatar">CB</div><div><div class="review-name">Christopher Bagg</div><div class="review-meta">Google review</div></div></div>
       </article>
-    </div>
       <article class="review-card">
         <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p class="review-quote">"I am not tech-savvy in any way. Chris is so knowledgeable and explains things in a way I can understand without being condescending. It is refreshing to work with someone as passionate about the mental health field as I am."</p>
@@ -212,8 +211,10 @@ import StatsStrip from '../../components/StatsStrip.astro';
 .section-head p { color: var(--color-muted); line-height: 1.75; }
 .reviews-head { margin-bottom: 1.75rem; }
 .reviews-head h2 { font-size: clamp(1.9rem, 3.4vw, 2.8rem); }
-.reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
-.review-card { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); padding: 1.4rem; display: grid; gap: .8rem; align-content: start; }
+/* Flex rather than grid so the trailing row of 8 cards CENTERS instead of
+   hanging left under column one, which reads like a mistake. */
+.reviews-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+.review-card { flex: 1 1 300px; max-width: 360px; background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); padding: 1.4rem; display: grid; gap: .8rem; align-content: start; }
 .review-stars { color: var(--color-primary); letter-spacing: .1em; }
 .review-quote { color: var(--color-body); line-height: 1.65; font-size: .94rem; }
 .review-author { display: grid; grid-template-columns: 40px 1fr; gap: .7rem; align-items: center; }

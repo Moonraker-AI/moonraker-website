@@ -83,6 +83,69 @@ import StatsStrip from '../../components/StatsStrip.astro';
     </div>
   </section>
 
+  <section class="band-paper">
+    <div class="section-wrap">
+    <div class="section-head">
+      <div><div class="section-label">Sites we built</div><h2>Real practices. Real scores.</h2></div>
+      <p>Every number below is Google's own PageSpeed result for the live homepage on a mobile device, measured 30 July 2026. Open the sites, run the test yourself, and check us.</p>
+    </div>
+
+    <div class="case-grid">
+      <article class="case-card">
+        <div class="case-head">
+          <h3>An Affair of the Heart</h3>
+          <p class="case-what">Private intensive couples retreats, Northampton, MA. Marriage crisis, infidelity recovery, and rebuilding trust, one couple at a time.</p>
+        </div>
+        <div class="score-row">
+          <div class="score"><span class="score-val">99</span><span class="score-cat">Performance</span></div>
+          <div class="score"><span class="score-val">100</span><span class="score-cat">Accessibility</span></div>
+          <div class="score"><span class="score-val">100</span><span class="score-cat">Best practices</span></div>
+          <div class="score"><span class="score-val">100</span><span class="score-cat">SEO</span></div>
+        </div>
+        <p class="case-detail">Loads its main content in 1.7 seconds on a phone, at 123 KB for the whole page. Zero layout shift, so nothing jumps while a visitor is reading.</p>
+        <a class="case-link" href="https://anaffairoftheheart.us" target="_blank" rel="noopener">Visit anaffairoftheheart.us &rarr;</a>
+      </article>
+
+      <article class="case-card">
+        <div class="case-head">
+          <h3>Intensive Therapy Retreats</h3>
+          <p class="case-what">One-on-one intensive retreats for trauma, PTSD, and abuse survivors. EMDR, IFS, and ART across multiple locations, with a 90-page site.</p>
+        </div>
+        <div class="score-row">
+          <div class="score"><span class="score-val">97</span><span class="score-cat">Performance</span></div>
+          <div class="score"><span class="score-val">100</span><span class="score-cat">Accessibility</span></div>
+          <div class="score"><span class="score-val">100</span><span class="score-cat">Best practices</span></div>
+          <div class="score"><span class="score-val">100</span><span class="score-cat">SEO</span></div>
+        </div>
+        <p class="case-detail">A 90-page practice site that still scores in the high nineties on a phone, and 100 across every category on desktop. Every page is editable by the practice itself.</p>
+        <a class="case-link" href="https://intensivetherapyretreat.com" target="_blank" rel="noopener">Visit intensivetherapyretreat.com &rarr;</a>
+      </article>
+
+      {/* No score row on this card on purpose. Revibe's rebuilt pages currently
+          measure 74 mobile performance (LCP 6.3s, 738 KB), which is not a
+          number that belongs next to a 97 and a 99, and inventing a better one
+          is not an option. The card sells what this build genuinely proves:
+          a bilingual rebuild that kept 18 live ad landing pages working.
+          Add the score row once the LCP work lands. */}
+      <article class="case-card">
+        <div class="case-head">
+          <h3>Revibe Therapy</h3>
+          <p class="case-what">Group practice in Winter Park and Lake Nona, FL. Cognitive hypnotherapy and EMDR for adults, teens, and athletes, in English and Spanish.</p>
+        </div>
+        <div class="case-tags">
+          <span class="case-tag">Fully bilingual</span>
+          <span class="case-tag">WordPress replaced</span>
+          <span class="case-tag">Paid ads never paused</span>
+        </div>
+        <p class="case-detail">Every page exists in English and Spanish. Their live Google Ads landing pages kept working through the whole rebuild, all 18 of them, so not one campaign had to be paused or rewritten.</p>
+        <a class="case-link" href="https://revibetherapy.com" target="_blank" rel="noopener">Visit revibetherapy.com &rarr;</a>
+      </article>
+    </div>
+
+    <p class="case-note">Scores from Google PageSpeed Insights, mobile, homepage, 30 July 2026. Performance scores move a few points run to run on any site, including ours. The other three categories do not.</p>
+    </div>
+  </section>
+
   <section class="band-mint">
     <div class="section-wrap">
     <div class="reviews-head">
@@ -109,6 +172,16 @@ import StatsStrip from '../../components/StatsStrip.astro';
         <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p class="review-quote">"I am not tech-savvy in any way. Chris is so knowledgeable and explains things in a way I can understand without being condescending. It is refreshing to work with someone as passionate about the mental health field as I am."</p>
         <div class="review-author"><div class="review-avatar">J</div><div><div class="review-name">Jennifer</div><div class="review-meta">Google review</div></div></div>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-quote">"I honestly think Moonraker is the best choice anyone could make for digital marketing. I never would have attracted the clients I have, in the volume I have, without Chris' expertise."</p>
+        <div class="review-author"><div class="review-avatar">BR</div><div><div class="review-name">Bambi Rattner, PsyD</div><div class="review-meta">Google review</div></div></div>
+      </article>
+      <article class="review-card">
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="review-quote">"Chris was responsive, answered our questions clearly, and explained things in a way that made sense. His help improved our SEO, and we appreciate his expertise. Highly recommend!"</p>
+        <div class="review-author"><div class="review-avatar">KS</div><div><div class="review-name">Kelly Smyth-Dent</div><div class="review-meta">Google review</div></div></div>
       </article>
     </div>
     </div>
@@ -187,8 +260,25 @@ import StatsStrip from '../../components/StatsStrip.astro';
 .section-head p { color: var(--color-muted); line-height: 1.75; }
 .reviews-head { margin-bottom: 1.75rem; }
 .reviews-head h2 { font-size: clamp(1.9rem, 3.4vw, 2.8rem); }
-.reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
-.review-card { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); padding: 1.4rem; display: grid; gap: .8rem; align-content: start; }
+/* Flex rather than grid so a trailing partial row CENTERS instead of hanging
+   left. With grid the odd card out sits under column one and reads like a
+   mistake. */
+.reviews-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+.review-card { flex: 1 1 300px; max-width: 360px; background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); padding: 1.4rem; display: grid; gap: .8rem; align-content: start; }
+.case-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+.case-card { flex: 1 1 320px; max-width: 380px; background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); padding: 1.5rem; display: grid; gap: 1rem; align-content: start; }
+.case-head h3 { margin-bottom: .4rem; }
+.case-what { color: var(--color-muted); font-size: .9rem; line-height: 1.6; }
+.score-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; }
+.score { display: grid; gap: .15rem; justify-items: center; text-align: center; padding: .65rem .3rem; border: 1px solid var(--color-hairline); border-radius: 12px; background: var(--band-sage); }
+.score-val { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--color-primary-text); line-height: 1; }
+.score-cat { font-size: .62rem; text-transform: uppercase; letter-spacing: .04em; color: var(--color-muted); line-height: 1.2; }
+.case-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+.case-tag { font-size: .74rem; font-weight: 600; padding: .35rem .6rem; border-radius: 999px; background: var(--band-sage); border: 1px solid var(--color-hairline); color: var(--color-primary-text); }
+.case-detail { color: var(--color-muted); font-size: .88rem; line-height: 1.65; }
+.case-link { font-weight: 600; font-size: .88rem; color: var(--color-primary-text); text-decoration: none; }
+.case-link:hover { text-decoration: underline; }
+.case-note { margin-top: 1.75rem; text-align: center; font-size: .8rem; color: var(--color-muted); line-height: 1.6; }
 .review-stars { color: var(--color-primary); letter-spacing: .1em; }
 .review-quote { color: var(--color-body); line-height: 1.65; font-size: .94rem; }
 .review-author { display: grid; grid-template-columns: 40px 1fr; gap: .7rem; align-items: center; }
