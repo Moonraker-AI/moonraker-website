@@ -87,7 +87,7 @@ import StatsStrip from '../../components/StatsStrip.astro';
     <div class="section-wrap">
     <div class="section-head">
       <div><div class="section-label">Sites we built</div><h2>Real practices. Real scores.</h2></div>
-      <p>Every number below is Google's own PageSpeed result for the live homepage on a mobile device, measured 30 July 2026. Open the sites, run the test yourself, and check us.</p>
+      <p>Every number below is Google's own PageSpeed result for the live homepage on a mobile phone, measured 30 July 2026. We ran each site three times and published the WORST result, not the best. Open the sites, run the test yourself, and check us.</p>
     </div>
 
     <div class="case-grid">
@@ -97,7 +97,7 @@ import StatsStrip from '../../components/StatsStrip.astro';
           <p class="case-what">Private intensive couples retreats, Northampton, MA. Marriage crisis, infidelity recovery, and rebuilding trust, one couple at a time.</p>
         </div>
         <div class="score-row">
-          <div class="score"><span class="score-val">99</span><span class="score-cat">Performance</span></div>
+          <div class="score"><span class="score-val">97</span><span class="score-cat">Performance</span></div>
           <div class="score"><span class="score-val">100</span><span class="score-cat">Accessibility</span></div>
           <div class="score"><span class="score-val">100</span><span class="score-cat">Best practices</span></div>
           <div class="score"><span class="score-val">100</span><span class="score-cat">SEO</span></div>
@@ -112,37 +112,44 @@ import StatsStrip from '../../components/StatsStrip.astro';
           <p class="case-what">One-on-one intensive retreats for trauma, PTSD, and abuse survivors. EMDR, IFS, and ART across multiple locations, with a 90-page site.</p>
         </div>
         <div class="score-row">
-          <div class="score"><span class="score-val">97</span><span class="score-cat">Performance</span></div>
+          <div class="score"><span class="score-val">96</span><span class="score-cat">Performance</span></div>
           <div class="score"><span class="score-val">100</span><span class="score-cat">Accessibility</span></div>
           <div class="score"><span class="score-val">100</span><span class="score-cat">Best practices</span></div>
           <div class="score"><span class="score-val">100</span><span class="score-cat">SEO</span></div>
         </div>
-        <p class="case-detail">A 90-page practice site that still scores in the high nineties on a phone, and 100 across every category on desktop. Every page is editable by the practice itself.</p>
+        <p class="case-detail">A 90-page practice site that still scores in the mid nineties on a phone, and 100 across every category on desktop. Every page is editable by the practice itself.</p>
         <a class="case-link" href="https://intensivetherapyretreat.com" target="_blank" rel="noopener">Visit intensivetherapyretreat.com &rarr;</a>
       </article>
 
-      {/* No score row on this card on purpose. Revibe's rebuilt pages currently
-          measure 74 mobile performance (LCP 6.3s, 738 KB), which is not a
-          number that belongs next to a 97 and a 99, and inventing a better one
-          is not an option. The card sells what this build genuinely proves:
-          a bilingual rebuild that kept 18 live ad landing pages working.
-          Add the score row once the LCP work lands. */}
+      {/* Score row earned back on 2026-07-30. This card shipped without one
+          that morning because Revibe measured 74 mobile with LCP 6.3s, and
+          inventing a kinder number was not an option. Deferring the Google
+          tag off the critical path took it to 92 (worst of three runs), so
+          the numbers are real now. It stays the lowest of the three because
+          it is the only one of these sites carrying a full GA4 plus Google
+          Ads stack, which costs roughly 300 KB no matter how it is loaded. */}
       <article class="case-card">
         <div class="case-head">
           <h3>Revibe Therapy</h3>
           <p class="case-what">Group practice in Winter Park and Lake Nona, FL. Cognitive hypnotherapy and EMDR for adults, teens, and athletes, in English and Spanish.</p>
+        </div>
+        <div class="score-row">
+          <div class="score"><span class="score-val">92</span><span class="score-cat">Performance</span></div>
+          <div class="score"><span class="score-val">100</span><span class="score-cat">Accessibility</span></div>
+          <div class="score"><span class="score-val">100</span><span class="score-cat">Best practices</span></div>
+          <div class="score"><span class="score-val">100</span><span class="score-cat">SEO</span></div>
         </div>
         <div class="case-tags">
           <span class="case-tag">Fully bilingual</span>
           <span class="case-tag">WordPress replaced</span>
           <span class="case-tag">Paid ads never paused</span>
         </div>
-        <p class="case-detail">Every page exists in English and Spanish. Their live Google Ads landing pages kept working through the whole rebuild, all 18 of them, so not one campaign had to be paused or rewritten.</p>
+        <p class="case-detail">Every page exists in English and Spanish, and it carries a full analytics and ad-tracking stack without paying for it in speed. Their live Google Ads landing pages kept working through the whole rebuild, all 18 of them, so not one campaign had to be paused or rewritten.</p>
         <a class="case-link" href="https://revibetherapy.com" target="_blank" rel="noopener">Visit revibetherapy.com &rarr;</a>
       </article>
     </div>
 
-    <p class="case-note">Scores from Google PageSpeed Insights, mobile, homepage, 30 July 2026. Performance scores move a few points run to run on any site, including ours. The other three categories do not.</p>
+    <p class="case-note">Scores from Google PageSpeed Insights, mobile, homepage, 30 July 2026, lowest of three consecutive runs. Performance moves a few points run to run on any site, including ours, which is why the worst run is the one printed. The other three categories do not move.</p>
     </div>
   </section>
 
