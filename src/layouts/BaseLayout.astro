@@ -174,6 +174,26 @@ const CONV_JS =
   "try{if(typeof oaiq==='function'){" +
   "oaiq('measure','appointment_scheduled',{type:'customer_action'}," +
   "txnId?{event_id:String(txnId)}:{});}}catch(e){}};";
+// Self-hosted @font-face, inlined into the head so no stylesheet request
+// stands between the browser and styled text. Latin subset only, which is
+// what the Google Fonts css2 URL was serving us anyway. Weights are the ones
+// the site actually uses: Outfit 400/600/700/800 (800 carries the headings,
+// 100 uses) and Inter 400/500/600 for body.
+const FONT_WEIGHTS = [
+  ['Outfit', 400, 'outfit-latin-400-normal'],
+  ['Outfit', 600, 'outfit-latin-600-normal'],
+  ['Outfit', 700, 'outfit-latin-700-normal'],
+  ['Outfit', 800, 'outfit-latin-800-normal'],
+  ['Inter', 400, 'inter-latin-400-normal'],
+  ['Inter', 500, 'inter-latin-500-normal'],
+  ['Inter', 600, 'inter-latin-600-normal']
+];
+const FONT_FACE_CSS = FONT_WEIGHTS.map(function (f) {
+  return "@font-face{font-family:'" + f[0] + "';font-style:normal;font-weight:" + f[1] +
+    ";font-display:swap;src:url('/assets/fonts/" + f[2] + ".woff2') format('woff2');" +
+    "unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC," +
+    "U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}";
+}).join('');
 const PREPAINT =
   "(function(){var d=document.documentElement;d.classList.add('js');var t=localStorage.getItem('moonraker-theme');if(t==='dark')d.classList.add('dark');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('js-reveal')}catch(e){}})();";
 const THEME_JS =
@@ -195,9 +215,24 @@ const THEME_JS =
 {ogUrl && <meta property="og:url" content={ogUrl}>}
 {canonical && <link rel="canonical" href={canonical}>}
 <link rel="icon" href="/assets/favicon-96.png" type="image/png" sizes="96x96">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+{/* Fonts are SELF-HOSTED. They used to come from fonts.googleapis.com as a
+    render-blocking third-party stylesheet, which put DNS + TLS + a CSS
+    round trip + the font files themselves in front of the largest text on
+    the page. Measured 2026-07-30 on both paid landing pages: 71 mobile,
+    LCP 6.1s, with lcp-breakdown attributing 2436ms of it to element
+    render delay and lcp-discovery reporting not-applicable, i.e. the LCP
+    element is TEXT waiting on a webfont. The client sites we build already
+    self-host their fonts and score 96 to 97, so our own marketing site was
+    the slowest thing we ship.
+
+    The @font-face rules are INLINE (below) rather than a stylesheet, so
+    there is no extra request before text can be styled, and the two faces
+    the largest text actually uses are preloaded. font-display: swap keeps
+    text visible immediately in the fallback and swaps when the file lands,
+    which arrives fast now that it is first-party on an open connection. */}
+<link rel="preload" href="/assets/fonts/outfit-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style is:inline set:html={FONT_FACE_CSS}></style>
 <script is:inline set:html={PREPAINT}></script>
 <script is:inline set:html={ATTRIB_JS}></script>
 {/* No eager gtag.js tag here on purpose: GTAG_JS queues the configs and loads
