@@ -98,12 +98,22 @@ import StatsStrip from '../../components/StatsStrip.astro';
             card as it decodes. The shot links to the live site, same target as
             the Visit link at the foot of the card, because a prospect's first
             instinct is to click the picture. aria-label names the destination
-            so the link is not announced as the long descriptive alt text. */}
+            so the link is not announced as the long descriptive alt text.
+
+            The .<hash>. in each filename is LOAD-BEARING, do not simplify it.
+            worker/src/index.js cacheControlFor() serves every non-HTML key as
+            max-age=31536000, immutable, and the worker normalizes the cache key
+            so a ?v= query does not bust it either. Anything under public/ keeps
+            its literal name (unlike _astro/, which Astro hashes), so a plain
+            filename here is pinned at the edge for a YEAR. Recapturing an image
+            means writing a NEW hashed filename and updating the src, otherwise
+            the change cannot reach anyone. Learned on 2026-07-30 when a fixed
+            screenshot published to R2 and the old one kept serving. */}
         <div class="case-shot">
           <a class="case-shot-link" href="https://anaffairoftheheart.us"
              target="_blank" rel="noopener"
              aria-label="Open the An Affair of the Heart homepage in a new tab">
-            <img src="/assets/case-studies/an-affair-of-the-heart-hero.avif"
+            <img src="/assets/case-studies/an-affair-of-the-heart-hero.1b7c091b.avif"
                  alt="The An Affair of the Heart homepage: a couple at sunset behind the headline Heal your relationship with a year of therapy in one week."
                  width="760" height="451" loading="lazy" decoding="async">
           </a>
@@ -127,7 +137,7 @@ import StatsStrip from '../../components/StatsStrip.astro';
           <a class="case-shot-link" href="https://intensivetherapyretreat.com"
              target="_blank" rel="noopener"
              aria-label="Open the Intensive Therapy Retreats homepage in a new tab">
-            <img src="/assets/case-studies/intensive-therapy-retreats-hero.avif"
+            <img src="/assets/case-studies/intensive-therapy-retreats-hero.e17fb010.avif"
                  alt="The Intensive Therapy Retreats homepage: a still mountain lake behind the headline Experience life-changing transformation in just one week."
                  width="760" height="451" loading="lazy" decoding="async">
           </a>
@@ -158,7 +168,7 @@ import StatsStrip from '../../components/StatsStrip.astro';
           <a class="case-shot-link" href="https://revibetherapy.com"
              target="_blank" rel="noopener"
              aria-label="Open the Revibe Therapy homepage in a new tab">
-            <img src="/assets/case-studies/revibe-therapy-hero.avif"
+            <img src="/assets/case-studies/revibe-therapy-hero.52d879e6.avif"
                  alt="The Revibe Therapy homepage: the headline Therapy That Gets to the Root beside a free consultation form."
                  width="760" height="451" loading="lazy" decoding="async">
           </a>
