@@ -123,7 +123,11 @@ import StatsStrip from '../../components/StatsStrip.astro';
           <p class="case-what">Private intensive couples retreats, Northampton, MA. Marriage crisis, infidelity recovery, and rebuilding trust, one couple at a time.</p>
         </div>
         <div class="score-row">
-          <div class="score"><span class="score-val">97</span><span class="score-cat">Performance</span></div>
+          {/* 96, not the 97 first published: preloading Poppins 700 to fix the
+              fallback-font bug cost a point. Re-measured 31 July as 96, 96, 99,
+              so 96 is the worst run and is also conservative against the 30 July
+              97. LCP 1.7s and the 123 KB page weight both still verify. */}
+          <div class="score"><span class="score-val">96</span><span class="score-cat">Performance</span></div>
           <div class="score"><span class="score-val">100</span><span class="score-cat">Accessibility</span></div>
           <div class="score"><span class="score-val">100</span><span class="score-cat">Best practices</span></div>
           <div class="score"><span class="score-val">100</span><span class="score-cat">SEO</span></div>
