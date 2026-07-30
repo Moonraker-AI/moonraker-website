@@ -92,6 +92,15 @@ import StatsStrip from '../../components/StatsStrip.astro';
 
     <div class="case-grid">
       <article class="case-card">
+        {/* Real screenshots of the live homepages, captured at 1280x760 and
+            served at 760 wide. Below the fold, so lazy, and with intrinsic
+            width/height because an unsized image here would shift the whole
+            card as it decodes. */}
+        <div class="case-shot">
+          <img src="/assets/case-studies/an-affair-of-the-heart-hero.avif"
+               alt="The An Affair of the Heart homepage: a couple at sunset behind the headline Heal your relationship with a year of therapy in one week."
+               width="760" height="451" loading="lazy" decoding="async">
+        </div>
         <div class="case-head">
           <h3>An Affair of the Heart</h3>
           <p class="case-what">Private intensive couples retreats, Northampton, MA. Marriage crisis, infidelity recovery, and rebuilding trust, one couple at a time.</p>
@@ -107,6 +116,11 @@ import StatsStrip from '../../components/StatsStrip.astro';
       </article>
 
       <article class="case-card">
+        <div class="case-shot">
+          <img src="/assets/case-studies/intensive-therapy-retreats-hero.avif"
+               alt="The Intensive Therapy Retreats homepage: a still mountain lake behind the headline Experience life-changing transformation in just one week."
+               width="760" height="451" loading="lazy" decoding="async">
+        </div>
         <div class="case-head">
           <h3>Intensive Therapy Retreats</h3>
           <p class="case-what">One-on-one intensive retreats for trauma, PTSD, and abuse survivors. EMDR, IFS, and ART across multiple locations, with a 90-page site.</p>
@@ -129,6 +143,11 @@ import StatsStrip from '../../components/StatsStrip.astro';
           it is the only one of these sites carrying a full GA4 plus Google
           Ads stack, which costs roughly 300 KB no matter how it is loaded. */}
       <article class="case-card">
+        <div class="case-shot">
+          <img src="/assets/case-studies/revibe-therapy-hero.avif"
+               alt="The Revibe Therapy homepage: the headline Therapy That Gets to the Root beside a free consultation form."
+               width="760" height="451" loading="lazy" decoding="async">
+        </div>
         <div class="case-head">
           <h3>Revibe Therapy</h3>
           <p class="case-what">Group practice in Winter Park and Lake Nona, FL. Cognitive hypnotherapy and EMDR for adults, teens, and athletes, in English and Spanish.</p>
@@ -274,6 +293,8 @@ import StatsStrip from '../../components/StatsStrip.astro';
 .review-card { flex: 1 1 300px; max-width: 360px; background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); padding: 1.4rem; display: grid; gap: .8rem; align-content: start; }
 .case-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
 .case-card { flex: 1 1 320px; max-width: 380px; background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); padding: 1.5rem; display: grid; gap: 1rem; align-content: start; }
+.case-shot { border: 1px solid var(--color-hairline); border-radius: 12px; overflow: hidden; background: var(--band-sage); line-height: 0; }
+.case-shot img { display: block; width: 100%; height: auto; }
 .case-head h3 { margin-bottom: .4rem; }
 .case-what { color: var(--color-muted); font-size: .9rem; line-height: 1.6; }
 .score-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; }
