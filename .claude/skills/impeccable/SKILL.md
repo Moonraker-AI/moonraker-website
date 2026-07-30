@@ -69,6 +69,23 @@ These come from upstream and apply without exception unless a Moonraker override
 - 60-30-10 by visual weight, not pixel count. Accents work because they're rare.
 - Never pure `#000` or `#fff`.
 
+**Images (Moonraker addition, non-negotiable):**
+- **Every `<img>` you author ships intrinsic `width` and `height`.** Not display
+  size: the real pixel dimensions of the file, so the browser reserves the right
+  shape before it decodes. Without them the image has no aspect ratio until it
+  loads and it shifts whatever sits under it. Lighthouse reports this as
+  `unsized-images`, and `loading="lazy"` makes it WORSE, not better, because the
+  reservation is needed exactly when the image arrives late.
+- Where the dimensions come from: for managed-site assets, the `site_assets`
+  row (`width`/`height`); for anything you generate or resize, whatever the
+  encoder reports; never a guess and never the CSS box.
+- CSS may still size it (`max-width`/`max-height`, `width:100%;height:auto`).
+  The attributes describe the file, the CSS describes the slot, and they do not
+  fight.
+- This was fixed twice in one day on 2026-07-30 (a certification-logo strip in
+  the shared template, then three case-study screenshots on a paid landing
+  page), which is why it is a rule here rather than a review note.
+
 **Layout:**
 - 4pt scale: 4, 8, 12, 16, 24, 32, 48, 64, 96.
 - `gap` for sibling spacing, not margin.
@@ -95,10 +112,26 @@ These come from upstream and apply without exception unless a Moonraker override
 - `viewport-fit=cover` + `env(safe-area-inset-*)` for notched devices.
 
 **UX writing:**
-- No "OK" / "Submit" / "Yes/No" — use verb + object ("Save changes", "Delete project").
+- No "OK" / "Submit" / "Yes/No" - use verb + object ("Save changes", "Delete project").
 - Errors answer: what + why + fix. Don't blame the user.
 - Empty states: acknowledge + value + action.
 - Pick one term and stick with it (Delete OR Remove, not both).
+
+**Published metrics (Moonraker addition):**
+- **A measured number on a client-facing page is the WORST of at least three
+  reads, and the page says so.** Anything a prospect can re-run themselves will
+  eventually be re-run, and a best-case figure they cannot reproduce reads as a
+  lie about everything else on the page.
+- Print the measurement conditions next to the claim: what was measured, on what
+  device class, on what date, and that the lowest run is the one shown.
+- If a number does not support the pitch, do not publish it and do not quietly
+  pick a friendlier metric or device to rescue it. Either omit that figure and
+  sell what is true, or fix the underlying thing and re-measure. Selecting the
+  four metrics out of eight that you win is cherry-picking, and it is the same
+  offence as inventing the number.
+- Adopted 2026-07-30 on `/lp/therapist-websites`: single reads would have let us
+  print 99 while a prospect could plausibly measure 97, and one site was left
+  without a score row entirely until its real number earned a place.
 
 ## Absolute bans (match-and-refuse)
 
