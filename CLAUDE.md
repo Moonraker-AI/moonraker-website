@@ -36,6 +36,55 @@ Adding any new embed platform means adding its origin there AND redeploying the
 worker, which is separate from the site content rebuild. The `moonraker-web-embeds`
 skill covers the full recipe.
 
+## The asset-cache gotcha (an asset can never be updated in place)
+
+`cacheControlFor` in `worker/src/index.js` serves every non-HTML key
+`public, max-age=31536000, immutable`, and the edge cache key is built from
+`origin + pathname` alone, dropping the query string. So `?v=2` busts nothing:
+it is not part of the key, and any browser that already holds the file will not
+ask again for a year. Overwriting an image in `public/` publishes to R2 and
+then never reaches a visitor.
+
+**Replace an asset by RENAMING it**, with a content hash in the filename
+(`public/assets/case-studies/revibe-therapy-hero.52d879e6.avif`), and update
+every reference. Anything imported through Vite gets this for free, which is
+why `BaseLayout.astro` imports `../scripts/site.js?url` rather than hardcoding
+`/assets/site.js`. A Cloudflare purge only clears the edge, not the browsers
+that already hold the old bytes. Most of `public/` is still unhashed, so assume
+any asset you touch there needs a new name.
+
+HTML and the text files (`.md`, `.xml`, `.txt`, `robots.txt`, `sitemap.xml`,
+`llms.txt`) sit on a 300s TTL and do self-flip within about five minutes of a
+publish. Only assets are the trap.
+
+## The extraction gotcha (page to shared component)
+
+Pulling a chunk of a page into `src/components/*.astro` moves its CSS from
+page-scoped to shared, and the same class of bug lands three ways: rules that
+were harmless while one page could see them start applying everywhere. Check
+all three before committing an extraction.
+
+1. **Astro strips `:global()` only inside a SCOPED `<style>` block.** Widgets
+   that build elements at runtime need `<style is:global>`, because scoped
+   rules get a `data-astro-cid` stamped at BUILD time and never match a node
+   created later. But moving selectors into that global block verbatim ships
+   the literal text `:global(...)`, which browsers discard. It cost
+   `BookingWidget.astro` 32 dead selectors and every runtime-created date and
+   time pill lost its styling. Inside `is:global`, write plain selectors.
+2. **A component's own copy of a design-system class now overrides the design
+   system.** `.btn-primary` inside the booking widget was fine page-scoped;
+   global, it redefined the button on every page hosting the widget and
+   reintroduced white-on-green at 2.08:1. Bound every widget rule with the
+   component root (`#bookingWorkspace .btn-primary`, see
+   `src/styles/booking-widget.css`) and take colour from the tokens in
+   `globals.css` rather than restating it.
+3. **One class on two surfaces needs two rules, not one compromise colour.**
+   `.tier-tag` in `services.astro` sits on a light card and on the navy
+   featured card, and no single colour passes on both: the light case takes
+   `--color-primary-text`, `.tier-card.featured .tier-tag` takes brand green.
+   Resolve contrast against the element's NEAREST background, not from the
+   selector name, and against the DARKEST light surface in use, not white.
+
 ## Writing conventions (enforced)
 
 1. **No em-dashes (U+2014) anywhere you generate text.** Commit messages, docs,
