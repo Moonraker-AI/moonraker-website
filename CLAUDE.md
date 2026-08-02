@@ -47,22 +47,25 @@ Adding any new embed platform means adding its origin there AND redeploying the
 worker, which is separate from the site content rebuild. The `moonraker-web-embeds`
 skill covers the full recipe.
 
-## The asset-cache gotcha (an asset can never be updated in place)
+## The asset-cache gotcha (unhashed assets update slowly, hashed never)
 
-`cacheControlFor` in `worker/src/index.js` serves every non-HTML key
-`public, max-age=31536000, immutable`, and the edge cache key is built from
-`origin + pathname` alone, dropping the query string. So `?v=2` busts nothing:
-it is not part of the key, and any browser that already holds the file will not
-ask again for a year. Overwriting an image in `public/` publishes to R2 and
-then never reaches a visitor.
+`cacheControlFor` in `worker/src/index.js` (since 2026-08-03) splits assets in
+two. Content-hashed keys (anything under `_astro/`, or a filename carrying an
+8+ hex-char hash segment like
+`public/assets/case-studies/revibe-therapy-hero.52d879e6.avif`) serve
+`public, max-age=31536000, immutable` and can NEVER be updated in place.
+Everything else (the bulk of `public/` under literal names) serves
+`public, max-age=86400, stale-while-revalidate=604800`, so an in-place
+republish reaches visitors within about a day (returning browsers may see the
+stale copy once while revalidating).
 
-**Replace an asset by RENAMING it**, with a content hash in the filename
-(`public/assets/case-studies/revibe-therapy-hero.52d879e6.avif`), and update
+The edge cache key is still `origin + pathname` alone, dropping the query
+string, so `?v=2` busts nothing. For an immediate flip, or for anything
+hashed, **replace the asset by RENAMING it** with a content hash and update
 every reference. Anything imported through Vite gets this for free, which is
 why `BaseLayout.astro` imports `../scripts/site.js?url` rather than hardcoding
 `/assets/site.js`. A Cloudflare purge only clears the edge, not the browsers
-that already hold the old bytes. Most of `public/` is still unhashed, so assume
-any asset you touch there needs a new name.
+that already hold the old bytes.
 
 HTML and the text files (`.md`, `.xml`, `.txt`, `robots.txt`, `sitemap.xml`,
 `llms.txt`) sit on a 300s TTL and do self-flip within about five minutes of a

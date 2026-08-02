@@ -16,8 +16,8 @@ const SECURITY_HEADERS = {
     "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.loom.com " +
     "https://www.googletagmanager.com https://www.googleadservices.com " +
     "https://bzrcdn.openai.com; " +
-    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
-    "font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; " +
+    "style-src 'self' 'unsafe-inline'; " +
+    "font-src 'self'; img-src 'self' data: https:; " +
     "connect-src 'self' https://clients.moonraker.ai https://*.google-analytics.com " +
     "https://*.analytics.google.com https://www.googletagmanager.com " +
     "https://www.googleadservices.com " +
@@ -58,6 +58,14 @@ function contentTypeFor(key, obj) {
   if (meta && meta.toLowerCase() !== "application/octet-stream") return meta;
   return CT[extOf(key)] || "application/octet-stream";
 }
+// A key is content-addressed when Vite hashed it (_astro/) or its filename
+// carries an 8+ hex-char hash segment (the manual public/ rename convention,
+// e.g. revibe-therapy-hero.52d879e6.avif). Only those may cache immutably:
+// everything else in public/ serves under its literal name and can be
+// republished in place, so it gets a day with a week of stale-while-revalidate.
+function isHashedAsset(key) {
+  return key.includes("/_astro/") || /\.[0-9a-f]{8,}\.[a-z0-9]+$/i.test(key);
+}
 function cacheControlFor(key, env) {
   const ext = extOf(key);
   const htmlTtl = parseInt(env.DEFAULT_HTML_TTL || "300", 10);
@@ -69,7 +77,8 @@ function cacheControlFor(key, env) {
     // behind a day-long edge cache unless someone manually purged.
     return `public, max-age=${htmlTtl}, s-maxage=${htmlTtl}, stale-while-revalidate=86400`;
   }
-  return `public, max-age=${assetTtl}, immutable`;
+  if (isHashedAsset(key)) return `public, max-age=${assetTtl}, immutable`;
+  return "public, max-age=86400, stale-while-revalidate=604800";
 }
 
 function wantsMarkdown(request) {
