@@ -1,4 +1,4 @@
-# booking-ui-sweep: known locations (snapshot 2026-08-03)
+# booking-ui-sweep: known locations (snapshot 2026-08-03, post-fold)
 
 Sidecar to SKILL.md. This is the map the step 1 grep hit lists get diffed
 against. Within the booking scope the greps are the authority; when they
@@ -9,14 +9,18 @@ a vendored copy).
 Repo roots below: `WEB` = moonraker-website checkout, `CHQ` = client-hq
 checkout (siblings in the Dev tree on the operator machine).
 
-## Slot-picker UI (three full copies plus one partial, all in `WEB`)
+## Slot-picker UI (ONE shared component plus one partial, all in `WEB`)
+
+Folded 2026-08-03 (moonraker-website commit bf72312): book-a-call.astro and
+reschedule.astro no longer carry their own copies. BookingWidget.astro runs
+all three flows via a `mode` prop ('audit' default, 'quick', 'reschedule'),
+so a slot-picker/copy change lands ONCE in the component; the two pages own
+only their header bands.
 
 | Copy | File | Notes |
 |---|---|---|
-| 1 | `src/components/BookingWidget.astro` | shared component; consumed by `src/pages/free-strategy-call.astro`, `src/pages/lp/strategy-call.astro`, `src/pages/lp/therapist-websites.astro`; styles in `src/styles/booking-widget.css`; ALL THREE consumers ALSO carry their own assignee-name page copy around the widget (see next table) |
-| 2 | `src/pages/book-a-call.astro` | own full inline copy (markup + JS + styles) |
-| 3 | `src/pages/reschedule.astro` | own full inline copy |
-| partial | `src/pages/cancel.astro` | booking summary, tz formatting, assignee copy ("Scott's calendar", "Optional note for Scott"); no dateStrip, easy to miss |
+| 1 | `src/components/BookingWidget.astro` | shared component, all three flows via `mode`; consumed by `src/pages/free-strategy-call.astro`, `src/pages/lp/strategy-call.astro`, `src/pages/lp/therapist-websites.astro` (mode audit), `src/pages/book-a-call.astro` (mode quick), `src/pages/reschedule.astro` (mode reschedule); styles in `src/styles/booking-widget.css`; the three audit consumers ALSO carry their own assignee-name page copy around the widget (see next table) |
+| partial | `src/pages/cancel.astro` | booking summary, tz formatting, assignee copy ("Scott's calendar", "Optional note for Scott"); no dateStrip, easy to miss, still its own copy |
 
 ## Widget consumers with their own assignee page copy (`WEB`)
 
@@ -51,15 +55,17 @@ checkout (siblings in the Dev tree on the operator machine).
 ## Hardcoded strings that fan out across the copies
 
 `Australia/Perth` (attendee tz default, assignee-side formatting, and the
-tz-select shortlist in all three astro copies), `Scott` / `Scott Pope` (page
-copy, email subjects/signatures, FROM line), `scott@moonraker.ai` (assignee
-default, mailto fallbacks, team alert recipients, preview payload), and
-`clients.moonraker.ai` (`API_ROOT` in all four astro surfaces).
+tz-select shortlist, all in BookingWidget.astro plus cancel.astro's tz
+formatting), `Scott` / `Scott Pope` (page copy, email subjects/signatures,
+FROM line), `scott@moonraker.ai` (assignee default, mailto fallbacks, team
+alert recipients, preview payload), and `clients.moonraker.ai` (`API_ROOT`
+in BookingWidget.astro and cancel.astro).
 
 ## Scoped name-grep baseline (17 files, `grep -rliE '\bscott\b' $BWEB $BCHQ`)
 
-15 files with assignee-NAME copy: BookingWidget.astro, book-a-call.astro,
-reschedule.astro, cancel.astro, free-strategy-call.astro,
+15 files with assignee-NAME copy: BookingWidget.astro, book-a-call.astro
+(header/meta copy only since the fold), reschedule.astro (same),
+cancel.astro, free-strategy-call.astro,
 lp/strategy-call.astro, lp/therapist-websites.astro (all `WEB`);
 api/booking/create.js, api/booking/create-with-audit.js,
 api/booking/availability.js, api/_lib/booking-emails.js,

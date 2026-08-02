@@ -29,22 +29,24 @@ disable_model_invocation: false
 One booking flow, many copies. Any assignee/timezone/copy change must land in
 every copy in the same session, then be proven consistent. History: a 5-place
 sweep that bit twice before 2026-07-04 (ledger oi-038); BookingWidget.astro
-later absorbed three pages, but two pages and all the email/calendar surfaces
-still carry their own copies.
+later absorbed three pages, and on 2026-08-03 (commit bf72312) it absorbed
+book-a-call.astro and reschedule.astro too via a `mode` prop, but cancel.astro
+and all the email/calendar surfaces still carry their own copies.
 
 ## Gotchas
 
-- **BookingWidget.astro is NOT the whole story.** It is the shared component
-  behind free-strategy-call.astro, lp/strategy-call.astro, and
-  lp/therapist-websites.astro only. `book-a-call.astro` and `reschedule.astro`
-  each carry their OWN full copy of the slot-picker markup + inline JS, and
-  `cancel.astro` carries a partial copy (booking summary, tz formatting,
-  assignee copy: "Scott's calendar", "Optional note for Scott"). Editing the
-  component alone leaves those pages stale. And ALL THREE consumer pages
-  carry assignee-name copy of their own AROUND the widget
-  (free-strategy-call.astro bio copy, lp/strategy-call.astro team cards,
-  lp/therapist-websites.astro CTA band: "Scott walks through your current
-  site live"); details in `locations.md`.
+- **BookingWidget.astro is MOST of the story now, but not all of it.** Since
+  the 2026-08-03 fold it runs all three flows via `mode`
+  ('audit' | 'quick' | 'reschedule') and is the component behind
+  free-strategy-call.astro, lp/strategy-call.astro,
+  lp/therapist-websites.astro, book-a-call.astro, and reschedule.astro.
+  Still OUTSIDE it: `cancel.astro` carries a partial copy (booking summary,
+  tz formatting, assignee copy: "Scott's calendar", "Optional note for
+  Scott"), every page carries its own header-band and meta assignee copy,
+  and the three audit-mode consumer pages carry assignee-name copy AROUND
+  the widget (free-strategy-call.astro bio copy, lp/strategy-call.astro team
+  cards, lp/therapist-websites.astro CTA band: "Scott walks through your
+  current site live"); details in `locations.md`.
 - **Do not narrow the name grep to a phrase list.** Copy phrasing varies per
   page ("with Scott", "Scott walks through", "Scott leads every strategy
   call"), so the enumeration grep is a bare case-insensitive `\bscott\b`
