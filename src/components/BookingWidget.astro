@@ -33,9 +33,21 @@ import bookingCssUrl from '../styles/booking-widget.css?url';
 // 10 required fields across a 3-step flow. What we lose is audit prep
 // richness (city/state feed the local audit), which ops can fill in after
 // the call; what we gain is the booking existing at all.
-const { defer = false, lean = false } = Astro.props;
+//
+// mode: which booking flow this instance runs (oi-038 fold, 2026-08-03).
+//  - 'audit' (default): the original flow, POST /api/booking/create-with-audit,
+//    full or lean intake. free-strategy-call and the lp pages use this.
+//  - 'quick': the 4-field flow from book-a-call.astro, POST
+//    /api/booking/quick-book, supports ?email= prefill.
+//  - 'reschedule': the token flow from reschedule.astro, POST
+//    /api/booking/reschedule with booking_id + token read from ?b= and ?t=,
+//    no intake form, shows a link-invalid state on 401/403.
+const { defer = false, lean = false, mode = 'audit' } = Astro.props;
+const submitLabel = mode === 'reschedule' ? 'Confirm new time'
+  : mode === 'quick' ? 'Book the call'
+  : 'Confirm booking';
 ---
-<div id="bookingWorkspace" class="booking-workspace" data-defer={defer ? '1' : '0'}>
+<div id="bookingWorkspace" class="booking-workspace" data-defer={defer ? '1' : '0'} data-mode={mode}>
   <div class="tz-banner">
     <span class="tz-banner-icon">&#127758;</span>
     <div>
@@ -44,12 +56,24 @@ const { defer = false, lean = false } = Astro.props;
       <div class="tz-banner-line">Wrong zone? <select id="tzPicker" aria-label="Time zone"></select></div>
     </div>
   </div>
+  {mode === 'reschedule' && <div class="current-banner" id="currentBanner" hidden>
+    <span class="current-banner-icon">&#128197;</span>
+    <div>
+      <div><strong>Currently scheduled for</strong> <span id="currentWhen"></span></div>
+      <div class="current-help">Picking a new time below replaces this booking.</div>
+    </div>
+  </div>}
   <div id="bookingNotice" class="booking-notice is-hidden" role="alert"></div>
   <div class="booking-card">
 
+    {mode === 'reschedule' && <div class="booking-step" id="stepError" hidden>
+      <h2>This reschedule link is no longer valid.</h2>
+      <p class="helper">Reschedule links expire 14 days after they're sent, and each booking can only be rescheduled once. Please email <a href="mailto:scott@moonraker.ai">scott@moonraker.ai</a> if you need help moving your call.</p>
+    </div>}
+
     <!-- Step 1: pick date -->
     <div class="booking-step" id="step1" data-active="true">
-      <h2>Pick a day</h2>
+      <h2>{mode === 'reschedule' ? 'Pick a new day' : 'Pick a day'}</h2>
       <p class="helper">Available days are when Scott has open time over the next three weeks.</p>
       <div id="dateStrip" class="date-strip">
         <div class="loading-state">Loading availability...</div>
@@ -60,22 +84,26 @@ const { defer = false, lean = false } = Astro.props;
     <div class="booking-step" id="step2" hidden>
       <button type="button" class="step-back" onclick="goToStep(1)">Back to dates</button>
       <h2 id="step2Title">Pick a time</h2>
-      <p class="helper" id="step2Helper">Each call is 30 minutes. We will email you a confirmation with the Zoom link.</p>
+      <p class="helper" id="step2Helper">{mode === 'reschedule' ? "Same call length and same host. We'll just move the time." : 'Each call is 30 minutes. We will email you a confirmation with the Zoom link.'}</p>
       <div id="timeGrid" class="time-grid"></div>
     </div>
 
-    <!-- Step 3: form -->
+    <!-- Step 3: form (audit/quick) or confirm (reschedule) -->
     <div class="booking-step" id="step3" hidden>
       <button type="button" class="step-back" onclick="goToStep(2)">Back to times</button>
-      <h2>A few details</h2>
-      <p class="helper">Helps Scott prepare so the call can focus on what is working, what is missing, and whether Moonraker is a fit.</p>
+      <h2>{mode === 'reschedule' ? 'Confirm your new time' : 'A few details'}</h2>
+      <p class="helper">{mode === 'reschedule'
+        ? "We'll move the calendar invite and email you a fresh confirmation."
+        : mode === 'quick'
+          ? 'Just a few details so we can send the calendar invite.'
+          : 'Helps Scott prepare so the call can focus on what is working, what is missing, and whether Moonraker is a fit.'}</p>
 
       <div class="summary-box">
         <div class="summary-when" id="summaryWhen"></div>
         <div class="summary-sub" id="summarySub"></div>
       </div>
 
-      <div class="form-grid">
+      {mode !== 'reschedule' && <div class="form-grid">
         <div class="form-row">
           <label for="firstName">First name <span class="req">*</span></label>
           <input id="firstName" type="text" autocomplete="given-name" required>
@@ -91,22 +119,22 @@ const { defer = false, lean = false } = Astro.props;
           <input id="email" type="email" autocomplete="email" required>
           <div class="err">Please enter a valid email address.</div>
         </div>
-        <div class="form-row">
+        {mode === 'audit' && <div class="form-row">
           <label for="phone">Phone <span class="req">*</span></label>
           <input id="phone" type="tel" autocomplete="tel" required>
           <div class="err">Please enter a phone number.</div>
-        </div>
-        {!lean && <div class="form-row">
-          <label for="practiceName">Practice name <span class="req">*</span></label>
-          <input id="practiceName" type="text" autocomplete="organization" required>
-          <div class="err">Please enter your practice name.</div>
         </div>}
-        <div class="form-row">
+        {(mode === 'quick' || !lean) && <div class="form-row">
+          <label for="practiceName">{mode === 'quick' ? 'Practice or company name' : 'Practice name'} <span class="req">*</span></label>
+          <input id="practiceName" type="text" autocomplete="organization" required>
+          <div class="err">{mode === 'quick' ? 'Please enter your practice or company name.' : 'Please enter your practice name.'}</div>
+        </div>}
+        {mode === 'audit' && <div class="form-row">
           <label for="websiteUrl">Practice website <span class="req">*</span></label>
           <input id="websiteUrl" type="url" placeholder="https://yourpractice.com" autocomplete="url" required>
           <div class="err">Please enter a valid website URL starting with https://.</div>
-        </div>
-        {!lean && <Fragment><div class="form-row full">
+        </div>}
+        {mode === 'audit' && !lean && <Fragment><div class="form-row full">
           <label for="country">Country <span class="req">*</span></label>
           <select id="country" autocomplete="country-name">
             <option value="">Select your country...</option>
@@ -158,7 +186,7 @@ const { defer = false, lean = false } = Astro.props;
           <label for="gbpLink">Google Business Profile link</label>
           <input id="gbpLink" type="url" placeholder="https://maps.app.goo.gl/...">
         </div></Fragment>}
-        <div class="form-row full">
+        {mode === 'audit' && <Fragment><div class="form-row full">
           <label for="referralSource">How did you hear about Moonraker?</label>
           <select id="referralSource">
             <option value="">Select...</option>
@@ -179,12 +207,12 @@ const { defer = false, lean = false } = Astro.props;
         <div class="form-row full">
           <label for="notes">Anything you'd like Scott to know in advance?</label>
           <textarea id="notes" rows="3" placeholder="Optional"></textarea>
-        </div>
-      </div>
+        </div></Fragment>}
+      </div>}
 
       <div class="submit-row">
         <button type="button" class="btn btn-ghost" onclick="goToStep(2)">Back</button>
-        <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitBooking()">Confirm booking</button>
+        <button type="button" class="btn btn-primary" id="submitBtn" data-label={submitLabel} onclick="submitBooking()">{submitLabel}</button>
       </div>
       <div id="formError" class="error-state is-hidden"></div>
     </div>
@@ -192,10 +220,14 @@ const { defer = false, lean = false } = Astro.props;
     <!-- Step 4: confirmation -->
     <div class="booking-step confirm" id="step4" hidden>
       <div class="confirm-icon">&#10003;</div>
-      <h2>You're booked.</h2>
-      <p>A confirmation email is on its way with the Zoom link and a calendar invite. Scott will see you at your selected time.</p>
+      <h2>{mode === 'reschedule' ? 'Your call is moved.' : "You're booked."}</h2>
+      <p>{mode === 'reschedule'
+        ? 'A fresh confirmation email is on its way and the calendar invite has been updated.'
+        : 'A confirmation email is on its way with the Zoom link and a calendar invite. Scott will see you at your selected time.'}</p>
       <div class="confirm-details" id="confirmDetails"></div>
-      <p class="confirm-note">Need to change anything? Reply to the confirmation email and we will sort it.</p>
+      <p class="confirm-note">{mode === 'reschedule'
+        ? 'Need to change anything else? Reply to the confirmation email and we will sort it.'
+        : 'Need to change anything? Reply to the confirmation email and we will sort it.'}</p>
     </div>
 
   </div>
@@ -207,6 +239,11 @@ const { defer = false, lean = false } = Astro.props;
   'use strict';
 
   var API_ROOT = 'https://clients.moonraker.ai';
+
+  // The widget root, read early: MODE drives the submit dispatch and boot
+  // behavior below. See the component header for what each mode does.
+  var root = document.getElementById('bookingWorkspace');
+  var MODE = (root && root.getAttribute('data-mode')) || 'audit';
 
   // Returns null when the cookie is absent (pixel blocked, consent declined,
   // first paint not reached). The server treats a missing obref as optional.
@@ -223,7 +260,11 @@ const { defer = false, lean = false } = Astro.props;
     daysIndex: {},      // attendee_date -> array of slots
     selectedDate: null,
     selectedSlot: null,
-    booking: null
+    booking: null,
+    // reschedule mode only: read from the confirmation-email link (?b=&t=&from=)
+    bookingId: null,
+    token: null,
+    fromIso: null
   };
 
   function detectTz() {
@@ -248,6 +289,35 @@ const { defer = false, lean = false } = Astro.props;
     return time;
   }
 
+  // reschedule mode: the "Currently scheduled for" banner text.
+  function fmtFriendly(iso, tz) {
+    try {
+      var d = new Date(iso);
+      var date = new Intl.DateTimeFormat('en-US', {
+        timeZone: tz, weekday: 'long', month: 'long', day: 'numeric'
+      }).format(d);
+      var time = new Intl.DateTimeFormat('en-US', {
+        timeZone: tz, hour: 'numeric', minute: '2-digit', hour12: true
+      }).format(d);
+      return date + ' at ' + time + ' (' + fmtTzAbbr(tz) + ')';
+    } catch (e) { return iso; }
+  }
+
+  // reschedule mode: hide every step and show the link-invalid card.
+  function showErrorState(message) {
+    var err = document.getElementById('stepError');
+    if (!err) return;
+    [1, 2, 3, 4].forEach(function (i) {
+      var s = document.getElementById('step' + i);
+      if (s) s.setAttribute('hidden', '');
+    });
+    if (message) {
+      var helper = err.querySelector('.helper');
+      if (helper) helper.textContent = message;
+    }
+    err.removeAttribute('hidden');
+  }
+
   function populateTzPicker(currentTz) {
     var common = [
       'America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles',
@@ -268,6 +338,9 @@ const { defer = false, lean = false } = Astro.props;
     sel.addEventListener('change', function (e) {
       state.tz = e.target.value;
       document.getElementById('tzLabel').textContent = state.tz + ', ' + fmtTzAbbr(state.tz);
+      if (MODE === 'reschedule' && state.fromIso) {
+        setText('currentWhen', fmtFriendly(state.fromIso, state.tz));
+      }
       // Changing the zone re-labels every slot AND re-groups slots into days
       // (a slot's local date can shift across the zone change), so the cached
       // day key in state.selectedDate is no longer valid. Clear the selection
@@ -412,8 +485,9 @@ const { defer = false, lean = false } = Astro.props;
     if (!s) return;
     document.getElementById('summaryWhen').textContent =
       s.attendee_date + ' at ' + s.attendee_time + ' (' + s.attendee_tz_label + ')';
-    document.getElementById('summarySub').textContent =
-      'That is ' + fmtPerth(s.start_utc) + ' Perth time (Scott\'s zone). 30 minutes with Scott on Zoom.';
+    document.getElementById('summarySub').textContent = MODE === 'reschedule'
+      ? 'That is ' + fmtPerth(s.start_utc) + ' Perth time. Same call length, same host.'
+      : 'That is ' + fmtPerth(s.start_utc) + ' Perth time (Scott\'s zone). 30 minutes with Scott on Zoom.';
   }
 
   function showNotice(msg) {
@@ -433,6 +507,8 @@ const { defer = false, lean = false } = Astro.props;
       if (i === n) el.removeAttribute('hidden');
       else el.setAttribute('hidden', '');
     });
+    var errEl = document.getElementById('stepError');
+    if (errEl) errEl.setAttribute('hidden', '');
     window.scrollTo({ top: document.querySelector('.booking-workspace').offsetTop - 24, behavior: 'smooth' });
   };
 
@@ -514,16 +590,32 @@ const { defer = false, lean = false } = Astro.props;
     return ok;
   }
 
-  window.submitBooking = function () {
-    if (!state.selectedSlot) return;
-    if (!validate()) return;
-
-    var btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span> Booking...';
-    document.getElementById('formError').classList.add('is-hidden');
-
-    var payload = {
+  // One submit entry point for all three modes; the endpoint and payload
+  // differ, the button/error/409 handling is shared.
+  function buildPayload() {
+    if (MODE === 'reschedule') {
+      return {
+        booking_id: state.bookingId,
+        token:      state.token,
+        start_at:   state.selectedSlot.start_utc
+      };
+    }
+    if (MODE === 'quick') {
+      return {
+        first_name:         val('firstName').trim(),
+        last_name:          val('lastName').trim(),
+        email:              val('email').trim(),
+        practice_name:      val('practiceName').trim(),
+        attendee_time_zone: state.tz,
+        start_at:           state.selectedSlot.start_utc,
+        source:             'quick_book',
+        // OpenAI Ads match keys, see the audit payload note below.
+        oai_obref:          readCookie('__obref'),
+        source_url:         location.origin + location.pathname,
+        attribution:        (window.mrAttribution && window.mrAttribution()) || null
+      };
+    }
+    return {
       attendee_first_name:    val('firstName').trim(),
       attendee_last_name:     val('lastName').trim(),
       attendee_email:         val('email').trim(),
@@ -551,8 +643,25 @@ const { defer = false, lean = false } = Astro.props;
       // First-touch lead source captured on landing (see BaseLayout ATTRIB_JS).
       attribution:            (window.mrAttribution && window.mrAttribution()) || null
     };
+  }
 
-    fetch(API_ROOT + '/api/booking/create-with-audit', {
+  var ENDPOINT = MODE === 'reschedule' ? '/api/booking/reschedule'
+    : MODE === 'quick' ? '/api/booking/quick-book'
+    : '/api/booking/create-with-audit';
+
+  window.submitBooking = function () {
+    if (!state.selectedSlot) return;
+    if (MODE !== 'reschedule' && !validate()) return;
+
+    var btn = document.getElementById('submitBtn');
+    var btnLabel = btn.getAttribute('data-label') || 'Confirm booking';
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> ' + (MODE === 'reschedule' ? 'Moving...' : 'Booking...');
+    document.getElementById('formError').classList.add('is-hidden');
+
+    var payload = buildPayload();
+
+    fetch(API_ROOT + ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
@@ -560,15 +669,23 @@ const { defer = false, lean = false } = Astro.props;
       .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b, status: r.status }; }); })
       .then(function (res) {
         btn.disabled = false;
-        btn.innerHTML = 'Confirm booking';
+        btn.innerHTML = btnLabel;
         if (!res.ok) {
-          var msg = (res.body && res.body.error) || 'Booking failed. Please try again.';
+          if (MODE === 'reschedule' && (res.status === 401 || res.status === 403)) {
+            showErrorState();
+            return;
+          }
+          var msg = (res.body && res.body.error) ||
+            (MODE === 'reschedule' ? 'Reschedule failed. Please try again.' : 'Booking failed. Please try again.');
           if (res.status === 409) {
-            // Slot disappeared. Reload availability and send the user back to
-            // the date picker. The formError element lives inside step 3, which
-            // goToStep(1) hides, so surface the reason in the always-visible
-            // notice banner above the card instead.
-            msg = 'That time was taken while you were filling in the form. Please pick another.';
+            // Slot disappeared (or, on reschedule, the booking already moved).
+            // Reload availability and send the user back to the date picker.
+            // The formError element lives inside step 3, which goToStep(1)
+            // hides, so surface the reason in the always-visible notice banner
+            // above the card instead.
+            msg = MODE === 'reschedule'
+              ? (msg || 'That time was taken while you were on this page. Please pick another.')
+              : 'That time was taken while you were filling in the form. Please pick another.';
             loadAvailability();
             goToStep(1);
             showNotice(msg);
@@ -579,13 +696,15 @@ const { defer = false, lean = false } = Astro.props;
           return;
         }
         state.booking = res.body;
-        try { if (window.mrTrackConversion) window.mrTrackConversion(res.body && res.body.booking_id); } catch (e) {}
+        if (MODE !== 'reschedule') {
+          try { if (window.mrTrackConversion) window.mrTrackConversion(res.body && res.body.booking_id); } catch (e) {}
+        }
         renderConfirmation(payload);
         goToStep(4);
       })
       .catch(function () {
         btn.disabled = false;
-        btn.innerHTML = 'Confirm booking';
+        btn.innerHTML = btnLabel;
         document.getElementById('formError').textContent = 'Network error. Please try again.';
         document.getElementById('formError').classList.remove('is-hidden');
       });
@@ -594,7 +713,7 @@ const { defer = false, lean = false } = Astro.props;
   function renderConfirmation(payload) {
     var s = state.selectedSlot;
     var html = '';
-    html += '<div class="detail-row"><span class="detail-label">When</span>' +
+    html += '<div class="detail-row"><span class="detail-label">' + (MODE === 'reschedule' ? 'New time' : 'When') + '</span>' +
       '<span class="detail-value">' + s.attendee_date + ' at ' + s.attendee_time + ' (' + s.attendee_tz_label + ')</span></div>';
     html += '<div class="detail-row"><span class="detail-label">Perth time</span>' +
       '<span class="detail-value">' + fmtPerth(s.start_utc) + '</span></div>';
@@ -604,8 +723,11 @@ const { defer = false, lean = false } = Astro.props;
       html += '<div class="detail-row"><span class="detail-label">Zoom</span>' +
         '<span class="detail-value"><a href="' + state.booking.meeting_link + '" target="_blank" rel="noopener">Join link</a></span></div>';
     }
-    html += '<div class="detail-row"><span class="detail-label">Confirmation sent to</span>' +
-      '<span class="detail-value">' + payload.attendee_email + '</span></div>';
+    var email = payload.attendee_email || payload.email;
+    if (email) {
+      html += '<div class="detail-row"><span class="detail-label">Confirmation sent to</span>' +
+        '<span class="detail-value">' + email + '</span></div>';
+    }
     document.getElementById('confirmDetails').innerHTML = html;
   }
 
@@ -613,13 +735,45 @@ const { defer = false, lean = false } = Astro.props;
     state.tz = detectTz();
     document.getElementById('tzLabel').textContent = state.tz + ', ' + fmtTzAbbr(state.tz);
     populateTzPicker(state.tz);
+
+    if (MODE === 'reschedule') {
+      // booking_id, token, and (informational) original start_at from the
+      // confirmation-email link.
+      var rp;
+      try { rp = new URLSearchParams(window.location.search); } catch (ex) { rp = null; }
+      state.bookingId = rp && rp.get('b');
+      state.token = rp && rp.get('t');
+      state.fromIso = rp && rp.get('from');
+      if (!state.bookingId || !state.token) {
+        showErrorState('This page needs a valid reschedule link. Please use the link in your confirmation email.');
+        return;
+      }
+      if (state.fromIso) {
+        try {
+          setText('currentWhen', fmtFriendly(state.fromIso, state.tz));
+          document.getElementById('currentBanner').removeAttribute('hidden');
+        } catch (ex) {
+          // Bad ISO string. Just don't show the banner.
+        }
+      }
+    }
+
+    if (MODE === 'quick') {
+      // Pre-fill email from ?email= (audit-email CTAs link here with it).
+      try {
+        var qp = new URLSearchParams(window.location.search);
+        var qe = qp.get('email');
+        var emailEl = el('email');
+        if (qe && emailEl) emailEl.value = qe;
+      } catch (ex) {}
+    }
+
     loadAvailability();
   }
 
   // See the component header: `defer` boots this when it nears the
   // viewport instead of on load. Anyone who clicks a CTA scrolls to it,
   // which triggers the observer well before they can interact.
-  var root = document.getElementById('bookingWorkspace');
   if (root && root.getAttribute('data-defer') === '1' && 'IntersectionObserver' in window) {
     var started = false;
     var io = new IntersectionObserver(function (entries) {
@@ -681,6 +835,18 @@ const { defer = false, lean = false } = Astro.props;
   border: 1px solid color-mix(in srgb, var(--color-danger) 35%, transparent);
   color: var(--color-danger);
 }
+/* reschedule mode: the "Currently scheduled for" banner. */
+.current-banner {
+  margin: 0 0 1.25rem;
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  border-radius: var(--r-lg); padding: 1rem 1.25rem;
+  display: flex; gap: 1rem; align-items: center;
+  font-size: .9rem; color: var(--color-body); line-height: 1.5;
+  text-align: left;
+}
+.current-banner-icon { font-size: 1.25rem; flex-shrink: 0; }
+.current-banner strong { color: var(--color-heading); font-weight: 600; }
+.current-help { margin-top: .25rem; color: var(--color-muted); }
 /* Booking workspace */
 .booking-workspace {
   max-width: 1080px; margin: clamp(3rem, 6vw, 5rem) auto 4rem;
