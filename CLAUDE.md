@@ -18,6 +18,17 @@ full before editing anything.
   - **Site content** (the Astro build) publishes to R2 from the VPS.
   - **Worker** (CSP, headers, redirects, routing) deploys via
     `wrangler deploy` from `worker/`.
+- **A push to main publishes the STATIC half within about 5 minutes.** The VPS
+  cron runs `scripts/publish_watch.py`, which watches both the published
+  `content_pieces` set and the tip of `origin/main`, and runs
+  `scripts/vps_publish.sh` when either moves. Until 2026-08-02 it watched only
+  `content_pieces`, so a plain code commit reached the live site ONLY when
+  somebody ran `vps_publish.sh` by hand; the marker and the publish log both
+  sat frozen from 2026-06-08.
+- **A push to main does NOT deploy the worker.** Anything under `worker/`
+  (CSP, security headers, redirects, `cacheControlFor`, markdown negotiation)
+  still needs `cd worker && npx wrangler deploy` from a machine holding a
+  Cloudflare token with Workers Scripts edit rights. Nothing automates it.
 - **There is no `vercel.json` and no Vercel auto-deploy.** Older notes that say
   "static HTML, Vercel auto-deploy" or put the CSP in `vercel.json` are stale.
   The CSP lives in `worker/src/index.js`.

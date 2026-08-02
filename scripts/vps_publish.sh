@@ -37,7 +37,10 @@ log() { echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] vps_publish: $*"; }
 
 # Serialize: never let two builds (cron + manual) overlap.
 exec 9>/tmp/mr_site_publish.lock
-flock -n 9 || { log "another publish is running; exiting"; exit 0; }
+# Exit 75 (EX_TEMPFAIL), not 0: publish_watch.py must be able to tell "declined
+# to build" from "built successfully", or it advances its marker for a build
+# that never happened and the change is silently dropped until the next one.
+flock -n 9 || { log "another publish is running; exiting"; exit 75; }
 
 log "syncing repo to origin/main"
 git -C "$REPO" fetch --quiet origin main
