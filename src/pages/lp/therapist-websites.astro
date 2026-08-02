@@ -87,7 +87,7 @@ import StatsStrip from '../../components/StatsStrip.astro';
     <div class="section-wrap">
     <div class="section-head">
       <div><div class="section-label">Sites we built</div><h2>Real practices. Real scores.</h2></div>
-      <p>Every number below is Google's own PageSpeed result for the live homepage on a mobile phone, measured 30 July 2026. We ran each site three times and published the WORST result, not the best. Open the sites, run the test yourself, and check us.</p>
+      <p>Every number below is Google's own PageSpeed result for the live homepage on a mobile phone, re-verified 2 August 2026. We ran each site three times and published the WORST result, not the best. Open the sites, run the test yourself, and check us.</p>
     </div>
 
     <div class="case-grid">
@@ -166,7 +166,16 @@ import StatsStrip from '../../components/StatsStrip.astro';
           tag off the critical path took it to 92 (worst of three runs), so
           the numbers are real now. It stays the lowest of the three because
           it is the only one of these sites carrying a full GA4 plus Google
-          Ads stack, which costs roughly 300 KB no matter how it is loaded. */}
+          Ads stack, which costs roughly 300 KB no matter how it is loaded.
+
+          2026-08-02: the printed 92 briefly stopped reproducing. Spacing the
+          runs out (PSI serves a cached result to back-to-back calls, so three
+          rapid runs are three readings of ONE measurement) gave 74/88/74, and
+          the cause was not this site: moonraker-r2-worker was not storing its
+          own responses in the CDN cache, so every asset on every managed site
+          paid a full R2 round trip. Fixed in r2-worker v0.8.0; Revibe now runs
+          93/93/97, so 92 is honest again and still the conservative floor.
+          Re-measure with a gap between runs, never back to back. */}
       <article class="case-card">
         <div class="case-shot">
           <a class="case-shot-link" href="https://revibetherapy.com"
