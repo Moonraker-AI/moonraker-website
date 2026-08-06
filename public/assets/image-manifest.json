@@ -267,18 +267,6 @@
       "format": "avif"
     },
     {
-      "file": "assets/partners/psychology-business-school.avif",
-      "title": "Psychology Business School logo",
-      "alt": "Psychology Business School logo",
-      "usage": "Homepage partnership section",
-      "source": "/home/cjmorin/Desktop/Moonraker/Biz/Dev/moonraker-website/assets/partners/psychology-business-school.webp",
-      "sourceBytes": 56412,
-      "outputBytes": 8552,
-      "width": 900,
-      "height": 660,
-      "format": "avif"
-    },
-    {
       "file": "assets/partners/private-practice-elevation.avif",
       "title": "Private Practice Elevation logo",
       "alt": "Private Practice Elevation logo",
