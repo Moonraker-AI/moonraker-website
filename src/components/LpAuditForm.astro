@@ -1,0 +1,247 @@
+---
+/**
+ * Lead form for the paid landing pages: a free local visibility audit
+ * instead of the booking calendar.
+ *
+ * Why this exists (2026-08-07): 88 paid sessions landed on the /lp/ pages
+ * in 30 days and zero booked, while warm direct and organic visitors booked
+ * 8 times. The calendar offers a US visitor Perth-morning slots, which read
+ * as 7:30 PM to midnight Eastern, and cold ad traffic will not take a
+ * midnight call with an agency it met two minutes ago. The form asks for
+ * the minimum Scott needs to prepare the audit by hand; the confirmation
+ * offers the strategy call as the warm next step instead of the cold first
+ * step.
+ *
+ * Posts to clients.moonraker.ai/api/public/lp-lead, which creates the lead
+ * contact, queues the audit with auto-email suppressed (Scott reviews and
+ * sends it personally), and alerts the team. Attribution rides along from
+ * window.mrAttribution (BaseLayout). On success this fires
+ * window.mrTrackConversion, so Google Ads and the ChatGPT pixel count the
+ * lead exactly as they counted bookings.
+ */
+---
+<div class="audit-workspace" id="audit">
+  <div class="audit-card">
+    <form id="lpAuditForm" novalidate>
+      <h2>Get your free local visibility audit</h2>
+      <p class="audit-helper">Tell us where to look. Scott prepares every audit personally and emails it to you, usually within two business days. No call required, no obligation.</p>
+      <div class="audit-grid">
+        <div class="audit-row">
+          <label for="lpFirstName">First name <span class="req">*</span></label>
+          <input id="lpFirstName" type="text" autocomplete="given-name" required>
+          <div class="err">Please enter your first name.</div>
+        </div>
+        <div class="audit-row">
+          <label for="lpLastName">Last name <span class="req">*</span></label>
+          <input id="lpLastName" type="text" autocomplete="family-name" required>
+          <div class="err">Please enter your last name.</div>
+        </div>
+        <div class="audit-row">
+          <label for="lpEmail">Email <span class="req">*</span></label>
+          <input id="lpEmail" type="email" autocomplete="email" required>
+          <div class="err">Please enter a valid email address.</div>
+        </div>
+        <div class="audit-row">
+          <label for="lpPhone">Phone (optional)</label>
+          <input id="lpPhone" type="tel" autocomplete="tel">
+        </div>
+        <div class="audit-row full">
+          <label for="lpWebsite">Practice website <span class="req">*</span></label>
+          <input id="lpWebsite" type="text" inputmode="url" placeholder="yourpractice.com" autocomplete="url" required>
+          <div class="err">Please enter your practice website.</div>
+        </div>
+        <div class="audit-row">
+          <label for="lpCity">City <span class="req">*</span></label>
+          <input id="lpCity" type="text" autocomplete="address-level2" required>
+          <div class="err">Please enter your city.</div>
+        </div>
+        <div class="audit-row">
+          <label for="lpState">State or province <span class="req">*</span></label>
+          <input id="lpState" type="text" autocomplete="address-level1" required>
+          <div class="err">Please enter your state or province.</div>
+        </div>
+        <div class="audit-row full">
+          <label for="lpGbp">Google Business Profile link (optional)</label>
+          <input id="lpGbp" type="text" placeholder="https://maps.app.goo.gl/...">
+        </div>
+        <div class="audit-row full">
+          <label for="lpReferral">How did you hear about Moonraker?</label>
+          <select id="lpReferral">
+            <option value="">Select...</option>
+            <option value="Google Ad">Google Ad</option>
+            <option value="Google Search">Google Search</option>
+            <option value="Google Maps">Google Maps</option>
+            <option value="AI Search (ChatGPT, Gemini, Claude, etc)">AI Search (ChatGPT, Gemini, Claude, etc)</option>
+            <option value="Referral">Referral</option>
+            <option value="Webinar">Webinar</option>
+            <option value="Newsletter">Newsletter</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="audit-row full">
+          <label for="lpNotes">Anything specific you want us to look at?</label>
+          <textarea id="lpNotes" rows="3" placeholder="Optional"></textarea>
+        </div>
+        <div class="audit-hp" aria-hidden="true">
+          <label for="lpCompany">Company</label>
+          <input id="lpCompany" type="text" name="company" tabindex="-1" autocomplete="off">
+        </div>
+      </div>
+      <div class="audit-submit">
+        <button type="submit" class="btn btn-primary" id="lpAuditBtn">Send My Free Audit</button>
+      </div>
+      <p class="audit-fine">We only ever look at public information about your practice, and we never share your details.</p>
+      <div id="lpAuditError" class="audit-error is-hidden" role="alert"></div>
+    </form>
+
+    <div id="lpAuditSuccess" class="audit-success" hidden>
+      <div class="audit-check">&#10003;</div>
+      <h2>Your audit is underway.</h2>
+      <p>Scott is on it. Your local visibility audit will arrive by email, usually within two business days, with what we found and what we would fix first.</p>
+      <p>Rather talk it through live? You can book a free strategy call any time.</p>
+      <a class="btn btn-ghost" href="/free-strategy-call">Book a free strategy call</a>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+(function () {
+  'use strict';
+  var API = 'https://clients.moonraker.ai/api/public/lp-lead';
+  var form = document.getElementById('lpAuditForm');
+  if (!form) return;
+
+  function track(ev) {
+    try { if (typeof gtag === 'function') gtag('event', ev); } catch (e) {}
+  }
+
+  var started = false;
+  form.addEventListener('input', function () {
+    if (started) return;
+    started = true;
+    track('lp_form_start');
+  });
+
+  function fieldValue(id) {
+    var el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  }
+
+  function markBad(id, bad) {
+    var el = document.getElementById(id);
+    if (el && el.parentElement) el.parentElement.classList.toggle('is-bad', bad);
+    return bad;
+  }
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+
+    var email = fieldValue('lpEmail');
+    var website = fieldValue('lpWebsite');
+    var anyBad = false;
+    anyBad = markBad('lpFirstName', !fieldValue('lpFirstName')) || anyBad;
+    anyBad = markBad('lpLastName', !fieldValue('lpLastName')) || anyBad;
+    anyBad = markBad('lpEmail', !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) || anyBad;
+    anyBad = markBad('lpWebsite', !website) || anyBad;
+    anyBad = markBad('lpCity', !fieldValue('lpCity')) || anyBad;
+    anyBad = markBad('lpState', !fieldValue('lpState')) || anyBad;
+    if (anyBad) {
+      var firstBad = form.querySelector('.is-bad input');
+      if (firstBad) firstBad.focus();
+      return;
+    }
+
+    if (website && !/^https?:\/\//i.test(website)) website = 'https://' + website;
+
+    var btn = document.getElementById('lpAuditBtn');
+    var errBox = document.getElementById('lpAuditError');
+    errBox.classList.add('is-hidden');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    var payload = {
+      first_name: fieldValue('lpFirstName'),
+      last_name: fieldValue('lpLastName'),
+      email: email,
+      phone: fieldValue('lpPhone') || null,
+      website_url: website,
+      city: fieldValue('lpCity'),
+      state: fieldValue('lpState'),
+      gbp_link: fieldValue('lpGbp') || null,
+      referral_source: fieldValue('lpReferral') || null,
+      notes: fieldValue('lpNotes') || null,
+      company: fieldValue('lpCompany') || null,
+      source: 'lp_audit_form',
+      page: location.origin + location.pathname,
+      attribution: (window.mrAttribution && window.mrAttribution()) || null
+    };
+
+    fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(function (res) {
+        return res.json().then(function (body) { return { ok: res.ok, body: body }; });
+      })
+      .then(function (res) {
+        if (!res.ok || !res.body || res.body.ok !== true) {
+          throw { message: (res.body && res.body.error) || null };
+        }
+        try { if (window.mrTrackConversion) window.mrTrackConversion(res.body.contact_id); } catch (e) {}
+        track('lead_audit_request');
+        form.hidden = true;
+        var success = document.getElementById('lpAuditSuccess');
+        success.hidden = false;
+        try { success.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+      })
+      .catch(function (err) {
+        btn.disabled = false;
+        btn.textContent = 'Send My Free Audit';
+        errBox.textContent = (err && err.message) ||
+          'Something went wrong sending your details. Please try again, or email scott@moonraker.ai and we will run your audit from there.';
+        errBox.classList.remove('is-hidden');
+      });
+  });
+})();
+</script>
+
+<style>
+.audit-workspace { max-width: 760px; margin: clamp(3rem, 6vw, 5rem) auto 4rem; padding: 0 2rem; }
+.audit-card { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); padding: 2rem; }
+.audit-card h2 { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.35rem; color: var(--color-heading); margin-bottom: .6rem; }
+.audit-helper { color: var(--color-muted); font-size: .9rem; line-height: 1.65; margin-bottom: 1.5rem; }
+.audit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.audit-row { display: grid; gap: .35rem; align-content: start; }
+.audit-row.full { grid-column: 1 / -1; }
+.audit-row label { font-size: .82rem; font-weight: 600; color: var(--color-heading); }
+.audit-row .req { color: var(--color-primary-text); }
+.audit-row input, .audit-row select, .audit-row textarea {
+  font-family: inherit; font-size: .95rem; padding: .65rem .8rem;
+  border: 1px solid var(--color-border); border-radius: 8px;
+  background: var(--color-bg); color: var(--color-body); width: 100%;
+}
+.audit-row input:focus, .audit-row select:focus, .audit-row textarea:focus {
+  outline: none; border-color: var(--color-primary);
+}
+.audit-row .err { display: none; font-size: .78rem; color: var(--color-danger); }
+.audit-row.is-bad input { border-color: var(--color-danger); }
+.audit-row.is-bad .err { display: block; }
+/* Honeypot: moved out of the viewport, not display:none, so naive bots
+   still fill it. aria-hidden and tabindex keep it out of the a11y tree. */
+.audit-hp { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+.audit-submit { margin-top: 1.5rem; }
+.audit-submit .btn { width: 100%; font-size: 1rem; padding: .9rem 1.6rem; }
+.audit-fine { margin-top: .8rem; font-size: .78rem; color: var(--color-muted); text-align: center; }
+.audit-error { margin-top: 1rem; padding: .85rem 1.1rem; border-radius: var(--r-md); font-size: .88rem; line-height: 1.5; background: color-mix(in srgb, var(--color-danger) 10%, transparent); border: 1px solid color-mix(in srgb, var(--color-danger) 35%, transparent); color: var(--color-danger); }
+.audit-error.is-hidden { display: none; }
+.audit-success { text-align: center; padding: 1.5rem 0; }
+.audit-check { width: 56px; height: 56px; margin: 0 auto 1rem; border-radius: 50%; display: grid; place-items: center; background: var(--color-primary); color: var(--color-on-primary); font-size: 1.6rem; font-weight: 700; }
+.audit-success h2 { font-family: 'Outfit', sans-serif; font-weight: 800; color: var(--color-heading); margin-bottom: .6rem; }
+.audit-success p { color: var(--color-muted); line-height: 1.7; max-width: 44ch; margin: 0 auto .8rem; }
+.audit-success .btn { margin-top: .5rem; }
+@media (max-width: 640px) {
+  .audit-grid { grid-template-columns: 1fr; }
+  .audit-card { padding: 1.4rem; }
+}
+</style>

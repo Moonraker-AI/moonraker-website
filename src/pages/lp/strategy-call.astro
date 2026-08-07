@@ -1,14 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-// Same component the /free-strategy-call page renders, so the paid page
-// converts inline instead of spending a click sending people elsewhere.
-import BookingWidget from '../../components/BookingWidget.astro';
+// Paid traffic converts on a lead form, not the calendar. The booking
+// widget offered US visitors Perth-morning slots (7:30 PM to midnight
+// Eastern) and cold clicks would not take them: 88 paid sessions, zero
+// bookings, 2026-07/08. The audit form asks for what Scott needs and the
+// call becomes the warm follow-up instead of the cold first step.
+import LpAuditForm from '../../components/LpAuditForm.astro';
 import LoomFacade from '../../components/LoomFacade.astro';
 import StatsStrip from '../../components/StatsStrip.astro';
 ---
 <BaseLayout
-  title="Free Strategy Call for Therapy Practices | Moonraker"
-  description="See exactly where your practice stands on Google, Maps, and AI tools. A free 30-minute strategy call with a marketing team that works only with therapy practices."
+  title="Free Local Visibility Audit for Therapy Practices | Moonraker"
+  description="See exactly where your practice stands on Google, Maps, and AI tools like ChatGPT. A free local visibility audit, prepared personally by a team that works only with therapy practices."
   bare
 >
 <main>
@@ -16,9 +19,9 @@ import StatsStrip from '../../components/StatsStrip.astro';
     <div class="hero-inner">
       <div>
         <h1>Get your practice found on <span style="color: var(--color-primary)">Google and AI.</span></h1>
-        <p>Start with a free strategy call. We review how your practice shows up across Google, Maps, and AI tools like ChatGPT and Gemini, then show you exactly what is working, what is missing, and what to fix first.</p>
+        <p>Start with a free local visibility audit. We check how your practice shows up across Google, Maps, and AI tools like ChatGPT and Gemini, then email you exactly what is working, what is missing, and what to fix first.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary lp-cta" href="#book">Book Your Free Strategy Call</a>
+          <a class="btn btn-primary lp-cta" href="#book">Get My Free Visibility Audit</a>
         </div>
       </div>
       <div class="hero-video">
@@ -26,7 +29,7 @@ import StatsStrip from '../../components/StatsStrip.astro';
           id="df3a5aa47f284ade81a4649695ac42dd"
           poster="strategy-call-video-poster"
           label="Play video: what a free strategy call with Moonraker looks like" />
-        <p class="video-caption">Watch Chris explain what the call covers before you book.</p>
+        <p class="video-caption">Watch Chris explain how we look at a practice's visibility.</p>
       </div>
     </div>
   </section>
@@ -101,23 +104,23 @@ import StatsStrip from '../../components/StatsStrip.astro';
   <section class="steps-band">
     <div class="section-wrap">
       <div class="section-head">
-        <div><div class="section-label">What happens on the call</div><h2>Thirty minutes, three clear answers.</h2></div>
-        <p>No pitch deck and no pressure. We look at your real visibility together and you leave knowing where you stand, whether we work together or not.</p>
+        <div><div class="section-label">What's in your audit</div><h2>Three clear answers, no meeting required.</h2></div>
+        <p>No pitch deck and no pressure. Scott checks your real listings and pages by hand, and you know where you stand whether we ever work together or not.</p>
       </div>
       <div class="steps-grid">
-        <article class="step-card"><div class="step-num">1</div><h3>See where you stand</h3><p>We walk through how your practice actually appears on Google, Maps, and AI tools, live, using your real listings and pages.</p></article>
-        <article class="step-card"><div class="step-num">2</div><h3>Find the gaps</h3><p>You see exactly what is holding your visibility back: missing pages, unclear services, inconsistent listings, or a site platform working against you.</p></article>
-        <article class="step-card"><div class="step-num">3</div><h3>Get a clear next step</h3><p>If we can help, we recommend the smallest of our three service steps that solves it, with a flat-rate written proposal. If we cannot, we say so.</p></article>
+        <article class="step-card"><div class="step-num">1</div><h3>Where you stand today</h3><p>How your practice actually appears on Google, Maps, and AI tools like ChatGPT and Gemini, checked against your real listings and pages.</p></article>
+        <article class="step-card"><div class="step-num">2</div><h3>The gaps costing you clients</h3><p>Exactly what is holding your visibility back: missing pages, unclear services, inconsistent listings, or a site platform working against you.</p></article>
+        <article class="step-card"><div class="step-num">3</div><h3>What to fix first</h3><p>A short, prioritized list in plain English. If we can help, we say how, with a flat-rate written proposal. If you do not need us, we say that too.</p></article>
       </div>
-      <div class="steps-cta"><a class="btn btn-primary lp-cta" href="#book">Book Your Free Strategy Call</a></div>
+      <div class="steps-cta"><a class="btn btn-primary lp-cta" href="#book">Get My Free Visibility Audit</a></div>
     </div>
   </section>
 
   <section class="band-sage">
     <div class="section-wrap">
     <div class="section-head">
-      <div><div class="section-label">Who you'll talk to</div><h2>Real people, therapy practices only.</h2></div>
-      <p>No sales team and no call center. You talk directly with the people who run Moonraker and work with therapy practices every day.</p>
+      <div><div class="section-label">Who prepares it</div><h2>Real people, therapy practices only.</h2></div>
+      <p>No sales team and no call center. Your audit is prepared by the people who run Moonraker and work with therapy practices every day.</p>
     </div>
     <div class="people-grid">
       <article class="person-card">
@@ -132,7 +135,7 @@ import StatsStrip from '../../components/StatsStrip.astro';
         <img class="person-photo" src="/assets/team/scott-pope-wide.avif" alt="Scott Pope, Director of Growth and Operations at Moonraker" width="1500" height="1780" loading="lazy" decoding="async">
         <div>
           <h3>Scott Pope</h3>
-          <div class="person-role">Director of Growth and Operations. Leads your call.</div>
+          <div class="person-role">Director of Growth and Operations. Prepares your audit.</div>
           <p>Scott works at the intersection of SEO strategy, AI adoption, and compliance, the three areas that overwhelm most practitioners but determine whether a practice grows. He writes our weekly newsletter translating Google and AI changes into plain English for busy clinicians.</p>
         </div>
       </article>
@@ -144,7 +147,7 @@ import StatsStrip from '../../components/StatsStrip.astro';
     <div class="section-wrap">
     <div class="section-head">
       <div><div class="section-label">If we work together</div><h2>Three steps. Start where you are.</h2></div>
-      <p>Every engagement is a flat-rate project scoped on the call. You pick the level that fits, and each step includes the one before it.</p>
+      <p>Every engagement is a flat-rate project quoted in writing. You pick the level that fits, and each step includes the one before it.</p>
     </div>
     <div class="ladder-stack">
       <div class="ladder-preview"><div class="ladder-num">1</div><div><h3>Visibility Audit + Fixes</h3><p>Find every gap, then fix what we can on your current website. Nothing moves.</p></div></div>
@@ -157,13 +160,14 @@ import StatsStrip from '../../components/StatsStrip.astro';
   <section class="band-sage">
     <div class="section-wrap faq-wrap">
     <div class="section-label">Quick answers</div>
-    <h2>Before you book.</h2>
+    <h2>Before you request yours.</h2>
     <div class="faq-list">
-      <details open name="lp-faq"><summary>Is the call really free?</summary><p>Yes. The strategy call costs nothing and comes with no obligation. If we can help, you get a flat-rate written proposal afterward. No hourly billing, no long-term contracts.</p></details>
-      <details name="lp-faq"><summary>Do we have to move our website?</summary><p>No. Our smallest starting step works entirely on your current platform. We only recommend a platform move when your hosting or builder is genuinely holding the site back.</p></details>
+      <details open name="lp-faq"><summary>Is the audit really free?</summary><p>Yes. The audit costs nothing and comes with no obligation. If we can help, you get a flat-rate written proposal alongside it. No hourly billing, no long-term contracts.</p></details>
+      <details name="lp-faq"><summary>What do you actually check?</summary><p>How your practice shows up on Google Search, Google Maps, and AI tools like ChatGPT and Gemini: your listings, your pages, your reviews, and whether the clients searching for your services can find you at all.</p></details>
+      <details name="lp-faq"><summary>Do I have to get on a call?</summary><p>No. The audit arrives by email and stands on its own. If you want to talk it through afterward, you can book a free strategy call, but plenty of practices just take the list and run with it.</p></details>
       <details name="lp-faq"><summary>Who do you work with?</summary><p>Therapy practices only: solo practitioners, group practices, and intensives or retreats. That focus is why the audit is fast and the recommendations are specific.</p></details>
-      <details name="lp-faq"><summary>What does it cost if we go ahead?</summary><p>Every engagement is a flat-rate project quoted in writing after the call, never hourly and never a retainer you have to escape. Our smallest starting step is scoped to the gaps we actually find, so you see the number before you commit to anything.</p></details>
-      <details name="lp-faq"><summary>How much of my time will this take?</summary><p>The call is 30 minutes. After that, the work is ours: we handle the audit, the fixes, and the build. We come back to you for approvals and for the details only you can answer, like which services you want to lead with.</p></details>
+      <details name="lp-faq"><summary>What does it cost if we go ahead?</summary><p>Every engagement is a flat-rate project quoted in writing, never hourly and never a retainer you have to escape. Our smallest starting step is scoped to the gaps we actually find, so you see the number before you commit to anything.</p></details>
+      <details name="lp-faq"><summary>How much of my time will this take?</summary><p>About two minutes, to fill in the form below. Scott does the rest and emails you the result, usually within two business days.</p></details>
     </div>
     </div>
   </section>
@@ -172,14 +176,12 @@ import StatsStrip from '../../components/StatsStrip.astro';
     <div class="cta-inner cta-inner-stacked">
       <div>
         <h2>See where your practice stands.</h2>
-        <p>Pick a time below. You get an instant confirmation and a calendar invite, and Scott runs the call over Zoom. No credit card, no obligation.</p>
+        <p>Tell us where to look. Scott personally checks how your practice shows up across Google, Maps, and AI tools, then emails you what he found and what to fix first. No credit card, no obligation.</p>
       </div>
     </div>
   </section>
 
-  {/* lean: paid traffic gets the short intake. The full address block stays
-      on /free-strategy-call, where the visitor arrived warm. */}
-  <BookingWidget defer lean />
+  <LpAuditForm />
 </main>
 </BaseLayout>
 

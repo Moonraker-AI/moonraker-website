@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-// Same booking component as every other surface, so the paid page converts
-// inline instead of spending a click sending people elsewhere.
-import BookingWidget from '../../components/BookingWidget.astro';
+// Paid traffic converts on the audit lead form, not the calendar. See the
+// header comment in LpAuditForm.astro for the 2026-08 evidence.
+import LpAuditForm from '../../components/LpAuditForm.astro';
 import StatsStrip from '../../components/StatsStrip.astro';
 
 /**
@@ -28,7 +28,7 @@ import StatsStrip from '../../components/StatsStrip.astro';
 ---
 <BaseLayout
   title="Therapist Website Design That Gets Found | Moonraker"
-  description="Websites for therapy practices, built to be found on Google, Maps, and AI tools. Fast, secure, and written around how clients actually search. Start with a free 30-minute review."
+  description="Websites for therapy practices, built to be found on Google, Maps, and AI tools. Fast, secure, and written around how clients actually search. Start with a free audit of your current site."
   bare
 >
 <main>
@@ -38,9 +38,9 @@ import StatsStrip from '../../components/StatsStrip.astro';
         <h1>A therapy website clients <span style="color: var(--color-primary)">actually find.</span></h1>
         <p>Most therapist websites look fine and get found by nobody. We build practice websites on a fast, secure foundation, structured around the services and questions your future clients are really searching, on Google, in Maps, and inside AI tools like ChatGPT and Gemini.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary lp-cta" href="#book">Get a Free Website Review</a>
+          <a class="btn btn-primary lp-cta" href="#book">Get My Free Website Audit</a>
         </div>
-        <p class="hero-reassure">30 minutes, no cost, no obligation. You leave knowing what your current site is costing you.</p>
+        <p class="hero-reassure">No cost, no call required, no obligation. Scott checks your site and listings by hand and emails you what your current site is costing you.</p>
       </div>
       <div class="hero-points">
         <div class="hero-point"><strong>Built for how clients search</strong><span>A page for every service and location you want to be found for, not one page that mentions everything.</span></div>
@@ -78,7 +78,7 @@ import StatsStrip from '../../components/StatsStrip.astro';
         <article class="step-card"><div class="step-num">2</div><h3>Found by Google and AI</h3><p>Structured data, clean headings, and machine-readable copy so Google Maps, Google Search, and AI assistants can all describe your practice correctly.</p></article>
         <article class="step-card"><div class="step-num">3</div><h3>Built to book</h3><p>Your availability, your intake, your phone number, one tap away on mobile. The site's job is a booked consult, not a compliment.</p></article>
       </div>
-      <div class="steps-cta"><a class="btn btn-primary lp-cta" href="#book">Get a Free Website Review</a></div>
+      <div class="steps-cta"><a class="btn btn-primary lp-cta" href="#book">Get My Free Website Audit</a></div>
     </div>
   </section>
 
@@ -266,14 +266,15 @@ import StatsStrip from '../../components/StatsStrip.astro';
   <section class="band-sage">
     <div class="section-wrap faq-wrap">
     <div class="section-label">Quick answers</div>
-    <h2>Before you book.</h2>
+    <h2>Before you request yours.</h2>
     <div class="faq-list">
       <details open name="lp-faq"><summary>Do I own the website?</summary><p>Yes. The site is yours, and so is the content. If you ever leave us, we hand it over in a form you or any other developer can keep running. No hostage hosting.</p></details>
       <details name="lp-faq"><summary>I am on Squarespace, Wix, or WordPress. Do I have to move?</summary><p>Not always. If the builder is the thing holding your visibility back we will say so, but plenty of practices only need the structure and content fixed where they already are. That is the smaller of the two options above.</p></details>
       <details name="lp-faq"><summary>Will I lose my Google rankings if the site moves?</summary><p>No. We map every existing page to its new address with real redirects before launch, so the ranking you already earned follows you across. It is the single most common way a redesign quietly destroys a practice, and it is the first thing we plan.</p></details>
       <details name="lp-faq"><summary>How long does it take?</summary><p>An upgrade of an existing site is usually a couple of weeks. A full rebuild depends on how many service pages your practice needs, and you approve each page before it goes live.</p></details>
-      <details name="lp-faq"><summary>What does it cost?</summary><p>Every engagement is a flat-rate project quoted in writing after the call, never hourly and never a retainer you have to escape. You see the number before you commit to anything.</p></details>
-      <details name="lp-faq"><summary>Who do you work with?</summary><p>Therapy practices only: solo practitioners, group practices, and intensives or retreats. That focus is why the review is fast and the recommendations are specific.</p></details>
+      <details name="lp-faq"><summary>What does it cost?</summary><p>Every engagement is a flat-rate project quoted in writing, never hourly and never a retainer you have to escape. You see the number before you commit to anything.</p></details>
+      <details name="lp-faq"><summary>Do I have to get on a call?</summary><p>No. The audit arrives by email and stands on its own. If you want to talk it through afterward, you can book a free strategy call, but plenty of practices just take the list and run with it.</p></details>
+      <details name="lp-faq"><summary>Who do you work with?</summary><p>Therapy practices only: solo practitioners, group practices, and intensives or retreats. That focus is why the audit is fast and the recommendations are specific.</p></details>
     </div>
     </div>
   </section>
@@ -282,14 +283,12 @@ import StatsStrip from '../../components/StatsStrip.astro';
     <div class="cta-inner cta-inner-stacked">
       <div>
         <h2>See what your website is costing you.</h2>
-        <p>Pick a time below. Scott walks through your current site live, shows you what clients searching for your services actually see, and tells you whether a fix or a rebuild is the honest answer. Free, 30 minutes, over Zoom.</p>
+        <p>Tell us where to look. Scott checks your current site against what clients searching for your services actually see, on Google, in Maps, and inside AI tools, then emails you the gaps, what to fix first, and whether a fix or a rebuild is the honest answer. Free, no call required.</p>
       </div>
     </div>
   </section>
 
-  {/* lean: paid traffic gets the short intake. The full address block stays
-      on /free-strategy-call, where the visitor arrived warm. */}
-  <BookingWidget defer lean />
+  <LpAuditForm />
 </main>
 </BaseLayout>
 

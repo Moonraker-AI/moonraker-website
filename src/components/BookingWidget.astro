@@ -439,8 +439,16 @@ const submitLabel = mode === 'reschedule' ? 'Confirm new time'
     });
   }
 
+  // Funnel events so GA4 shows WHERE visitors drop between seeing the
+  // calendar and booking. Zero-conversion diagnosis (2026-08) had no signal
+  // between page_view and book_strategy_call.
+  function trackStep(ev) {
+    try { if (typeof gtag === 'function') gtag('event', ev); } catch (e) {}
+  }
+
   function selectDate(dateStr) {
     clearNotice();
+    trackStep('booking_date_picked');
     state.selectedDate = dateStr;
     document.querySelectorAll('.date-pill').forEach(function (el) {
       el.classList.toggle('selected', el.getAttribute('data-date') === dateStr);
@@ -476,6 +484,7 @@ const submitLabel = mode === 'reschedule' ? 'Confirm new time'
 
   function selectSlot(slot) {
     state.selectedSlot = slot;
+    trackStep('booking_time_picked');
     populateSummary();
     goToStep(3);
   }
