@@ -254,11 +254,38 @@ import StatsStrip from '../../components/StatsStrip.astro';
     <div class="section-wrap">
     <div class="section-head">
       <div><div class="section-label">Two ways in</div><h2>Keep your site, or let us rebuild it.</h2></div>
-      <p>You do not have to start over to be found. We recommend the smaller option whenever it solves the problem, and we tell you which one you need on the call.</p>
+      <p>You do not have to start over to be found. We recommend the smaller option whenever it solves the problem, and your audit tells you which one you actually need.</p>
     </div>
     <div class="ladder-stack">
       <div class="ladder-preview"><div class="ladder-num">1</div><div><h3>Platform Upgrade</h3><p>Your current site moved page for page onto our fast, secure Cloudflare foundation, with the visibility gaps fixed on the way across. Your design, your content, none of the slowness.</p></div></div>
       <div class="ladder-preview"><div class="ladder-num">2</div><div><h3>Full Practice Rebuild</h3><p>A full redesign plus the service, location, and FAQ pages your practice is missing, built from scratch around what your clients search. Flat rate, quoted in writing.</p></div></div>
+    </div>
+    </div>
+  </section>
+
+  <section class="band-mint">
+    <div class="section-wrap">
+    <div class="section-head">
+      <div><div class="section-label">Who you'll work with</div><h2>Real people, therapy practices only.</h2></div>
+      <p>No offshore team and no ticket queue. Your audit and your site are handled by the people who run Moonraker and work with therapy practices every day.</p>
+    </div>
+    <div class="people-grid">
+      <article class="person-card">
+        <img class="person-photo" src="/assets/team/chris-morin.avif" alt="Chris Morin, Founder of Moonraker" width="1080" height="1439" loading="lazy" decoding="async">
+        <div>
+          <h3>Chris Morin</h3>
+          <div class="person-role">Founder. Leads every site build.</div>
+          <p>Before marketing, Chris was a massage therapist for over 15 years. That work showed him how many gifted practitioners struggle to reach the clients who need them most. Moonraker exists to close that gap: real visibility for therapists, so they can build the practice of their dreams.</p>
+        </div>
+      </article>
+      <article class="person-card">
+        <img class="person-photo" src="/assets/team/scott-pope-wide.avif" alt="Scott Pope, Director of Growth and Operations at Moonraker" width="1500" height="1780" loading="lazy" decoding="async">
+        <div>
+          <h3>Scott Pope</h3>
+          <div class="person-role">Director of Growth and Operations. Prepares your audit.</div>
+          <p>Scott works at the intersection of SEO strategy, AI adoption, and compliance, the three areas that overwhelm most practitioners but determine whether a practice grows. He writes our weekly newsletter translating Google and AI changes into plain English for busy clinicians.</p>
+        </div>
+      </article>
     </div>
     </div>
   </section>
@@ -414,9 +441,19 @@ details p { color: var(--color-muted); font-size: .92rem; line-height: 1.7; marg
 .cta-inner { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; padding: clamp(3rem, 6vw, 4rem) 2rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
 .cta-inner h2 { color: var(--color-on-navy); margin-bottom: .6rem; }
 .cta-inner p { color: var(--color-on-navy-dim); }
+.people-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem; }
+.person-card { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); overflow: hidden; display: grid; grid-template-columns: clamp(190px, 24%, 250px) 1fr; align-items: stretch; }
+.person-photo { width: 100%; height: 100%; min-height: 320px; border-radius: 0; object-fit: cover; object-position: center 18%; }
+.person-card > div { padding: 1.75rem; align-self: center; }
+.person-card h3 { margin-bottom: .2rem; }
+.person-role { font-size: .82rem; font-weight: 600; color: var(--color-primary-text); margin-bottom: .6rem; }
+.person-card p { color: var(--color-muted); font-size: .9rem; line-height: 1.65; }
 @media (max-width: 860px) {
   .hero-inner, .section-head, .cta-inner { grid-template-columns: 1fr; }
   .partner-logo { height: 56px; max-width: 44%; }
+  .person-card { grid-template-columns: 1fr; }
+  .person-photo { min-height: 0; aspect-ratio: 4 / 3; object-position: center 15%; }
+  .person-card > div { padding: 1.5rem; }
   /* Straight from three across to one. Deliberately no 2-up step: with exactly
      three cards, two columns orphans the third, which is the layout this change
      set out to remove. */
