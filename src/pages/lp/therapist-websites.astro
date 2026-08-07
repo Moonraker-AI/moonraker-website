@@ -306,16 +306,10 @@ import StatsStrip from '../../components/StatsStrip.astro';
     </div>
   </section>
 
-  <section class="cta-band" id="book">
-    <div class="cta-inner cta-inner-stacked">
-      <div>
-        <h2>See what your website is costing you.</h2>
-        <p>Tell us where to look. Scott checks your current site against what clients searching for your services actually see, on Google, in Maps, and inside AI tools, then emails you the gaps, what to fix first, and whether a fix or a rebuild is the honest answer. Free, no call required.</p>
-      </div>
-    </div>
-  </section>
-
-  <LpAuditForm />
+  <LpAuditForm
+    heading="See what your website is costing you."
+    description="Tell us where to look. Scott checks your current site against what clients searching for your services actually see, on Google, in Maps, and inside AI tools, then emails you the gaps, what to fix first, and whether a fix or a rebuild is the honest answer."
+  />
 </main>
 </BaseLayout>
 
@@ -426,21 +420,6 @@ import StatsStrip from '../../components/StatsStrip.astro';
 details { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); padding: 1.1rem 1.25rem; }
 summary { cursor: pointer; font-family: 'Outfit', sans-serif; color: var(--color-heading); font-weight: 800; }
 details p { color: var(--color-muted); font-size: .92rem; line-height: 1.7; margin-top: .8rem; }
-.cta-band { position: relative; overflow: hidden; background: linear-gradient(158deg, var(--color-navy) 0%, var(--color-navy-deep) 100%); color: var(--color-on-navy-dim); }
-.cta-band::before {
-  content: ''; position: absolute; inset: 0;
-  background-image:
-    linear-gradient(to right, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, oklch(0.945 0.018 166 / 0.05) 1px, transparent 1px);
-  background-size: 58px 58px;
-  -webkit-mask-image: radial-gradient(80% 120% at 50% 0%, #000 0%, transparent 72%);
-  mask-image: radial-gradient(80% 120% at 50% 0%, #000 0%, transparent 72%);
-  pointer-events: none;
-}
-.cta-inner-stacked { grid-template-columns: 1fr; text-align: center; }
-.cta-inner { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; padding: clamp(3rem, 6vw, 4rem) 2rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
-.cta-inner h2 { color: var(--color-on-navy); margin-bottom: .6rem; }
-.cta-inner p { color: var(--color-on-navy-dim); }
 .people-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem; }
 .person-card { background: var(--color-surface); border: 1px solid var(--color-hairline); border-radius: var(--r-lg); overflow: hidden; display: grid; grid-template-columns: clamp(190px, 24%, 250px) 1fr; align-items: stretch; }
 .person-photo { width: 100%; height: 100%; min-height: 320px; border-radius: 0; object-fit: cover; object-position: center 18%; }
@@ -449,7 +428,7 @@ details p { color: var(--color-muted); font-size: .92rem; line-height: 1.7; marg
 .person-role { font-size: .82rem; font-weight: 600; color: var(--color-primary-text); margin-bottom: .6rem; }
 .person-card p { color: var(--color-muted); font-size: .9rem; line-height: 1.65; }
 @media (max-width: 860px) {
-  .hero-inner, .section-head, .cta-inner { grid-template-columns: 1fr; }
+  .hero-inner, .section-head { grid-template-columns: 1fr; }
   .partner-logo { height: 56px; max-width: 44%; }
   .person-card { grid-template-columns: 1fr; }
   .person-photo { min-height: 0; aspect-ratio: 4 / 3; object-position: center 15%; }
