@@ -56,11 +56,22 @@ const ADS_ENABLED = GA4_ID.startsWith('G-') && AW_ID.startsWith('AW-');
 // both stay in the worker CSP or the pixel fails silently.
 const OAI_PIXEL_ID = 'RuDz8A9fNw4SFZMWCp8UFh';
 const OAI_ENABLED = OAI_PIXEL_ID !== 'PENDING';
+// Referral-spam sessions get no measurement at all. trafficheap.cc bots
+// executed our JS and became GA4's largest "traffic source" in 2026-08
+// (457 fake sessions, all from the Seychelles); a GA4-UI referral exclusion
+// only relabels them, while skipping the tags keeps them out of every
+// report and costs real visitors nothing. Attribution capture stays on for
+// everyone: it writes localStorage only, and a spam referrer never carries
+// click ids.
+const SPAM_REF_JS =
+  "window.mrSpamRef=(function(){try{var h=new URL(document.referrer).hostname.toLowerCase();" +
+  "return ['trafficheap.cc'].some(function(s){return h===s||h.slice(-s.length-1)==='.'+s})}" +
+  "catch(e){return false}})();";
 const OAI_JS =
-  "(function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;" +
+  "if(!window.mrSpamRef){(function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;" +
   "var js=d.createElement(s);js.async=true;js.src=u;var f=d.getElementsByTagName(s)[0];" +
   "f.parentNode.insertBefore(js,f)})(window,document,'script','https://bzrcdn.openai.com/sdk/oaiq.min.js');" +
-  "oaiq('init',{pixelId:'" + OAI_PIXEL_ID + "'});";
+  "oaiq('init',{pixelId:'" + OAI_PIXEL_ID + "'});}";
 // The Google tag is DEFERRED to idle or first interaction, whichever comes
 // first (oi-228). It was 321 KB of the critical path: one gtag.js install that
 // then fetches a destination config per configured id (AW ~143 KB, GA4 ~178 KB).
@@ -81,7 +92,7 @@ const OAI_JS =
 //   - mrTrackConversion force-loads the library (see CONV_JS), so a conversion
 //     never waits on idle.
 const GTAG_JS =
-  "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}" +
+  "if(!window.mrSpamRef){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}" +
   "gtag('js',new Date());gtag('config','" + GA4_ID + "');gtag('config','" + AW_ID + "');" +
   // Idempotent loader. Returns the same promise on every call, so the idle
   // path, an interaction and a conversion can all ask for it and only one
@@ -106,7 +117,7 @@ const GTAG_JS =
   "function sched(){if('requestIdleCallback' in window)requestIdleCallback(go,{timeout:3500});" +
   "else setTimeout(go,2500)}" +
   "if(document.readyState==='complete')sched();" +
-  "else window.addEventListener('load',sched,{once:true})})();";
+  "else window.addEventListener('load',sched,{once:true})})();}";
 // Lead-source capture. FIRST TOUCH within the session: written once, so a
 // visitor who lands on an ad and books three pages later still carries the ad
 // params. Stored even when no tags are present, because the referrer and
@@ -235,6 +246,7 @@ const THEME_JS =
 <style is:inline set:html={FONT_FACE_CSS}></style>
 <script is:inline set:html={PREPAINT}></script>
 <script is:inline set:html={ATTRIB_JS}></script>
+<script is:inline set:html={SPAM_REF_JS}></script>
 {/* No eager gtag.js tag here on purpose: GTAG_JS queues the configs and loads
     the library on idle or first interaction. See the GTAG_JS comment. */}
 {ADS_ENABLED && <script is:inline set:html={GTAG_JS}></script>}
