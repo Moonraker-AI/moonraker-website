@@ -235,7 +235,7 @@ import StatsStrip from '../../components/StatsStrip.astro';
    to text-align: left !important below 768px (the site-wide mobile
    heading convention). This heading is a centered band over centered
    logos on every viewport, so it opts out. */
-.partners-heading { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -.02em; text-align: center !important; text-wrap: balance; max-width: 30ch; margin: 0 auto 2.25rem; line-height: 1.12; }
+.partners-heading { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -.02em; text-align: center !important; text-wrap: balance; max-width: 30ch; margin: 0 auto 2.25rem; margin-left: auto !important; margin-right: auto !important; line-height: 1.12; }
 .partner-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: clamp(1.5rem, 4vw, 3rem); }
 .partner-logo { height: 76px; width: auto; max-width: 210px; object-fit: contain; opacity: .85; }
 .people-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem; }

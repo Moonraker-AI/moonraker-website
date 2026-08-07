@@ -454,7 +454,10 @@ window.changeSlide = function(dir) { goToSlide((curSlide + dir + totalSlides) % 
 /* Stepped down from the shared .section-heading scale for the same reason as
    the landing page: at 3.1rem it read as a second page title rather than a
    section heading. */
-.partners-section .section-heading { font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -.02em; max-width: 30ch; line-height: 1.12; }
+/* text-align carries !important because globals.css left-aligns
+   .section-heading with !important below 768px; the logo band is a centered
+   composition on every viewport, so it opts out. */
+.partners-section .section-heading { font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -.02em; max-width: 30ch; line-height: 1.12; text-align: center !important; margin-left: auto !important; margin-right: auto !important; }
 .testimonials-section { background: var(--band-mint); max-width: none; }
 .testimonials-section > * { max-width: 900px; margin-inline: auto; }
 .google-reviews-section { background: var(--band-paper); max-width: none; }

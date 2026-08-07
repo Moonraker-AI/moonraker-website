@@ -492,6 +492,11 @@ html.dark .badge-pill img { filter: brightness(1.12); }
   margin: 0 auto;
   text-align: center;
 }
+/* The logo band is a centered composition on every viewport, so its heading
+   opts out of the globals.css mobile rule that left-aligns .section-heading
+   with !important below 768px. Only this section's heading; the rest of the
+   homepage keeps the site-wide mobile convention. */
+.partners-section .section-heading { text-align: center !important; margin-left: auto !important; margin-right: auto !important; }
 .section-heading {
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
